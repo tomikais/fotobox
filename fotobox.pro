@@ -23,7 +23,9 @@ FORMS    += mainwindow.ui
 #Use C++ 11
 QMAKE_CXXFLAGS += -std=c++11
 
+#Speed-Up compiling time with ccache (apt-get install ccache)
+QMAKE_CXX      = ccache g++
 
 #wiringPi LIB
 INCLUDEPATH   += /usr/local/include
-LIBS          += -lwiringPi
+LIBS          += -lwiringPi -lwiringPiDev

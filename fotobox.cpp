@@ -70,7 +70,7 @@ void FotoBox::showResults()
 void FotoBox::updateCountdown()
 {
   ++countdowntime;
-  if (countdowntime == countdowntimeout)
+  if (countdowntime > countdowntimeout)
   {
     ui->lcdNumber->display(0);
     countdowntime = 0;

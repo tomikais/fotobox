@@ -4,6 +4,9 @@
 
 
 // *********************************************
+
+// Qt 4.8.6
+
 // gphoto2: access to photo camera
 // https://github.com/gonzalo/gphoto2-updater
 
