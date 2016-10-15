@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QTimer>
 
+
 FotoBox::FotoBox(QWidget* parent) :
   QMainWindow(parent),
   status(true),
@@ -46,8 +47,7 @@ void FotoBox::startShot()
 
   //wiringPi
   //http://wiringpi.com/reference/setup/
-  wiringPiSetupSys();
-
+  wiringPiSetupSys(); //kann auch ohne root
 
   //
   showResults();
