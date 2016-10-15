@@ -47,7 +47,7 @@ void FotoBox::startShot()
 
   //wiringPi
   //http://wiringpi.com/reference/setup/
-  wiringPiSetupSys(); //kann auch ohne root
+  wiringPiSetupSys(); //da kein root
 
   //
   showResults();
