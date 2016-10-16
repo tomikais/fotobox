@@ -9,6 +9,8 @@
 
 // gphoto2: access to photo camera
 // https://github.com/gonzalo/gphoto2-updater
+// CLI Arguments
+// http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html
 
 // wiringPi: GPIO access library
 // http://wiringpi.com/
