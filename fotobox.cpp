@@ -5,10 +5,12 @@
 #include <QTimer>
 
 
+
 FotoBox::FotoBox(QWidget* parent) :
   QMainWindow(parent),
   status(true),
   ui(new Ui::MainWindow),
+  m_settings(new Settings(this)),
   countdown(new QTimer(this)),
   countdowntime(0),
   gphoto2(new QProcess(this))
@@ -27,8 +29,7 @@ FotoBox::FotoBox(QWidget* parent) :
   QByteArray output = gphoto2->readAll();
   if(output.isEmpty())
   {
-    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi.\n"
-                                                            "https://github.com/gonzalo/gphoto2-updater"));
+    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
     status = false;
   }
 }

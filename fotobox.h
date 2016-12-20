@@ -5,13 +5,15 @@
 #include <QGraphicsScene>
 #include <QProcess>
 
+#include "settings.h"
 #include <wiringPi.h>
 #include <stdio.h>
 
 #define SECOUND 1000
 #define ENDLESS -1
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
@@ -43,6 +45,7 @@ private:
 
   // MEMBER
   Ui::MainWindow* ui; //User Interface
+    Settings* m_settings;
   QTimer* countdown;
   const int countdowntimeout = 3;
   int countdowntime;

@@ -26,9 +26,12 @@ int main(int argc, char *argv[])
 {
   // qApp
   QApplication app(argc, argv);
-  FotoBox fotobox;
+  app.setOrganizationName("Thomas Kais");
+  app.setApplicationName("Fotobox");
 
-  //Fullscreen: Qt::WindowMaximized
+
+  FotoBox fotobox;
+  //Fullscreen
   fotobox.setWindowState(Qt::WindowFullScreen);
   fotobox.show();
 
