@@ -14,3 +14,5 @@ http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html
 # 4
 wiringPi: GPIO access library
 http://wiringpi.com/
+
+Thomas Kais
