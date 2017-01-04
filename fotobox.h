@@ -20,36 +20,36 @@ class MainWindow;
 
 class FotoBox : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
 
 public:
-  //METHODEN
-  explicit FotoBox(QWidget* parent = 0);
-  ~FotoBox();
+    //METHODEN
+    explicit FotoBox(QWidget* parent = 0);
+    ~FotoBox();
 
-  //MEMBER
-  bool status;
+    //MEMBER
+    bool status;
 
 public slots:
-  void startShot();
-  void updateCountdown();
+    void startShot();
+    void updateCountdown();
 
 
 protected:
 
 
 private:
-  //METHODEN
-  void showResults();
+    //METHODEN
+    void showResults();
 
-  // MEMBER
-  Ui::MainWindow* ui; //User Interface
+    // MEMBER
+    Ui::MainWindow* ui; //User Interface
     Settings* m_settings;
-  QTimer* countdown;
-  const int countdowntimeout = 3;
-  int countdowntime;
-  QProcess* gphoto2;
+    QTimer* countdown;
+    const int countdowntimeout = 3;
+    int countdowntime;
+    QProcess* gphoto2;
 };
 
 #endif // FOTOBOX_H

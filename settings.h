@@ -6,10 +6,10 @@
 
 class Settings : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit Settings(QObject *parent = 0);
+    explicit Settings(QObject *parent = 0);
 
 
 signals:

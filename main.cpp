@@ -24,23 +24,23 @@
 
 int main(int argc, char *argv[])
 {
-  // qApp
-  QApplication app(argc, argv);
-  app.setOrganizationName("Thomas Kais");
-  app.setApplicationName("Fotobox");
+    // qApp
+    QApplication app(argc, argv);
+    app.setOrganizationName("Thomas Kais");
+    app.setApplicationName("Fotobox");
 
 
-  FotoBox fotobox;
-  //Fullscreen
-  fotobox.setWindowState(Qt::WindowFullScreen);
-  fotobox.show();
+    FotoBox fotobox;
+    //Fullscreen
+    fotobox.setWindowState(Qt::WindowFullScreen);
+    fotobox.show();
 
-  //Intitalisierung Probleme?
-  if(!fotobox.status)
-  {
-    exit(EXIT_FAILURE);
-  }
+    //gphoto2 intitalisierung Probleme?
+    if(!fotobox.status)
+    {
+        exit(EXIT_FAILURE);
+    }
 
-  //Start EventLoop
-  return app.exec();
+    //Start EventLoop
+    return app.exec();
 }
