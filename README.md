@@ -1,33 +1,33 @@
-# Fotobox / Photobooth for Raspberry Pi's
-## Requirement
-* Raspberry Pi with latest Raspbian
-* Qt v4.8.6
-* gphoto2 library to have access to camera
+# C++ Photobooth for Raspberry Pi's
+Requirement to run:
+* Raspberry Pi model >2 with Raspbian installed
+* wiringPi library
+* Qt 4.8.6 library
+* gphoto2 and libgphoto2 library
 
 # Development
-## Project
-###  GitLab
+## Project files
+### GitLab
 `git clone git@gitlab.com:tomikais/fotobox.git`
 
 ### DS414 (Synology NAS)
 `git clone ssh://"thomas kais"@192.168.0.4/volume1/git/fotobox`
 
 ## Qt
-You need Qt v4.8.6 on your RasPi. Follow these steps: [Apt-get Qt4 on the Raspberry Pi](https://wiki.qt.io/Apt-get_Qt4_on_the_Raspberry_Pi)
+Qt 4.8.6 is needed on your Raspberry Pi. Follow these steps to get everything you need: [Apt-get Qt4 on the Raspberry Pi](https://wiki.qt.io/Apt-get_Qt4_on_the_Raspberry_Pi)
 
-## gphoto2
-gphoto2: access to photo camera
-https://github.com/gonzalo/gphoto2-updater
-CLI Arguments
-http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html
+## gphoto2 and libgphoto2
+[gPhoto2](http://www.gphoto.org/proj/gphoto2/) is a command line client to for the libgphoto2. It allows to use gPhoto software from a terminal or from a script shell to perform any camera operation that can be done. This is the main user interface.
+[libgphoto2](http://www.gphoto.org/proj/libgphoto2/) is the core library designed to allow access to digital camera by external programs.
+
+[gPhoto2 and libgphoto2 compiler and installer script.](http://github.com/gonzalo/gphoto2-updater)
 
 ## wiringPi
- GPIO access library
-http://wiringpi.com/
+[WiringPi](http://wiringpi.com/) is a GPIO access library written in C for the BCM2835 used in the Raspberry Pi. It’s released under the [GNU LGPLv3](http://www.gnu.org/copyleft/lesser.html) license and is usable from C and C++ and many other languages with suitable wrappers.
 
+Download and install: http://wiringpi.com/download-and-install/
 
+# Other
 ## Application dependency
-Navigate to application and run in terminal
+Navigate to application directory and run in terminal
 `ldd ./fotobox`
-
-Thomas Kais
