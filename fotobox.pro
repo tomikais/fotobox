@@ -32,4 +32,5 @@ INCLUDEPATH     += /usr/local/include
 LIBS            += -lwiringPi -lwiringPiDev
 
 OTHER_FILES += \
-    README.md
+    README.md \
+    LICENSE
