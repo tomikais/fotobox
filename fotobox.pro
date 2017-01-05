@@ -30,3 +30,6 @@ QMAKE_CXX       = ccache g++
 #wiringPi LIB
 INCLUDEPATH     += /usr/local/include
 LIBS            += -lwiringPi -lwiringPiDev
+
+OTHER_FILES += \
+    README.md
