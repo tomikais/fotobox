@@ -35,8 +35,15 @@ FotoBox::FotoBox(QWidget* parent) :
     
     //wiringPi
     //http://wiringpi.com/reference/setup/
-    system(wiringPiSetup());
-    
+    wiringPiSetup();
+    pinMode(0, OUTPUT); //GPIO 17 (=wiringPi 0)
+    pinMode(5, INPUT);  //GPIO 24 (=wiringPi 5)
+
+    while(digitalRead(5) != 1)
+    {
+        delayMicroseconds(100);
+    }
+
 }
 
 
