@@ -12,7 +12,6 @@
 #include <QTimer>
 
 
-
 FotoBox::FotoBox(QWidget* parent) :
     QMainWindow(parent),
     status(true),

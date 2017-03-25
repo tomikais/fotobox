@@ -5,19 +5,17 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
-#ifndef FOTOBOX_H
-#define FOTOBOX_H
-
+#pragma once
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QProcess>
 
 #include "settings.h"
 #include <wiringPi.h>
-#include <stdio.h>
 
 #define SECOUND 1000
 #define ENDLESS -1
+
 
 namespace Ui
 {
@@ -58,5 +56,3 @@ private:
     int countdowntime;
     QProcess* gphoto2;
 };
-
-#endif // FOTOBOX_H

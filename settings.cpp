@@ -7,8 +7,8 @@
  */
 #include "settings.h"
 
-
 #include <QApplication>
+
 
 Settings::Settings(QObject *parent) :
     QObject(parent),

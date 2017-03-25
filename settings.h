@@ -5,8 +5,7 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
 #include <QObject>
 #include <QSettings>
@@ -28,5 +27,3 @@ private:
     QSettings m_settings;
 
 };
-
-#endif // SETTINGS_H
