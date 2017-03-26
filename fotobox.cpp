@@ -65,8 +65,9 @@ void FotoBox::startShot()
   //Timer Aktivieren
   countdown->start(SECOUND);
 
-  //
-  showResults();
+  //display picture
+  connect(countdown, &QTimer::timeout, this, &FotoBox::showResults);
+  //showResults();
 
   //restart Buzzer
   m_workerThread->start();
@@ -97,8 +98,8 @@ void FotoBox::updateCountdown()
   {
     //Show countdown on screen
     ui->lcdNumber->display(countdown_time);
+    countdown->setInterval(3000);
     countdown->start(SECOUND);
-
   }
   else
   {
