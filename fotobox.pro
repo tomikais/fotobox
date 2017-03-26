@@ -18,12 +18,12 @@ TEMPLATE        = app
 SOURCES         += main.cpp \
                 fotobox.cpp \
                 settings.cpp \
-    buzzer.cpp
+                buzzer.cpp
 
 HEADERS         += \
                 fotobox.h \
                 settings.h \
-    buzzer.h
+                buzzer.h
 
 FORMS           = mainwindow.ui
 
