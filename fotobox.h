@@ -39,8 +39,6 @@ public:
 public slots:
     void startShot();
     void updateCountdown();
-    void threadTest();
-
 
 protected:
 
@@ -53,8 +51,8 @@ private:
     Ui::MainWindow* ui; //User Interface
     Settings* m_settings;
     QTimer* countdown;
-    const int countdowntimeout = 3;
-    int countdowntime;
+    const int countdown_finished;
+    int countdown_time;
     QProcess* gphoto2;
     Buzzer* m_workerThread;
 };

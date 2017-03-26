@@ -10,6 +10,7 @@
 #include "buzzer.h"
 #include "settings.h"
 
+#include <QDir>
 #include <QMessageBox>
 #include <QTimer>
 
@@ -20,7 +21,8 @@ FotoBox::FotoBox(QWidget* parent) :
   ui(new Ui::MainWindow),
   m_settings(new Settings(this)),
   countdown(new QTimer(this)),
-  countdowntime(0),
+  countdown_finished(0),
+  countdown_time(3), //TODO settings
   gphoto2(new QProcess(this))
 {
   //Setup GUI
@@ -51,6 +53,9 @@ FotoBox::FotoBox(QWidget* parent) :
 FotoBox::~FotoBox()
 {
   delete ui;
+
+  //Delete Buzzer thread
+  m_workerThread->exit();
   m_workerThread->deleteLater();
 }
 
@@ -60,9 +65,11 @@ void FotoBox::startShot()
   //Timer Aktivieren
   countdown->start(SECOUND);
 
-
   //
   showResults();
+
+  //restart Buzzer
+  m_workerThread->start();
 }
 
 
@@ -72,8 +79,12 @@ void FotoBox::showResults()
   QSize size(ui->firstImg->width(), ui->firstImg->height());
 
   QPixmap image(size);
-  image.load("../firstImage.jpg");
 
+  if (!image.load(qApp->applicationDirPath() + QDir::separator() + "testfile.png"))
+  {
+    QMessageBox::critical(this, tr("IMG"), tr("Couldn't load the Image."));
+
+  }
   //Resize
   ui->firstImg->setPixmap(image.scaled(size, Qt::KeepAspectRatio));
 }
@@ -81,17 +92,20 @@ void FotoBox::showResults()
 
 void FotoBox::updateCountdown()
 {
-  ++countdowntime;
-  if (countdowntime > countdowntimeout)
+  --countdown_time;
+  if (countdown_time > countdown_finished)
   {
-    ui->lcdNumber->display(0);
-    countdowntime = 0;
-    countdown->stop();
+    //Show countdown on screen
+    ui->lcdNumber->display(countdown_time);
+    countdown->start(SECOUND);
+
   }
   else
   {
-    ui->lcdNumber->display(countdowntime);
-    countdown->start(SECOUND);
+    //RESET
+    ui->lcdNumber->display(0);
+    countdown_time = 3; //TODO settings
+    countdown->stop();
   }
 }
 
