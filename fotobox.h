@@ -10,8 +10,8 @@
 #include <QGraphicsScene>
 #include <QProcess>
 
-#include "settings.h"
-#include <wiringPi.h>
+class Settings;
+class Buzzer;
 
 #define SECOUND 1000
 #define ENDLESS -1
@@ -30,7 +30,7 @@ class FotoBox : public QMainWindow
 
 public:
     //METHODEN
-    explicit FotoBox(QWidget* parent = 0);
+    explicit FotoBox(QWidget* parent = nullptr);
     ~FotoBox();
 
     //MEMBER
@@ -39,6 +39,7 @@ public:
 public slots:
     void startShot();
     void updateCountdown();
+    void threadTest();
 
 
 protected:
@@ -55,4 +56,5 @@ private:
     const int countdowntimeout = 3;
     int countdowntime;
     QProcess* gphoto2;
+    Buzzer* m_workerThread;
 };
