@@ -1,4 +1,4 @@
-/* buzzer.h
+/* camera.h
  *
  * Copyright (c) 2017 Thomas Kais
  *
@@ -7,14 +7,17 @@
  */
 #pragma once
 #include <QObject>
-#include <QThread>
 
-class Buzzer : public QThread
+class Camera : public QObject
 {
   Q_OBJECT
 public:
-  explicit Buzzer(QObject *parent = 0);
+  explicit Camera(QObject *parent = 0);
 
-  auto run() ->void Q_DECL_OVERRIDE;
+  auto takePicture() const -> void
+
+signals:
+
+public slots:
 
 };
