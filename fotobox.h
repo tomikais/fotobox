@@ -9,15 +9,12 @@
 #include <QMainWindow>
 
 class QProcess;
-class QTimer;
 class Buzzer;
 
-#define SECOUND 1000
-#define ENDLESS -1
 
 namespace Ui
 {
-class MainWindow;
+  class MainWindow;
 }
 
 
@@ -37,31 +34,29 @@ public:
   explicit FotoBox(QWidget* parent = nullptr);
 
   /*!
-  * \brief destructor
+  * \brief FotoBox destructor
   */
   ~FotoBox();
 
-  //MEMBER
-  bool status;
-
-public slots:
-  void startShot();
-  void updateCountdown();
-
-protected:
-
 
 private:
-  //METHODEN
-  void showResults();
+  /*!
+   * \brief show the foto
+   */
+  auto showResults() -> void;
 
-  // MEMBER
-  Ui::MainWindow* ui; //User Interface
-  QTimer* countdown;
-  QProcess* gphoto2;
+  /*!
+   * \brief check if gphoto2 is installed on system
+   */
+  auto checkGPhoto2() -> const bool;
+
+  /*!
+   * \brief shot a picture
+   */
+  auto startShot() -> void;
+
+  //User Interface
+  Ui::MainWindow* m_ui;
+  //Buzzer (Raspberry Pi GPIO)
   Buzzer* m_workerThread;
-
-  const int countdown_finished;
-  int countdown_time;
-
 };

@@ -24,18 +24,10 @@ int main(int argc, char *argv[])
   app.setApplicationName("Fotobox");
   app.setApplicationVersion("1.0.0");
 
-
   FotoBox fotobox;
   //Fullscreen
   fotobox.setWindowState(Qt::WindowFullScreen);
   fotobox.show();
-
-  //TODO do this later!
-  //gphoto2 available?
-  if(!fotobox.status)
-  {
-    exit(EXIT_FAILURE);
-  }
 
   //Start the Qt EventLoop
   return app.exec();

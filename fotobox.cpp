@@ -13,40 +13,27 @@
 
 #include <QDir>
 #include <QMessageBox>
-#include <QTimer>
 #include <QProcess>
 
 
-FotoBox::FotoBox(QWidget* parent) :
-  QMainWindow(parent),
-  status(true),
-  ui(new Ui::MainWindow),
-  countdown(new QTimer(this)),
-  countdown_finished(0),
-  countdown_time(3), //TODO settings
-  gphoto2(new QProcess(this))
+FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
+  m_ui(new Ui::MainWindow),
+  m_workerThread(new Buzzer(this))
 {
   //Setup GUI
-  ui->setupUi(this);
+  m_ui->setupUi(this);
 
   //GUI Connect
-  QObject::connect(ui->quitApp, SIGNAL(clicked()), qApp, SLOT(quit()));
-  QObject::connect(ui->start, SIGNAL(clicked()), this, SLOT(startShot()));
-  QObject::connect(countdown, SIGNAL(timeout()), this, SLOT(updateCountdown()));
+  QObject::connect(m_ui->quitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+  QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
 
   //gphoto2 auf System vorhanden?
-  gphoto2->start("gphoto2 --auto-detect");
-  gphoto2->waitForFinished(ENDLESS);
-  QByteArray output = gphoto2->readAll();
-  if(output.isEmpty())
+  if(!checkGPhoto2())
   {
-    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
-    status = false;
+    std::exit(EXIT_FAILURE);
   }
-  gphoto2->deleteLater();
 
   //Running loop
-  m_workerThread = new Buzzer(this);
   connect(m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
   m_workerThread->start();
 }
@@ -54,7 +41,8 @@ FotoBox::FotoBox(QWidget* parent) :
 
 FotoBox::~FotoBox()
 {
-  delete ui;
+  //Delete new
+  delete m_ui;
 
   //Delete Buzzer thread
   m_workerThread->exit();
@@ -62,56 +50,50 @@ FotoBox::~FotoBox()
 }
 
 
-void FotoBox::startShot()
+auto FotoBox::checkGPhoto2() -> const bool
 {
-  //Timer Aktivieren
-  countdown->start(SECOUND);
+  bool result = true;
 
-  //display picture
-  connect(countdown, &QTimer::timeout, this, &FotoBox::showResults);
-  //showResults();
+  QProcess* gphoto2= new QProcess(this);
+  gphoto2->start("gphoto2 --auto-detect");
+
+  gphoto2->waitForFinished(-1);
+  auto output = gphoto2->readAll();
+  gphoto2->deleteLater();
+
+  if(output.isEmpty())
+  {
+    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+    result = false;
+  }
+  return result;
+}
+
+
+auto FotoBox::startShot() -> void
+{
+  Camera cam(this);
+  cam.takePicture();
+
+  showResults();
 
   //restart Buzzer
   m_workerThread->start();
 }
 
 
-void FotoBox::showResults()
+auto FotoBox::showResults() -> void
 {
-  Camera cam(this);
-  cam.takePicture();
+  //Resize picture
+  QSize size(m_ui->picture->width(), m_ui->picture->height());
 
-  //Test Darstellunge Bilder
-  QSize size(ui->firstImg->width(), ui->firstImg->height());
+  QPixmap img(size);
 
-  QPixmap image(size);
-
-  if (!image.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg"))
+  if (!img.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg"))
   {
     QMessageBox::critical(this, tr("IMG"), tr("Couldn't load the Image."));
-
   }
+
   //Resize
-  ui->firstImg->setPixmap(image.scaled(size, Qt::KeepAspectRatio));
+  m_ui->picture->setPixmap(img.scaled(size, Qt::KeepAspectRatio));
 }
-
-
-void FotoBox::updateCountdown()
-{
-  --countdown_time;
-  if (countdown_time > countdown_finished)
-  {
-    //Show countdown on screen
-    ui->lcdNumber->display(countdown_time);
-    countdown->setInterval(3000);
-    countdown->start(SECOUND);
-  }
-  else
-  {
-    //RESET
-    ui->lcdNumber->display(0);
-    countdown_time = 3; //TODO settings
-    countdown->stop();
-  }
-}
-
