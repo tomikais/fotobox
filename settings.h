@@ -10,20 +10,25 @@
 #include <QObject>
 #include <QSettings>
 
+/*!
+ * \brief The Settings class
+ * Organizes the application settings
+ */
 class Settings : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit Settings(QObject *parent = 0);
-
-
-signals:
-
-public slots:
-
+  /*!
+   * \brief Settings construcotr
+   * \param parent QObject
+   */
+  explicit Settings(QObject* parent = nullptr);
 
 private:
-    QSettings m_settings;
+  /*!
+   * \brief m_settings Qt Settings Object
+   */
+  QSettings m_settings;
 
 };

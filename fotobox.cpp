@@ -7,19 +7,17 @@
  */
 #include "fotobox.h"
 #include "ui_mainwindow.h"
-#include "buzzer.h"
-#include "settings.h"
 
 #include <QDir>
 #include <QMessageBox>
 #include <QTimer>
+#include <QProcess>
 
 
 FotoBox::FotoBox(QWidget* parent) :
   QMainWindow(parent),
   status(true),
   ui(new Ui::MainWindow),
-  m_settings(new Settings(this)),
   countdown(new QTimer(this)),
   countdown_finished(0),
   countdown_time(3), //TODO settings
@@ -44,9 +42,9 @@ FotoBox::FotoBox(QWidget* parent) :
   }
 
 
-  m_workerThread = new Buzzer(this);
-  connect(m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
-  m_workerThread->start();
+  Buzzer m_workerThread(this);
+  connect(&m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
+  m_workerThread.start();
 }
 
 
@@ -55,8 +53,8 @@ FotoBox::~FotoBox()
   delete ui;
 
   //Delete Buzzer thread
-  m_workerThread->exit();
-  m_workerThread->deleteLater();
+  m_workerThread.exit();
+  m_workerThread.deleteLater();
 }
 
 
@@ -70,7 +68,7 @@ void FotoBox::startShot()
   //showResults();
 
   //restart Buzzer
-  m_workerThread->start();
+  m_workerThread.start();
 }
 
 

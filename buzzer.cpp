@@ -9,22 +9,30 @@
 
 #include <wiringPi.h>
 
+
 Buzzer::Buzzer(QObject *parent) :
   QThread(parent)
 {
 
 }
 
-void Buzzer::run()
+
+auto Buzzer::run() -> void
 {
   //wiringPi
   //http://wiringpi.com/reference/setup/
   wiringPiSetup();
-  pinMode(0, OUTPUT); //GPIO 17 (=wiringPi 0)
-  pinMode(5, INPUT);  //GPIO 24 (=wiringPi 5)
 
-  while(digitalRead(5) != 1)
+  //GPIO Pins
+  unsigned int pin_zero = 0, pin_five = 5;
+  pinMode(pin_zero, OUTPUT); //GPIO 17 (=wiringPi 0)
+  pinMode(pin_five, INPUT);  //GPIO 24 (=wiringPi 5)
+
+  //query pin 5
+  unsigned int queryInterval = 10;
+  while(digitalRead(pin_five) != HIGH)
   {
-    delayMicroseconds(10);
+    //wait
+    delayMicroseconds(queryInterval);
   }
 }

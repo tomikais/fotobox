@@ -11,8 +11,8 @@
 
 
 Settings::Settings(QObject *parent) :
-    QObject(parent),
-    m_settings(qApp->applicationName(), QSettings::IniFormat)
+  QObject(parent),
+  m_settings(qApp->applicationName(), QSettings::IniFormat)
 {
 
 }

@@ -7,13 +7,15 @@
  */
 #include "camera.h"
 
+
 Camera::Camera(QObject *parent) :
   QObject(parent)
 {
+
 }
 
 
-  auto Camera::takePicture() const -> void
-  {
+auto Camera::takePicture() const -> void
+{
 
-  }
+}

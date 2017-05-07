@@ -7,15 +7,14 @@
  */
 #pragma once
 #include <QMainWindow>
-#include <QGraphicsScene>
-#include <QProcess>
 
-class Settings;
-class Buzzer;
+#include "buzzer.h"
+
+class QProcess;
+class QTimer;
 
 #define SECOUND 1000
 #define ENDLESS -1
-
 
 namespace Ui
 {
@@ -23,36 +22,46 @@ class MainWindow;
 }
 
 
+/*!
+ * \brief The FotoBox class
+ * Main class to control UI and controll the process
+ */
 class FotoBox : public QMainWindow
 {
-    Q_OBJECT
-
+  Q_OBJECT
 
 public:
-    //METHODEN
-    explicit FotoBox(QWidget* parent = nullptr);
-    ~FotoBox();
+  /*!
+  * \brief FotoBox constructor
+  * \param parent QObject
+  */
+  explicit FotoBox(QWidget* parent = nullptr);
 
-    //MEMBER
-    bool status;
+  /*!
+  * \brief destructor
+  */
+  ~FotoBox();
+
+  //MEMBER
+  bool status;
 
 public slots:
-    void startShot();
-    void updateCountdown();
+  void startShot();
+  void updateCountdown();
 
 protected:
 
 
 private:
-    //METHODEN
-    void showResults();
+  //METHODEN
+  void showResults();
 
-    // MEMBER
-    Ui::MainWindow* ui; //User Interface
-    Settings* m_settings;
-    QTimer* countdown;
-    const int countdown_finished;
-    int countdown_time;
-    QProcess* gphoto2;
-    Buzzer* m_workerThread;
+  // MEMBER
+  Ui::MainWindow* ui; //User Interface
+  QTimer* countdown;
+  QProcess* gphoto2;
+
+  const int countdown_finished;
+  int countdown_time;
+  Buzzer m_workerThread;
 };

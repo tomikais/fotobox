@@ -10,25 +10,33 @@
 #include <QApplication>
 
 
+/*!
+ * \brief main
+ * \param argc argument count
+ * \param argv argument vector
+ * \return int EXIT CODE
+ */
 int main(int argc, char *argv[])
 {
-    // qApp
-    QApplication app(argc, argv);
-    app.setOrganizationName("Thomas Kais");
-    app.setApplicationName("Fotobox");
+  //Set Qt application settings
+  QApplication app(argc, argv);
+  app.setOrganizationName("Thomas Kais");
+  app.setApplicationName("Fotobox");
+  app.setApplicationVersion("1.0.0");
 
 
-    FotoBox fotobox;
-    //Fullscreen
-    fotobox.setWindowState(Qt::WindowFullScreen);
-    fotobox.show();
+  FotoBox fotobox;
+  //Fullscreen
+  fotobox.setWindowState(Qt::WindowFullScreen);
+  fotobox.show();
 
-    //gphoto2 intitalisierung Probleme?
-    if(!fotobox.status)
-    {
-        exit(EXIT_FAILURE);
-    }
+  //TODO do this later!
+  //gphoto2 available?
+  if(!fotobox.status)
+  {
+    exit(EXIT_FAILURE);
+  }
 
-    //Start EventLoop
-    return app.exec();
+  //Start the Qt EventLoop
+  return app.exec();
 }

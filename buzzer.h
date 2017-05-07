@@ -9,12 +9,26 @@
 #include <QObject>
 #include <QThread>
 
+
+/*!
+ * \brief This class handles the buzzer
+ *  Run in a sperated thread.
+ */
 class Buzzer : public QThread
 {
   Q_OBJECT
-public:
-  explicit Buzzer(QObject *parent = 0);
 
-  auto run() ->void Q_DECL_OVERRIDE;
+public:
+  /*!
+   * Buzzer constructor
+   * \param parent QObject
+   */
+  explicit Buzzer(QObject* parent = nullptr);
+
+  /*!
+  * \brief Query the Raspberry Pi Pin in a loop.
+  * interval: 10 mikroseconds
+  */
+  auto run() -> void Q_DECL_OVERRIDE;
 
 };

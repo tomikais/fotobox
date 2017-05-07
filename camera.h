@@ -8,16 +8,24 @@
 #pragma once
 #include <QObject>
 
+
+/*!
+ * \brief The Camera class
+ * Use gphoto2 to send commands to camera.
+ */
 class Camera : public QObject
 {
   Q_OBJECT
+
 public:
-  explicit Camera(QObject *parent = 0);
+  /*!
+   * \brief Camera constructor
+   * \param parent QObject
+   */
+  explicit Camera(QObject* parent = nullptr);
 
-  auto takePicture() const -> void
-
-signals:
-
-public slots:
-
+  /*!
+   * \brief takePicture
+   */
+  auto takePicture() const -> void;
 };
