@@ -27,5 +27,5 @@ public:
   /*!
    * \brief takePicture
    */
-  auto takePicture() const -> void;
+  auto takePicture() -> void;
 };

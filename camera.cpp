@@ -7,15 +7,29 @@
  */
 #include "camera.h"
 
+#include <QProcess>
+#include <QCoreApplication>
 
-Camera::Camera(QObject *parent) :
+Camera::Camera(QObject* parent) :
   QObject(parent)
 {
 
 }
 
 
-auto Camera::takePicture() const -> void
+auto Camera::takePicture() -> void
 {
+  QProcess* gphoto2= new QProcess(this);
 
+  //Program name and arguments
+  QString program = "gphoto2 --capture-image-and-download";
+  QStringList arguments;
+  arguments;// << "--capture-image-and-download";
+
+  //Start programm with given arguments
+  gphoto2->start(program);
+  gphoto2->waitForFinished(-1);
+
+  auto result = gphoto2->readAll();
+  result.isEmpty();
 }

@@ -9,6 +9,7 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
+#include "camera.h"
 
 #include <QDir>
 #include <QMessageBox>
@@ -42,6 +43,7 @@ FotoBox::FotoBox(QWidget* parent) :
     QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
     status = false;
   }
+  gphoto2->deleteLater();
 
   //Running loop
   m_workerThread = new Buzzer(this);
@@ -76,12 +78,15 @@ void FotoBox::startShot()
 
 void FotoBox::showResults()
 {
+  Camera cam(this);
+  cam.takePicture();
+
   //Test Darstellunge Bilder
   QSize size(ui->firstImg->width(), ui->firstImg->height());
 
   QPixmap image(size);
 
-  if (!image.load(qApp->applicationDirPath() + QDir::separator() + "testfile.png"))
+  if (!image.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg"))
   {
     QMessageBox::critical(this, tr("IMG"), tr("Couldn't load the Image."));
 
