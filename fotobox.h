@@ -8,10 +8,9 @@
 #pragma once
 #include <QMainWindow>
 
-#include "buzzer.h"
-
 class QProcess;
 class QTimer;
+class Buzzer;
 
 #define SECOUND 1000
 #define ENDLESS -1
@@ -60,8 +59,9 @@ private:
   Ui::MainWindow* ui; //User Interface
   QTimer* countdown;
   QProcess* gphoto2;
+  Buzzer* m_workerThread;
 
   const int countdown_finished;
   int countdown_time;
-  Buzzer m_workerThread;
+
 };

@@ -1,5 +1,4 @@
 #------------------------------------------------------------
-#
 # Project created by QtCreator 2016-10-13T20:58:51
 #
 # Copyright (c) 2017 Thomas Kais
@@ -8,8 +7,8 @@
 # file 'LICENSE', which is part of this source code package.
 #------------------------------------------------------------
 
-QT              += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT              += core gui widgets
+greaterThan(QT_MAJOR_VERSION, 5)
 
 TARGET          = fotobox
 TEMPLATE        = app
@@ -19,13 +18,13 @@ SOURCES         += main.cpp \
                 fotobox.cpp \
                 settings.cpp \
                 buzzer.cpp \
-    camera.cpp
+                camera.cpp
 
 HEADERS         += \
                 fotobox.h \
                 settings.h \
                 buzzer.h \
-    camera.h
+                camera.h
 
 FORMS           = mainwindow.ui
 

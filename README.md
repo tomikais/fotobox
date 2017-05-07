@@ -2,7 +2,7 @@
 Requirement to run:
 * Raspberry Pi model >2 with Raspbian installed
 * wiringPi library
-* Qt 4.8.6 library
+* Qt 5.3.2 library
 * gphoto2 and libgphoto2 library
 
 # Development
@@ -14,7 +14,7 @@ Requirement to run:
 `git clone ssh://"thomas kais"@192.168.0.4/volume1/git/fotobox`
 
 ## Qt
-Qt 4.8.6 is needed on your Raspberry Pi. Follow these steps to get everything you need: [Apt-get Qt4 on the Raspberry Pi](https://wiki.qt.io/Apt-get_Qt4_on_the_Raspberry_Pi)
+Qt 5 is needed on your Raspberry Pi. Follow these steps to get everything you need: [ubuntuusers](https://wiki.ubuntuusers.de/Qt/)
 
 ## gphoto2 and libgphoto2
 [gPhoto2](http://www.gphoto.org/proj/gphoto2/) is a command line client to for the libgphoto2. It allows to use gPhoto software from a terminal or from a script shell to perform any camera operation that can be done. This is the main user interface.

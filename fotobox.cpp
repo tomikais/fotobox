@@ -6,7 +6,9 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "fotobox.h"
+
 #include "ui_mainwindow.h"
+#include "buzzer.h"
 
 #include <QDir>
 #include <QMessageBox>
@@ -41,10 +43,10 @@ FotoBox::FotoBox(QWidget* parent) :
     status = false;
   }
 
-
-  Buzzer m_workerThread(this);
-  connect(&m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
-  m_workerThread.start();
+  //Running loop
+  m_workerThread = new Buzzer(this);
+  connect(m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
+  m_workerThread->start();
 }
 
 
@@ -53,8 +55,8 @@ FotoBox::~FotoBox()
   delete ui;
 
   //Delete Buzzer thread
-  m_workerThread.exit();
-  m_workerThread.deleteLater();
+  m_workerThread->exit();
+  m_workerThread->deleteLater();
 }
 
 
@@ -68,7 +70,7 @@ void FotoBox::startShot()
   //showResults();
 
   //restart Buzzer
-  m_workerThread.start();
+  m_workerThread->start();
 }
 
 
