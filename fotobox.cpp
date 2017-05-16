@@ -27,7 +27,7 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   QObject::connect(m_ui->quitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
   QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
 
-  //gphoto2 auf System vorhanden?
+  //Gphoto2 installed on the operating system?
   if(!checkGPhoto2())
   {
     std::exit(EXIT_FAILURE);
