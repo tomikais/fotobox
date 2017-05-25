@@ -35,9 +35,9 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   m_ui->start->deleteLater();
 #endif
 
-  //Gphoto2 installed on the operating system?
+  //gphoto2 installed on the operating system?
   if(!checkGPhoto2()) {
-    //GPhoto not found -> exit
+    //gphoto not found -> exit
     std::exit(EXIT_FAILURE);
   }
 
@@ -110,13 +110,13 @@ auto FotoBox::startShot() -> void
   if(m_camera.takePicture()) {
     //show picture on UI
     showResults();
-
-    //restart Buzzer
-    m_buzzer->start();
   }
   else {
     QMessageBox::critical(this, tr("Error"), tr("Taking a photo isn't working!"));
   }
+
+  //restart Buzzer
+  m_buzzer->start();
 }
 
 
