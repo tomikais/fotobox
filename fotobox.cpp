@@ -18,7 +18,7 @@
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   m_ui(new Ui::MainWindow),
-  m_workerThread(new Buzzer(this))
+  m_buzzer(new Buzzer(this))
 {
   //Setup GUI
   m_ui->setupUi(this);
@@ -33,9 +33,9 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
     std::exit(EXIT_FAILURE);
   }
 
-  //Running loop
-  connect(m_workerThread, &Buzzer::finished, this, &FotoBox::startShot);
-  m_workerThread->start();
+  //Running loop to check buzzer trigger
+  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
+  m_buzzer->start();
 }
 
 
@@ -45,8 +45,7 @@ FotoBox::~FotoBox()
   delete m_ui;
 
   //Delete Buzzer thread
-  m_workerThread->exit();
-  m_workerThread->deleteLater();
+  m_buzzer->exit();
 }
 
 
@@ -78,7 +77,7 @@ auto FotoBox::startShot() -> void
   showResults();
 
   //restart Buzzer
-  m_workerThread->start();
+  m_buzzer->start();
 }
 
 

@@ -58,5 +58,5 @@ private:
   //User Interface
   Ui::MainWindow* m_ui;
   //Buzzer (Raspberry Pi GPIO)
-  Buzzer* m_workerThread;
+  Buzzer* m_buzzer;
 };
