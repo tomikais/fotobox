@@ -112,7 +112,7 @@ auto FotoBox::startShot() -> void
 auto FotoBox::showResults() -> void
 {
   //Resize picture
-  QSize size(m_ui->picture->width(), m_ui->picture->height());
+  QSize size(m_ui->photo->width(), m_ui->photo->height());
 
   QPixmap img(size);
 
@@ -121,5 +121,5 @@ auto FotoBox::showResults() -> void
   }
 
   //Resize
-  m_ui->picture->setPixmap(img.scaled(size, Qt::KeepAspectRatio));
+  m_ui->photo->setPixmap(img.scaled(size, Qt::KeepAspectRatio));
 }

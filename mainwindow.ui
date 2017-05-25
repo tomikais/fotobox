@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>284</width>
+    <height>87</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,15 +21,12 @@
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="mainLayout">
       <item>
-       <widget class="QLabel" name="picture">
+       <widget class="QLabel" name="photo">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="text">
-         <string/>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -57,6 +54,12 @@
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
           </property>
          </spacer>
         </item>
