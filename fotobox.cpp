@@ -45,7 +45,8 @@ FotoBox::~FotoBox()
   delete m_ui;
 
   //Delete Buzzer thread
-  m_buzzer->exit();
+  m_buzzer->quit();
+  m_buzzer->deleteLater();
 }
 
 
@@ -53,11 +54,13 @@ auto FotoBox::checkGPhoto2() -> const bool
 {
   bool result = true;
 
-  QProcess* gphoto2= new QProcess(this);
+  auto gphoto2 = new QProcess(this);
   gphoto2->start("gphoto2 --auto-detect");
 
-  gphoto2->waitForFinished(-1);
+  gphoto2->waitForFinished();
   auto output = gphoto2->readAll();
+
+  //clean up
   gphoto2->deleteLater();
 
   if(output.isEmpty())
@@ -72,12 +75,19 @@ auto FotoBox::checkGPhoto2() -> const bool
 auto FotoBox::startShot() -> void
 {
   Camera cam(this);
-  cam.takePicture();
 
-  showResults();
+  //take a photo
+  if(cam.takePicture())
+  {
+    showResults();
 
-  //restart Buzzer
-  m_buzzer->start();
+    //restart Buzzer
+    m_buzzer->start();
+  }
+  else
+  {
+    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+  }
 }
 
 
@@ -90,7 +100,7 @@ auto FotoBox::showResults() -> void
 
   if (!img.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg"))
   {
-    QMessageBox::critical(this, tr("IMG"), tr("Couldn't load the Image."));
+    QMessageBox::critical(this, tr("IMG not available"), tr("Couldn't load the Image."));
   }
 
   //Resize
