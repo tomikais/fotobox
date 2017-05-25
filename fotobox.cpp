@@ -17,6 +17,7 @@
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
+  m_photo(),
   m_camera(this),
   m_ui(new Ui::MainWindow),
   m_buzzer(new Buzzer(nullptr))
@@ -121,15 +122,14 @@ auto FotoBox::startShot() -> void
 
 auto FotoBox::showResults() -> void
 {
-  //Resize picture
+  //get size from label
   QSize size(m_ui->photo->width(), m_ui->photo->height());
 
-  QPixmap img(size);
-
-  if (!img.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg")) {
+  //load photo
+  if (!m_photo.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg")) {
     QMessageBox::critical(this, tr("IMG not available"), tr("Couldn't load the Image."));
   }
 
-  //Resize
-  m_ui->photo->setPixmap(img.scaled(size, Qt::KeepAspectRatio));
+  //Resize picture
+  m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }

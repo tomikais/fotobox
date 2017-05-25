@@ -71,6 +71,10 @@ private:
    */
   auto startShot() -> void;
 
+
+  QPixmap m_photo;
+
+  //Camera (shot photo)
   Camera m_camera;
 
   //User Interface
