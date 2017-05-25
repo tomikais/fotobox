@@ -6,7 +6,6 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "fotobox.h"
-
 #include <QApplication>
 
 
