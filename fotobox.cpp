@@ -101,6 +101,10 @@ auto FotoBox::checkGPhoto2() -> const bool
 
 auto FotoBox::startShot() -> void
 {
+  //remove current picture / refresh label (photo)
+  m_ui->photo->clear();
+  m_ui->photo->repaint();
+
   //take a photo
   if(m_camera.takePicture()) {
     //show picture on UI
