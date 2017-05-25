@@ -17,6 +17,7 @@
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
+  m_appPath(QApplication::applicationDirPath() + QDir::separator()),
   m_photo(),
   m_camera(this),
   m_ui(new Ui::MainWindow),
@@ -58,7 +59,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
   //ENTER KEY
   if(event->key() == Qt::Key_Escape) {
     //Quit application
-    qApp->quit();
+    QApplication::quit();
   }
 }
 
@@ -128,7 +129,7 @@ auto FotoBox::showResults() -> void
   QSize size(m_ui->photo->width(), m_ui->photo->height());
 
   //load photo
-  if (!m_photo.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg")) {
+  if (!m_photo.load(m_appPath + "capt0000.jpg")) {
     QMessageBox::critical(this, tr("IMG not available"), tr("Couldn't load the Image."));
   }
 

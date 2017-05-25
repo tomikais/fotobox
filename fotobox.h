@@ -72,6 +72,10 @@ private:
   auto startShot() -> void;
 
 
+  //application directory
+  QString m_appPath;
+
+  //store / load the photo
   QPixmap m_photo;
 
   //Camera (shot photo)
