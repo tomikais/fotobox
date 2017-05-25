@@ -13,25 +13,21 @@
 Buzzer::Buzzer(QObject *parent) :
   QThread(parent)
 {
+  //wiringPi http://wiringpi.com/reference/setup/
+  //function always returns zero 0, no need to check result!
+  wiringPiSetup();
 
+  //set mode of the pin (INPUT, OUTPUT, PWM_OUTPUT)
+  pinMode(m_pinZero, OUTPUT);
+  pinMode(m_pinFive, INPUT);
 }
 
 
 auto Buzzer::run() -> void
 {
-  //wiringPi
-  //http://wiringpi.com/reference/setup/
-  wiringPiSetup();
-
-  //GPIO Pins
-  unsigned int pin_zero = 0, pin_five = 5;
-  pinMode(pin_zero, OUTPUT); //GPIO 17 (=wiringPi 0)
-  pinMode(pin_five, INPUT);  //GPIO 24 (=wiringPi 5)
-
   //query pin 5
-  unsigned int queryIntervalMilliseconds = 10;
-  while(digitalRead(pin_five) != HIGH) {
-    //wait
-    delay(queryIntervalMilliseconds);
+  while(digitalRead(m_pinFive) != HIGH) {
+    //wait before check again
+    delay(m_queryIntervalMilliseconds);
   }
 }
