@@ -7,12 +7,11 @@
 # file 'LICENSE', which is part of this source code package.
 #------------------------------------------------------------
 
-QT              += core gui widgets
 greaterThan(QT_MAJOR_VERSION, 5)
+QT              += core gui widgets
 
 TARGET          = fotobox
 TEMPLATE        = app
-
 
 SOURCES         += main.cpp \
                 fotobox.cpp \
@@ -30,12 +29,16 @@ OTHER_FILES     += \
                 README.md \
                 LICENSE
 
-
 #Use C++ 11
 QMAKE_CXXFLAGS  += -std=c++11
 
 #Speed-Up compiling time with ccache (apt-get install ccache)
 QMAKE_CXX       = ccache g++
 
-#wiringPi LIB
-LIBS            += -lwiringPi -lwiringPiDev
+#wiringPi LIB for debug/release
+debug {
+LIBS            += -lwiringPiDev
+}
+release {
+LIBS            += -lwiringPi
+}
