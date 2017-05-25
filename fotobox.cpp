@@ -18,7 +18,7 @@
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   m_ui(new Ui::MainWindow),
-  m_buzzer(new Buzzer(this))
+  m_buzzer(new Buzzer(nullptr))
 {
   //Setup GUI
   m_ui->setupUi(this);
