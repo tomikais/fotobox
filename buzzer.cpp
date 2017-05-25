@@ -29,10 +29,10 @@ auto Buzzer::run() -> void
   pinMode(pin_five, INPUT);  //GPIO 24 (=wiringPi 5)
 
   //query pin 5
-  unsigned int queryInterval = 10;
+  unsigned int queryIntervalMilliseconds = 10;
   while(digitalRead(pin_five) != HIGH)
   {
     //wait
-    delayMicroseconds(queryInterval);
+    delay(queryIntervalMilliseconds);
   }
 }
