@@ -30,8 +30,7 @@ auto Buzzer::run() -> void
 
   //query pin 5
   unsigned int queryIntervalMilliseconds = 10;
-  while(digitalRead(pin_five) != HIGH)
-  {
+  while(digitalRead(pin_five) != HIGH) {
     //wait
     delay(queryIntervalMilliseconds);
   }

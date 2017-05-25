@@ -29,8 +29,8 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
 
   //Gphoto2 installed on the operating system?
-  if(!checkGPhoto2())
-  {
+  if(!checkGPhoto2()) {
+    //GPhoto not found -> exit
     std::exit(EXIT_FAILURE);
   }
 
@@ -42,13 +42,14 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
-  if(event->key() == Qt::Key_Return)
-  {
+  //ESCAPE KEY
+  if(event->key() == Qt::Key_Return) {
     //Shot a Foto
     startShot();
   }
-  if(event->key() == Qt::Key_Escape)
-  {
+
+  //ENTER KEY
+  if(event->key() == Qt::Key_Escape) {
     //Quit application
     qApp->quit();
   }
@@ -61,7 +62,6 @@ FotoBox::~FotoBox()
   delete m_ui;
 
   //Delete Buzzer thread
-  m_buzzer->quit();
   m_buzzer->deleteLater();
 }
 
@@ -70,20 +70,25 @@ auto FotoBox::checkGPhoto2() -> const bool
 {
   bool result = true;
 
-  auto gphoto2 = new QProcess(this);
-  gphoto2->start("gphoto2 --auto-detect");
+  //Process who starts gphoto2
+  auto process = new QProcess(this);
 
-  gphoto2->waitForFinished();
-  auto output = gphoto2->readAll();
+  //auto-detect: List auto-detected cameras
+  process->start("gphoto2 --auto-detect");
 
-  //clean up
-  gphoto2->deleteLater();
+  //sync call
+  process->waitForFinished();
+  auto output = process->readAll();
 
-  if(output.isEmpty())
-  {
+  //check result
+  if(output.isEmpty()) {
     QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
     result = false;
   }
+
+  //clean up
+  process->deleteLater();
+
   return result;
 }
 
@@ -93,16 +98,15 @@ auto FotoBox::startShot() -> void
   Camera cam(this);
 
   //take a photo
-  if(cam.takePicture())
-  {
+  if(cam.takePicture()) {
+    //show picture on UI
     showResults();
 
     //restart Buzzer
     m_buzzer->start();
   }
-  else
-  {
-    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+  else {
+    QMessageBox::critical(this, tr("Error"), tr("Taking a photo isn't working!"));
   }
 }
 
@@ -114,8 +118,7 @@ auto FotoBox::showResults() -> void
 
   QPixmap img(size);
 
-  if (!img.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg"))
-  {
+  if (!img.load(qApp->applicationDirPath() + QDir::separator() + "capt0000.jpg")) {
     QMessageBox::critical(this, tr("IMG not available"), tr("Couldn't load the Image."));
   }
 
