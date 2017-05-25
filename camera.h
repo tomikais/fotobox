@@ -26,6 +26,8 @@ public:
 
   /*!
    * \brief takePicture
+   * \details
+   * \return const bool true: processed finished
    */
-  auto takePicture() -> void;
+  auto takePicture() -> const bool;
 };

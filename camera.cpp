@@ -8,7 +8,6 @@
 #include "camera.h"
 
 #include <QProcess>
-#include <QCoreApplication>
 
 Camera::Camera(QObject* parent) :
   QObject(parent)
@@ -17,14 +16,19 @@ Camera::Camera(QObject* parent) :
 }
 
 
-auto Camera::takePicture() -> void
+//TODO use setting to handle options for gphoto2
+auto Camera::takePicture() -> const bool
 {
+  //start gphoto2 (external program)
   QProcess* gphoto2= new QProcess(this);
 
   //Program name and arguments
-  QString program = "gphoto2 --capture-image-and-download --force-overwrite";
+  const QString program = "gphoto2 --capture-image-and-download --keep --force-overwrite";
 
   //Start programm with given arguments
   gphoto2->start(program);
-  gphoto2->waitForFinished(-1);
+
+  //timout 15secs = 15000msecs
+  const int msecs = 15000;
+  return gphoto2->waitForFinished(msecs);
 }
