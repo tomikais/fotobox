@@ -13,11 +13,9 @@
 class QProcess;
 class Buzzer;
 class QKeyEvent;
-
-
 namespace Ui
 {
-class MainWindow;
+  class MainWindow;
 }
 
 
@@ -34,12 +32,13 @@ public:
   * \brief FotoBox constructor
   * \param parent QObject
   */
-  explicit FotoBox(QWidget* parent = nullptr);
+  explicit FotoBox(QWidget *parent = nullptr);
 
   /*!
   * \brief FotoBox destructor
   */
   ~FotoBox();
+
 
 protected:
   /*!
@@ -52,13 +51,8 @@ protected:
    */
   auto keyPressEvent(QKeyEvent *event) -> void Q_DECL_OVERRIDE;
 
-private:
-  /*!
-   * \brief show the foto
-   * \return void
-   */
-  auto showResults() -> void;
 
+private:
   /*!
    * \brief check if gphoto2 is installed on system
    * return if gphoto2 is available
@@ -70,6 +64,12 @@ private:
    * \return void
    */
   auto startShot() -> void;
+
+  /*!
+   * \brief show the foto
+   * \return void
+   */
+  auto showResults() -> void;
 
 
   //User Interface

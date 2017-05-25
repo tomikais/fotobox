@@ -23,7 +23,7 @@ public:
    * \brief Camera constructor
    * \param parent QObject
    */
-  explicit Camera(QObject* parent = nullptr);
+  explicit Camera(QObject *parent = nullptr);
 
   /*!
     * \brief Camera destructor
@@ -35,11 +35,11 @@ public:
    * \details
    * \return const bool true: processed finished
    */
-  auto takePicture() -> const bool;
+  auto takePicture() const -> const bool;
 
 private:
   //timout 15secs = 15000msecs
-  const int m_msecs = 15000;
+  const unsigned int m_msecs = 15000;
 
   //start gphoto2 (external program)
   QProcess *m_process;

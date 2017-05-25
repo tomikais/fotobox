@@ -28,6 +28,6 @@ auto Buzzer::run() -> void
   //query pin 5
   while(digitalRead(m_pinFive) != HIGH) {
     //wait before check again
-    delay(m_queryIntervalMilliseconds);
+    delay(m_queryIntervalMsecs);
   }
 }

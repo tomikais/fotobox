@@ -26,7 +26,7 @@ Camera::~Camera()
 }
 
 //TODO use setting to handle options for gphoto2
-auto Camera::takePicture() -> const bool
+auto Camera::takePicture() const -> const bool
 {
   //Program name and arguments
   const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --force-overwrite";

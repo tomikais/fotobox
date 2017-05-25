@@ -22,7 +22,7 @@ public:
    * Buzzer constructor
    * \param parent QObject
    */
-  explicit Buzzer(QObject* parent = nullptr);
+  explicit Buzzer(QObject *parent = nullptr);
 
   /*!
   * \brief Query the Raspberry Pi Pin in a loop.
@@ -33,13 +33,13 @@ public:
   auto run() -> void Q_DECL_OVERRIDE;
 
 private:
-  //GPIO 17 (=wiringPi 0)
-  unsigned int m_pinZero = 0;
+  //GPIO 17 (=wiringPi pin 0)
+  const unsigned int m_pinZero = 0;
 
-  //GPIO 24 (=wiringPi 5)
-  unsigned int m_pinFive = 5;
+  //GPIO 24 (=wiringPi pin 5)
+  const unsigned int m_pinFive = 5;
 
   //intervall to wait before check PIN again
-  unsigned int m_queryIntervalMilliseconds = 10;
+  const unsigned int m_queryIntervalMsecs = 10;
 
 };
