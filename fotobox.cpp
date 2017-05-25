@@ -14,6 +14,7 @@
 #include <QDir>
 #include <QMessageBox>
 #include <QProcess>
+#include <QKeyEvent>
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
@@ -36,6 +37,21 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   //Running loop to check buzzer trigger
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
   m_buzzer->start();
+}
+
+
+auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
+{
+  if(event->key() == Qt::Key_Return)
+  {
+    //Shot a Foto
+    startShot();
+  }
+  if(event->key() == Qt::Key_Escape)
+  {
+    //Quit application
+    qApp->quit();
+  }
 }
 
 

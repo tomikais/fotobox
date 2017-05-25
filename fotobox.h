@@ -10,6 +10,7 @@
 
 class QProcess;
 class Buzzer;
+class QKeyEvent;
 
 
 namespace Ui
@@ -38,6 +39,16 @@ public:
   */
   ~FotoBox();
 
+protected:
+  /*!
+   * \brief keyPressEvent
+   * \details
+   * Enter -> take a photo
+   * Escape -> quit application
+   * \param event
+   * \return void
+   */
+  auto keyPressEvent(QKeyEvent *event) -> void Q_DECL_OVERRIDE;
 
 private:
   /*!
