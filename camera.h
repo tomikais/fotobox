@@ -8,6 +8,7 @@
 #pragma once
 #include <QObject>
 
+class QProcess;
 
 /*!
  * \brief The Camera class
@@ -25,9 +26,22 @@ public:
   explicit Camera(QObject* parent = nullptr);
 
   /*!
+    * \brief Camera destructor
+    */
+  ~Camera();
+
+  /*!
    * \brief takePicture
    * \details
    * \return const bool true: processed finished
    */
   auto takePicture() -> const bool;
+
+private:
+  //timout 15secs = 15000msecs
+  const int m_msecs = 15000;
+
+  //start gphoto2 (external program)
+  QProcess *m_process;
+
 };

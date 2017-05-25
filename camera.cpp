@@ -9,32 +9,37 @@
 
 #include <QProcess>
 
-Camera::Camera(QObject* parent) :
-  QObject(parent)
-{
 
+Camera::Camera(QObject* parent) :
+  QObject(parent),
+  m_process(new QProcess(this))
+{
+  //check pointer
+  Q_CHECK_PTR(m_process);
 }
 
+
+Camera::~Camera()
+{
+  //clean up
+  m_process->deleteLater();
+}
 
 //TODO use setting to handle options for gphoto2
 auto Camera::takePicture() -> const bool
 {
-  //start gphoto2 (external program)
-  auto process = new QProcess(this, QIODevice::NotOpen);
-
   //Program name and arguments
   const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --force-overwrite";
 
   //Start programm with given arguments
-  process->start(gphoto2);
-
-  //timout 15secs = 15000msecs
-  const int msecs = 15000;
+  m_process->start(gphoto2, QIODevice::NotOpen);
 
   //start call and check if everthing was okay
-  if(!process->waitForFinished(msecs) || process->exitCode() != EXIT_SUCCESS){
+  if(!m_process->waitForFinished(m_msecs) || m_process->exitCode() != EXIT_SUCCESS){
     //error
+#ifdef QT_NO_DEBUG //in debug return true
     return false;
+#endif
   }
 
   return true;
