@@ -89,7 +89,8 @@ auto FotoBox::checkGPhoto2() -> const bool
 
   //check result
   if(output.isEmpty()) {
-    QMessageBox::critical(this, tr("gphoto2 not found"), tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+    QMessageBox::critical(nullptr, tr("gphoto2 not found"),
+                          tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
     result = false;
   }
 
@@ -112,7 +113,8 @@ auto FotoBox::startShot() -> void
     showResults();
   }
   else {
-    QMessageBox::critical(this, tr("Error"), tr("Taking a photo isn't working!"));
+    QMessageBox::critical(nullptr, tr("Error"),
+                          tr("Taking a photo isn't working correctly! Please call Fotobox owner."));
   }
 
   //restart Buzzer
