@@ -24,9 +24,15 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   //Setup GUI
   m_ui->setupUi(this);
 
-  //GUI Connect
+#ifdef QT_DEBUG
+  //connect buttons
   QObject::connect(m_ui->quitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
   QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
+#else
+  //remove buttons
+  m_ui->quitApp->deleteLater();
+  m_ui->start->deleteLater();
+#endif
 
   //Gphoto2 installed on the operating system?
   if(!checkGPhoto2()) {
