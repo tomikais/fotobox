@@ -17,7 +17,7 @@ class QKeyEvent;
 
 namespace Ui
 {
-  class MainWindow;
+class MainWindow;
 }
 
 
@@ -72,18 +72,19 @@ private:
   auto startShot() -> void;
 
 
+  //User Interface
+  Ui::MainWindow* m_ui;
+
+  //Camera (shot photo)
+  Camera m_camera;
+
+  //Buzzer (Raspberry Pi GPIO)
+  Buzzer* m_buzzer;
+
   //application directory
   QString m_appPath;
 
   //store / load the photo
   QPixmap m_photo;
 
-  //Camera (shot photo)
-  Camera m_camera;
-
-  //User Interface
-  Ui::MainWindow* m_ui;
-
-  //Buzzer (Raspberry Pi GPIO)
-  Buzzer* m_buzzer;
 };

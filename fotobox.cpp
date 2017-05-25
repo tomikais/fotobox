@@ -17,11 +17,11 @@
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
-  m_appPath(QApplication::applicationDirPath() + QDir::separator()),
-  m_photo(),
-  m_camera(this),
   m_ui(new Ui::MainWindow),
-  m_buzzer(new Buzzer(nullptr))
+  m_camera(this),
+  m_buzzer(new Buzzer(nullptr)),
+  m_appPath(QApplication::applicationDirPath() + QDir::separator()),
+  m_photo()
 {
   //Setup GUI
   m_ui->setupUi(this);
