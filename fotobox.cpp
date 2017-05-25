@@ -48,6 +48,16 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 }
 
 
+FotoBox::~FotoBox()
+{
+  //Delete new
+  delete m_ui;
+
+  //Delete Buzzer thread
+  m_buzzer->deleteLater();
+}
+
+
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
   //ESCAPE KEY
@@ -61,16 +71,6 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
     //Quit application
     QApplication::quit();
   }
-}
-
-
-FotoBox::~FotoBox()
-{
-  //Delete new
-  delete m_ui;
-
-  //Delete Buzzer thread
-  m_buzzer->deleteLater();
 }
 
 
