@@ -8,6 +8,8 @@
 #pragma once
 #include <QMainWindow>
 
+#include "camera.h"
+
 class QProcess;
 class Buzzer;
 class QKeyEvent;
@@ -68,6 +70,8 @@ private:
    * \return void
    */
   auto startShot() -> void;
+
+  Camera m_camera;
 
   //User Interface
   Ui::MainWindow* m_ui;

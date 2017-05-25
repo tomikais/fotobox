@@ -9,7 +9,6 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
-#include "camera.h"
 
 #include <QDir>
 #include <QMessageBox>
@@ -18,6 +17,7 @@
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
+  m_camera(this),
   m_ui(new Ui::MainWindow),
   m_buzzer(new Buzzer(nullptr))
 {
@@ -95,10 +95,8 @@ auto FotoBox::checkGPhoto2() -> const bool
 
 auto FotoBox::startShot() -> void
 {
-  Camera cam(this);
-
   //take a photo
-  if(cam.takePicture()) {
+  if(m_camera.takePicture()) {
     //show picture on UI
     showResults();
 
