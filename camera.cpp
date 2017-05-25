@@ -20,7 +20,7 @@ Camera::Camera(QObject* parent) :
 auto Camera::takePicture() -> const bool
 {
   //start gphoto2 (external program)
-  auto process = new QProcess(this);
+  auto process = new QProcess(this, QIODevice::NotOpen);
 
   //Program name and arguments
   const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --force-overwrite";
@@ -30,5 +30,12 @@ auto Camera::takePicture() -> const bool
 
   //timout 15secs = 15000msecs
   const int msecs = 15000;
-  return process->waitForFinished(msecs);
+
+  //start call and check if everthing was okay
+  if(!process->waitForFinished(msecs) || process->exitCode() != EXIT_SUCCESS){
+    //error
+    return false;
+  }
+
+  return true;
 }
