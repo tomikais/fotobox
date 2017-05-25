@@ -42,21 +42,25 @@ public:
 private:
   /*!
    * \brief show the foto
+   * \return void
    */
   auto showResults() -> void;
 
   /*!
    * \brief check if gphoto2 is installed on system
+   * return if gphoto2 is available
    */
   auto checkGPhoto2() -> const bool;
 
   /*!
    * \brief shot a picture
+   * \return void
    */
   auto startShot() -> void;
 
   //User Interface
   Ui::MainWindow* m_ui;
+
   //Buzzer (Raspberry Pi GPIO)
   Buzzer* m_buzzer;
 };

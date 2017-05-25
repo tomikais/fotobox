@@ -20,15 +20,15 @@ Camera::Camera(QObject* parent) :
 auto Camera::takePicture() -> const bool
 {
   //start gphoto2 (external program)
-  QProcess* gphoto2= new QProcess(this);
+  auto process = new QProcess(this);
 
   //Program name and arguments
-  const QString program = "gphoto2 --capture-image-and-download --keep --force-overwrite";
+  const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --force-overwrite";
 
   //Start programm with given arguments
-  gphoto2->start(program);
+  process->start(gphoto2);
 
   //timout 15secs = 15000msecs
   const int msecs = 15000;
-  return gphoto2->waitForFinished(msecs);
+  return process->waitForFinished(msecs);
 }

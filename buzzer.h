@@ -6,7 +6,6 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #pragma once
-#include <QObject>
 #include <QThread>
 
 
@@ -27,7 +26,9 @@ public:
 
   /*!
   * \brief Query the Raspberry Pi Pin in a loop.
-  * interval: 10 mikroseconds
+  * interval: 10 milliseconds
+  * \details override method of QThread
+  * \return void
   */
   auto run() -> void Q_DECL_OVERRIDE;
 
