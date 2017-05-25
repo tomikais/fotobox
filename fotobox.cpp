@@ -30,7 +30,9 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   //connect buttons
   QObject::connect(m_ui->quitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
   QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
-#else
+#else //RELEASE
+  //remove mouse cursor
+  QApplication::setOverrideCursor(Qt::BlankCursor);
   //remove buttons
   m_ui->quitApp->deleteLater();
   m_ui->start->deleteLater();
@@ -90,8 +92,13 @@ auto FotoBox::checkGPhoto2() -> const bool
 
   //check result
   if(output.isEmpty()) {
+    QApplication::restoreOverrideCursor();
     QMessageBox::critical(nullptr, tr("gphoto2 not found"),
                           tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+#ifndef QT_DEBUG
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+#endif
+
     result = false;
   }
 
@@ -114,8 +121,12 @@ auto FotoBox::startShot() -> void
     showResults();
   }
   else {
+    QApplication::restoreOverrideCursor();
     QMessageBox::critical(nullptr, tr("Error"),
-                          tr("Taking a photo isn't working correctly! Please call Fotobox owner."));
+                          tr("Taking a photo isn't working correctly! Please call the Fotobox owner."));
+#ifndef QT_DEBUG
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+#endif
   }
 
   //restart Buzzer
@@ -130,7 +141,11 @@ auto FotoBox::showResults() -> void
 
   //load photo
   if (!m_photo.load(m_appPath + "capt0000.jpg")) {
-    QMessageBox::critical(this, tr("IMG not available"), tr("Couldn't load the Image."));
+    QApplication::restoreOverrideCursor();
+    QMessageBox::critical(this, tr("Load photo"), tr("Couldn't load the image."));
+#ifndef QT_DEBUG
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+#endif
   }
 
   //Resize picture
