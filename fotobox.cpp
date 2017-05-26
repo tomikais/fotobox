@@ -142,7 +142,7 @@ auto FotoBox::showResults() -> void
   //load photo
   if (!m_photo.load(m_appPath + "capt0000.jpg")) {
     QApplication::restoreOverrideCursor();
-    QMessageBox::critical(this, tr("Load photo"), tr("Couldn't load the image."));
+    QMessageBox::critical(nullptr, tr("Load photo"), tr("Couldn't load the image."));
 #ifndef QT_DEBUG
     QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
