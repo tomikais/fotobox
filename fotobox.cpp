@@ -40,9 +40,9 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 
   //gphoto2 installed on the operating system?
   if(!checkGPhoto2()) {
-    //gphoto not found -> exit
-    std::exit(EXIT_FAILURE);
-  }
+      //gphoto not found -> exit
+      std::exit(EXIT_FAILURE);
+    }
 
   //Running loop to check buzzer trigger
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
@@ -64,15 +64,15 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
   //ESCAPE KEY
   if(event->key() == Qt::Key_Return) {
-    //Shot a Foto
-    startShot();
-  }
+      //Shot a Foto
+      startShot();
+    }
 
   //ENTER KEY
   if(event->key() == Qt::Key_Escape) {
-    //Quit application
-    QApplication::quit();
-  }
+      //Quit application
+      QApplication::quit();
+    }
 }
 
 
@@ -92,15 +92,15 @@ auto FotoBox::checkGPhoto2() -> const bool
 
   //check result
   if(output.isEmpty()) {
-    QApplication::restoreOverrideCursor();
-    QMessageBox::critical(nullptr, tr("gphoto2 not found"),
-                          tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+      QApplication::restoreOverrideCursor();
+      QMessageBox::critical(nullptr, tr("gphoto2 not found"),
+                            tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
 #ifndef QT_DEBUG
-    QApplication::setOverrideCursor(Qt::BlankCursor);
+      QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
 
-    result = false;
-  }
+      result = false;
+    }
 
   //clean up
   process->deleteLater();
@@ -117,17 +117,17 @@ auto FotoBox::startShot() -> void
 
   //take a photo
   if(m_camera.takePicture()) {
-    //show picture on UI
-    showResults();
-  }
+      //show picture on UI
+      showResults();
+    }
   else {
-    QApplication::restoreOverrideCursor();
-    QMessageBox::critical(nullptr, tr("Error"),
-                          tr("Taking a photo isn't working correctly! Please call the Fotobox owner."));
+      QApplication::restoreOverrideCursor();
+      QMessageBox::critical(nullptr, tr("Error"),
+                            tr("Taking a photo isn't working correctly! Please call the Fotobox owner."));
 #ifndef QT_DEBUG
-    QApplication::setOverrideCursor(Qt::BlankCursor);
+      QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
-  }
+    }
 
   //restart Buzzer
   m_buzzer->start();
@@ -141,13 +141,14 @@ auto FotoBox::showResults() -> void
 
   //load photo
   if (!m_photo.load(m_appPath + "capt0000.jpg")) {
-    QApplication::restoreOverrideCursor();
-    QMessageBox::critical(nullptr, tr("Load photo"), tr("Couldn't load the image."));
+      QApplication::restoreOverrideCursor();
+      QMessageBox::critical(nullptr, tr("Load photo"), tr("Couldn't load the image."));
 #ifndef QT_DEBUG
-    QApplication::setOverrideCursor(Qt::BlankCursor);
+      QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
-  }
-
-  //Resize picture
-  m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+  else {
+      //Resize picture
+      m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
 }
