@@ -25,11 +25,12 @@ Camera::~Camera()
   m_process->deleteLater();
 }
 
+
 //TODO use setting to handle options for gphoto2
 auto Camera::takePicture() const -> const bool
 {
   //Program name and arguments
-  const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --force-overwrite";
+  const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --filename capt0000.jpg --set-config /main/settings/capturetarget=1 --force-overwrite";
 
   //Start programm with given arguments
   m_process->start(gphoto2, QIODevice::NotOpen);
