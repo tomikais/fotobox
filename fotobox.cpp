@@ -140,7 +140,7 @@ auto FotoBox::showResults() -> void
   QSize size(m_ui->photo->width(), m_ui->photo->height());
 
   //load photo
-  if (!m_photo.load(m_appPath + "capt0000.jpg")) {
+  if (!m_photo.load(m_appPath + "preview.jpg")) {
       QApplication::restoreOverrideCursor();
       QMessageBox::critical(nullptr, tr("Load photo"), tr("Couldn't load the image."));
 #ifndef QT_DEBUG
