@@ -11,9 +11,10 @@
 #include "buzzer.h"
 
 #include <QDir>
-#include <QMessageBox>
 #include <QProcess>
 #include <QKeyEvent>
+#include <QTimer>
+#include <QMessageBox>
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
@@ -121,12 +122,7 @@ auto FotoBox::startShot() -> void
       showResults();
     }
   else {
-      QApplication::restoreOverrideCursor();
-      QMessageBox::critical(nullptr, tr("Error"),
-                            tr("Taking a photo isn't working correctly! Please call the Fotobox owner."));
-#ifndef QT_DEBUG
-      QApplication::setOverrideCursor(Qt::BlankCursor);
-#endif
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 4000);
     }
 
   //restart Buzzer
@@ -141,11 +137,7 @@ auto FotoBox::showResults() -> void
 
   //load photo
   if (!m_photo.load(m_appPath + "preview.jpg")) {
-      QApplication::restoreOverrideCursor();
-      QMessageBox::critical(nullptr, tr("Load photo"), tr("Couldn't load the image."));
-#ifndef QT_DEBUG
-      QApplication::setOverrideCursor(Qt::BlankCursor);
-#endif
+      m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
   else {
       //Resize picture
