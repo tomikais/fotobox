@@ -42,3 +42,6 @@ LIBS            += -lwiringPiDev
 release {
 LIBS            += -lwiringPi
 }
+
+target.path      = /home/pi
+INSTALLS += target
