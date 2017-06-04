@@ -10,30 +10,35 @@
 greaterThan(QT_MAJOR_VERSION, 5)
 QT              += core gui widgets
 
-TARGET          = fotobox
-TEMPLATE        = app
+TARGET           = fotobox
+target.path      = /home/pi
+INSTALLS        += target
+
+TEMPLATE         = app
 
 SOURCES         += main.cpp \
-                fotobox.cpp \
-                buzzer.cpp \
-                camera.cpp
+                   fotobox.cpp \
+                   buzzer.cpp \
+                   camera.cpp
 
-HEADERS         += \
-                fotobox.h \
-                buzzer.h \
-                camera.h
+HEADERS         += fotobox.h \
+                   buzzer.h \
+                   camera.h
 
-FORMS           = mainwindow.ui
+FORMS            = mainwindow.ui
 
-OTHER_FILES     += \
-                README.md \
-                LICENSE
+RESOURCES       += fotobox.qrc
+TRANSLATIONS    += fotobox_en.ts \
+                   fotobox_de.ts
+
+OTHER_FILES     += README.md \
+                   LICENSE
 
 #Use C++ 11
 QMAKE_CXXFLAGS  += -std=c++11
 
 #Speed-Up compiling time with ccache (apt-get install ccache g++)
-QMAKE_CXX       = ccache g++
+QMAKE_CXX        = ccache g++
 
 #wiringPi LIB for debug/release
 debug {
@@ -42,14 +47,3 @@ LIBS            += -lwiringPiDev
 release {
 LIBS            += -lwiringPi
 }
-
-#translation
-TRANSLATIONS    += fotobox_en.ts \
-                   fotobox_de.ts
-
-#Cross Compiling
-target.path      = /home/pi
-INSTALLS += target
-
-RESOURCES += \
-    fotobox.qrc
