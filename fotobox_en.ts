@@ -6,12 +6,12 @@
     <message>
         <location filename="fotobox.cpp" line="125"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the Fotobox owner.</source>
-        <translation type="unfinished"></translation>
+        <translation>Error: Taking a photo isn&apos;t working correctly! Please call the Fotobox owner.</translation>
     </message>
     <message>
         <location filename="fotobox.cpp" line="140"/>
         <source>Couldn&apos;t load the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Couldn&apos;t load the image.</translation>
     </message>
 </context>
 <context>
@@ -19,17 +19,17 @@
     <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>FotoBox by Thomas Kais ©</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="46"/>
-        <source>Bild aufnehmen</source>
-        <translation type="unfinished"></translation>
+        <source>take picture</source>
+        <translation>take picture</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="74"/>
-        <source>Beenden</source>
-        <translation type="unfinished"></translation>
+        <source>exit</source>
+        <translation>exit</translation>
     </message>
 </context>
 </TS>

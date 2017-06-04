@@ -43,7 +43,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Bild aufnehmen</string>
+           <string>take picture</string>
           </property>
           <property name="flat">
            <bool>true</bool>
@@ -71,7 +71,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Beenden</string>
+           <string>exit</string>
           </property>
           <property name="flat">
            <bool>true</bool>
