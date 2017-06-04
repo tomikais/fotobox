@@ -43,5 +43,13 @@ release {
 LIBS            += -lwiringPi
 }
 
+#translation
+TRANSLATIONS    += fotobox_en.ts \
+                   fotobox_de.ts
+
+#Cross Compiling
 target.path      = /home/pi
 INSTALLS += target
+
+RESOURCES += \
+    fotobox.qrc
