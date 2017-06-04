@@ -1,1 +1,6 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/translations">
+        <file>fotobox_en.qm</file>
+        <file>fotobox_de.qm</file>
+    </qresource>
+</RCC>
