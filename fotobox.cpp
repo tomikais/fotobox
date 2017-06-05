@@ -136,7 +136,7 @@ auto FotoBox::showResults() -> void
   QSize size(m_ui->photo->width(), m_ui->photo->height());
 
   //load photo
-  if (m_photo.load(m_appPath + "preview.jpg")) {
+  if (!m_photo.load(m_appPath + "preview.jpg")) {
       m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
   else {
