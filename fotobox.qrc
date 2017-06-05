@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/translations">
-        <file alias="german">fotobox_en.qm</file>
-        <file alias="english">fotobox_de.qm</file>
+        <file alias="english">fotobox_en.qm</file>
+        <file alias="german">fotobox_de.qm</file>
     </qresource>
 </RCC>

@@ -39,7 +39,7 @@ OTHER_FILES     += README.md \
 QMAKE_CXXFLAGS  += -std=c++11
 
 #Speed-Up compiling time with ccache (apt-get install ccache g++)
-#QMAKE_CXX        = ccache g++
+QMAKE_CXX        = ccache g++
 
 #wiringPi LIB for debug/release
 debug {

@@ -7,6 +7,7 @@
  */
 #include "fotobox.h"
 #include <QApplication>
+#include <QTranslator>
 
 
 /*!
@@ -22,6 +23,20 @@ int main(int argc, char *argv[])
   app.setOrganizationName("Thomas Kais");
   app.setApplicationName("Fotobox");
   app.setApplicationVersion("1.1.0");
+
+  //Translation
+  QTranslator translator;
+  if (QLocale::system().language() == QLocale::German) {
+      //German
+      if (translator.load(":/translations/german")) {
+          app.installTranslator(&translator);
+        }
+    } else {
+      //English as Default
+      if (translator.load(":/translations/english")) {
+          app.installTranslator(&translator);
+        }
+    }
 
   FotoBox fotobox;
   //Fullscreen

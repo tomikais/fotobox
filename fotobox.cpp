@@ -15,7 +15,6 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QMessageBox>
-#include <QTranslator>
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
@@ -23,14 +22,10 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   m_camera(this),
   m_buzzer(new Buzzer(nullptr)),
   m_appPath(QApplication::applicationDirPath() + QDir::separator()),
-  m_photo(),
-  m_translator(new QTranslator(this))
+  m_photo()
 {
   //Setup GUI
   m_ui->setupUi(this);
-
-  //set Application language
-  setLanguage();
 
 #ifdef QT_DEBUG
   //connect buttons
@@ -148,23 +143,4 @@ auto FotoBox::showResults() -> void
       //Resize picture
       m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
-}
-
-
-auto FotoBox::setLanguage() -> void
-{
-  if (QLocale::system().language() == QLocale::German)
-  {
-    //German
-    if (m_translator->load("german", ":/resources/translations"))
-    {
-      qApp->installTranslator(m_translator);
-    }
-  //English as Default
-  } else {
-    if (m_translator->load("english", ":/resources/translations"))
-    {
-      qApp->installTranslator(m_translator);
-    }
-  }
 }
