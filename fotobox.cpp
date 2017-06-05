@@ -15,6 +15,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <QMessageBox>
+#include <QTranslator>
 
 
 FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
@@ -22,10 +23,14 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
   m_camera(this),
   m_buzzer(new Buzzer(nullptr)),
   m_appPath(QApplication::applicationDirPath() + QDir::separator()),
-  m_photo()
+  m_photo(),
+  m_translator(new QTranslator(this))
 {
   //Setup GUI
   m_ui->setupUi(this);
+
+  //set Application language
+  setLanguage();
 
 #ifdef QT_DEBUG
   //connect buttons
@@ -136,11 +141,30 @@ auto FotoBox::showResults() -> void
   QSize size(m_ui->photo->width(), m_ui->photo->height());
 
   //load photo
-  if (!m_photo.load(m_appPath + "preview.jpg")) {
+  if (m_photo.load(m_appPath + "preview.jpg")) {
       m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
   else {
       //Resize picture
       m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
+}
+
+
+auto FotoBox::setLanguage() -> void
+{
+  if (QLocale::system().language() == QLocale::German)
+  {
+    //German
+    if (m_translator->load("german", ":/resources/translations"))
+    {
+      qApp->installTranslator(m_translator);
+    }
+  //English as Default
+  } else {
+    if (m_translator->load("english", ":/resources/translations"))
+    {
+      qApp->installTranslator(m_translator);
+    }
+  }
 }

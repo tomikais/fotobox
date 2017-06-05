@@ -13,6 +13,7 @@
 class QProcess;
 class Buzzer;
 class QKeyEvent;
+class QTranslator;
 namespace Ui
 {
   class MainWindow;
@@ -71,6 +72,12 @@ private:
    */
   auto showResults() -> void;
 
+  /*!
+   * \brief set the Application language
+   * \return void
+   */
+  auto setLanguage() -> void;
+
 
   //User Interface
   Ui::MainWindow* m_ui;
@@ -86,5 +93,8 @@ private:
 
   //store / load the photo
   QPixmap m_photo;
+
+  //Translate Application
+  QTranslator* m_translator;
 
 };
