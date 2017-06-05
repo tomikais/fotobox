@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   app.setOrganizationName("Thomas Kais");
   app.setApplicationName("Fotobox");
-  app.setApplicationVersion("1.1.0");
+  app.setApplicationVersion("1.2.0");
 
   //Translation
   QTranslator translator;
