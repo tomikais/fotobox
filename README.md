@@ -8,18 +8,12 @@ Requirement to run:
 # Development environment
 ## Raspbian
 ### Update Raspbian
-`sudo apt-get update`
-
-`sudo apt-get upgrade`
+`sudo apt-get update && sudo apt-get upgrade`
 
 `sudo apt-get dist-upgrade`
 
-
-### Update Firmware
+### Update firmware
 `sudo rpi-update`
-
-### Development tools for Raspbian
-`sudo apt-get install build-essential`
 
 ## Qt
 Qt 5 is needed on your Raspberry Pi. Follow these steps to get everything you need: [ubuntuusers](https://wiki.ubuntuusers.de/Qt/)
@@ -45,6 +39,14 @@ Download and install: http://wiringpi.com/download-and-install/
 `git clone ssh://"thomas kais"@192.168.0.4/volume1/git/fotobox`
 
 # Other
+## OpenGL support
+`sudo raspi-config` and select 7 *Advance Options* and A6 *GL Drivers*
+
+You can now choose between:
+* **GL (Full KMS) Desktop Drivers**
+* GL (Fake KMS) Desktop Driver
+* Legacy - Non-GL Driver
+
 ## Application dependency
 Navigate to application directory and run in terminal
 `ldd ./fotobox`
