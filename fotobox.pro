@@ -35,11 +35,9 @@ TRANSLATIONS    += fotobox_en.ts \
 OTHER_FILES     += README.md \
                    LICENSE
 
-#Use C++ 11
-QMAKE_CXXFLAGS  += -std=c++11
-
-#Speed-Up compiling time with ccache (apt-get install ccache g++)
+#Speed-Up compiling time with ccache (apt-get install ccache)
 QMAKE_CXX        = ccache g++
+# add make argument '-j4'
 
 #wiringPi LIB for debug/release
 debug {
