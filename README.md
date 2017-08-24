@@ -18,7 +18,7 @@ Requirement to run:
 ## Qt
 Qt 5 is needed on your Raspberry Pi. Follow these steps to get everything you need: [ubuntuusers](https://wiki.ubuntuusers.de/Qt/)
 
-`sudo apt-get install qt5-default qttools5-dev-tools qtcreator qt5-doc`
+`sudo apt-get install qt5-default qttools5-dev-tools qtcreator qt5-doc ccache`
 
 ## gphoto2 and libgphoto2
 [gPhoto2](http://www.gphoto.org/proj/gphoto2/) is a command line client to for the libgphoto2. It allows to use gPhoto software from a terminal or from a script shell to perform any camera operation that can be done. This is the main user interface.
@@ -31,7 +31,10 @@ Qt 5 is needed on your Raspberry Pi. Follow these steps to get everything you ne
 
 Download and install: http://wiringpi.com/download-and-install/
 
-## Project files
+## Get source code
+### Prepare git client
+`sudo apt-get install gitk git-gui`
+
 ### GitLab
 `git clone git@gitlab.com:tomikais/fotobox.git`
 
@@ -46,6 +49,9 @@ You can now choose between:
 * **GL (Full KMS) Desktop Drivers**
 * GL (Fake KMS) Desktop Driver
 * Legacy - Non-GL Driver
+
+## Disable screen saver
+`sudo apt-get install xscreensaver` Run the application and select *disable screen saver* from the dropdown.
 
 ## Application dependency
 Navigate to application directory and run in terminal
