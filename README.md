@@ -51,7 +51,9 @@ You can now choose between:
 * Legacy - Non-GL Driver
 
 ## Disable screen saver
-`sudo apt-get install xscreensaver` Run the application and select *disable screen saver* from the dropdown.
+`sudo apt-get install xscreensaver` 
+
+Run `xhost +localhost` from a local (not ssh) terminal session and reboot the system. After that you can launch the *Screensaver* and select *disable screen saver* from the dropdown.
 
 ## Application dependency
 Navigate to application directory and run in terminal
