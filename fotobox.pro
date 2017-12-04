@@ -40,17 +40,19 @@ QMAKE_CXX        = g++ ccache
 # add make argument '-j4'
 
 
+#wiringPi libs
 linux{
     #DEVICE: Raspberry Pi (wiringPi available)
     contains(QMAKE_HOST.arch, arm.*):{
-        #wiringPi LIB for debug/release
+        #debug or release build
         debug {
-        LIBS            += -lwiringPiDev
+            LIBS            += -lwiringPiDev
         }
         release {
-        LIBS            += -lwiringPi
+            LIBS            += -lwiringPi
         }
     } else {
     #DEVICE: other (no wiringPi available)
+
     }
 }
