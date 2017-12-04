@@ -36,7 +36,7 @@ OTHER_FILES     += README.md \
                    LICENSE
 
 #Speed-Up compiling time with ccache (apt-get install ccache)
-QMAKE_CXX        = g++ ccache
+QMAKE_CXX        = ccache g++
 # add make argument '-j4'
 
 
