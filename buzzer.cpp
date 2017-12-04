@@ -7,8 +7,11 @@
  */
 #include "buzzer.h"
 
-#include <wiringPi.h>
+#ifdef __arm__
+// ******************************************
+// DEVICE: Raspberry Pi (wiringPi available)
 
+#include <wiringPi.h>
 
 Buzzer::Buzzer(QObject *parent) :
   QThread(parent)
@@ -31,3 +34,16 @@ auto Buzzer::run() -> void
     delay(m_queryIntervalMsecs);
   }
 }
+
+#else
+// **************************************
+// DEVICE: other (no wiringPi available)
+
+Buzzer::Buzzer(QObject *parent) :
+  QThread(parent)
+{}
+
+auto Buzzer::run() -> void
+{}
+
+#endif
