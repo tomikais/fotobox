@@ -35,7 +35,7 @@ public:
    * \details
    * \return const bool true: processed finished
    */
-  auto takePicture() const -> const bool;
+  auto takePicture() const -> bool;
 
 private:
   //timout 15secs = 15000msecs

@@ -58,7 +58,7 @@ private:
    * \brief check if gphoto2 is installed on system
    * return if gphoto2 is available
    */
-  auto checkGPhoto2() -> const bool;
+  auto checkGPhoto2() -> bool;
 
   /*!
    * \brief shot a picture

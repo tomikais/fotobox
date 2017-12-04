@@ -79,7 +79,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 }
 
 
-auto FotoBox::checkGPhoto2() -> const bool
+auto FotoBox::checkGPhoto2() -> bool
 {
   bool result = true;
 
