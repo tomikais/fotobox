@@ -36,13 +36,21 @@ OTHER_FILES     += README.md \
                    LICENSE
 
 #Speed-Up compiling time with ccache (apt-get install ccache)
-QMAKE_CXX        = ccache g++
+QMAKE_CXX        = g++ ccache
 # add make argument '-j4'
 
-#wiringPi LIB for debug/release
-debug {
-LIBS            += -lwiringPiDev
-}
-release {
-LIBS            += -lwiringPi
+
+linux{
+    #DEVICE: Raspberry Pi (wiringPi available)
+    contains(QMAKE_HOST.arch, arm.*):{
+        #wiringPi LIB for debug/release
+        debug {
+        LIBS            += -lwiringPiDev
+        }
+        release {
+        LIBS            += -lwiringPi
+        }
+    } else {
+    #DEVICE: other (no wiringPi available)
+    }
 }
