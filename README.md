@@ -18,7 +18,7 @@ Requirement to run:
 ## Qt
 Qt 5 is needed on your Raspberry Pi. Follow these steps to get everything you need: [ubuntuusers](https://wiki.ubuntuusers.de/Qt/)
 
-`sudo apt-get install qt5-default qttools5-dev-tools qtcreator qt5-doc ccache`
+`sudo apt-get install qt5-default qttools5-dev-tools qtdeclarative5-dev qtcreator qt5-doc ccache`
 
 ## gphoto2 and libgphoto2
 [gPhoto2](http://www.gphoto.org/proj/gphoto2/) is a command line client to for the libgphoto2. It allows to use gPhoto software from a terminal or from a script shell to perform any camera operation that can be done. This is the main user interface.
