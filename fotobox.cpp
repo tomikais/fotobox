@@ -40,10 +40,12 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 #endif
 
   //gphoto2 installed on the operating system?
+#ifdef __linux__
   if(!checkGPhoto2()) {
       //gphoto not found -> exit
       std::exit(EXIT_FAILURE);
     }
+#endif
 
   //Running loop to check buzzer trigger
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);

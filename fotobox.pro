@@ -35,8 +35,10 @@ TRANSLATIONS    += fotobox_en.ts \
 OTHER_FILES     += README.md \
                    LICENSE
 
-#Speed-Up compiling time with ccache (apt-get install ccache)
-QMAKE_CXX        = ccache g++
+linux{
+    #Speed-Up compiling time with ccache (apt-get install ccache)
+    QMAKE_CXX        = ccache g++
+}
 # add make argument '-j4'
 
 
