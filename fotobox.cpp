@@ -48,7 +48,9 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 #endif
 
   //Running loop to check buzzer trigger
+#ifdef __arm__
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
+#endif
   m_buzzer->start();
 }
 
