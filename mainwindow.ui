@@ -42,11 +42,11 @@
             <pointsize>16</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: grey;</string>
+          </property>
           <property name="text">
            <string>take picture</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -70,11 +70,11 @@
             <pointsize>12</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: grey;</string>
+          </property>
           <property name="text">
            <string>exit</string>
-          </property>
-          <property name="flat">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
