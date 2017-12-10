@@ -40,7 +40,7 @@ FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
 #endif
 
   //gphoto2 installed on the operating system?
-#ifdef __linux__
+#if defined __APPLE__ || defined __linux__
   if(!checkGPhoto2()) {
       //gphoto not found -> exit
       std::exit(EXIT_FAILURE);
@@ -98,8 +98,15 @@ auto FotoBox::checkGPhoto2() -> bool
   //check result
   if(output.isEmpty()) {
       QApplication::restoreOverrideCursor();
-      QMessageBox::critical(nullptr, tr("gphoto2 not found"),
-                            tr("Please install 'gphoto2' on your Raspberry Pi\nhttps://github.com/gonzalo/gphoto2-updater"));
+      QMessageBox msgBox;
+       msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
+       msgBox.setWindowTitle("gphoto2 missing");
+       msgBox.setText(tr("Please install 'gphoto2' on <br><br>"
+                         "Raspberry Pi: <a href='https://github.com/gonzalo/gphoto2-updater'>gphoto2-updater</a><br>"
+                         "macOS: <a href='https://brew.sh>Homebrew/'>Homebrew</a>"));
+       msgBox.setStandardButtons(QMessageBox::Ok);
+       msgBox.setIcon(QMessageBox::Critical);
+       msgBox.exec();
 #ifndef QT_DEBUG
       QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif
