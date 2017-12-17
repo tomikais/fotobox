@@ -11,9 +11,10 @@
 #include "camera.h"
 
 class QProcess;
-class Buzzer;
 class QKeyEvent;
 class QTranslator;
+class Buzzer;
+class Settings;
 namespace Ui
 {
   class MainWindow;
@@ -74,18 +75,21 @@ private:
 
 
   //User Interface
-  Ui::MainWindow* m_ui;
+  Ui::MainWindow *m_ui;
 
   //Camera (shot photo)
   Camera m_camera;
 
   //Buzzer (Raspberry Pi GPIO)
-  Buzzer* m_buzzer;
+  Buzzer *m_buzzer;
 
   //application directory
   QString m_appPath;
 
   //store / load the photo
   QPixmap m_photo;
+
+  //setting (INI file)
+  Settings *m_settings;
 
 };

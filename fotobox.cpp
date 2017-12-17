@@ -9,6 +9,7 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
+#include "settings.h"
 
 #include <QDir>
 #include <QProcess>
@@ -17,12 +18,13 @@
 #include <QMessageBox>
 
 
-FotoBox::FotoBox(QWidget* parent) : QMainWindow(parent),
+FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_ui(new Ui::MainWindow),
   m_camera(this),
   m_buzzer(new Buzzer(nullptr)),
   m_appPath(QApplication::applicationDirPath() + QDir::separator()),
-  m_photo()
+  m_photo(),
+  m_settings()
 {
   //Setup GUI
   m_ui->setupUi(this);
@@ -99,14 +101,14 @@ auto FotoBox::checkGPhoto2() -> bool
   if(output.isEmpty()) {
       QApplication::restoreOverrideCursor();
       QMessageBox msgBox;
-       msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
-       msgBox.setWindowTitle("gphoto2 missing");
-       msgBox.setText(tr("Please install 'gphoto2' on <br><br>"
-                         "Raspberry Pi: <a href='https://github.com/gonzalo/gphoto2-updater'>gphoto2-updater</a><br>"
-                         "macOS: <a href='https://brew.sh>Homebrew/'>Homebrew</a>"));
-       msgBox.setStandardButtons(QMessageBox::Ok);
-       msgBox.setIcon(QMessageBox::Critical);
-       msgBox.exec();
+      msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
+      msgBox.setWindowTitle("gphoto2 missing");
+      msgBox.setText(tr("Please install 'gphoto2' on <br><br>"
+                        "Raspberry Pi: <a href='https://github.com/gonzalo/gphoto2-updater'>gphoto2-updater</a><br>"
+                        "macOS: <a href='https://brew.sh>Homebrew/'>Homebrew</a>"));
+      msgBox.setStandardButtons(QMessageBox::Ok);
+      msgBox.setIcon(QMessageBox::Critical);
+      msgBox.exec();
 #ifndef QT_DEBUG
       QApplication::setOverrideCursor(Qt::BlankCursor);
 #endif

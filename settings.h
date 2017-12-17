@@ -1,17 +1,20 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
-
+/* settings.h
+ *
+ * Copyright (c) 2017 Thomas Kais
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ */
+#pragma once
 #include <QObject>
+#include <QSettings>
 
 class Settings : public QObject
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    explicit Settings(QObject *parent = nullptr);
+  explicit Settings(QObject *parent = nullptr);
 
-signals:
-
-public slots:
+private:
+  QSettings m_qsettings;
 };
-
-#endif // SETTINGS_H
