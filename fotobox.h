@@ -83,13 +83,13 @@ private:
   //Buzzer (Raspberry Pi GPIO)
   Buzzer *m_buzzer;
 
-  //application directory
-  QString m_appPath;
-
   //store / load the photo
   QPixmap m_photo;
 
   //setting (INI file)
   Settings *m_settings;
+
+  //application directory
+  QString m_appPath;
 
 };

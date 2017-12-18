@@ -22,9 +22,17 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_ui(new Ui::MainWindow),
   m_camera(this),
   m_buzzer(new Buzzer(nullptr)),
-  m_appPath(QApplication::applicationDirPath() + QDir::separator()),
   m_photo(),
-  m_settings()
+  m_settings(),
+#if defined __APPLE__
+  //macOS shit
+  m_appPath(QApplication::applicationDirPath() + QDir::separator() +
+            QStringLiteral("..") + QDir::separator() +
+            QStringLiteral("..") + QDir::separator() +
+            QStringLiteral("..") + QDir::separator())
+#else
+  m_appPath(QApplication::applicationDirPath() + QDir::separator())
+#endif
 {
   //Setup GUI
   m_ui->setupUi(this);
