@@ -42,6 +42,8 @@ Download and install: http://wiringpi.com/download-and-install/
 `git clone ssh://"thomas kais"@192.168.0.4/volume1/git/fotobox`
 
 # Other
+## SSH
+`ssh pi@raspberrypi.local`
 ## OpenGL support
 `sudo raspi-config` and select 7 *Advance Options* and A6 *GL Drivers*
 
