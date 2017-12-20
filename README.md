@@ -33,7 +33,7 @@ Download and install: http://wiringpi.com/download-and-install/
 
 ## Get source code
 ### Prepare git client
-`sudo apt-get install gitk git-gui`
+`sudo apt-get install gitk git-gui git-doc`
 
 ### GitLab
 `git clone git@gitlab.com:tomikais/fotobox.git`
