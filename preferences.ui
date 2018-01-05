@@ -73,7 +73,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QCheckBox" name="chkButtons">
+        <widget class="QCheckBox" name="chbButtons">
          <property name="text">
           <string>(enable / disable)</string>
          </property>
@@ -167,16 +167,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="btnExit">
-         <property name="text">
-          <string>Beenden</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btnOk">
          <property name="text">
-          <string>Ok</string>
+          <string>Start FotoBox</string>
          </property>
         </widget>
        </item>
@@ -201,12 +194,11 @@
  </widget>
  <tabstops>
   <tabstop>btnOk</tabstop>
-  <tabstop>chkButtons</tabstop>
+  <tabstop>chbButtons</tabstop>
   <tabstop>spbOutputPin</tabstop>
   <tabstop>spbInputPin</tabstop>
   <tabstop>txtGphoto2Arg</tabstop>
   <tabstop>spbTimout</tabstop>
-  <tabstop>btnExit</tabstop>
  </tabstops>
  <resources/>
  <connections/>
