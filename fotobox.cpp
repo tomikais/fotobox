@@ -47,8 +47,8 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_ui->btnStart->setStyleSheet("background-color: grey;");
   m_ui->btnQuitApp->setStyleSheet("background-color: grey;");
   //connect buttons
-  QObject::connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
-  QObject::connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
+  connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+  connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
 #else //RELEASE
   //remove mouse cursor
   QApplication::setOverrideCursor(Qt::BlankCursor);

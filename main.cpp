@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
   //Set Qt application settings
   QApplication app(argc, argv);
   app.setOrganizationName("Thomas Kais");
-  app.setApplicationName("Fotobox");
+  app.setApplicationName("FotoBox");
   app.setApplicationVersion("1.2.0");
 
   //Translation
