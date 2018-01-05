@@ -187,6 +187,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>set $(LocalDebuggerEnvironment)
+set VCINSTALLDIR=$(VCInstallDir)
+"$(QTDIR)\bin\windeployqt.exe" "$(TargetPath)" --no-system-d3d-compiler --no-angle --no-opengl-sw --no-compiler-runtime</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -206,6 +211,11 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>set $(LocalDebuggerEnvironment)
+set VCINSTALLDIR=$(VCInstallDir)
+"$(QTDIR)\bin\windeployqt.exe" "$(TargetPath)" --no-system-d3d-compiler --no-angle --no-opengl-sw --no-compiler-runtime</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
