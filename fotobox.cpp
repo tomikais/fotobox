@@ -9,7 +9,6 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
-#include "settings.h"
 
 #include <QDir>
 #include <QProcess>

@@ -1,14 +1,21 @@
+/* preferences.cpp
+ *
+ * Copyright (c) 2017 Thomas Kais
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ */
 #include "preferences.h"
 #include "ui_preferences.h"
 
-Preferences::Preferences(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Preferences)
+Preferences::Preferences(QWidget *parent) : QDialog(parent),
+  m_ui(new Ui::Preferences),
+  m_settings()
 {
-    ui->setupUi(this);
+  m_ui->setupUi(this);
 }
 
 Preferences::~Preferences()
 {
-    delete ui;
+  delete m_ui;
 }

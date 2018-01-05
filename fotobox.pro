@@ -20,13 +20,16 @@ TEMPLATE         = app
 SOURCES         += main.cpp \
                    fotobox.cpp \
                    buzzer.cpp \
-                   camera.cpp
+                   camera.cpp \
+                   preferences.cpp
 
 HEADERS         += fotobox.h \
                    buzzer.h \
-                   camera.h
+                   camera.h \
+                   preferences.h
 
-FORMS            = mainwindow.ui
+FORMS            = mainwindow.ui \
+                   preferences.ui
 
 RESOURCES       += fotobox.qrc
 TRANSLATIONS    += fotobox_en.ts \

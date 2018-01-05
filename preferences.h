@@ -1,7 +1,12 @@
-#ifndef PREFERENCES_H
-#define PREFERENCES_H
-
+/* preferences.h
+ *
+ * Copyright (c) 2017 Thomas Kais
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'LICENSE', which is part of this source code package.
+ */
 #include <QDialog>
+#include <QSettings>
 
 namespace Ui {
 class Preferences;
@@ -9,14 +14,13 @@ class Preferences;
 
 class Preferences : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    explicit Preferences(QWidget *parent = 0);
-    ~Preferences();
+  explicit Preferences(QWidget *parent = nullptr);
+  ~Preferences();
 
 private:
-    Ui::Preferences *ui;
+  Ui::Preferences *m_ui;
+  QSettings m_settings;
 };
-
-#endif // PREFERENCES_H
