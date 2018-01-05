@@ -21,7 +21,7 @@
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_ui(new Ui::MainWindow),
   m_camera(this),
-  m_buzzer(new Buzzer(nullptr)),
+  m_buzzer(new Buzzer),
   m_photo(),
 #if defined __APPLE__
   //macOS shit

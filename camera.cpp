@@ -10,8 +10,7 @@
 #include <QProcess>
 
 
-Camera::Camera(QObject *parent) :
-  QObject(parent),
+Camera::Camera(QObject *parent) : QObject(parent),
   m_process(new QProcess(this))
 {
   //check pointer

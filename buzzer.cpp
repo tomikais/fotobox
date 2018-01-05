@@ -13,8 +13,7 @@
 
 #include <wiringPi.h>
 
-Buzzer::Buzzer(QObject *parent) :
-  QThread(parent)
+Buzzer::Buzzer(QObject *parent) : QThread(parent)
 {
   //wiringPi http://wiringpi.com/reference/setup/
   //function always returns zero 0, no need to check result!
@@ -39,8 +38,7 @@ auto Buzzer::run() -> void
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) :
-  QThread(parent)
+Buzzer::Buzzer(QObject *parent) : QThread(parent)
 {}
 
 auto Buzzer::run() -> void

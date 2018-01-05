@@ -11,7 +11,7 @@
 
 /*!
  * \brief This class handles the buzzer
- *  Run in a sperated thread.
+ *  Run in a separate thread.
  */
 class Buzzer : public QThread
 {
