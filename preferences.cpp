@@ -11,7 +11,7 @@
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::Preferences),
-  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->organizationName(), qApp->applicationName(), this)
+  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this)
 {
   //setup UI
   m_ui->setupUi(this);
