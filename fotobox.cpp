@@ -9,9 +9,7 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
-#include "preferences.h"
 
-#include <QDir>
 #include <QProcess>
 #include <QKeyEvent>
 #include <QTimer>
@@ -23,29 +21,12 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_camera(this),
   m_buzzer(new Buzzer),
   m_photo(),
-#if defined __APPLE__
-  //macOS shit
-  m_appPath(QApplication::applicationDirPath() + QDir::separator() +
-            QStringLiteral("..") + QDir::separator() +
-            QStringLiteral("..") + QDir::separator() +
-            QStringLiteral("..") + QDir::separator())
-#else
-  m_appPath(QApplication::applicationDirPath() + QDir::separator())
-#endif
+  m_preferences(this)
 {
   //Setup GUI
   m_ui->setupUi(this);
 
-
-  Preferences settings(this);
-  settings.exec();
-
-  //set black as background color
-  setStyleSheet("background-color:black;");
-
 #ifdef QT_DEBUG
-  m_ui->btnStart->setStyleSheet("background-color: grey;");
-  m_ui->btnQuitApp->setStyleSheet("background-color: grey;");
   //connect buttons
   connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
   connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
@@ -70,6 +51,8 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
 #endif
   m_buzzer->start();
+
+  m_preferences.show();
 }
 
 
@@ -165,7 +148,7 @@ auto FotoBox::showResults() -> void
   QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
   //load photo
-  if (!m_photo.load(m_appPath + "preview.jpg")) {
+  if (!m_photo.load(m_preferences.pictureDirectory() + "preview.jpg")) {
       m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
   else {

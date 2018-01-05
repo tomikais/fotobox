@@ -34,6 +34,12 @@ public:
   */
   ~Preferences();
 
+  /*!
+  * \brief return the directory to store the pictures
+  * \return QString absolute directory path
+  */
+  auto pictureDirectory() const -> QString;
+
 
 private:
   /*!

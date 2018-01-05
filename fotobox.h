@@ -9,6 +9,7 @@
 #include <QMainWindow>
 
 #include "camera.h"
+#include "preferences.h"
 
 class QProcess;
 class QKeyEvent;
@@ -85,7 +86,7 @@ private:
   //store / load the photo
   QPixmap m_photo;
 
-  //application directory
-  QString m_appPath;
+  //application preferences
+  Preferences m_preferences;
 
 };

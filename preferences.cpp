@@ -8,6 +8,9 @@
 #include "preferences.h"
 #include "ui_preferences.h"
 
+#include <QDir>
+#include <QDesktopWidget>
+
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::Preferences),
@@ -15,6 +18,9 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 {
   //setup UI
   m_ui->setupUi(this);
+
+  //move to center
+  setGeometry(QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 
   //connect button
   connect(m_ui->btnOk, &QPushButton::clicked, this, &Preferences::close);
@@ -39,4 +45,20 @@ auto Preferences::closeEvent(QCloseEvent *event) -> void
 
   //default close request
   QDialog::closeEvent(event);
+}
+
+
+auto Preferences::pictureDirectory() const -> QString
+{
+  QString picDir;
+#if defined __APPLE__
+  //macOS shit
+  picDir = QApplication::applicationDirPath() + QDir::separator() +
+    QStringLiteral("..") + QDir::separator() +
+    QStringLiteral("..") + QDir::separator() +
+    QStringLiteral("..") + QDir::separator();
+#else
+  picDir = QApplication::applicationDirPath() + QDir::separator();
+#endif
+  return picDir;
 }

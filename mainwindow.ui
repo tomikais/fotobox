@@ -13,6 +13,11 @@
   <property name="windowTitle">
    <string>FotoBox by Thomas Kais ©</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWindow {
+	background-color:black;
+}</string>
+  </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -39,6 +44,9 @@
             <pointsize>16</pointsize>
            </font>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: grey;</string>
+          </property>
           <property name="text">
            <string>take picture</string>
           </property>
@@ -63,6 +71,9 @@
            <font>
             <pointsize>12</pointsize>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: grey;</string>
           </property>
           <property name="text">
            <string>exit</string>
