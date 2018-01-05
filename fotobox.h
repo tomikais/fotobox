@@ -14,7 +14,6 @@ class QProcess;
 class QKeyEvent;
 class QTranslator;
 class Buzzer;
-class Settings;
 namespace Ui
 {
   class MainWindow;
@@ -85,9 +84,6 @@ private:
 
   //store / load the photo
   QPixmap m_photo;
-
-  //setting (INI file)
-  Settings *m_settings;
 
   //application directory
   QString m_appPath;

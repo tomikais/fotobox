@@ -12,6 +12,7 @@ namespace Ui {
 class Preferences;
 }
 
+
 class Preferences : public QDialog
 {
   Q_OBJECT
