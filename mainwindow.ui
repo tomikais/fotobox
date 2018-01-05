@@ -13,15 +13,12 @@
   <property name="windowTitle">
    <string>FotoBox by Thomas Kais ©</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">background-color:black;</string>
-  </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="mainLayout">
       <item>
-       <widget class="QLabel" name="photo">
+       <widget class="QLabel" name="lblPhoto">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -36,14 +33,11 @@
       <item>
        <layout class="QHBoxLayout" name="secondRowLayout">
         <item>
-         <widget class="QPushButton" name="start">
+         <widget class="QPushButton" name="btnStart">
           <property name="font">
            <font>
             <pointsize>16</pointsize>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: grey;</string>
           </property>
           <property name="text">
            <string>take picture</string>
@@ -64,14 +58,11 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="quitApp">
+         <widget class="QPushButton" name="btnQuitApp">
           <property name="font">
            <font>
             <pointsize>12</pointsize>
            </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: grey;</string>
           </property>
           <property name="text">
            <string>exit</string>
@@ -96,6 +87,10 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>btnStart</tabstop>
+  <tabstop>btnQuitApp</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

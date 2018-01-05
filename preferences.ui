@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>770</width>
     <height>250</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>FotoBox preferences</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
@@ -46,7 +49,7 @@
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QSpinBox" name="spInputPin">
+        <widget class="QSpinBox" name="spbInputPin">
          <property name="maximum">
           <number>40</number>
          </property>
@@ -56,7 +59,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSpinBox" name="spOutputPin">
+        <widget class="QSpinBox" name="spbOutputPin">
          <property name="maximum">
           <number>40</number>
          </property>
@@ -70,7 +73,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="chkButtons">
          <property name="text">
           <string>(enable / disable)</string>
          </property>
@@ -90,7 +93,7 @@
         </widget>
        </item>
        <item row="5" column="0" colspan="2">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="lblCamera">
          <property name="font">
           <font>
            <weight>75</weight>
@@ -103,7 +106,7 @@
         </widget>
        </item>
        <item row="6" column="1">
-        <widget class="QLineEdit" name="leGphoto2Arg">
+        <widget class="QLineEdit" name="txtGphoto2Arg">
          <property name="placeholderText">
           <string>--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite</string>
          </property>
@@ -120,14 +123,14 @@
         </widget>
        </item>
        <item row="7" column="0">
-        <widget class="QLabel" name="label_2">
+        <widget class="QLabel" name="lblTimeout">
          <property name="text">
           <string>Timeout</string>
          </property>
         </widget>
        </item>
        <item row="7" column="1">
-        <widget class="QSpinBox" name="spinBox">
+        <widget class="QSpinBox" name="spbTimout">
          <property name="value">
           <number>10</number>
          </property>
@@ -164,14 +167,14 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="exit">
+        <widget class="QPushButton" name="btnExit">
          <property name="text">
           <string>Beenden</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="ok">
+        <widget class="QPushButton" name="btnOk">
          <property name="text">
           <string>Ok</string>
          </property>
@@ -197,11 +200,13 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>ok</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>spOutputPin</tabstop>
-  <tabstop>spInputPin</tabstop>
-  <tabstop>exit</tabstop>
+  <tabstop>btnOk</tabstop>
+  <tabstop>chkButtons</tabstop>
+  <tabstop>spbOutputPin</tabstop>
+  <tabstop>spbInputPin</tabstop>
+  <tabstop>txtGphoto2Arg</tabstop>
+  <tabstop>spbTimout</tabstop>
+  <tabstop>btnExit</tabstop>
  </tabstops>
  <resources/>
  <connections/>

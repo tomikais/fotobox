@@ -9,6 +9,7 @@
 
 #include "ui_mainwindow.h"
 #include "buzzer.h"
+#include "preferences.h"
 
 #include <QDir>
 #include <QProcess>
@@ -22,7 +23,6 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_camera(this),
   m_buzzer(new Buzzer(nullptr)),
   m_photo(),
-  m_settings(),
 #if defined __APPLE__
   //macOS shit
   m_appPath(QApplication::applicationDirPath() + QDir::separator() +
@@ -36,10 +36,19 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //Setup GUI
   m_ui->setupUi(this);
 
+
+  Preferences settings(this);
+  settings.exec();
+
+  //set black as background color
+  setStyleSheet("background-color:black;");
+
 #ifdef QT_DEBUG
+  m_ui->btnStart->setStyleSheet("background-color: grey;");
+  m_ui->btnQuitApp->setStyleSheet("background-color: grey;");
   //connect buttons
-  QObject::connect(m_ui->quitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
-  QObject::connect(m_ui->start, &QPushButton::clicked, this, &FotoBox::startShot);
+  QObject::connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+  QObject::connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
 #else //RELEASE
   //remove mouse cursor
   QApplication::setOverrideCursor(Qt::BlankCursor);
@@ -133,8 +142,8 @@ auto FotoBox::checkGPhoto2() -> bool
 auto FotoBox::startShot() -> void
 {
   //remove current picture / refresh label (photo)
-  m_ui->photo->clear();
-  m_ui->photo->repaint();
+  m_ui->lblPhoto->clear();
+  m_ui->lblPhoto->repaint();
 
   //take a photo
   if(m_camera.takePicture()) {
@@ -153,7 +162,7 @@ auto FotoBox::startShot() -> void
 auto FotoBox::showResults() -> void
 {
   //get size from label
-  QSize size(m_ui->photo->width(), m_ui->photo->height());
+  QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
   //load photo
   if (!m_photo.load(m_appPath + "preview.jpg")) {
@@ -161,6 +170,6 @@ auto FotoBox::showResults() -> void
     }
   else {
       //Resize picture
-      m_ui->photo->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
 }
