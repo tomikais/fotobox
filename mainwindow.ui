@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>284</width>
-    <height>113</height>
+    <height>114</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>FotoBox by Thomas Kais ©</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#MainWindow {
+   <string notr="true">#MainWindow, #statusBar {
 	background-color:black;
 }</string>
   </property>

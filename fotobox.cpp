@@ -12,7 +12,6 @@
 
 #include <QProcess>
 #include <QKeyEvent>
-#include <QTimer>
 #include <QMessageBox>
 
 
