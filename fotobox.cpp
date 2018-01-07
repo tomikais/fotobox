@@ -51,7 +51,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
 #endif
   m_buzzer->start();
 
-  m_preferences.show();
+  m_preferences.exec();
 }
 
 
