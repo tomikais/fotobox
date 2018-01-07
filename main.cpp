@@ -38,10 +38,9 @@ int main(int argc, char *argv[])
         }
     }
 
+  //Start FotoBox in fullscreen mode
   FotoBox fotobox;
-  //Fullscreen
-  fotobox.setWindowState(Qt::WindowFullScreen);
-  fotobox.show();
+  fotobox.showFullScreen();
 
   //Start the Qt EventLoop
   return app.exec();
