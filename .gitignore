@@ -368,3 +368,14 @@ target_wrapper.*
 
 # QtCtreator CMake
 CMakeLists.txt.user*
+
+
+#######################################################################################################
+
+
+## OS generated files
+
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
