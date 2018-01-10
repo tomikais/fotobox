@@ -41,6 +41,16 @@ public:
   auto pictureDirectory() const -> QString;
 
 
+private slots:
+  //TODO docu
+  void colorDialog();
+
+  /*!
+   * \brief quit application without saving
+   */
+  void quitApplication();
+
+
 private:
   /*!
   * \brief override void QWidget::closeEvent(QCloseEvent *event)
