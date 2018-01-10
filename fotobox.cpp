@@ -25,6 +25,9 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //Setup GUI
   m_ui->setupUi(this);
 
+  //Display Preferences
+  m_preferences.exec();
+
 #ifdef QT_DEBUG
   //connect buttons
   connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
@@ -33,8 +36,8 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //remove mouse cursor
   QApplication::setOverrideCursor(Qt::BlankCursor);
   //remove buttons
-  m_ui->quitApp->deleteLater();
-  m_ui->start->deleteLater();
+  m_ui->btnQuitApp->deleteLater();
+  m_ui->btnStart->deleteLater();
 #endif
 
   //gphoto2 installed on the operating system?
@@ -50,8 +53,6 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
 #endif
   m_buzzer->start();
-
-  m_preferences.exec();
 }
 
 
