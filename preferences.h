@@ -8,8 +8,12 @@
 #include <QDialog>
 #include <QSettings>
 
+
+class QLabel;
+
+
 namespace Ui {
-class Preferences;
+  class Preferences;
 }
 
 
@@ -38,11 +42,14 @@ public:
   * \brief return the directory to store the pictures
   * \return QString absolute directory path
   */
-  auto pictureDirectory() const -> QString;
+  auto pictureDirectory() const->QString;
 
 
-private slots:
-  //TODO docu
+  private slots:
+  /*!
+  * \brief Open a color picker to choose background color
+  * \details Save color picked by a user in tool tip of th color label.
+  */
   void colorDialog();
 
   /*!
@@ -51,12 +58,27 @@ private slots:
   void quitApplication();
 
 
-private:
+protected:
   /*!
   * \brief override void QWidget::closeEvent(QCloseEvent *event)
   * \details save application settings to INI file
   */
-  auto closeEvent(QCloseEvent *event) -> void override;
+  auto virtual closeEvent(QCloseEvent *event) -> void override;
+
+  /*!
+  * \brief override void Dialog::closeEvent(QCloseEvent *e)
+  * \details load application settings from INI file
+  */
+  auto virtual showEvent(QShowEvent *event) -> void override;
+
+
+private:
+  /*!
+  * \brief override void Dialog::closeEvent(QCloseEvent *e)
+  * \details load application settings from INI file
+  */
+  auto setLabelColor(QLabel *i_label, const QColor &i_color) -> void;
+
 
   //User Interface
   Ui::Preferences *m_ui;

@@ -11,6 +11,7 @@
 #include <QColorDialog>
 #include <QDesktopWidget>
 #include <QDir>
+#include <QLabel>
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
@@ -27,6 +28,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->btnStart, &QPushButton::clicked, this, &Preferences::close);
   connect(m_ui->btnQuit, &QPushButton::clicked, this, &Preferences::quitApplication);
   connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
+
+  //restore application settings
 }
 
 
@@ -50,15 +53,31 @@ auto Preferences::closeEvent(QCloseEvent *event) -> void
 {
   //GENERAL
   m_settings.setValue(m_ui->chbButtons->objectName(), m_ui->chbButtons->checkState());
-  //m_settings.setValue(m_ui->lblShowColor->objectName(),
+  m_settings.setValue(m_ui->lblShowColor->objectName(), m_ui->lblShowColor->toolTip());
   
   //BUZZER
 
   //CAMERA
 
 
-  //default close request
+  //default close event
   QDialog::closeEvent(event);
+}
+
+
+auto Preferences::showEvent(QShowEvent *event) -> void
+{
+  //GENERAL
+  m_ui->chbButtons->setCheckState(static_cast<Qt::CheckState>(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->checkState()).toInt()));
+  setLabelColor(m_ui->lblShowColor, m_settings.value(m_ui->lblShowColor->objectName(), m_ui->lblShowColor->toolTip()).toString());
+
+  //BUZZER
+
+  //CAMERA
+
+
+  //default show event
+  QDialog::showEvent(event);
 }
 
 
@@ -84,6 +103,14 @@ auto Preferences::colorDialog() -> void
   dialog.exec();
 
   //show the color which the user has selected
-  m_ui->lblShowColor->setPalette(QPalette(dialog.selectedColor()));
-  m_ui->lblShowColor->setText(dialog.selectedColor().name());
+  setLabelColor(m_ui->lblShowColor, dialog.selectedColor());
+}
+
+
+auto Preferences::setLabelColor(QLabel *i_label, const QColor& i_color) -> void
+{
+  //set color
+  i_label->setPalette(i_color);
+  //set tooltip
+  i_label->setToolTip(i_color.name());
 }
