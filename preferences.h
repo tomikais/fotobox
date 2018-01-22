@@ -24,6 +24,8 @@ namespace Ui {
 class Preferences : public QDialog
 {
   Q_OBJECT
+    Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons)
+    Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor)
 
 
 public:
@@ -43,6 +45,12 @@ public:
   * \return QString absolute directory path
   */
   auto pictureDirectory() const->QString;
+
+  //QT PROPERTIES
+  Qt::CheckState showButtons() { return m_general.showButtons; }
+  void setShowButtons(Qt::CheckState i_value) { m_general.showButtons = i_value; }
+  QString& backgroundColor() { return m_general.backgroundColor; }
+  void setBackgroundColor(QString& i_value) { m_general.backgroundColor = i_value; }
 
 
   private slots:
@@ -73,6 +81,11 @@ protected:
 
 
 private:
+  struct generalSettings {
+    Qt::CheckState showButtons;
+    QString backgroundColor;
+  };
+
   /*!
   * \brief override void Dialog::closeEvent(QCloseEvent *e)
   * \details load application settings from INI file
@@ -85,4 +98,6 @@ private:
 
   //Store and read settings (INI file)
   QSettings m_settings;
+
+  generalSettings m_general;
 };

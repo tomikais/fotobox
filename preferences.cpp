@@ -15,14 +15,15 @@
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-  m_ui(new Ui::Preferences),
-  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this)
+m_ui(new Ui::Preferences),
+m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
+m_general{}
 {
   //setup UI
   m_ui->setupUi(this);
 
   //move to center
-  setGeometry(QStyle::alignedRect( Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
+  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 
   //connect button
   connect(m_ui->btnStart, &QPushButton::clicked, this, &Preferences::close);
@@ -49,12 +50,14 @@ auto Preferences::quitApplication() -> void
 }
 
 
-auto Preferences::closeEvent(QCloseEvent *event) -> void 
+auto Preferences::closeEvent(QCloseEvent *event) -> void
 {
   //GENERAL
-  m_settings.setValue(m_ui->chbButtons->objectName(), m_ui->chbButtons->checkState());
-  m_settings.setValue(m_ui->lblShowColor->objectName(), m_ui->lblShowColor->toolTip());
-  
+  m_general.showButtons = m_ui->chbButtons->checkState();
+  m_settings.setValue(m_ui->chbButtons->objectName(), m_general.showButtons);
+  m_general.backgroundColor = m_ui->lblShowColor->toolTip();
+  m_settings.setValue(m_ui->lblShowColor->objectName(), m_general.backgroundColor);
+
   //BUZZER
 
   //CAMERA
