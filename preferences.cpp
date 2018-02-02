@@ -59,6 +59,10 @@ auto Preferences::closeEvent(QCloseEvent *event) -> void
   m_settings.setValue(m_ui->lblShowColor->objectName(), m_general.backgroundColor);
 
   //BUZZER
+  m_buzzer.inputPin = m_ui->spbInputPin->value();
+  m_settings.setValue(m_ui->spbInputPin->objectName(), m_buzzer.inputPin);
+  m_buzzer.outputPin = m_ui->spbOutputPin->value();
+  m_settings.setValue(m_ui->spbOutputPin->objectName(), m_buzzer.outputPin);
 
   //CAMERA
 
@@ -75,6 +79,8 @@ auto Preferences::showEvent(QShowEvent *event) -> void
   setLabelColor(m_ui->lblShowColor, m_settings.value(m_ui->lblShowColor->objectName(), m_ui->lblShowColor->toolTip()).toString());
 
   //BUZZER
+  m_ui->spbInputPin->setValue(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
+  m_ui->spbOutputPin->setValue(m_settings.value(m_ui->spbOutputPin->objectName(), m_ui->spbOutputPin->value()).toInt());
 
   //CAMERA
 

@@ -5,6 +5,7 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#pragma once
 #include <QDialog>
 #include <QSettings>
 
@@ -26,6 +27,21 @@ class Preferences : public QDialog
   Q_OBJECT
     Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons)
     Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor)
+    Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin)
+    Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin)
+
+public:
+  Qt::CheckState showButtons() { return m_general.showButtons; }
+  void setShowButtons(const Qt::CheckState i_value) { m_general.showButtons = i_value; }
+
+  QString& backgroundColor() { return m_general.backgroundColor; }
+  void setBackgroundColor(const QString& i_value) { m_general.backgroundColor = i_value; }
+
+  int inputPin() { return m_buzzer.inputPin; }
+  void setInputPin(const int i_inputPin) { m_buzzer.inputPin = i_inputPin; }
+
+  int outputPin() { return m_buzzer.outputPin; }
+  void setOutputPin(const int i_outputPin) { m_buzzer.inputPin = i_outputPin; }
 
 
 public:
@@ -46,14 +62,24 @@ public:
   */
   auto pictureDirectory() const->QString;
 
-  //QT PROPERTIES
-  Qt::CheckState showButtons() { return m_general.showButtons; }
-  void setShowButtons(Qt::CheckState i_value) { m_general.showButtons = i_value; }
-  QString& backgroundColor() { return m_general.backgroundColor; }
-  void setBackgroundColor(QString& i_value) { m_general.backgroundColor = i_value; }
+  /*!
+  * \brief struct store general settings
+  */
+  struct generalSettings {
+    Qt::CheckState showButtons; /**< show buttons in GUI */
+    QString backgroundColor;    /**< background color */
+  };
+
+  /*!
+  * \brief struct store buzzer settings
+  */
+  struct buzzerSettings {
+    int inputPin;   /**< default: GPIO 17 (=wiringPi pin 0) */
+    int outputPin;  /**< default: GPIO 24 (=wiringPi pin 5) */
+  };
 
 
-  private slots:
+private slots:
   /*!
   * \brief Open a color picker to choose background color
   * \details Save color picked by a user in tool tip of th color label.
@@ -81,11 +107,6 @@ protected:
 
 
 private:
-  struct generalSettings {
-    Qt::CheckState showButtons;
-    QString backgroundColor;
-  };
-
   /*!
   * \brief override void Dialog::closeEvent(QCloseEvent *e)
   * \details load application settings from INI file
@@ -99,5 +120,9 @@ private:
   //Store and read settings (INI file)
   QSettings m_settings;
 
+  //general ettings
   generalSettings m_general;
+
+  //buzzer settings
+  buzzerSettings m_buzzer;
 };

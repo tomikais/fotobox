@@ -15,6 +15,7 @@ class QProcess;
 class QKeyEvent;
 class QTranslator;
 class Buzzer;
+
 namespace Ui
 {
   class MainWindow;
@@ -77,6 +78,9 @@ private:
   //User Interface
   Ui::MainWindow *m_ui;
 
+  //application preferences
+  Preferences m_preferences;
+
   //Camera (shot photo)
   Camera m_camera;
 
@@ -85,8 +89,5 @@ private:
 
   //store / load the photo
   QPixmap m_photo;
-
-  //application preferences
-  Preferences m_preferences;
 
 };

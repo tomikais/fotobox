@@ -17,10 +17,10 @@
 
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
 m_ui(new Ui::MainWindow),
+m_preferences(this),
 m_camera(this),
 m_buzzer(new Buzzer),
-m_photo(),
-m_preferences(this)
+m_photo()
 {
   //Setup GUI
   m_ui->setupUi(this);
