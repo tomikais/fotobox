@@ -13,7 +13,6 @@ QT              += core gui widgets
 CONFIG          += c++11
 
 TARGET           = fotobox
-
 target.path      = /home/pi
 INSTALLS        += target
 
@@ -48,14 +47,13 @@ linux{
 
 
 # wiringPi libs
-linux{
+linux {
     # DEVICE: Raspberry Pi (wiringPi available)
-    contains(QMAKE_HOST.arch, arm.*):{
+    contains(QMAKE_HOST.arch, arm.*): {
         # debug or release build
         debug {
             LIBS            += -lwiringPiDev
-        }
-        release {
+        } release {
             LIBS            += -lwiringPi
         }
     } else {

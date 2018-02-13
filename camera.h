@@ -38,9 +38,6 @@ public:
   auto takePicture() const -> bool;
 
 private:
-  //timout 15secs = 15000msecs
-  const unsigned int m_msecs = 15000;
-
   //start gphoto2 (external program)
   QProcess *m_process;
 

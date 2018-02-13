@@ -6,6 +6,7 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "camera.h"
+#include "preferences.h"
 
 #include <QProcess>
 
@@ -29,26 +30,18 @@ Camera::~Camera()
 auto Camera::takePicture() const -> bool
 {
   //Program name and arguments
-  const QString gphoto2 = "gphoto2 --capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite";
-  /*
-  const QString gphoto2 = "gphoto2";
-  QStringList arguments;
-  arguments << "--capture-image-and-download "
-            << "--keep "
-            << "--filename preview.jpg "
-            << "--set-config /main/settings/capturetarget=1 "
-            << "--force-overwrite ";
-  */
+  const QString gphoto2 = QStringLiteral("gphoto2 ") + Preferences::getInstance().argumentLine();
 
   //Start programm with given arguments
   m_process->start(gphoto2, QIODevice::NotOpen);
 
+  //convert to milliseconds
+  auto milliseconds = 1000 * Preferences::getInstance().timeoutValue();
+
   //start call and check if everthing was okay
-  if(!m_process->waitForFinished(m_msecs) || m_process->exitCode() != EXIT_SUCCESS){
+  if(!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS){
       //error
-#ifdef QT_NO_DEBUG //in debug return true
       return false;
-#endif
     }
 
   return true;

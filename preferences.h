@@ -25,27 +25,8 @@ namespace Ui {
 class Preferences : public QDialog
 {
   Q_OBJECT
-  Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons)
-  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor)
-  Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin)
-  Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin)
-
 
 public:
-  //Qt Property
-  Qt::CheckState showButtons() { return m_general.showButtons; }
-  void setShowButtons(const Qt::CheckState i_value) { m_general.showButtons = i_value; }
-
-  QString& backgroundColor() { return m_general.backgroundColor; }
-  void setBackgroundColor(const QString& i_value) { m_general.backgroundColor = i_value; }
-
-  int inputPin() { return m_buzzer.inputPin; }
-  void setInputPin(const int i_inputPin) { m_buzzer.inputPin = i_inputPin; }
-
-  int outputPin() { return m_buzzer.outputPin; }
-  void setOutputPin(const int i_outputPin) { m_buzzer.inputPin = i_outputPin; }
-
-
   /*!
    * \brief getInstance (Meyers Singleton)
    */
@@ -55,15 +36,7 @@ public:
   * \brief return the directory to store the pictures
   * \return QString absolute directory path
   */
-  auto pictureDirectory() const->QString;
-
-
-protected:
-  /*!
-  * \brief override void Dialog::closeEvent(QCloseEvent *e)
-  * \details load application settings from INI file
-  */
-  auto virtual showEvent(QShowEvent *event) -> void override;
+  auto pictureDirectory() const -> QString;
 
 
 private slots:
@@ -108,22 +81,11 @@ private:
   */
   auto setLabelColor(QLabel *i_label, const QColor &i_color) -> void;
 
-
   /*!
-  * \brief struct store general settings
+  * \brief override void Dialog::closeEvent(QCloseEvent *e)
+  * \details load application settings from INI file
   */
-  struct generalSettings {
-    Qt::CheckState showButtons; /**< show buttons in GUI */
-    QString backgroundColor;    /**< background color */
-  };
-
-  /*!
-  * \brief struct store buzzer settings
-  */
-  struct buzzerSettings {
-    int inputPin;   /**< default: GPIO 17 (=wiringPi pin 0) */
-    int outputPin;  /**< default: GPIO 24 (=wiringPi pin 5) */
-  };
+  auto loadPreferences() -> void;
 
 
   //User Interface
@@ -132,9 +94,48 @@ private:
   //Store and read settings (INI file)
   QSettings m_settings;
 
-  //general ettings
-  generalSettings m_general;
 
-  //buzzer settings
-  buzzerSettings m_buzzer;
+  //Qt Property
+public:
+  Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
+  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+  Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
+  Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
+  Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
+  Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
+
+  Qt::CheckState showButtons();
+  void setShowButtons(const Qt::CheckState i_value);
+
+  QString& backgroundColor();
+  void setBackgroundColor(const QString& i_value);
+
+  int inputPin();
+  void setInputPin(const int i_value);
+
+  int outputPin();
+  void setOutputPin(const int i_value);
+
+  QString argumentLine();
+  void setArgumentLine(const QString& i_value);
+
+  int timeoutValue();
+  void setTimeoutValue(const int i_value);
+
+signals:
+  void showButtonsChanged(Qt::CheckState);
+  void backgroundColorChanged(QString);
+  void inputPinChanged(int);
+  void outputPinChanged(int);
+  void argumentLineChanged(QString);
+  void timeoutValueChanged(int);
+
+private:
+  Qt::CheckState m_showButtons;
+  QString m_backgroundColor;
+  int m_inputPin;
+  int m_outputPin;
+  QString m_argumentLine;
+  int m_timeoutValue;
+
 };

@@ -27,7 +27,7 @@
           <string> seconds</string>
          </property>
          <property name="value">
-          <number>10</number>
+          <number>15</number>
          </property>
         </widget>
        </item>
@@ -158,7 +158,7 @@
        </item>
        <item row="7" column="1" colspan="3">
         <widget class="QLineEdit" name="txtGphoto2Arg">
-         <property name="placeholderText">
+         <property name="text">
           <string>--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite</string>
          </property>
          <property name="clearButtonEnabled">
