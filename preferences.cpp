@@ -14,10 +14,18 @@
 #include <QLabel>
 
 
+auto Preferences::getInstance() -> Preferences&
+{
+  //thread safe static initializer
+  static Preferences instance;
+  return instance;
+}
+
+
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-m_ui(new Ui::Preferences),
-m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
-m_general{}
+  m_ui(new Ui::Preferences),
+  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
+  m_general{}
 {
   //setup UI
   m_ui->setupUi(this);
@@ -26,11 +34,12 @@ m_general{}
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 
   //connect button
-  connect(m_ui->btnStart, &QPushButton::clicked, this, &Preferences::close);
-  connect(m_ui->btnQuit, &QPushButton::clicked, this, &Preferences::quitApplication);
-  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
+  connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
 
-  //restore application settings
+  connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
 }
 
 
@@ -40,17 +49,7 @@ Preferences::~Preferences()
 }
 
 
-auto Preferences::quitApplication() -> void
-{
-  //prevent to executing closeEvent
-  done(EXIT_FAILURE);
-
-  //Quit CoreApplication
-  QMetaObject::invokeMethod(qApp, "quit", Qt::QueuedConnection);
-}
-
-
-auto Preferences::closeEvent(QCloseEvent *event) -> void
+auto Preferences::savePreferences() -> void
 {
   //GENERAL
   m_general.showButtons = m_ui->chbButtons->checkState();
@@ -65,10 +64,6 @@ auto Preferences::closeEvent(QCloseEvent *event) -> void
   m_settings.setValue(m_ui->spbOutputPin->objectName(), m_buzzer.outputPin);
 
   //CAMERA
-
-
-  //default close event
-  QDialog::closeEvent(event);
 }
 
 
@@ -96,9 +91,9 @@ auto Preferences::pictureDirectory() const -> QString
 #if defined __APPLE__
   //macOS shit
   picDir = QApplication::applicationDirPath() + QDir::separator() +
-    QStringLiteral("..") + QDir::separator() +
-    QStringLiteral("..") + QDir::separator() +
-    QStringLiteral("..") + QDir::separator();
+      QStringLiteral("..") + QDir::separator() +
+      QStringLiteral("..") + QDir::separator() +
+      QStringLiteral("..") + QDir::separator();
 #else
   picDir = QApplication::applicationDirPath() + QDir::separator();
 #endif

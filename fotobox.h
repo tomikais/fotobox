@@ -9,7 +9,6 @@
 #include <QMainWindow>
 
 #include "camera.h"
-#include "preferences.h"
 
 class QProcess;
 class QKeyEvent;
@@ -77,9 +76,6 @@ private:
 
   //User Interface
   Ui::MainWindow *m_ui;
-
-  //application preferences
-  Preferences m_preferences;
 
   //Camera (shot photo)
   Camera m_camera;

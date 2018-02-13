@@ -5,7 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#include "preferences.h"
 #include "fotobox.h"
+
 #include <QApplication>
 #include <QTranslator>
 
@@ -31,11 +33,19 @@ int main(int argc, char *argv[])
       if (translator.load(":/translations/german")) {
           app.installTranslator(&translator);
         }
-    } else {
-      //English as Default
-      if (translator.load(":/translations/english")) {
-          app.installTranslator(&translator);
+      else {
+          //English as Default
+          if (translator.load(":/translations/english")) {
+              app.installTranslator(&translator);
+            }
         }
+    }
+
+  //Show preferences (modal window)
+  Preferences::getInstance().exec();
+  if(QDialog::Accepted == !Preferences::getInstance().result()) {
+      //Quit Application
+      return EXIT_FAILURE;
     }
 
   //Start FotoBox in fullscreen mode
@@ -45,3 +55,4 @@ int main(int argc, char *argv[])
   //Start the Qt EventLoop
   return app.exec();
 }
+

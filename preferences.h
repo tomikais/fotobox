@@ -25,12 +25,14 @@ namespace Ui {
 class Preferences : public QDialog
 {
   Q_OBJECT
-    Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons)
-    Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor)
-    Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin)
-    Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin)
+  Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons)
+  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor)
+  Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin)
+  Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin)
+
 
 public:
+  //Qt Property
   Qt::CheckState showButtons() { return m_general.showButtons; }
   void setShowButtons(const Qt::CheckState i_value) { m_general.showButtons = i_value; }
 
@@ -44,7 +46,40 @@ public:
   void setOutputPin(const int i_outputPin) { m_buzzer.inputPin = i_outputPin; }
 
 
-public:
+  /*!
+   * \brief getInstance (Meyers Singleton)
+   */
+  static Preferences& getInstance();
+
+  /*!
+  * \brief return the directory to store the pictures
+  * \return QString absolute directory path
+  */
+  auto pictureDirectory() const->QString;
+
+
+protected:
+  /*!
+  * \brief override void Dialog::closeEvent(QCloseEvent *e)
+  * \details load application settings from INI file
+  */
+  auto virtual showEvent(QShowEvent *event) -> void override;
+
+
+private slots:
+  /*!
+  * \brief Open a color picker to choose background color
+  * \details Save color picked by a user in tool tip of th color label.
+  */
+  void colorDialog();
+
+  /*!
+  * \brief Save the preferences to QSettings
+  */
+  void savePreferences();
+
+
+private:
   /*!
   * \brief Preferences constructor
   * \param parent QWidget
@@ -52,15 +87,27 @@ public:
   explicit Preferences(QWidget *parent = nullptr);
 
   /*!
-  * \brief FotoBox destructor
+  * \brief Preferences destructor
   */
   ~Preferences();
 
   /*!
-  * \brief return the directory to store the pictures
-  * \return QString absolute directory path
+  * \brief delete copy constructor (Singleton)
   */
-  auto pictureDirectory() const->QString;
+  Preferences(const Preferences&) = delete;
+
+  /*!
+  * \brief delete assigment (Singleton)
+  */
+  Preferences& operator=(const Preferences&) = delete;
+
+
+  /*!
+  * \brief override void Dialog::closeEvent(QCloseEvent *e)
+  * \details load application settings from INI file
+  */
+  auto setLabelColor(QLabel *i_label, const QColor &i_color) -> void;
+
 
   /*!
   * \brief struct store general settings
@@ -77,41 +124,6 @@ public:
     int inputPin;   /**< default: GPIO 17 (=wiringPi pin 0) */
     int outputPin;  /**< default: GPIO 24 (=wiringPi pin 5) */
   };
-
-
-private slots:
-  /*!
-  * \brief Open a color picker to choose background color
-  * \details Save color picked by a user in tool tip of th color label.
-  */
-  void colorDialog();
-
-  /*!
-   * \brief quit application without saving
-   */
-  void quitApplication();
-
-
-protected:
-  /*!
-  * \brief override void QWidget::closeEvent(QCloseEvent *event)
-  * \details save application settings to INI file
-  */
-  auto virtual closeEvent(QCloseEvent *event) -> void override;
-
-  /*!
-  * \brief override void Dialog::closeEvent(QCloseEvent *e)
-  * \details load application settings from INI file
-  */
-  auto virtual showEvent(QShowEvent *event) -> void override;
-
-
-private:
-  /*!
-  * \brief override void Dialog::closeEvent(QCloseEvent *e)
-  * \details load application settings from INI file
-  */
-  auto setLabelColor(QLabel *i_label, const QColor &i_color) -> void;
 
 
   //User Interface

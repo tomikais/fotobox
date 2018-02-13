@@ -10,6 +10,8 @@
 greaterThan(QT_MAJOR_VERSION, 5)
 QT              += core gui widgets
 
+CONFIG          += c++11
+
 TARGET           = fotobox
 
 target.path      = /home/pi
@@ -39,17 +41,17 @@ OTHER_FILES     += README.md \
                    LICENSE
 
 linux{
-    #Speed-Up compiling time with ccache (apt-get install ccache)
+    # Speed-Up compiling time with ccache (apt-get install ccache)
     QMAKE_CXX        = ccache g++
 }
 # add make argument '-j4'
 
 
-#wiringPi libs
+# wiringPi libs
 linux{
-    #DEVICE: Raspberry Pi (wiringPi available)
+    # DEVICE: Raspberry Pi (wiringPi available)
     contains(QMAKE_HOST.arch, arm.*):{
-        #debug or release build
+        # debug or release build
         debug {
             LIBS            += -lwiringPiDev
         }
@@ -57,7 +59,6 @@ linux{
             LIBS            += -lwiringPi
         }
     } else {
-    #DEVICE: other (no wiringPi available)
-
+      #DEVICE: other (no wiringPi available)
     }
 }

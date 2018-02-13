@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>770</width>
-    <height>301</height>
+    <height>345</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -207,16 +207,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="btnStart">
-         <property name="text">
-          <string>Start</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="btnQuit">
-         <property name="text">
-          <string>Quit</string>
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Close|QDialogButtonBox::Ok</set>
          </property>
         </widget>
        </item>
@@ -246,8 +239,6 @@
   <tabstop>spbInputPin</tabstop>
   <tabstop>txtGphoto2Arg</tabstop>
   <tabstop>spbTimout</tabstop>
-  <tabstop>btnStart</tabstop>
-  <tabstop>btnQuit</tabstop>
  </tabstops>
  <resources/>
  <connections/>
