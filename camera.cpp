@@ -45,11 +45,11 @@ auto Camera::takePicture() const -> bool
 
   //start call and check if everthing was okay
   if(!m_process->waitForFinished(m_msecs) || m_process->exitCode() != EXIT_SUCCESS){
-    //error
+      //error
 #ifdef QT_NO_DEBUG //in debug return true
-    return false;
+      return false;
 #endif
-  }
+    }
 
   return true;
 }
