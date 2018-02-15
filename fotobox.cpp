@@ -25,7 +25,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //Setup GUI
   m_ui->setupUi(this);
 
-  if (Preferences::getInstance().showButtons() == Qt::Checked) {
+  if (Preferences::getInstance().showButtons()) {
       //connect buttons
       connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);

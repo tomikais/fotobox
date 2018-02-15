@@ -10,7 +10,7 @@
 #include <QSettings>
 
 
-class QLabel;
+class QLineEdit;
 
 
 namespace Ui {
@@ -79,13 +79,12 @@ private:
   * \brief override void Dialog::closeEvent(QCloseEvent *e)
   * \details load application settings from INI file
   */
-  auto setLabelColor(QLabel *i_label, const QColor &i_color) -> void;
+  auto setLabelColor(QLineEdit *i_lineEdit, const QColor &i_color) -> void;
 
   /*!
-  * \brief override void Dialog::closeEvent(QCloseEvent *e)
-  * \details load application settings from INI file
+  * \brief load application settings from INI file
   */
-  auto loadPreferences() -> void;
+  auto initializePreferences() -> void;
 
 
   //User Interface
@@ -97,15 +96,15 @@ private:
 
   //Qt Property
 public:
-  Q_PROPERTY(Qt::CheckState showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
+  Q_PROPERTY(bool showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
   Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
   Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
   Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
   Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
   Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
 
-  Qt::CheckState showButtons();
-  void setShowButtons(const Qt::CheckState i_value);
+  bool showButtons();
+  void setShowButtons(const bool i_value);
 
   QString& backgroundColor();
   void setBackgroundColor(const QString& i_value);
@@ -123,7 +122,7 @@ public:
   void setTimeoutValue(const int i_value);
 
 signals:
-  void showButtonsChanged(Qt::CheckState);
+  void showButtonsChanged(bool);
   void backgroundColorChanged(QString);
   void inputPinChanged(int);
   void outputPinChanged(int);
@@ -131,7 +130,7 @@ signals:
   void timeoutValueChanged(int);
 
 private:
-  Qt::CheckState m_showButtons;
+  bool m_showButtons;
   QString m_backgroundColor;
   int m_inputPin;
   int m_outputPin;

@@ -21,31 +21,21 @@
     <layout class="QVBoxLayout" name="mainVerticalLayout">
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="8" column="1">
-        <widget class="QSpinBox" name="spbTimout">
-         <property name="suffix">
-          <string> seconds</string>
-         </property>
-         <property name="value">
-          <number>15</number>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="lblTimeout">
+       <item row="2" column="2">
+        <widget class="QPushButton" name="btnChooseColor">
          <property name="text">
-          <string>timeout value</string>
+          <string>Choose Color</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="lblGphoto2Arg">
+       <item row="5" column="0">
+        <widget class="QLabel" name="lblOutputPin">
          <property name="text">
-          <string>GPhoto2 argument line</string>
+          <string>output PIN</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" colspan="2">
+       <item row="7" column="0" colspan="2">
         <widget class="QLabel" name="lblCamera">
          <property name="font">
           <font>
@@ -55,91 +45,6 @@
          </property>
          <property name="text">
           <string>Camera</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="lblGeneral">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>General</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QCheckBox" name="chbButtons">
-         <property name="text">
-          <string>(enable/disable)</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="lblButtons">
-         <property name="text">
-          <string>buttons</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QSpinBox" name="spbOutputPin">
-         <property name="maximum">
-          <number>40</number>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QSpinBox" name="spbInputPin">
-         <property name="maximum">
-          <number>40</number>
-         </property>
-         <property name="value">
-          <number>5</number>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="lblInputPin">
-         <property name="text">
-          <string>input PIN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="lblOutputPin">
-         <property name="text">
-          <string>output PIN</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="lblBuzzer">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Buzzer</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="btnChooseColor">
-         <property name="text">
-          <string>Choose Color</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="lblBackground">
-         <property name="text">
-          <string>background color</string>
          </property>
         </widget>
        </item>
@@ -156,7 +61,28 @@
          </property>
         </spacer>
        </item>
-       <item row="7" column="1" colspan="3">
+       <item row="1" column="0">
+        <widget class="QLabel" name="lblButtons">
+         <property name="text">
+          <string>buttons</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="lblTimeout">
+         <property name="text">
+          <string>timeout value</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="chbButtons">
+         <property name="text">
+          <string>(enable/disable)</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1" colspan="3">
         <widget class="QLineEdit" name="txtGphoto2Arg">
          <property name="text">
           <string>--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite</string>
@@ -166,13 +92,102 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="lblBackground">
+         <property name="text">
+          <string>background color</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QLabel" name="lblGeneral">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>General</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="1">
+        <widget class="QSpinBox" name="spbTimout">
+         <property name="suffix">
+          <string> seconds</string>
+         </property>
+         <property name="value">
+          <number>15</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="lblBuzzer">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Buzzer</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="lblGphoto2Arg">
+         <property name="text">
+          <string>GPhoto2 argument line</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QSpinBox" name="spbOutputPin">
+         <property name="maximum">
+          <number>40</number>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="lblShowColor">
-         <property name="toolTip">
+        <widget class="QLineEdit" name="txtShowColor">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="text">
           <string>#000000</string>
          </property>
-         <property name="autoFillBackground">
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QSpinBox" name="spbInputPin">
+         <property name="maximum">
+          <number>40</number>
+         </property>
+         <property name="value">
+          <number>5</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="lblInputPin">
+         <property name="text">
+          <string>input PIN</string>
          </property>
         </widget>
        </item>
@@ -235,8 +250,8 @@
  <tabstops>
   <tabstop>chbButtons</tabstop>
   <tabstop>btnChooseColor</tabstop>
-  <tabstop>spbOutputPin</tabstop>
   <tabstop>spbInputPin</tabstop>
+  <tabstop>spbOutputPin</tabstop>
   <tabstop>txtGphoto2Arg</tabstop>
   <tabstop>spbTimout</tabstop>
  </tabstops>
