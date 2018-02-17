@@ -7,9 +7,11 @@
  */
 #include "buzzer.h"
 
-#ifdef __arm__
+#ifdef __WIRING_PI_H__
 // ******************************************
 // DEVICE: Raspberry Pi (wiringPi available)
+
+#include "preferences.h"
 
 #include <wiringPi.h>
 
@@ -20,21 +22,22 @@ Buzzer::Buzzer(QObject *parent) : QThread(parent)
   wiringPiSetup();
 
   //set mode of the pin (INPUT, OUTPUT, PWM_OUTPUT)
-  pinMode(m_pinZero, OUTPUT);
-  pinMode(m_pinFive, INPUT);
+  pinMode(Preferences::getInstance().outputPin(), OUTPUT);
+  pinMode(Preferences::getInstance().inputPin(), INPUT);
 }
 
 
 auto Buzzer::run() -> void
 {
   //query pin 5
-  while(digitalRead(m_pinFive) != HIGH) {
+  while(digitalRead(Preferences::getInstance().inputPin()) != HIGH) {
       //wait before check again
-      delay(m_queryIntervalMsecs);
+      delay(Preferences::getInstance().outputPin());
     }
 }
 
 #else
+
 // **************************************
 // DEVICE: other (no wiringPi available)
 

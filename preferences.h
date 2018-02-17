@@ -116,6 +116,7 @@ public:
   Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
   Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
   Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
+  Q_PROPERTY(int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
   Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
   Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
 
@@ -131,6 +132,9 @@ public:
   int outputPin();
   void setOutputPin(const int i_value);
 
+  int queryInterval();
+  void setQueryInterval(const int i_value);
+
   QString argumentLine();
   void setArgumentLine(const QString& i_value);
 
@@ -142,6 +146,7 @@ signals:
   void backgroundColorChanged(QString);
   void inputPinChanged(int);
   void outputPinChanged(int);
+  void queryIntervalChanged(int);
   void argumentLineChanged(QString);
   void timeoutValueChanged(int);
 
@@ -150,6 +155,7 @@ private:
   QString m_backgroundColor;
   int m_inputPin;
   int m_outputPin;
+  int m_queryInterval;
   QString m_argumentLine;
   int m_timeoutValue;
 

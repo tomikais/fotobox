@@ -32,14 +32,4 @@ public:
   */
   auto run() -> void Q_DECL_OVERRIDE;
 
-private:
-  //GPIO 17 (=wiringPi pin 0)
-  const unsigned int m_pinZero = 0;
-
-  //GPIO 24 (=wiringPi pin 5)
-  const unsigned int m_pinFive = 5;
-
-  //intervall to wait before check PIN again
-  const unsigned int m_queryIntervalMsecs = 10;
-
 };

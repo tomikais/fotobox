@@ -111,6 +111,7 @@ auto Preferences::initializePreferences() -> void
   m_settings.beginGroup("Buzzer");
   setInputPin(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
   setOutputPin(m_settings.value(m_ui->spbOutputPin->objectName(), m_ui->spbOutputPin->value()).toInt());
+  setQueryInterval(m_settings.value(m_ui->spbQueryInterval->objectName(), m_ui->spbQueryInterval->value()).toInt());
   m_settings.endGroup();
 
   m_settings.beginGroup("Camera");
@@ -169,6 +170,7 @@ auto Preferences::savePreferences() -> void
   m_settings.beginGroup("Buzzer");
   m_settings.setValue(m_ui->spbInputPin->objectName(), inputPin());
   m_settings.setValue(m_ui->spbOutputPin->objectName(), outputPin());
+  m_settings.setValue(m_ui->spbQueryInterval->objectName(), queryInterval());
   m_settings.endGroup();
 
   m_settings.beginGroup("Camera");
@@ -224,6 +226,18 @@ void Preferences::setOutputPin(const int i_value)
 {
   m_outputPin = i_value;
   emit outputPinChanged(m_outputPin);
+}
+
+
+int Preferences::queryInterval()
+{
+  return m_queryInterval;
+}
+
+void Preferences::setQueryInterval(const int i_value)
+{
+  m_queryInterval = i_value;
+  emit queryIntervalChanged(m_queryInterval);
 }
 
 
