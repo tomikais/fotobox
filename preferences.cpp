@@ -76,7 +76,7 @@ void Preferences::autoAcceptDialog()
 {
   if(m_counter >= 1) {
       //set Window Title and start timer again
-      setWindowTitle("launching Fotobox in " + QString::number(m_counter) + " seconds");
+      setWindowTitle(tr("launching Fotobox in ") + QString::number(m_counter) + tr(" seconds"));
       --m_counter;
       m_timer->start();
       return;
@@ -93,7 +93,7 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
   if(m_timer->isActive()) {
       m_timer->stop();
       setMouseTracking(false);
-      setWindowTitle("Fotobox preferences");
+      setWindowTitle(tr("Fotobox preferences"));
     }
 
   //call base class method
