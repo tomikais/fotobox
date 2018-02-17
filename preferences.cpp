@@ -11,6 +11,8 @@
 #include <QColorDialog>
 #include <QDesktopWidget>
 #include <QDir>
+#include <QTimer>
+
 
 auto Preferences::getInstance() -> Preferences&
 {
@@ -22,7 +24,8 @@ auto Preferences::getInstance() -> Preferences&
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::Preferences),
-  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this)
+  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
+  m_timer(new QTimer(this))
 {
   //setup UI
   m_ui->setupUi(this);
@@ -54,12 +57,47 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setOutputPin);
   connect(m_ui->txtGphoto2Arg, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
+
+  //auto accept Dialog
+  m_timer->setInterval(std::chrono::seconds(1));
+  connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
+  setMouseTracking(true);
+  m_timer->start();
 }
 
 
 Preferences::~Preferences()
 {
   delete m_ui;
+}
+
+
+void Preferences::autoAcceptDialog()
+{
+  if(m_counter >= 1) {
+      //set Window Title and start timer again
+      setWindowTitle("launching Fotobox in " + QString::number(m_counter) + " seconds");
+      --m_counter;
+      m_timer->start();
+      return;
+    }
+
+  //stop timer and close dialog
+  m_timer->stop();
+  emit accept();
+}
+
+
+auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
+{
+  if(m_timer->isActive()) {
+      m_timer->stop();
+      setMouseTracking(false);
+      setWindowTitle("Fotobox preferences");
+    }
+
+  //call base class method
+  QWidget::mouseMoveEvent(event);
 }
 
 

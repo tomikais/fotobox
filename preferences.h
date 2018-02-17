@@ -9,8 +9,8 @@
 #include <QDialog>
 #include <QSettings>
 
-
 class QLineEdit;
+class QTimer;
 
 
 namespace Ui {
@@ -51,6 +51,11 @@ private slots:
   */
   void savePreferences();
 
+  /*!
+  * \brief Accept dialog after 10 seconds. You can stop that by moving mouse into preference dialog.
+  */
+  void autoAcceptDialog();
+
 
 private:
   /*!
@@ -87,11 +92,22 @@ private:
   auto initializePreferences() -> void;
 
 
+  /*!
+  * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget
+  * \details stopping auto accept dialog \sa autoAcceptDialog()
+  */
+  auto mouseMoveEvent(QMouseEvent *event) -> void override;
+
+
   //User Interface
   Ui::Preferences *m_ui;
 
   //Store and read settings (INI file)
   QSettings m_settings;
+
+  //Auto close dialog
+  int m_counter = 9;
+  QTimer* m_timer;
 
 
   //Qt Property
