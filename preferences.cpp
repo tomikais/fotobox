@@ -59,7 +59,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
 
   //auto accept Dialog
-  m_timer->setInterval(std::chrono::seconds(1));
+  const int oneSecond = 1000;
+  m_timer->setInterval(oneSecond);
   connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
   setMouseTracking(true);
   m_timer->start();
