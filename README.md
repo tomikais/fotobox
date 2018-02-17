@@ -20,6 +20,10 @@ Requirement to start application:
 
 `sudo apt-get install ccache`
 
+set GCC path in Qt Creator
+gcc C: `/usr/bin/gcc`
+gcc C++: `/usr/bin/g++`
+
 ## gphoto2 and libgphoto2
 [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater)
 
