@@ -7,13 +7,15 @@
  */
 #include "buzzer.h"
 
+#ifdef __arm__
+#include <wiringPi.h>
+#endif
+
 #ifdef __WIRING_PI_H__
 // ******************************************
 // DEVICE: Raspberry Pi (wiringPi available)
 
 #include "preferences.h"
-
-#include <wiringPi.h>
 
 Buzzer::Buzzer(QObject *parent) : QThread(parent)
 {
