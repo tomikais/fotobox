@@ -26,8 +26,7 @@ Camera::~Camera()
 }
 
 
-//TODO use setting to handle options for gphoto2
-auto Camera::takePicture() const -> bool
+auto Camera::shootPhoto() const -> bool
 {
   //Program name and arguments
   const QString gphoto2 = QStringLiteral("gphoto2 ") + Preferences::getInstance().argumentLine();
@@ -38,7 +37,7 @@ auto Camera::takePicture() const -> bool
   //convert to milliseconds
   auto milliseconds = 1000 * Preferences::getInstance().timeoutValue();
 
-  //start call and check if everthing was okay
+  //check time out and process exit code
   if(!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS){
       //error
       return false;

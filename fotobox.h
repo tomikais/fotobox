@@ -10,9 +10,7 @@
 
 #include "camera.h"
 
-class QProcess;
 class QKeyEvent;
-class QTranslator;
 class Buzzer;
 
 namespace Ui
@@ -29,6 +27,7 @@ class FotoBox : public QMainWindow
 {
   Q_OBJECT
 
+
 public:
   /*!
   * \brief FotoBox constructor
@@ -39,37 +38,32 @@ public:
   /*!
   * \brief FotoBox destructor
   */
-  ~FotoBox();
+  virtual ~FotoBox();
 
   /*!
    * \brief check if gphoto2 is installed on system
-   * return if gphoto2 is available
+   * \return true: gphoto2 available / false: not
    */
-  auto checkGPhoto2() -> bool;
+  auto static checkGPhoto2() -> bool;
 
 
 protected:
   /*!
-   * \brief keyPressEvent
-   * \details
-   * Enter -> take a photo
-   * Escape -> quit application
-   * \param event
-   * \return void
+   * \brief filter key press events
+   * \details Enter -> take a photo / Escape -> quit application
+   * \param event QKeyEvent
    */
-  auto keyPressEvent(QKeyEvent *event) -> void Q_DECL_OVERRIDE;
+  auto virtual keyPressEvent(QKeyEvent *event) -> void override;
 
 
 private:
   /*!
-   * \brief shot a picture
-   * \return void
+   * \brief shot a photo
    */
   auto startShot() -> void;
 
   /*!
    * \brief show the foto
-   * \return void
    */
   auto showResults() -> void;
 
@@ -77,11 +71,11 @@ private:
   //User Interface
   Ui::Fotobox *m_ui;
 
-  //Camera (shot photo)
-  Camera m_camera;
-
   //Buzzer (Raspberry Pi GPIO)
   Buzzer *m_buzzer;
+
+  //Camera (shot photo)
+  Camera m_camera;
 
   //store / load the photo
   QPixmap m_photo;

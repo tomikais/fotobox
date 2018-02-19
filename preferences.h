@@ -19,18 +19,19 @@ namespace Ui {
 
 
 /*!
-* \brief The Preferences class
-* Main class to change and store the application settings
+* \brief Preference class to change and store the application settings
 */
 class Preferences : public QDialog
 {
   Q_OBJECT
 
+
 public:
   /*!
    * \brief getInstance (Meyers Singleton)
+   * \return Preferences&
    */
-  static Preferences& getInstance();
+  static auto getInstance() -> Preferences&;
 
   /*!
   * \brief return the directory to store the pictures
@@ -41,8 +42,7 @@ public:
 
 private slots:
   /*!
-  * \brief Open a color picker to choose background color
-  * \details Save color picked by a user in tool tip of th color label.
+  * \brief Open a color picker to choose background color for FotoBox
   */
   void colorDialog();
 
@@ -59,15 +59,15 @@ private slots:
 
 private:
   /*!
-  * \brief Preferences constructor
+  * \brief hide Preferences constructor (Singleton)
   * \param parent QWidget
   */
   explicit Preferences(QWidget *parent = nullptr);
 
   /*!
-  * \brief Preferences destructor
+  * \brief hide Preferences destructor (Singleton)
   */
-  ~Preferences();
+  virtual ~Preferences();
 
   /*!
   * \brief delete copy constructor (Singleton)
@@ -79,10 +79,10 @@ private:
   */
   Preferences& operator=(const Preferences&) = delete;
 
-
   /*!
-  * \brief override void Dialog::closeEvent(QCloseEvent *e)
-  * \details load application settings from INI file
+  * \brief set QColor to the given QLineEdit
+  * \param *i_lineEdit QLineEdit
+  * \param &i_color QColor
   */
   auto setLabelColor(QLineEdit *i_lineEdit, const QColor &i_color) -> void;
 
@@ -90,7 +90,6 @@ private:
   * \brief load application settings from INI file
   */
   auto initializePreferences() -> void;
-
 
   /*!
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget

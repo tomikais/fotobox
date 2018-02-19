@@ -18,6 +18,7 @@ class Camera : public QObject
 {
   Q_OBJECT
 
+
 public:
   /*!
    * \brief Camera constructor
@@ -28,17 +29,17 @@ public:
   /*!
     * \brief Camera destructor
     */
-  ~Camera();
+  virtual ~Camera();
 
   /*!
-   * \brief takePicture
-   * \details
-   * \return const bool true: processed finished
+   * \brief shoot a photo with gphoto2
+   * \return true: processed finished / false:error
    */
-  auto takePicture() const -> bool;
+  auto shootPhoto() const -> bool;
+
 
 private:
-  //start gphoto2 (external program)
+  //start gphoto2
   QProcess *m_process;
 
 };

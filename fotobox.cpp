@@ -18,11 +18,11 @@
 
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   m_ui(new Ui::Fotobox),
-  m_camera(this),
   m_buzzer(new Buzzer),
+  m_camera(this),
   m_photo()
 {
-  //Setup GUI
+  //setup GUI
   m_ui->setupUi(this);
 
   if (Preferences::getInstance().showButtons()) {
@@ -31,46 +31,46 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
     }
   else {
-      //remove mouse cursor
+      //hide mouse cursor
       QApplication::setOverrideCursor(Qt::BlankCursor);
-      //remove buttons
-      m_ui->btnQuitApp->deleteLater();
-      m_ui->btnStart->deleteLater();
+      //hide buttons
+      m_ui->btnQuitApp->setVisible(false);
+      m_ui->btnStart->setVisible(false);
     }
 
-  //Set Background Color
+  //set Background Color
   setStyleSheet(QString("#MainWindow, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
 
-  //Running loop to check buzzer trigger
 #ifdef __arm__
+  //running loop to check buzzer trigger
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
-#endif
   m_buzzer->start();
+#endif
 }
 
 
 FotoBox::~FotoBox()
 {
-  //Delete new
+  //delete new
   delete m_ui;
 
-  //Delete Buzzer thread
+  //delete Buzzer thread
   m_buzzer->deleteLater();
 }
 
 
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
-  //ESCAPE KEY
-  if (event->key() == Qt::Key_Return) {
-      //Shot a Foto
+  //ENTER key and ENTER on keypad
+  if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+      //take a photo
       startShot();
     }
 
-  //ENTER KEY
+  //ESCAPE KEY
   if (event->key() == Qt::Key_Escape) {
       //Quit application
-      QApplication::quit();
+      qApp->quit();
     }
 }
 
@@ -107,7 +107,7 @@ auto FotoBox::startShot() -> void
   m_ui->lblPhoto->repaint();
 
   //take a photo
-  if (m_camera.takePicture()) {
+  if (m_camera.shootPhoto()) {
       //show picture on UI
       showResults();
     }
@@ -130,7 +130,7 @@ auto FotoBox::showResults() -> void
       m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
   else {
-      //Resize picture
+      //resize picture to label size
       m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
 }

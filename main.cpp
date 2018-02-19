@@ -42,24 +42,20 @@ int main(int argc, char *argv[])
   //Show preferences (modal window)
   Preferences::getInstance().exec();
   if(Preferences::getInstance().result() == QDialog::Rejected) {
-      //Quit Application
       return EXIT_FAILURE;
     }
 
-  //Start FotoBox in fullscreen mode
-  FotoBox fotobox;
-
   //gphoto2 installed on the operating system?
 #if defined __APPLE__ || defined __linux__
-  if (!fotobox.checkGPhoto2()) {
-      //gphoto not found -> exit
+  if (!FotoBox::checkGPhoto2()) {
       return EXIT_FAILURE;
     }
 #endif
 
+  //Start FotoBox in fullscreen mode
+  FotoBox fotobox;
   fotobox.showFullScreen();
 
-  //Start the Qt EventLoop
   return app.exec();
 }
 

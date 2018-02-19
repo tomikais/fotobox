@@ -17,6 +17,7 @@ class Buzzer : public QThread
 {
   Q_OBJECT
 
+
 public:
   /*!
    * Buzzer constructor
@@ -25,11 +26,8 @@ public:
   explicit Buzzer(QObject *parent = nullptr);
 
   /*!
-  * \brief Query the Raspberry Pi Pin in a loop.
-  * interval: 10 milliseconds
-  * \details override method of QThread
-  * \return void
+  * \brief Query the Raspberry Pi Pin
   */
-  auto run() -> void Q_DECL_OVERRIDE;
+  auto virtual run() -> void override;
 
 };

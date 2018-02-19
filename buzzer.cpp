@@ -31,7 +31,7 @@ Buzzer::Buzzer(QObject *parent) : QThread(parent)
 
 auto Buzzer::run() -> void
 {
-  //query pin 5
+  //query pin
   while(digitalRead(Preferences::getInstance().inputPin()) != HIGH) {
       //wait before check again
       delay(Preferences::getInstance().queryInterval());
@@ -43,10 +43,8 @@ auto Buzzer::run() -> void
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) : QThread(parent)
-{}
+Buzzer::Buzzer(QObject *parent) : QThread(parent) { }
 
-auto Buzzer::run() -> void
-{}
+auto Buzzer::run() -> void { }
 
 #endif
