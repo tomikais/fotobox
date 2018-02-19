@@ -17,7 +17,7 @@ class Buzzer;
 
 namespace Ui
 {
-  class MainWindow;
+  class Fotobox;
 }
 
 
@@ -75,7 +75,7 @@ private:
 
 
   //User Interface
-  Ui::MainWindow *m_ui;
+  Ui::Fotobox *m_ui;
 
   //Camera (shot photo)
   Camera m_camera;

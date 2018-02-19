@@ -29,7 +29,7 @@ HEADERS         += fotobox.h \
                    camera.h \
                    preferences.h
 
-FORMS            = mainwindow.ui \
+FORMS            = fotobox.ui \
                    preferences.ui
 
 RESOURCES       += fotobox.qrc

@@ -7,7 +7,7 @@
  */
 #include "fotobox.h"
 
-#include "ui_mainwindow.h"
+#include "ui_fotobox.h"
 #include "buzzer.h"
 #include "preferences.h"
 
@@ -17,7 +17,7 @@
 
 
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
-  m_ui(new Ui::MainWindow),
+  m_ui(new Ui::Fotobox),
   m_camera(this),
   m_buzzer(new Buzzer),
   m_photo()
