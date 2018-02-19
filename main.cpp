@@ -26,18 +26,15 @@ int main(int argc, char *argv[])
   app.setApplicationVersion("1.2.0");
 
   QTranslator translator;
+  bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-      //German
-      if (translator.load(":/translations/german")) {
-          app.installTranslator(&translator);
-        }
-      else {
-          //English as Default
-          if (translator.load(":/translations/english")) {
-              app.installTranslator(&translator);
-            }
-        }
+      result = translator.load(":/translations/german");
     }
+  else {
+      //English as default language
+      result = translator.load(":/translations/english");
+    }
+  result == true ? app.installTranslator(&translator) : false;
 
   //Show preferences (modal window)
   Preferences::getInstance().exec();
