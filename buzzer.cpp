@@ -34,7 +34,7 @@ auto Buzzer::run() -> void
   //query pin 5
   while(digitalRead(Preferences::getInstance().inputPin()) != HIGH) {
       //wait before check again
-      delay(Preferences::getInstance().outputPin());
+      delay(Preferences::getInstance().queryInterval());
     }
 }
 
