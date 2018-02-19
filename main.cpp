@@ -20,13 +20,11 @@
  */
 int main(int argc, char *argv[])
 {
-  //Set Qt application settings
   QApplication app(argc, argv);
   app.setOrganizationName("Thomas Kais");
   app.setApplicationName("FotoBox");
   app.setApplicationVersion("1.2.0");
 
-  //Translation
   QTranslator translator;
   if (QLocale::system().language() == QLocale::German) {
       //German
@@ -43,13 +41,22 @@ int main(int argc, char *argv[])
 
   //Show preferences (modal window)
   Preferences::getInstance().exec();
-  if(QDialog::Accepted == !Preferences::getInstance().result()) {
+  if(Preferences::getInstance().result() == QDialog::Rejected) {
       //Quit Application
       return EXIT_FAILURE;
     }
 
   //Start FotoBox in fullscreen mode
   FotoBox fotobox;
+
+  //gphoto2 installed on the operating system?
+#if defined __APPLE__ || defined __linux__
+  if (!fotobox.checkGPhoto2()) {
+      //gphoto not found -> exit
+      return EXIT_FAILURE;
+    }
+#endif
+
   fotobox.showFullScreen();
 
   //Start the Qt EventLoop

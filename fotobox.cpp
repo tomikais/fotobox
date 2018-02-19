@@ -41,14 +41,6 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //Set Background Color
   setStyleSheet(QString("#MainWindow, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
 
-  //gphoto2 installed on the operating system?
-#if defined __APPLE__ || defined __linux__
-  if (!checkGPhoto2()) {
-      //gphoto not found -> exit
-      std::exit(EXIT_FAILURE);
-    }
-#endif
-
   //Running loop to check buzzer trigger
 #ifdef __arm__
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
@@ -85,20 +77,11 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 
 auto FotoBox::checkGPhoto2() -> bool
 {
-  bool result = true;
-
-  //Process who starts gphoto2
-  auto process = new QProcess(this);
-
-  //auto-detect: List auto-detected cameras
-  process->start("gphoto2 --auto-detect");
-
-  //sync call
-  process->waitForFinished();
-  auto output = process->readAll();
+  //auto-detect: get detected cameras
+  auto result = QProcess::execute("gphoto2", { "--auto-detect", "--version" });
 
   //check result
-  if (output.isEmpty()) {
+  if (result != EXIT_SUCCESS) {
       QApplication::restoreOverrideCursor();
       QMessageBox msgBox;
       msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
@@ -109,17 +92,11 @@ auto FotoBox::checkGPhoto2() -> bool
       msgBox.setStandardButtons(QMessageBox::Ok);
       msgBox.setIcon(QMessageBox::Critical);
       msgBox.exec();
-#ifndef QT_DEBUG
-      QApplication::setOverrideCursor(Qt::BlankCursor);
-#endif
 
-      result = false;
+      return false;
     }
 
-  //clean up
-  process->deleteLater();
-
-  return result;
+  return true;
 }
 
 

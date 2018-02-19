@@ -41,6 +41,12 @@ public:
   */
   ~FotoBox();
 
+  /*!
+   * \brief check if gphoto2 is installed on system
+   * return if gphoto2 is available
+   */
+  auto checkGPhoto2() -> bool;
+
 
 protected:
   /*!
@@ -55,12 +61,6 @@ protected:
 
 
 private:
-  /*!
-   * \brief check if gphoto2 is installed on system
-   * return if gphoto2 is available
-   */
-  auto checkGPhoto2() -> bool;
-
   /*!
    * \brief shot a picture
    * \return void
