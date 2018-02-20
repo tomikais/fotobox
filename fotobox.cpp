@@ -39,7 +39,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
     }
 
   //set Background Color
-  setStyleSheet(QString("#MainWindow, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
+  setStyleSheet(QString("#Fotobox, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
 
 #ifdef __arm__
   //running loop to check buzzer trigger

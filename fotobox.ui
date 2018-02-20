@@ -13,11 +13,6 @@
   <property name="windowTitle">
    <string>FotoBox by Thomas Kais ©</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">#MainWindow, #statusBar {
-	background-color:black;
-}</string>
-  </property>
   <widget class="QWidget" name="widget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
