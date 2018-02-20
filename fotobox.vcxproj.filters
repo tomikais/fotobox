@@ -101,13 +101,13 @@
     <CustomBuild Include="fotobox.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="mainwindow.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="preferences.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="preferences.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fotobox.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -128,10 +128,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
+    <ClInclude Include="GeneratedFiles\ui_preferences.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_preferences.h">
+    <ClInclude Include="GeneratedFiles\ui_fotobox.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
