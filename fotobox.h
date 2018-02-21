@@ -47,7 +47,7 @@ public:
   auto static checkGPhoto2() -> bool;
 
 
-protected:
+private:
   /*!
    * \brief filter key press events
    * \details Enter -> take a photo / Escape -> quit application
@@ -55,17 +55,10 @@ protected:
    */
   auto virtual keyPressEvent(QKeyEvent *event) -> void override;
 
-
-private:
   /*!
-   * \brief shot a photo
+   * \brief show the picture that was taken
    */
-  auto startShot() -> void;
-
-  /*!
-   * \brief show the foto
-   */
-  auto showResults() -> void;
+  auto showPicture() -> void;
 
 
   //User Interface
@@ -79,5 +72,12 @@ private:
 
   //store / load the photo
   QPixmap m_photo;
+
+
+signals:
+  /*!
+   * \brief Signal: Start shooting a picture
+   */
+  void start();
 
 };

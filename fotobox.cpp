@@ -25,25 +25,28 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //setup GUI
   m_ui->setupUi(this);
 
+  //Fotobox process
+  connect(this, &FotoBox::start, this, &FotoBox::showPicture);
+
   if (Preferences::getInstance().showButtons()) {
       //connect buttons
+      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
       connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
-      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startShot);
     }
   else {
       //hide mouse cursor
       QApplication::setOverrideCursor(Qt::BlankCursor);
       //hide buttons
-      m_ui->btnQuitApp->setVisible(false);
       m_ui->btnStart->setVisible(false);
+      m_ui->btnQuitApp->setVisible(false);
     }
 
   //set Background Color
   setStyleSheet(QString("#Fotobox, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
 
-#ifdef __arm__
+#ifdef __WIRING_PI_H__
   //running loop to check buzzer trigger
-  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::startShot);
+  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
   m_buzzer->start();
 #endif
 }
@@ -61,16 +64,19 @@ FotoBox::~FotoBox()
 
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
-  //ENTER key and ENTER on keypad
-  if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-      //take a photo
-      startShot();
-    }
+  //prevent triggering mehtod too often
+  if(!event->isAutoRepeat()) {
+      //ENTER key and ENTER on keypad
+      if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+          //take a photo
+          emit start();
+        }
 
-  //ESCAPE KEY
-  if (event->key() == Qt::Key_Escape) {
-      //Quit application
-      qApp->quit();
+      //ESCAPE KEY
+      if (event->key() == Qt::Key_Escape) {
+          //Quit application
+          qApp->quit();
+        }
     }
 }
 
@@ -100,7 +106,7 @@ auto FotoBox::checkGPhoto2() -> bool
 }
 
 
-auto FotoBox::startShot() -> void
+auto FotoBox::showPicture() -> void
 {
   //remove current picture / refresh label (photo)
   m_ui->lblPhoto->clear();
@@ -108,29 +114,22 @@ auto FotoBox::startShot() -> void
 
   //take a photo
   if (m_camera.shootPhoto()) {
-      //show picture on UI
-      showResults();
+      //get size from label
+      QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
+
+      //load photo
+      if (!m_photo.load(Preferences::getInstance().pictureDirectory() + "preview.jpg")) {
+          m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
+        }
+      else {
+          //resize picture to label size
+          m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
     }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 4000);
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 2000);
     }
 
   //restart Buzzer
   m_buzzer->start();
-}
-
-
-auto FotoBox::showResults() -> void
-{
-  //get size from label
-  QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
-
-  //load photo
-  if (!m_photo.load(Preferences::getInstance().pictureDirectory() + "preview.jpg")) {
-      m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
-    }
-  else {
-      //resize picture to label size
-      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    }
 }
