@@ -97,6 +97,11 @@ private:
   */
   auto mouseMoveEvent(QMouseEvent *event) -> void override;
 
+  /*!
+  * \brief Hide different preferences if they aren't available
+  */
+  auto hidePreferences() -> void;
+
 
   //User Interface
   Ui::Preferences *m_ui;

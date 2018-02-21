@@ -33,6 +33,9 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   //move to center
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
 
+  //hide Preferences if they aren't available
+  hidePreferences();
+
   //connect button
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
@@ -177,6 +180,30 @@ auto Preferences::savePreferences() -> void
   m_settings.setValue(m_ui->txtGphoto2Arg->objectName(), argumentLine());
   m_settings.setValue(m_ui->spbTimout->objectName(), timeoutValue());
   m_settings.endGroup();
+}
+
+auto Preferences::hidePreferences() -> void
+{
+  //hide buzzer settings if WiringPI isn't available
+#if !defined __WIRING_PI_H__
+  m_ui->lblBuzzer->hide();
+  m_ui->lblInputPin->hide();
+  m_ui->spbInputPin->hide();
+  m_ui->lblOutputPin->hide();
+  m_ui->spbOutputPin->hide();
+  m_ui->lblQueryInterval->hide();
+  m_ui->spbQueryInterval->hide();
+#endif
+
+  //hide camera settings if Platform is Windows
+#if defined Q_OS_WIN
+  m_ui->lblCamera->hide();
+  m_ui->lblGphoto2Arg->hide();
+  m_ui->txtGphoto2Arg->hide();
+  m_ui->lblTimeout->hide();
+  m_ui->spbTimout->hide();
+#endif
+
 }
 
 
