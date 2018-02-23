@@ -89,7 +89,7 @@ private:
   /*!
   * \brief load application settings from INI file
   */
-  auto initializePreferences() -> void;
+  auto loadPreferences() -> void;
 
   /*!
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget

@@ -35,23 +35,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //hide Preferences if they aren't available
   hidePreferences();
-
-  //connect button
-  connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-  connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
-  connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
-
-  //connect preferences to UI
-  connect(this, &Preferences::showButtonsChanged, m_ui->chbButtons, &QAbstractButton::setChecked);
-  connect(this, &Preferences::backgroundColorChanged, m_ui->txtShowColor, &QLineEdit::setText);
-  connect(this, &Preferences::inputPinChanged, m_ui->spbInputPin, &QSpinBox::setValue);
-  connect(this, &Preferences::outputPinChanged, m_ui->spbOutputPin, &QSpinBox::setValue);
-  connect(this, &Preferences::argumentLineChanged, m_ui->txtGphoto2Arg, &QLineEdit::setText);
-  connect(this, &Preferences::timeoutValueChanged, m_ui->spbTimout, &QSpinBox::setValue);
-
   //load settings from ini file
-  initializePreferences();
+  loadPreferences();
 
   //connect UI to preferences
   connect(m_ui->chbButtons, &QAbstractButton::toggled, this, &Preferences::setShowButtons);
@@ -61,11 +46,15 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->txtGphoto2Arg, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
 
+  //connect buttons
+  connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+  connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
+  connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
   //auto accept Dialog
   const int oneSecond = 1000;
   m_timer->setInterval(oneSecond);
   connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
-  setMouseTracking(true);
   m_timer->start();
 }
 
@@ -105,7 +94,7 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 }
 
 
-auto Preferences::initializePreferences() -> void
+auto Preferences::loadPreferences() -> void
 {
   //GENERAL
   setShowButtons(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
@@ -185,7 +174,7 @@ auto Preferences::savePreferences() -> void
 auto Preferences::hidePreferences() -> void
 {
   //hide buzzer settings if WiringPI isn't available
-#if !defined __WIRING_PI_H__
+#if !defined __WIRING_PI_H__  && !defined QT_DEBUG 
   m_ui->lblBuzzer->hide();
   m_ui->lblInputPin->hide();
   m_ui->spbInputPin->hide();
@@ -196,7 +185,7 @@ auto Preferences::hidePreferences() -> void
 #endif
 
   //hide camera settings if Platform is Windows
-#if defined Q_OS_WIN
+#if defined Q_OS_WIN && !defined QT_DEBUG 
   m_ui->lblCamera->hide();
   m_ui->lblGphoto2Arg->hide();
   m_ui->txtGphoto2Arg->hide();
