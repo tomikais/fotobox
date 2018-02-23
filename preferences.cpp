@@ -189,7 +189,7 @@ auto Preferences::savePreferences() -> void
 auto Preferences::hidePreferences() -> void
 {
   //hide buzzer settings if WiringPI isn't available
-#if !defined __WIRING_PI_H__  && !defined QT_DEBUG 
+#if defined __WIRING_PI_H__  && !defined QT_DEBUG
   m_ui->lblBuzzer->hide();
   m_ui->lblInputPin->hide();
   m_ui->spbInputPin->hide();
