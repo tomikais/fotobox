@@ -56,6 +56,17 @@ private slots:
   */
   void autoAcceptDialog();
 
+  /*!
+  * \brief Restore default preferences.
+  */
+  void restoreDefaultPreferences();
+
+  /*!
+  * \brief show the given color in QLineEdit
+  * \param i_colorName QString hex name of the color
+  */
+  void showColor(const QString i_colorName);
+
 
 private:
   /*!
@@ -78,13 +89,6 @@ private:
   * \brief delete assigment (Singleton)
   */
   Preferences& operator=(const Preferences&) = delete;
-
-  /*!
-  * \brief set QColor to the given QLineEdit
-  * \param *i_lineEdit QLineEdit
-  * \param &i_color QColor
-  */
-  auto setLabelColor(QLineEdit *i_lineEdit, const QColor &i_color) -> void;
 
   /*!
   * \brief load application settings from INI file
@@ -125,25 +129,30 @@ public:
   Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
 
   bool showButtons();
-  void setShowButtons(const bool i_value);
-
   QString& backgroundColor();
-  void setBackgroundColor(const QString& i_value);
-
   int inputPin();
-  void setInputPin(const int i_value);
-
   int outputPin();
-  void setOutputPin(const int i_value);
-
   int queryInterval();
-  void setQueryInterval(const int i_value);
-
   QString argumentLine();
-  void setArgumentLine(const QString& i_value);
-
   int timeoutValue();
+
+
+private:
+  void setShowButtons(const bool i_value);
+  void setBackgroundColor(const QString& i_value);
+  void setInputPin(const int i_value);
+  void setOutputPin(const int i_value);
+  void setQueryInterval(const int i_value);
+  void setArgumentLine(const QString& i_value);
   void setTimeoutValue(const int i_value);
+
+  bool m_showButtons;
+  QString m_backgroundColor;
+  int m_inputPin;
+  int m_outputPin;
+  int m_queryInterval;
+  QString m_argumentLine;
+  int m_timeoutValue;
 
 signals:
   void showButtonsChanged(bool);
@@ -153,14 +162,4 @@ signals:
   void queryIntervalChanged(int);
   void argumentLineChanged(QString);
   void timeoutValueChanged(int);
-
-private:
-  bool m_showButtons;
-  QString m_backgroundColor;
-  int m_inputPin;
-  int m_outputPin;
-  int m_queryInterval;
-  QString m_argumentLine;
-  int m_timeoutValue;
-
 };

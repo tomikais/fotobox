@@ -23,9 +23,9 @@ auto Preferences::getInstance() -> Preferences&
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-  m_ui(new Ui::Preferences),
-  m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
-  m_timer(new QTimer(this))
+m_ui(new Ui::Preferences),
+m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
+m_timer(new QTimer(this))
 {
   //setup UI
   m_ui->setupUi(this);
@@ -35,22 +35,36 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //hide Preferences if they aren't available
   hidePreferences();
-  //load settings from ini file
-  loadPreferences();
 
   //connect UI to preferences
   connect(m_ui->chbButtons, &QAbstractButton::toggled, this, &Preferences::setShowButtons);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::setBackgroundColor);
+  connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &Preferences::setToolTip);
+  connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::showColor);
   connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setInputPin);
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setOutputPin);
+  connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setQueryInterval);
   connect(m_ui->txtGphoto2Arg, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
-
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, [&](QAbstractButton *button) {
+    //identify restore button
+    if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
+      //restore defaults
+      restoreDefaultPreferences();
+    }
+  });
   connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
+
+  //restore default values
+  restoreDefaultPreferences();
+
+  //load settings from ini file
+  loadPreferences();
+
   //auto accept Dialog
   const int oneSecond = 1000;
   m_timer->setInterval(oneSecond);
@@ -67,13 +81,13 @@ Preferences::~Preferences()
 
 void Preferences::autoAcceptDialog()
 {
-  if(m_counter >= 1) {
-      //set Window Title and start timer again
-      setWindowTitle(tr("launching Fotobox in ") + QString::number(m_counter) + tr(" seconds"));
-      --m_counter;
-      m_timer->start();
-      return;
-    }
+  if (m_counter >= 1) {
+    //set Window Title and start timer again
+    setWindowTitle(tr("launching FotoBox in ") + QString::number(m_counter) + tr(" seconds"));
+    --m_counter;
+    m_timer->start();
+    return;
+  }
 
   //stop timer and close dialog
   m_timer->stop();
@@ -83,11 +97,11 @@ void Preferences::autoAcceptDialog()
 
 auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 {
-  if(m_timer->isActive()) {
-      m_timer->stop();
-      setMouseTracking(false);
-      setWindowTitle(tr("Fotobox preferences"));
-    }
+  if (m_timer->isActive()) {
+    m_timer->stop();
+    setMouseTracking(false);
+    setWindowTitle(tr("FotoBox preferences"));
+  }
 
   //call base class method
   QWidget::mouseMoveEvent(event);
@@ -97,18 +111,18 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 auto Preferences::loadPreferences() -> void
 {
   //GENERAL
-  setShowButtons(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
-  setLabelColor(m_ui->txtShowColor, m_settings.value(m_ui->txtShowColor->objectName(), m_ui->txtShowColor->text()).toString());
+  m_ui->chbButtons->setChecked(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
+  m_ui->txtShowColor->setText(m_settings.value(m_ui->txtShowColor->objectName(), m_ui->txtShowColor->text()).toString());
 
   m_settings.beginGroup("Buzzer");
-  setInputPin(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
-  setOutputPin(m_settings.value(m_ui->spbOutputPin->objectName(), m_ui->spbOutputPin->value()).toInt());
-  setQueryInterval(m_settings.value(m_ui->spbQueryInterval->objectName(), m_ui->spbQueryInterval->value()).toInt());
+  m_ui->spbInputPin->setValue(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
+  m_ui->spbOutputPin->setValue(m_settings.value(m_ui->spbOutputPin->objectName(), m_ui->spbOutputPin->value()).toInt());
+  m_ui->spbQueryInterval->setValue(m_settings.value(m_ui->spbQueryInterval->objectName(), m_ui->spbQueryInterval->value()).toInt());
   m_settings.endGroup();
 
   m_settings.beginGroup("Camera");
-  setArgumentLine(m_settings.value(m_ui->txtGphoto2Arg->objectName(), m_ui->txtGphoto2Arg->text()).toString());
-  setTimeoutValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
+  m_ui->txtGphoto2Arg->setText(m_settings.value(m_ui->txtGphoto2Arg->objectName(), m_ui->txtGphoto2Arg->text()).toString());
+  m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
   m_settings.endGroup();
 }
 
@@ -135,21 +149,22 @@ auto Preferences::colorDialog() -> void
   dialog.exec();
 
   //show the color which the user has selected
-  setLabelColor(m_ui->txtShowColor, dialog.selectedColor());
+  m_ui->txtShowColor->setText(dialog.selectedColor().name());
 }
 
 
-auto Preferences::setLabelColor(QLineEdit *i_lineEdit, const QColor& i_color) -> void
+auto Preferences::showColor(const QString i_colorName) -> void
 {
-  //set color (text + background)
-  QPalette palette;
-  palette.setColor(QPalette::Text, i_color);
-  palette.setColor(QPalette::Base, i_color);
-  i_lineEdit->setPalette(palette);
+  //create color
+  QColor color(i_colorName);
 
-  //set text and tooltip
-  setBackgroundColor(i_color.name());
-  i_lineEdit->setToolTip(i_color.name());
+  //set color (text + background)
+  auto palette = m_ui->txtShowColor->palette();
+  palette.setColor(QPalette::Text, color);
+  palette.setColor(QPalette::Base, color);
+
+  //apply styling
+  m_ui->txtShowColor->setPalette(palette);
 }
 
 
@@ -193,6 +208,22 @@ auto Preferences::hidePreferences() -> void
   m_ui->spbTimout->hide();
 #endif
 
+}
+
+void Preferences::restoreDefaultPreferences()
+{
+  //General
+  m_ui->chbButtons->setChecked(true);
+  m_ui->txtShowColor->setText("#000000");
+
+  //Buzzer
+  m_ui->spbInputPin->setValue(5);
+  m_ui->spbOutputPin->setValue(0);
+  m_ui->spbQueryInterval->setValue(10);
+
+  //Camera
+  m_ui->txtGphoto2Arg->setText("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite");
+  m_ui->spbTimout->setValue(15);
 }
 
 
