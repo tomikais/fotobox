@@ -125,6 +125,7 @@ public:
   Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
   Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
   Q_PROPERTY(int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
+  Q_PROPERTY(QString cameraMode READ cameraMode WRITE setCameraMode NOTIFY cameraModeChanged)
   Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
   Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
 
@@ -133,6 +134,7 @@ public:
   int inputPin();
   int outputPin();
   int queryInterval();
+  QString cameraMode();
   QString argumentLine();
   int timeoutValue();
 
@@ -143,6 +145,7 @@ private:
   void setInputPin(const int i_value);
   void setOutputPin(const int i_value);
   void setQueryInterval(const int i_value);
+  void setCameraMode(const QString& i_value);
   void setArgumentLine(const QString& i_value);
   void setTimeoutValue(const int i_value);
 
@@ -151,6 +154,7 @@ private:
   int m_inputPin;
   int m_outputPin;
   int m_queryInterval;
+  QString m_cameraMode;
   QString m_argumentLine;
   int m_timeoutValue;
 
@@ -160,6 +164,7 @@ signals:
   void inputPinChanged(int);
   void outputPinChanged(int);
   void queryIntervalChanged(int);
+  void cameraModeChanged(QString);
   void argumentLineChanged(QString);
   void timeoutValueChanged(int);
 };

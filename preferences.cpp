@@ -44,13 +44,13 @@ m_timer(new QTimer(this))
   connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setInputPin);
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setOutputPin);
   connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setQueryInterval);
-  connect(m_ui->txtGphoto2Arg, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
+  connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, [&](QAbstractButton *button) {
+  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, [this](QAbstractButton *button) {
     //identify restore button
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
       //restore defaults
@@ -121,7 +121,7 @@ auto Preferences::loadPreferences() -> void
   m_settings.endGroup();
 
   m_settings.beginGroup("Camera");
-  m_ui->txtGphoto2Arg->setText(m_settings.value(m_ui->txtGphoto2Arg->objectName(), m_ui->txtGphoto2Arg->text()).toString());
+  m_ui->txtArgumentLine->setText(m_settings.value(m_ui->txtArgumentLine->objectName(), m_ui->txtArgumentLine->text()).toString());
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
   m_settings.endGroup();
 }
@@ -181,7 +181,7 @@ auto Preferences::savePreferences() -> void
   m_settings.endGroup();
 
   m_settings.beginGroup("Camera");
-  m_settings.setValue(m_ui->txtGphoto2Arg->objectName(), argumentLine());
+  m_settings.setValue(m_ui->txtArgumentLine->objectName(), argumentLine());
   m_settings.setValue(m_ui->spbTimout->objectName(), timeoutValue());
   m_settings.endGroup();
 }
@@ -222,7 +222,7 @@ void Preferences::restoreDefaultPreferences()
   m_ui->spbQueryInterval->setValue(10);
 
   //Camera
-  m_ui->txtGphoto2Arg->setText("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite");
+  m_ui->txtArgumentLine->setText("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite");
   m_ui->spbTimout->setValue(15);
 }
 
@@ -285,6 +285,18 @@ void Preferences::setQueryInterval(const int i_value)
 {
   m_queryInterval = i_value;
   emit queryIntervalChanged(m_queryInterval);
+}
+
+
+QString Preferences::cameraMode()
+{
+  return m_cameraMode;
+}
+
+void Preferences::setCameraMode(const QString& i_value)
+{
+  m_cameraMode = i_value;
+  emit cameraModeChanged(m_cameraMode);
 }
 
 

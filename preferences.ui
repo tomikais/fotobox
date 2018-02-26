@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>320</height>
+    <height>370</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -31,12 +31,29 @@
         <x>0</x>
         <y>0</y>
         <width>722</width>
-        <height>273</height>
+        <height>323</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout">
+         <item row="9" column="1">
+          <widget class="QComboBox" name="cmbCameraMode"/>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="btnChooseColor">
+           <property name="text">
+            <string>Choose Color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="lblInputPin">
+           <property name="text">
+            <string>input PIN</string>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="1">
           <widget class="QSpinBox" name="spbInputPin">
            <property name="maximum">
@@ -66,7 +83,7 @@
            </property>
           </widget>
          </item>
-         <item row="9" column="1">
+         <item row="11" column="1">
           <widget class="QSpinBox" name="spbTimout">
            <property name="suffix">
             <string> seconds</string>
@@ -80,22 +97,35 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="lblInputPin">
+         <item row="6" column="0">
+          <widget class="QLabel" name="lblQueryInterval">
            <property name="text">
-            <string>input PIN</string>
+            <string>query interval</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QPushButton" name="btnChooseColor">
+         <item row="1" column="0">
+          <widget class="QLabel" name="lblButtons">
            <property name="text">
-            <string>Choose Color</string>
+            <string>buttons</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1" colspan="3">
-          <widget class="QLineEdit" name="txtGphoto2Arg">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="lblGeneral">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>General</string>
+           </property>
+          </widget>
+         </item>
+         <item row="10" column="1" colspan="3">
+          <widget class="QLineEdit" name="txtArgumentLine">
            <property name="clearButtonEnabled">
             <bool>true</bool>
            </property>
@@ -124,31 +154,24 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="lblQueryInterval">
-           <property name="text">
-            <string>query interval</string>
+         <item row="5" column="1">
+          <widget class="QSpinBox" name="spbOutputPin">
+           <property name="maximum">
+            <number>40</number>
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
+         <item row="11" column="0">
           <widget class="QLabel" name="lblTimeout">
            <property name="text">
             <string>timeout value</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="lblGphoto2Arg">
+         <item row="5" column="0">
+          <widget class="QLabel" name="lblOutputPin">
            <property name="text">
-            <string>GPhoto2 argument line</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QSpinBox" name="spbOutputPin">
-           <property name="maximum">
-            <number>40</number>
+            <string>output PIN</string>
            </property>
           </widget>
          </item>
@@ -165,10 +188,23 @@
            </property>
           </widget>
          </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="lblOutputPin">
+         <item row="0" column="3">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="10" column="0">
+          <widget class="QLabel" name="lblGphoto2Arg">
            <property name="text">
-            <string>output PIN</string>
+            <string>argument line</string>
            </property>
           </widget>
          </item>
@@ -185,38 +221,15 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="lblButtons">
+         <item row="9" column="0">
+          <widget class="QLabel" name="lblCameraMode">
            <property name="text">
-            <string>buttons</string>
+            <string>camera mode</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QLabel" name="lblGeneral">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>General</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-          </spacer>
+         <item row="8" column="0" colspan="4">
+          <widget class="QLabel" name="lblCameraModeInfo"/>
          </item>
         </layout>
        </item>
@@ -251,7 +264,7 @@
   <tabstop>btnChooseColor</tabstop>
   <tabstop>spbInputPin</tabstop>
   <tabstop>spbOutputPin</tabstop>
-  <tabstop>txtGphoto2Arg</tabstop>
+  <tabstop>txtArgumentLine</tabstop>
   <tabstop>spbTimout</tabstop>
  </tabstops>
  <resources/>
