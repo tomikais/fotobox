@@ -33,8 +33,8 @@ FORMS            = fotobox.ui \
                    preferences.ui
 
 RESOURCES       += fotobox.qrc
-TRANSLATIONS    += fotobox_en.ts \
-                   fotobox_de.ts
+TRANSLATIONS    += translation_en.ts \
+                   translation_de.ts
 
 OTHER_FILES     += README.md \
                    LICENSE
