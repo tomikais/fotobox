@@ -24,14 +24,14 @@ auto Preferences::getInstance() -> Preferences&
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
 m_ui(new Ui::Preferences),
-m_settings(QSettings::IniFormat, QSettings::UserScope, qApp->applicationName(), qApp->applicationName(), this),
+m_settings(QSettings::IniFormat, QSettings::UserScope, ::QCoreApplication::applicationName(), ::QCoreApplication::applicationName(), this),
 m_timer(new QTimer(this))
 {
   //setup UI
   m_ui->setupUi(this);
 
   //move to center
-  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), qApp->desktop()->availableGeometry()));
+  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), ::QApplication::desktop()->availableGeometry()));
 
   //hide Preferences if they aren't available
   hidePreferences();
@@ -137,7 +137,7 @@ auto Preferences::pictureDirectory() const -> QString
       QStringLiteral("..") + QDir::separator() +
       QStringLiteral("..") + QDir::separator();
 #else
-  picDir = QApplication::applicationDirPath() + QDir::separator();
+  picDir = QCoreApplication::applicationDirPath() + QDir::separator();
 #endif
   return picDir;
 }

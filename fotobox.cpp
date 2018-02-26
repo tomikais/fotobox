@@ -35,7 +35,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
     }
   else {
       //hide mouse cursor
-      QApplication::setOverrideCursor(Qt::BlankCursor);
+      QGuiApplication::setOverrideCursor(Qt::BlankCursor);
       //hide buttons
       m_ui->btnStart->setVisible(false);
       m_ui->btnQuitApp->setVisible(false);
@@ -75,7 +75,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //ESCAPE KEY
       if (event->key() == Qt::Key_Escape) {
           //Quit application
-          qApp->quit();
+          ::QCoreApplication::quit();
         }
     }
 }
@@ -88,7 +88,7 @@ auto FotoBox::checkGPhoto2() -> bool
 
   //check result
   if (result != EXIT_SUCCESS) {
-      QApplication::restoreOverrideCursor();
+      QGuiApplication::restoreOverrideCursor();
       QMessageBox msgBox;
       msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
       msgBox.setWindowTitle("gphoto2 missing");

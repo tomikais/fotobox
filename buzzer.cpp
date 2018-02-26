@@ -45,6 +45,6 @@ auto Buzzer::run() -> void
 
 Buzzer::Buzzer(QObject *parent) : QThread(parent) { }
 
-auto Buzzer::run() -> void { }
+auto Buzzer::run() -> void { /* no wiringPi framework available */ }
 
 #endif
