@@ -14,7 +14,7 @@ class QTimer;
 
 
 namespace Ui {
-  class Preferences;
+  class PreferencesDialog;
 }
 
 
@@ -108,7 +108,7 @@ private:
 
 
   //User Interface
-  Ui::Preferences *m_ui;
+  Ui::PreferencesDialog *m_ui;
 
   //Store and read settings (INI file)
   QSettings m_settings;

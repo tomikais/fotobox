@@ -23,7 +23,7 @@ auto Preferences::getInstance() -> Preferences&
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-m_ui(new Ui::Preferences),
+m_ui(new Ui::PreferencesDialog),
 m_settings(QSettings::IniFormat, QSettings::UserScope, ::QCoreApplication::applicationName(), ::QCoreApplication::applicationName(), this),
 m_timer(new QTimer(this))
 {
@@ -44,13 +44,24 @@ m_timer(new QTimer(this))
   connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setInputPin);
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setOutputPin);
   connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setQueryInterval);
-  connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, this, &Preferences::setArgumentLine);
+  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+    [this] () {
+    //QComboBox has changed, show stored data to QLineEdit
+    m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
+  });
+  connect(m_ui->txtArgumentLine, &QLineEdit::textChanged,
+    [this] (const QString& i_value) {
+    //save changed text in QComboBox model
+    m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
+  });
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
+
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, [this](QAbstractButton *button) {
+  connect(m_ui->buttonBox, &QDialogButtonBox::clicked,
+    [this](QAbstractButton *button) {
     //identify restore button
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
       //restore defaults
@@ -114,14 +125,14 @@ auto Preferences::loadPreferences() -> void
   m_ui->chbButtons->setChecked(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
   m_ui->txtShowColor->setText(m_settings.value(m_ui->txtShowColor->objectName(), m_ui->txtShowColor->text()).toString());
 
-  m_settings.beginGroup("Buzzer");
+  m_settings.beginGroup(QStringLiteral("Buzzer"));
   m_ui->spbInputPin->setValue(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
   m_ui->spbOutputPin->setValue(m_settings.value(m_ui->spbOutputPin->objectName(), m_ui->spbOutputPin->value()).toInt());
   m_ui->spbQueryInterval->setValue(m_settings.value(m_ui->spbQueryInterval->objectName(), m_ui->spbQueryInterval->value()).toInt());
   m_settings.endGroup();
 
-  m_settings.beginGroup("Camera");
-  m_ui->txtArgumentLine->setText(m_settings.value(m_ui->txtArgumentLine->objectName(), m_ui->txtArgumentLine->text()).toString());
+  m_settings.beginGroup(QStringLiteral("Camera"));
+  //m_ui->txtArgumentLine->setText(m_settings.value(m_ui->txtArgumentLine->objectName(), m_ui->txtArgumentLine->text()).toString());
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
   m_settings.endGroup();
 }
@@ -141,6 +152,7 @@ auto Preferences::pictureDirectory() const -> QString
 #endif
   return picDir;
 }
+
 
 auto Preferences::colorDialog() -> void
 {
@@ -174,17 +186,18 @@ auto Preferences::savePreferences() -> void
   m_settings.setValue(m_ui->chbButtons->objectName(), showButtons());
   m_settings.setValue(m_ui->txtShowColor->objectName(), backgroundColor());
 
-  m_settings.beginGroup("Buzzer");
+  m_settings.beginGroup(QStringLiteral("Buzzer"));
   m_settings.setValue(m_ui->spbInputPin->objectName(), inputPin());
   m_settings.setValue(m_ui->spbOutputPin->objectName(), outputPin());
   m_settings.setValue(m_ui->spbQueryInterval->objectName(), queryInterval());
   m_settings.endGroup();
 
-  m_settings.beginGroup("Camera");
-  m_settings.setValue(m_ui->txtArgumentLine->objectName(), argumentLine());
+  m_settings.beginGroup(QStringLiteral("Camera"));
+  //m_settings.setValue(m_ui->cmbCameraMode->objectName(), QPersistentModelIndex(m_ui->cmbCameraMode->rootModelIndex()));
   m_settings.setValue(m_ui->spbTimout->objectName(), timeoutValue());
   m_settings.endGroup();
 }
+
 
 auto Preferences::hidePreferences() -> void
 {
@@ -210,11 +223,12 @@ auto Preferences::hidePreferences() -> void
 
 }
 
+
 void Preferences::restoreDefaultPreferences()
 {
   //General
   m_ui->chbButtons->setChecked(true);
-  m_ui->txtShowColor->setText("#000000");
+  m_ui->txtShowColor->setText(QStringLiteral("#000000"));
 
   //Buzzer
   m_ui->spbInputPin->setValue(5);
@@ -222,7 +236,12 @@ void Preferences::restoreDefaultPreferences()
   m_ui->spbQueryInterval->setValue(10);
 
   //Camera
-  m_ui->txtArgumentLine->setText("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite");
+  m_ui->cmbCameraMode->addItem(
+    QStringLiteral("gphoto2"),
+    QStringLiteral("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
+  m_ui->cmbCameraMode->addItem(
+    QStringLiteral("raspistill"),
+    QStringLiteral("--output pic.jpg --thumb preview.jpg 800:640:90"));
   m_ui->spbTimout->setValue(15);
 }
 

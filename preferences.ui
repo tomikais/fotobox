@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Preferences</class>
- <widget class="QDialog" name="Preferences">
+ <class>PreferencesDialog</class>
+ <widget class="QDialog" name="PreferencesDialog">
   <property name="windowModality">
    <enum>Qt::WindowModal</enum>
   </property>
@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>740</width>
-    <height>370</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -31,15 +31,12 @@
         <x>0</x>
         <y>0</y>
         <width>722</width>
-        <height>323</height>
+        <height>353</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="9" column="1">
-          <widget class="QComboBox" name="cmbCameraMode"/>
-         </item>
          <item row="2" column="2">
           <widget class="QPushButton" name="btnChooseColor">
            <property name="text">
@@ -202,7 +199,7 @@
           </spacer>
          </item>
          <item row="10" column="0">
-          <widget class="QLabel" name="lblGphoto2Arg">
+          <widget class="QLabel" name="lblArgumentLine">
            <property name="text">
             <string>argument line</string>
            </property>
@@ -229,7 +226,13 @@
           </widget>
          </item>
          <item row="8" column="0" colspan="4">
+          <widget class="QLabel" name="lblCameraInfo"/>
+         </item>
+         <item row="9" column="2" colspan="2">
           <widget class="QLabel" name="lblCameraModeInfo"/>
+         </item>
+         <item row="9" column="1">
+          <widget class="QComboBox" name="cmbCameraMode"/>
          </item>
         </layout>
        </item>
@@ -264,8 +267,10 @@
   <tabstop>btnChooseColor</tabstop>
   <tabstop>spbInputPin</tabstop>
   <tabstop>spbOutputPin</tabstop>
+  <tabstop>spbQueryInterval</tabstop>
   <tabstop>txtArgumentLine</tabstop>
   <tabstop>spbTimout</tabstop>
+  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>
