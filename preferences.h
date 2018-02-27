@@ -65,7 +65,7 @@ private slots:
   * \brief show the given color in QLineEdit
   * \param i_colorName QString hex name of the color
   */
-  void showColor(const QString i_colorName);
+  void showColor(const QString& i_colorName);
 
 
 private:

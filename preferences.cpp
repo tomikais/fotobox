@@ -24,14 +24,14 @@ auto Preferences::getInstance() -> Preferences&
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
 m_ui(new Ui::PreferencesDialog),
-m_settings(QSettings::IniFormat, QSettings::UserScope, ::QCoreApplication::applicationName(), ::QCoreApplication::applicationName(), this),
+m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
 m_timer(new QTimer(this))
 {
   //setup UI
   m_ui->setupUi(this);
 
   //move to center
-  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), ::QApplication::desktop()->availableGeometry()));
+  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
 
   //hide Preferences if they aren't available
   hidePreferences();
@@ -61,7 +61,7 @@ m_timer(new QTimer(this))
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   connect(m_ui->buttonBox, &QDialogButtonBox::clicked,
-    [this](QAbstractButton *button) {
+    [this] (QAbstractButton *button) {
     //identify restore button
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
       //restore defaults
@@ -165,7 +165,7 @@ auto Preferences::colorDialog() -> void
 }
 
 
-auto Preferences::showColor(const QString i_colorName) -> void
+auto Preferences::showColor(const QString& i_colorName) -> void
 {
   //create color
   QColor color(i_colorName);
@@ -213,7 +213,7 @@ auto Preferences::hidePreferences() -> void
 #endif
 
   //hide camera settings if Platform is Windows
-#if defined Q_OS_WIN && !defined QT_DEBUG 
+#if defined Q_OS_WIN && !defined QT_DEBUG
   m_ui->lblCamera->hide();
   m_ui->lblGphoto2Arg->hide();
   m_ui->txtGphoto2Arg->hide();

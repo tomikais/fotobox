@@ -75,7 +75,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //ESCAPE KEY
       if (event->key() == Qt::Key_Escape) {
           //Quit application
-          ::QCoreApplication::quit();
+          QCoreApplication::quit();
         }
     }
 }
