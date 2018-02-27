@@ -17,7 +17,7 @@
 
 
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
-  m_ui(new Ui::Fotobox),
+  m_ui(new Ui::FotoBoxDialog),
   m_buzzer(new Buzzer),
   m_camera(this),
   m_photo()

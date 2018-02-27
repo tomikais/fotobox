@@ -15,7 +15,7 @@ class Buzzer;
 
 namespace Ui
 {
-  class Fotobox;
+  class FotoBoxDialog;
 }
 
 
@@ -62,7 +62,7 @@ private:
 
 
   //User Interface
-  Ui::Fotobox *m_ui;
+  Ui::FotoBoxDialog *m_ui;
 
   //Buzzer (Raspberry Pi GPIO)
   Buzzer *m_buzzer;

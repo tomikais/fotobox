@@ -13,11 +13,11 @@
 
 
 /*!
- * \brief main
- * \param argc argument count
- * \param argv argument vector
- * \return int EXIT CODE
- */
+* \brief main
+* \param argc argument count
+* \param argv argument vector
+* \return int EXIT CODE
+*/
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
@@ -28,26 +28,26 @@ int main(int argc, char *argv[])
   //gphoto2 installed on the operating system?
 #if defined __APPLE__ || defined __linux__
   if (!FotoBox::checkGPhoto2()) {
-      return EXIT_FAILURE;
-    }
+    return EXIT_FAILURE;
+  }
 #endif
 
   //German or English (=default language)
   QTranslator translator;
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-      result = translator.load(":/translations/german");
-    }
+    result = translator.load(":/translations/german");
+  }
   else {
-      result = translator.load(":/translations/english");
-    }
+    result = translator.load(":/translations/english");
+  }
   result == true ? app.installTranslator(&translator) : false;
 
   //Show preferences (modal window)
   Preferences::getInstance().exec();
-  if(Preferences::getInstance().result() == QDialog::Rejected) {
-      return EXIT_FAILURE;
-    }
+  if (Preferences::getInstance().result() == QDialog::Rejected) {
+    return EXIT_FAILURE;
+  }
 
   //Show FotoBox in fullscreen mode
   FotoBox fotobox;
