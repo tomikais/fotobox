@@ -9,7 +9,7 @@
 
 #include "ui_fotobox.h"
 #include "buzzer.h"
-#include "preferences.h"
+#include "preferenceprovider.h"
 
 #include <QProcess>
 #include <QKeyEvent>
@@ -28,7 +28,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::showPicture);
 
-  if (Preferences::getInstance().showButtons()) {
+  if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
       connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
@@ -42,7 +42,7 @@ FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
     }
 
   //set Background Color
-  setStyleSheet(QString("#Fotobox, #statusBar { background-color:%1; }").arg(Preferences::getInstance().backgroundColor()));
+  setStyleSheet(QString("#FotoBoxDialog, #statusBar { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
 
 #ifdef __WIRING_PI_H__
   //running loop to check buzzer trigger
@@ -118,7 +118,7 @@ auto FotoBox::showPicture() -> void
       QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
       //load photo
-      if (!m_photo.load(Preferences::getInstance().pictureDirectory() + "preview.jpg")) {
+      if (!m_photo.load(PreferenceProvider::instance().pictureDirectory() + "preview.jpg")) {
           m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
         }
       else {

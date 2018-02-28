@@ -6,20 +6,13 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "preferences.h"
+#include "preferenceprovider.h"
 #include "ui_preferences.h"
 
 #include <QColorDialog>
 #include <QDesktopWidget>
-#include <QDir>
 #include <QTimer>
 
-
-auto Preferences::getInstance() -> Preferences&
-{
-  //thread safe static initializer
-  static Preferences instance;
-  return instance;
-}
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
@@ -37,13 +30,13 @@ m_timer(new QTimer(this))
   hidePreferences();
 
   //connect UI to preferences
-  connect(m_ui->chbButtons, &QAbstractButton::toggled, this, &Preferences::setShowButtons);
-  connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::setBackgroundColor);
-  connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &Preferences::setToolTip);
+  connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
+  connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
+  connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &QLineEdit::setToolTip);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::showColor);
-  connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setInputPin);
-  connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setOutputPin);
-  connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setQueryInterval);
+  connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
+  connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
+  connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
     [this] () {
     //QComboBox has changed, show stored data to QLineEdit
@@ -54,7 +47,7 @@ m_timer(new QTimer(this))
     //save changed text in QComboBox model
     m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
   });
-  connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &Preferences::setTimeoutValue);
+  connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
 
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
@@ -138,22 +131,6 @@ auto Preferences::loadPreferences() -> void
 }
 
 
-auto Preferences::pictureDirectory() const -> QString
-{
-  QString picDir;
-#if defined __APPLE__
-  //macOS shit
-  picDir = QApplication::applicationDirPath() + QDir::separator() +
-      QStringLiteral("..") + QDir::separator() +
-      QStringLiteral("..") + QDir::separator() +
-      QStringLiteral("..") + QDir::separator();
-#else
-  picDir = QCoreApplication::applicationDirPath() + QDir::separator();
-#endif
-  return picDir;
-}
-
-
 auto Preferences::colorDialog() -> void
 {
   //"Color Picker" Dialog
@@ -183,18 +160,18 @@ auto Preferences::showColor(const QString& i_colorName) -> void
 auto Preferences::savePreferences() -> void
 {
   //GENERAL
-  m_settings.setValue(m_ui->chbButtons->objectName(), showButtons());
-  m_settings.setValue(m_ui->txtShowColor->objectName(), backgroundColor());
+  m_settings.setValue(m_ui->chbButtons->objectName(), PreferenceProvider::instance().showButtons());
+  m_settings.setValue(m_ui->txtShowColor->objectName(), PreferenceProvider::instance().backgroundColor());
 
   m_settings.beginGroup(QStringLiteral("Buzzer"));
-  m_settings.setValue(m_ui->spbInputPin->objectName(), inputPin());
-  m_settings.setValue(m_ui->spbOutputPin->objectName(), outputPin());
-  m_settings.setValue(m_ui->spbQueryInterval->objectName(), queryInterval());
+  m_settings.setValue(m_ui->spbInputPin->objectName(), PreferenceProvider::instance().inputPin());
+  m_settings.setValue(m_ui->spbOutputPin->objectName(), PreferenceProvider::instance().outputPin());
+  m_settings.setValue(m_ui->spbQueryInterval->objectName(), PreferenceProvider::instance().queryInterval());
   m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Camera"));
   //m_settings.setValue(m_ui->cmbCameraMode->objectName(), QPersistentModelIndex(m_ui->cmbCameraMode->rootModelIndex()));
-  m_settings.setValue(m_ui->spbTimout->objectName(), timeoutValue());
+  m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
   m_settings.endGroup();
 }
 
@@ -243,101 +220,4 @@ void Preferences::restoreDefaultPreferences()
     QStringLiteral("raspistill"),
     QStringLiteral("--output pic.jpg --thumb preview.jpg 800:640:90"));
   m_ui->spbTimout->setValue(15);
-}
-
-
-//Qt Porperty
-bool Preferences::showButtons()
-{
-  return m_showButtons;
-}
-
-void Preferences::setShowButtons(const bool i_value)
-{
-  m_showButtons = i_value;
-  emit showButtonsChanged(m_showButtons);
-}
-
-
-QString& Preferences::backgroundColor()
-{
-  return m_backgroundColor;
-}
-
-void Preferences::setBackgroundColor(const QString& i_value)
-{
-  m_backgroundColor = i_value;
-  emit backgroundColorChanged(m_backgroundColor);
-}
-
-
-int Preferences::inputPin()
-{
-  return m_inputPin;
-}
-
-void Preferences::setInputPin(const int i_value)
-{
-  m_inputPin = i_value;
-  emit inputPinChanged(m_inputPin);
-}
-
-
-int Preferences::outputPin()
-{
-  return m_outputPin;
-}
-
-void Preferences::setOutputPin(const int i_value)
-{
-  m_outputPin = i_value;
-  emit outputPinChanged(m_outputPin);
-}
-
-
-int Preferences::queryInterval()
-{
-  return m_queryInterval;
-}
-
-void Preferences::setQueryInterval(const int i_value)
-{
-  m_queryInterval = i_value;
-  emit queryIntervalChanged(m_queryInterval);
-}
-
-
-QString Preferences::cameraMode()
-{
-  return m_cameraMode;
-}
-
-void Preferences::setCameraMode(const QString& i_value)
-{
-  m_cameraMode = i_value;
-  emit cameraModeChanged(m_cameraMode);
-}
-
-
-QString Preferences::argumentLine()
-{
-  return m_argumentLine;
-}
-
-void Preferences::setArgumentLine(const QString& i_value)
-{
-  m_argumentLine = i_value;
-  emit argumentLineChanged(m_argumentLine);
-}
-
-
-int Preferences::timeoutValue()
-{
-  return m_timeoutValue;
-}
-
-void Preferences::setTimeoutValue(const int i_value)
-{
-  m_timeoutValue = i_value;
-  emit timeoutValueChanged(m_timeoutValue);
 }

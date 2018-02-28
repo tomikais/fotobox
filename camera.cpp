@@ -6,7 +6,7 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "camera.h"
-#include "preferences.h"
+#include "preferenceprovider.h"
 
 #include <QProcess>
 
@@ -29,13 +29,13 @@ Camera::~Camera()
 auto Camera::shootPhoto() const -> bool
 {
   //Program name and arguments
-  const QString gphoto2 = QStringLiteral("gphoto2 ") + Preferences::getInstance().argumentLine();
+  const QString gphoto2 = QStringLiteral("gphoto2 ") + PreferenceProvider::instance().argumentLine();
 
   //Start programm with given arguments
   m_process->start(gphoto2, QIODevice::NotOpen);
 
   //convert to milliseconds
-  auto milliseconds = 1000 * Preferences::getInstance().timeoutValue();
+  auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
 
   //check time out and process exit code
   if(!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS){

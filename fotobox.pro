@@ -22,12 +22,14 @@ SOURCES         += main.cpp \
                    fotobox.cpp \
                    buzzer.cpp \
                    camera.cpp \
-                   preferences.cpp
+                   preferences.cpp \
+                   preferenceprovider.cpp
 
 HEADERS         += fotobox.h \
                    buzzer.h \
                    camera.h \
-                   preferences.h
+                   preferences.h \
+                   preferenceprovider.h
 
 FORMS            = fotobox.ui \
                    preferences.ui

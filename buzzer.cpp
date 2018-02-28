@@ -15,7 +15,7 @@
 // ******************************************
 // DEVICE: Raspberry Pi (wiringPi available)
 
-#include "preferences.h"
+#include "preferenceprovider.h"
 
 Buzzer::Buzzer(QObject *parent) : QThread(parent)
 {
@@ -24,17 +24,17 @@ Buzzer::Buzzer(QObject *parent) : QThread(parent)
   wiringPiSetup();
 
   //set mode of the pin (INPUT, OUTPUT, PWM_OUTPUT)
-  pinMode(Preferences::getInstance().outputPin(), OUTPUT);
-  pinMode(Preferences::getInstance().inputPin(), INPUT);
+  pinMode(PreferenceProvider::instance().outputPin(), OUTPUT);
+  pinMode(PreferenceProvider::instance().inputPin(), INPUT);
 }
 
 
 auto Buzzer::run() -> void
 {
   //query pin
-  while(digitalRead(Preferences::getInstance().inputPin()) != HIGH) {
+  while(digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
       //wait before check again
-      delay(Preferences::getInstance().queryInterval());
+      delay(PreferenceProvider::instance().queryInterval());
     }
 }
 

@@ -43,9 +43,10 @@ int main(int argc, char *argv[])
   }
   result == true ? app.installTranslator(&translator) : false;
 
-  //Show preferences (modal window)
-  Preferences::getInstance().exec();
-  if (Preferences::getInstance().result() == QDialog::Rejected) {
+  //Show preferences
+  Preferences prefDialog;
+  prefDialog.exec();
+  if (prefDialog.result() == QDialog::Rejected) {
     return EXIT_FAILURE;
   }
 
