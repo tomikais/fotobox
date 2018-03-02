@@ -19,6 +19,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="mouseTracking">
+      <bool>true</bool>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -34,16 +40,12 @@
         <height>353</height>
        </rect>
       </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="2" column="2">
-          <widget class="QPushButton" name="btnChooseColor">
-           <property name="text">
-            <string>Choose Color</string>
-           </property>
-          </widget>
-         </item>
          <item row="4" column="0">
           <widget class="QLabel" name="lblInputPin">
            <property name="text">
@@ -51,10 +53,72 @@
            </property>
           </widget>
          </item>
+         <item row="10" column="1" colspan="3">
+          <widget class="QLineEdit" name="txtArgumentLine">
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="lblBackground">
+           <property name="text">
+            <string>background color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QSpinBox" name="spbTimout">
+           <property name="suffix">
+            <string> seconds</string>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="1">
           <widget class="QSpinBox" name="spbInputPin">
            <property name="maximum">
             <number>40</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QCheckBox" name="chbButtons">
+           <property name="text">
+            <string>(enable/disable)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="lblQueryInterval">
+           <property name="text">
+            <string>query interval</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="lblButtons">
+           <property name="text">
+            <string>buttons</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="btnChooseColor">
+           <property name="text">
+            <string>Choose Color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="lblGeneral">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>General</string>
            </property>
           </widget>
          </item>
@@ -80,77 +144,6 @@
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
-          <widget class="QSpinBox" name="spbTimout">
-           <property name="suffix">
-            <string> seconds</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QCheckBox" name="chbButtons">
-           <property name="text">
-            <string>(enable/disable)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="lblQueryInterval">
-           <property name="text">
-            <string>query interval</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="lblButtons">
-           <property name="text">
-            <string>buttons</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QLabel" name="lblGeneral">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>General</string>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="1" colspan="3">
-          <widget class="QLineEdit" name="txtArgumentLine">
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="lblBackground">
-           <property name="text">
-            <string>background color</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
-          <widget class="QSpinBox" name="spbQueryInterval">
-           <property name="accelerated">
-            <bool>true</bool>
-           </property>
-           <property name="suffix">
-            <string> milliseconds</string>
-           </property>
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="maximum">
-            <number>100</number>
-           </property>
-          </widget>
-         </item>
          <item row="5" column="1">
           <widget class="QSpinBox" name="spbOutputPin">
            <property name="maximum">
@@ -162,13 +155,6 @@
           <widget class="QLabel" name="lblTimeout">
            <property name="text">
             <string>timeout value</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="lblOutputPin">
-           <property name="text">
-            <string>output PIN</string>
            </property>
           </widget>
          </item>
@@ -198,10 +184,43 @@
            </property>
           </spacer>
          </item>
-         <item row="10" column="0">
-          <widget class="QLabel" name="lblArgumentLine">
+         <item row="9" column="1">
+          <widget class="QComboBox" name="cmbCameraMode"/>
+         </item>
+         <item row="9" column="2" colspan="2">
+          <widget class="QLabel" name="lblCameraModeInfo">
+           <property name="styleSheet">
+            <string notr="true">QLabel { color : red; }</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="lblOutputPin">
            <property name="text">
-            <string>argument line</string>
+            <string>output PIN</string>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="0">
+          <widget class="QLabel" name="lblCameraMode">
+           <property name="text">
+            <string>camera mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QSpinBox" name="spbQueryInterval">
+           <property name="accelerated">
+            <bool>true</bool>
+           </property>
+           <property name="suffix">
+            <string> milliseconds</string>
+           </property>
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>100</number>
            </property>
           </widget>
          </item>
@@ -218,21 +237,19 @@
            </property>
           </widget>
          </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="lblCameraMode">
+         <item row="10" column="0">
+          <widget class="QLabel" name="lblArgumentLine">
            <property name="text">
-            <string>camera mode</string>
+            <string>argument line</string>
            </property>
           </widget>
          </item>
          <item row="8" column="0" colspan="4">
-          <widget class="QLabel" name="lblCameraInfo"/>
-         </item>
-         <item row="9" column="2" colspan="2">
-          <widget class="QLabel" name="lblCameraModeInfo"/>
-         </item>
-         <item row="9" column="1">
-          <widget class="QComboBox" name="cmbCameraMode"/>
+          <widget class="QLabel" name="lblCameraInfo">
+           <property name="text">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

@@ -25,13 +25,6 @@ int main(int argc, char *argv[])
   app.setApplicationName("FotoBox");
   app.setApplicationVersion("1.2.0");
 
-  //gphoto2 installed on the operating system?
-#if defined __APPLE__ || defined __linux__
-  if (!FotoBox::checkGPhoto2()) {
-    return EXIT_FAILURE;
-  }
-#endif
-
   //German or English (=default language)
   QTranslator translator;
   bool result = false;

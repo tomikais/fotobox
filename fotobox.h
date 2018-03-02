@@ -40,12 +40,6 @@ public:
   */
   virtual ~FotoBox();
 
-  /*!
-   * \brief check if gphoto2 is installed on system
-   * \return true: gphoto2 available / false: not
-   */
-  auto static checkGPhoto2() -> bool;
-
 
 private:
   /*!

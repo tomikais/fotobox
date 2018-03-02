@@ -66,6 +66,12 @@ public:
   */
   void showColor(const QString& i_colorName);
 
+  /*!
+  * \brief check camera application availability and provide help
+  * \param i_name QString name of the application
+  */
+  void applicationAvailable(const QString& i_name);
+
 
 private:
   /*!

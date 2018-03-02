@@ -11,9 +11,7 @@
 #include "buzzer.h"
 #include "preferenceprovider.h"
 
-#include <QProcess>
 #include <QKeyEvent>
-#include <QMessageBox>
 
 
 FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
@@ -78,31 +76,6 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
           QCoreApplication::quit();
         }
     }
-}
-
-
-auto FotoBox::checkGPhoto2() -> bool
-{
-  //auto-detect: get detected cameras
-  auto result = QProcess::execute("gphoto2", { "--auto-detect", "--version" });
-
-  //check result
-  if (result != EXIT_SUCCESS) {
-      QGuiApplication::restoreOverrideCursor();
-      QMessageBox msgBox;
-      msgBox.setTextFormat(Qt::RichText);   //this is what makes the links clickable
-      msgBox.setWindowTitle("gphoto2 missing");
-      msgBox.setText(tr("Please install 'gphoto2' on <br><br>"
-                        "Raspberry Pi: <a href='https://github.com/gonzalo/gphoto2-updater'>gphoto2-updater</a><br>"
-                        "macOS: <a href='https://brew.sh>Homebrew/'>Homebrew</a>"));
-      msgBox.setStandardButtons(QMessageBox::Ok);
-      msgBox.setIcon(QMessageBox::Critical);
-      msgBox.exec();
-
-      return false;
-    }
-
-  return true;
 }
 
 
