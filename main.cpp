@@ -6,7 +6,6 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "preferences.h"
-#include "fotobox.h"
 
 #include <QApplication>
 #include <QTranslator>
@@ -36,16 +35,9 @@ int main(int argc, char *argv[])
   }
   result == true ? app.installTranslator(&translator) : false;
 
-  //Show preferences
+  //Show preferences dialog
   Preferences prefDialog;
-  prefDialog.exec();
-  if (prefDialog.result() == QDialog::Rejected) {
-    return EXIT_FAILURE;
-  }
-
-  //Show FotoBox in fullscreen mode
-  FotoBox fotobox;
-  fotobox.showFullScreen();
+  prefDialog.show();
 
   return app.exec();
 }

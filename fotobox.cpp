@@ -14,7 +14,7 @@
 #include <QKeyEvent>
 
 
-FotoBox::FotoBox(QWidget *parent) : QMainWindow(parent),
+FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(new Buzzer),
   m_camera(this),

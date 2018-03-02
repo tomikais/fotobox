@@ -3,9 +3,6 @@
  <author>Thomas Kais</author>
  <class>PreferencesDialog</class>
  <widget class="QDialog" name="PreferencesDialog">
-  <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>

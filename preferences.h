@@ -11,6 +11,7 @@
 
 class QLineEdit;
 class QTimer;
+class FotoBox;
 
 
 namespace Ui {
@@ -40,6 +41,11 @@ public:
 
 
   private slots:
+  /*!
+  * \brief start the FotoBox
+  */
+  void startFotoBox();
+
   /*!
   * \brief Open a color picker to choose background color for FotoBox
   */
@@ -90,6 +96,9 @@ private:
   */
   auto hidePreferences() -> void;
 
+
+  //FotoBox
+  FotoBox* m_fotoBox;
 
   //User Interface
   Ui::PreferencesDialog *m_ui;

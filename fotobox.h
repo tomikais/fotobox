@@ -6,7 +6,7 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #pragma once
-#include <QMainWindow>
+#include <QDialog>
 
 #include "camera.h"
 
@@ -23,7 +23,7 @@ namespace Ui
  * \brief The FotoBox class
  * Main class to control UI and controll the process
  */
-class FotoBox : public QMainWindow
+class FotoBox : public QDialog
 {
   Q_OBJECT
 

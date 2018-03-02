@@ -6,8 +6,10 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "preferences.h"
-#include "preferenceprovider.h"
 #include "ui_preferences.h"
+
+#include "preferenceprovider.h"
+#include "fotobox.h"
 
 #include <QColorDialog>
 #include <QDesktopWidget>
@@ -17,6 +19,7 @@
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
+m_fotoBox(new FotoBox(this)),
 m_ui(new Ui::PreferencesDialog),
 m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
 m_timer(new QTimer(this))
@@ -54,6 +57,7 @@ m_timer(new QTimer(this))
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
+  connect(this, &QDialog::accepted, this, &Preferences::startFotoBox);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   connect(m_ui->buttonBox, &QDialogButtonBox::clicked,
     [this](QAbstractButton *button) {
@@ -82,6 +86,15 @@ m_timer(new QTimer(this))
 Preferences::~Preferences()
 {
   delete m_ui;
+}
+
+
+void Preferences::startFotoBox()
+{
+  //Hide Preference dialog
+  hide();
+
+  m_fotoBox->showFullScreen();
 }
 
 
