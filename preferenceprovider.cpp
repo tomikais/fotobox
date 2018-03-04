@@ -7,7 +7,7 @@
 */
 #include "preferenceprovider.h"
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QDir>
 
 
@@ -32,7 +32,7 @@ auto PreferenceProvider::pictureDirectory() -> QString
     QStringLiteral("..") + QDir::separator() +
     QStringLiteral("..") + QDir::separator();
 #else
-  return QCoreApplication::applicationDirPath() + QDir::separator();
+  return QApplication::applicationDirPath() + QDir::separator();
 #endif
 }
 

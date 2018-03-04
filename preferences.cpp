@@ -19,7 +19,7 @@
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-m_fotoBox(new FotoBox(this)),
+m_fotoBox(nullptr),
 m_ui(new Ui::PreferencesDialog),
 m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
 m_timer(new QTimer(this))
@@ -94,6 +94,7 @@ void Preferences::startFotoBox()
   //Hide Preference dialog
   hide();
 
+  m_fotoBox = new FotoBox(this);
   m_fotoBox->showFullScreen();
 }
 
@@ -264,4 +265,6 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
     m_ui->lblCameraModeInfo->setText("'" + i_name + tr("' is missing!"));
     return;
   }
+
+  m_ui->lblCameraModeInfo->setText("");
 }
