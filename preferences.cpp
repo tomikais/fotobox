@@ -152,7 +152,17 @@ auto Preferences::loadPreferences() -> void
   m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Camera"));
-  //m_ui->txtArgumentLine->setText(m_settings.value(m_ui->txtArgumentLine->objectName(), m_ui->txtArgumentLine->text()).toString());
+  //restore QComboBox model
+  auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + "Data").toStringList();
+  auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + "Text").toStringList();
+  if (!data.empty()) {
+    m_ui->cmbCameraMode->clear();
+    for (int i = 0; i < data.count(); ++i) {
+      m_ui->cmbCameraMode->addItem(text.at(i), data.at(i));
+    }
+  }
+  m_ui->cmbCameraMode->setCurrentText(m_settings.value(m_ui->cmbCameraMode->objectName(), m_ui->cmbCameraMode->currentText()).toString());
+
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
   m_settings.endGroup();
 }
@@ -197,7 +207,16 @@ auto Preferences::savePreferences() -> void
   m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Camera"));
-  //m_settings.setValue(m_ui->cmbCameraMode->objectName(), QPersistentModelIndex(m_ui->cmbCameraMode->rootModelIndex()));
+  //Save QComboBox model
+  QStringList text, data;
+  for (int i = 0; i < m_ui->cmbCameraMode->count(); ++i) {
+    text << m_ui->cmbCameraMode->itemText(i);
+    data << m_ui->cmbCameraMode->itemData(i).toString();
+  }
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + "Text", text);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + "Data", data);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
+
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
   m_settings.endGroup();
 }
@@ -224,7 +243,6 @@ auto Preferences::hidePreferences() -> void
   m_ui->lblTimeout->hide();
   m_ui->spbTimout->hide();
 #endif
-
 }
 
 
@@ -240,6 +258,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   m_ui->spbQueryInterval->setValue(10);
 
   //Camera
+  m_ui->cmbCameraMode->clear();
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("gphoto2"),
     QStringLiteral("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
