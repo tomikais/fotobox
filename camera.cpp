@@ -29,10 +29,10 @@ Camera::~Camera()
 auto Camera::shootPhoto() const -> bool
 {
   //Program name and arguments
-  const QString gphoto2 = QStringLiteral("gphoto2 ") + PreferenceProvider::instance().argumentLine();
+  const QString command = PreferenceProvider::instance().cameraMode() + " " + PreferenceProvider::instance().argumentLine();
 
   //Start programm with given arguments
-  m_process->start(gphoto2, QIODevice::NotOpen);
+  m_process->start(command, QIODevice::NotOpen);
 
   //convert to milliseconds
   auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
