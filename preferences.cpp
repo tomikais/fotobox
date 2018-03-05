@@ -96,12 +96,16 @@ void Preferences::startFotoBox()
   //Hide Preference dialog
   hide();
 
+  m_timer->stop();
+  setWindowTitle(tr("FotoBox preferences"));
+
   //Start FotoBox
   if (m_fotoBox) {
     //delete old one
     m_fotoBox->deleteLater();
   }
   m_fotoBox = new FotoBox(this);
+  Q_CHECK_PTR(m_fotoBox);
   connect(m_fotoBox, &QDialog::rejected, this, &QApplication::restoreOverrideCursor);
   connect(m_fotoBox, &QDialog::rejected, this, &QDialog::show);
   m_fotoBox->showFullScreen();
@@ -261,10 +265,10 @@ auto Preferences::restoreDefaultPreferences() -> void
   m_ui->cmbCameraMode->clear();
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("gphoto2"),
-    QStringLiteral("--capture-image-and-download --keep --filename preview.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
+    QStringLiteral("--capture-image-and-download --keep --filename thumb.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
-    QStringLiteral("--output pic.jpg --thumb preview.jpg 800:640:90"));
+    QStringLiteral("--output pic.jpg --thumb thumb.jpg 800:640:90"));
   m_ui->spbTimout->setValue(15);
 }
 

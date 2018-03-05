@@ -65,7 +65,7 @@ private:
   Camera m_camera;
 
   //store / load the photo
-  QPixmap m_photo;
+  QPixmap m_thumbnail;
 
 
 signals:

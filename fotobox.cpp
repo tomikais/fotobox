@@ -18,7 +18,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(new Buzzer),
   m_camera(this),
-  m_photo()
+  m_thumbnail()
 {
   //setup GUI
   m_ui->setupUi(this);
@@ -65,7 +65,7 @@ FotoBox::~FotoBox()
 
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
-  //prevent triggering mehtod too often
+  //prevent triggering method too often
   if (!event->isAutoRepeat()) {
     //ENTER key and ENTER on keypad
     if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
@@ -100,12 +100,12 @@ auto FotoBox::showPicture() -> void
     QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
     //load photo
-    if (!m_photo.load(PreferenceProvider::instance().pictureDirectory() + "preview.jpg")) {
-      m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
+    if (!m_thumbnail.load(PreferenceProvider::instance().pictureDirectory() + "thumb.jpg")) {
+      m_ui->statusBar->showMessage(tr("Couldn't load the photo."), 3000);
     }
     else {
       //resize picture to label size
-      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+      m_ui->lblPhoto->setPixmap(m_thumbnail.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
   }
   else {
