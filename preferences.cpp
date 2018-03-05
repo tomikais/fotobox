@@ -94,7 +94,14 @@ void Preferences::startFotoBox()
   //Hide Preference dialog
   hide();
 
+  //Start FotoBox
+  if (m_fotoBox) {
+    //delete old one
+    m_fotoBox->deleteLater();
+  }
   m_fotoBox = new FotoBox(this);
+  connect(m_fotoBox, &QDialog::rejected, this, &QApplication::restoreOverrideCursor);
+  connect(m_fotoBox, &QDialog::rejected, this, &QDialog::show);
   m_fotoBox->showFullScreen();
 }
 

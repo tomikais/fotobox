@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>268</width>
-    <height>98</height>
+    <width>323</width>
+    <height>110</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
         <widget class="QPushButton" name="btnStart">
          <property name="font">
           <font>
-           <pointsize>16</pointsize>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -61,6 +61,21 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="btnPreferencesDialog">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: grey;</string>
+         </property>
+         <property name="text">
+          <string>preferences</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="btnQuitApp">
          <property name="font">
           <font>
@@ -83,7 +98,7 @@
     <widget class="QStatusBar" name="statusBar">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="styleSheet">

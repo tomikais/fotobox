@@ -25,19 +25,22 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::showPicture);
+  
 
   if (PreferenceProvider::instance().showButtons()) {
-      //connect buttons
-      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
-      connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
-    }
+    //connect buttons
+    connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
+    connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &QDialog::reject);
+    connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+  }
   else {
-      //hide mouse cursor
-      QGuiApplication::setOverrideCursor(Qt::BlankCursor);
-      //hide buttons
-      m_ui->btnStart->setVisible(false);
-      m_ui->btnQuitApp->setVisible(false);
-    }
+    //hide mouse cursor
+    QGuiApplication::setOverrideCursor(Qt::BlankCursor);
+    //hide buttons
+    m_ui->btnStart->setVisible(false);
+    m_ui->btnPreferencesDialog->setVisible(false);
+    m_ui->btnQuitApp->setVisible(false);
+  }
 
   //set Background Color
   setStyleSheet(QString("#FotoBoxDialog, #statusBar { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
@@ -63,19 +66,25 @@ FotoBox::~FotoBox()
 auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 {
   //prevent triggering mehtod too often
-  if(!event->isAutoRepeat()) {
-      //ENTER key and ENTER on keypad
-      if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-          //take a photo
-          emit start();
-        }
-
-      //ESCAPE KEY
-      if (event->key() == Qt::Key_Escape) {
-          //Quit application
-          QCoreApplication::quit();
-        }
+  if (!event->isAutoRepeat()) {
+    //ENTER key and ENTER on keypad
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+      //take a photo
+      emit start();
     }
+
+    //ESCAPE KEY
+    if (event->key() == Qt::Key_Escape) {
+      //Quit application
+      QCoreApplication::quit();
+    }
+
+    //P KEY
+    if (event->key() == Qt::Key_P) {
+      //show Preference Dialog
+      reject();
+    }
+  }
 }
 
 
@@ -87,21 +96,21 @@ auto FotoBox::showPicture() -> void
 
   //take a photo
   if (m_camera.shootPhoto()) {
-      //get size from label
-      QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
+    //get size from label
+    QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
-      //load photo
-      if (!m_photo.load(PreferenceProvider::instance().pictureDirectory() + "preview.jpg")) {
-          m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
-        }
-      else {
-          //resize picture to label size
-          m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-        }
+    //load photo
+    if (!m_photo.load(PreferenceProvider::instance().pictureDirectory() + "preview.jpg")) {
+      m_ui->statusBar->showMessage(tr("Couldn't load the image."), 3000);
     }
+    else {
+      //resize picture to label size
+      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+  }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 2000);
-    }
+    m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 2000);
+  }
 
   //restart Buzzer
   m_buzzer->start();

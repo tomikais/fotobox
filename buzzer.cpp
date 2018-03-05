@@ -32,10 +32,10 @@ Buzzer::Buzzer(QObject *parent) : QThread(parent)
 auto Buzzer::run() -> void
 {
   //query pin
-  while(digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
-      //wait before check again
-      delay(PreferenceProvider::instance().queryInterval());
-    }
+  while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
+    //wait before check again
+    delay(PreferenceProvider::instance().queryInterval());
+  }
 }
 
 #else

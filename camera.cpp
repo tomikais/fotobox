@@ -38,10 +38,10 @@ auto Camera::shootPhoto() const -> bool
   auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
 
   //check time out and process exit code
-  if(!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS){
-      //error
-      return false;
-    }
+  if (!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS) {
+    //error
+    return false;
+  }
 
   return true;
 }
