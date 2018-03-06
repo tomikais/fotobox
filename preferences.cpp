@@ -253,7 +253,7 @@ auto Preferences::hidePreferences() -> void
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //General
-  m_ui->chbButtons->setChecked(true);
+  m_ui->chbButtons->setChecked(false);
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));
 
   //Buzzer
@@ -268,7 +268,7 @@ auto Preferences::restoreDefaultPreferences() -> void
     QStringLiteral("--capture-image-and-download --keep --filename thumb.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
-    QStringLiteral("--output thumb.jpg --width 2560 --height 1920 --quality 75 --thumb none --nopreview --timeout 1"));
+    QStringLiteral("--output thumb.jpg --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(15);
 }
 
