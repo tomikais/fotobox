@@ -88,6 +88,16 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 }
 
 
+auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
+{
+  if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
+    emit start();
+  }
+
+  QWidget::mouseReleaseEvent(event);
+}
+
+
 auto FotoBox::showPicture() -> void
 {
   //remove current picture / refresh label (photo)
