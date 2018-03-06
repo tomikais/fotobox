@@ -20,18 +20,18 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  app.setOrganizationName("Thomas Kais");
-  app.setApplicationName("FotoBox");
-  app.setApplicationVersion("1.2.0");
+  app.setOrganizationName(QStringLiteral("Thomas Kais"));
+  app.setApplicationName(QStringLiteral("FotoBox"));
+  app.setApplicationVersion(QStringLiteral("1.2.0"));
 
   //German or English (=default language)
   QTranslator translator;
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-    result = translator.load(":/translations/german");
+    result = translator.load(QStringLiteral(":/translations/german"));
   }
   else {
-    result = translator.load(":/translations/english");
+    result = translator.load(QStringLiteral(":/translations/english"));
   }
   result == true ? app.installTranslator(&translator) : false;
 

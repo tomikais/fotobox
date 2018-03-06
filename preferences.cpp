@@ -157,8 +157,8 @@ auto Preferences::loadPreferences() -> void
 
   m_settings.beginGroup(QStringLiteral("Camera"));
   //restore QComboBox model
-  auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + "Data").toStringList();
-  auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + "Text").toStringList();
+  auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Data")).toStringList();
+  auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Text")).toStringList();
   if (!data.empty()) {
     m_ui->cmbCameraMode->clear();
     for (int i = 0; i < data.count(); ++i) {
@@ -217,8 +217,8 @@ auto Preferences::savePreferences() -> void
     text << m_ui->cmbCameraMode->itemText(i);
     data << m_ui->cmbCameraMode->itemData(i).toString();
   }
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + "Text", text);
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + "Data", data);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Text"), text);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Data"), data);
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
 
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
@@ -268,7 +268,7 @@ auto Preferences::restoreDefaultPreferences() -> void
     QStringLiteral("--capture-image-and-download --keep --filename thumb.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
-    QStringLiteral("--output pic.jpg --thumb thumb.jpg 800:640:90"));
+    QStringLiteral("--output thumb.jpg --width 2560 --height 1920 --quality 75 --thumb none --nopreview --timeout 0"));
   m_ui->spbTimout->setValue(15);
 }
 
@@ -276,27 +276,26 @@ auto Preferences::restoreDefaultPreferences() -> void
 auto Preferences::applicationAvailable(const QString& i_name) -> void
 {
   //specific 'gphoto2' check: auto-detect: get detected cameras
-  if (i_name == "gphoto2" && QProcess::execute(i_name, { "--auto-detect", "--version" }) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
-      "<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / "
-      "<a href='https://brew.sh/'>macOS (Homebrew)</a>"
+  if (i_name == QLatin1String("gphoto2") && QProcess::execute(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") }) != EXIT_SUCCESS) {
+    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + 
+      QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>")
     );
     return;
   }
 
   //specific 'raspistill' show verbose message
-  if (i_name == "raspistill" && QProcess::execute(i_name, { "--verbose" }) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
-      "<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"
+  if (i_name == QLatin1String("raspistill") && QProcess::execute(i_name) != EXIT_SUCCESS) {
+    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + 
+      QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>")
     );
     return;
   }
 
   //other applications
   if (QProcess::execute(i_name) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText("'" + i_name + tr("' is missing!"));
+    m_ui->lblCameraModeInfo->setText(QLatin1String("'") + i_name + tr("' is missing!"));
     return;
   }
 
-  m_ui->lblCameraModeInfo->setText("");
+  m_ui->lblCameraModeInfo->setText(QString());
 }

@@ -43,7 +43,7 @@ auto Buzzer::run() -> void
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) : QThread(parent) { }
+Buzzer::Buzzer(QObject *parent) : QThread(parent) { /* no wiringPi framework available */ }
 
 auto Buzzer::run() -> void { /* no wiringPi framework available */ }
 

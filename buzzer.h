@@ -25,6 +25,8 @@ public:
    */
   explicit Buzzer(QObject *parent = nullptr);
 
+
+private:
   /*!
   * \brief Query the Raspberry Pi Pin
   */

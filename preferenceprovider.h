@@ -18,19 +18,19 @@ class PreferenceProvider : public QObject
 public:
   //Qt Property
   Q_PROPERTY(bool showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
-    Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
-    Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
-    Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
-    Q_PROPERTY(int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
-    Q_PROPERTY(QString cameraMode READ cameraMode WRITE setCameraMode NOTIFY cameraModeChanged)
-    Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
-    Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
+  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+  Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
+  Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
+  Q_PROPERTY(int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
+  Q_PROPERTY(QString cameraMode READ cameraMode WRITE setCameraMode NOTIFY cameraModeChanged)
+  Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
+  Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
 
-    /*!
-    * \brief getInstance (Meyers Singleton)
-    * \return Preferences&
-    */
-    auto static instance()->PreferenceProvider&;
+  /*!
+  * \brief getInstance (Meyers Singleton)
+  * \return Preferences&
+  */
+  auto static instance()->PreferenceProvider&;
 
   /*!
   * \brief return the directory to store the pictures

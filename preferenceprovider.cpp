@@ -28,9 +28,9 @@ auto PreferenceProvider::pictureDirectory() -> QString
 #if defined __APPLE__
   //macOS shit
   return QApplication::applicationDirPath() + QDir::separator() +
-    QStringLiteral("..") + QDir::separator() +
-    QStringLiteral("..") + QDir::separator() +
-    QStringLiteral("..") + QDir::separator();
+    QLatin1String("..") + QDir::separator() +
+    QLatin1String("..") + QDir::separator() +
+    QLatin1String("..") + QDir::separator();
 #else
   return QApplication::applicationDirPath() + QDir::separator();
 #endif

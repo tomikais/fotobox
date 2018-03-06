@@ -43,7 +43,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   }
 
   //set Background Color
-  setStyleSheet(QString("#FotoBoxDialog, #statusBar { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
+  setStyleSheet(QStringLiteral("#FotoBoxDialog, #statusBar { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
 
 #ifdef __WIRING_PI_H__
   //running loop to check buzzer trigger
@@ -100,7 +100,7 @@ auto FotoBox::showPicture() -> void
     QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
     //load photo
-    if (!m_thumbnail.load(PreferenceProvider::instance().pictureDirectory() + "thumb.jpg")) {
+    if (!m_thumbnail.load(PreferenceProvider::instance().pictureDirectory() + QLatin1String("thumb.jpg"))) {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), 3000);
     }
     else {

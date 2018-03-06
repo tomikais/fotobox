@@ -14,22 +14,20 @@
 Camera::Camera(QObject *parent) : QObject(parent),
   m_process(new QProcess(this))
 {
-  //check pointer
-  Q_CHECK_PTR(m_process);
+
 }
 
 
 Camera::~Camera()
 {
-  //clean up
-  m_process->deleteLater();
+
 }
 
 
 auto Camera::shootPhoto() const -> bool
 {
   //Program name and arguments
-  const QString command = PreferenceProvider::instance().cameraMode() + " " + PreferenceProvider::instance().argumentLine();
+  const QString command = PreferenceProvider::instance().cameraMode() + QLatin1String(" ") + PreferenceProvider::instance().argumentLine();
 
   //Start programm with given arguments
   m_process->start(command, QIODevice::NotOpen);
