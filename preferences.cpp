@@ -268,7 +268,7 @@ auto Preferences::restoreDefaultPreferences() -> void
     QStringLiteral("--capture-image-and-download --keep --filename thumb.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
-    QStringLiteral("--output thumb.jpg --width 2560 --height 1920 --quality 75 --thumb none --nopreview --timeout 0"));
+    QStringLiteral("--output thumb.jpg --width 2560 --height 1920 --quality 75 --thumb none --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(15);
 }
 
@@ -284,7 +284,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
   }
 
   //specific 'raspistill' show verbose message
-  if (i_name == QLatin1String("raspistill") && QProcess::execute(i_name) != EXIT_SUCCESS) {
+  if (i_name == QLatin1String("raspistill") && QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
     m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + 
       QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>")
     );
