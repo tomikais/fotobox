@@ -20,6 +20,9 @@ class Camera : public QObject
 
 
 public:
+  //Qt Property
+  //Q_PROPERTY(QString m_lastPhoto READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
+
   /*!
    * \brief Camera constructor
    * \param parent QObject
@@ -35,11 +38,13 @@ public:
    * \brief shoot a photo with gphoto2
    * \return true: processed finished / false:error
    */
-  auto shootPhoto() const -> bool;
+  auto shootPhoto() -> bool;
 
 
 private:
   //start gphoto2
   QProcess *m_process;
+
+  QString m_lastPhoto;
 
 };

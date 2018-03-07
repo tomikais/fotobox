@@ -17,6 +17,8 @@ class PreferenceProvider : public QObject
 
 public:
   //Qt Property
+  Q_PROPERTY(QString photoFolder READ photoFolder WRITE setPhotoFolder NOTIFY photoFolderChanged)
+  Q_PROPERTY(QString photoName READ photoName WRITE setPhotoName NOTIFY photoNameChanged)
   Q_PROPERTY(bool showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
   Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
   Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY setChanged NOTIFY inputPinChanged)
@@ -38,8 +40,10 @@ public:
   */
   auto static pictureDirectory()->QString;
 
+  QString photoFolder();
+  QString photoName();
   bool showButtons();
-  QString& backgroundColor();
+  QString backgroundColor();
   int inputPin();
   int outputPin();
   int queryInterval();
@@ -47,6 +51,8 @@ public:
   QString argumentLine();
   int timeoutValue();
 
+  void setPhotoFolder(const QString& i_value);
+  void setPhotoName(const QString& i_value);
   void setShowButtons(const bool i_value);
   void setBackgroundColor(const QString& i_value);
   void setInputPin(const int i_value);
@@ -58,6 +64,8 @@ public:
 
 
 signals:
+  void photoFolderChanged(QString);
+  void photoNameChanged(QString);
   void showButtonsChanged(bool);
   void backgroundColorChanged(QString);
   void inputPinChanged(int);
@@ -91,6 +99,8 @@ private:
   PreferenceProvider& operator=(const PreferenceProvider&) = delete;
 
 
+  QString m_photoFolder;
+  QString m_photoName;
   bool m_showButtons;
   QString m_backgroundColor;
   int m_inputPin;

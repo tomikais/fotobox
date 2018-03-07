@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "preferenceprovider.h"
 
+#include <QDateTime>
 #include <QProcess>
 
 
@@ -24,13 +25,16 @@ Camera::~Camera()
 }
 
 
-auto Camera::shootPhoto() const -> bool
+auto Camera::shootPhoto() -> bool
 {
+  //File name for the current
+  m_lastPhoto = QDateTime::currentDateTime().toString(PreferenceProvider::instance().photoName());
+
   //Program name and arguments
   const QString command = PreferenceProvider::instance().cameraMode() + QLatin1String(" ") + PreferenceProvider::instance().argumentLine();
 
   //Start programm with given arguments
-  m_process->start(command, QIODevice::NotOpen);
+  m_process->start(command);
 
   //convert to milliseconds
   auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();

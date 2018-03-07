@@ -38,6 +38,30 @@ auto PreferenceProvider::pictureDirectory() -> QString
 
 
 //Qt Porperty
+QString PreferenceProvider::photoFolder()
+{
+  return m_photoFolder;
+}
+
+void PreferenceProvider::setPhotoFolder(const QString& i_value)
+{
+  m_photoFolder = i_value;
+  emit photoFolderChanged(m_photoFolder);
+}
+
+
+QString PreferenceProvider::photoName()
+{
+  return m_photoName;
+}
+
+void PreferenceProvider::setPhotoName(const QString& i_value)
+{
+  m_photoName = i_value;
+  emit photoNameChanged(m_photoName);
+}
+
+
 bool PreferenceProvider::showButtons()
 {
   return m_showButtons;
@@ -50,7 +74,7 @@ void PreferenceProvider::setShowButtons(const bool i_value)
 }
 
 
-QString& PreferenceProvider::backgroundColor()
+QString PreferenceProvider::backgroundColor()
 {
   return m_backgroundColor;
 }

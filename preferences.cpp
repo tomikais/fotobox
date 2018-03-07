@@ -34,6 +34,8 @@ m_timer(new QTimer(this))
   hidePreferences();
 
   //connect UI to preferences
+  connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
+  connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &QLineEdit::setToolTip);
@@ -145,9 +147,12 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 
 auto Preferences::loadPreferences() -> void
 {
-  //GENERAL
+  m_settings.beginGroup(QStringLiteral("FotoBox"));
+  m_ui->txtPhotoFolder->setText(m_settings.value(m_ui->txtPhotoFolder->objectName(), m_ui->txtPhotoFolder->text()).toString());
+  m_ui->txtPhotoName->setText(m_settings.value(m_ui->txtPhotoName->objectName(), m_ui->txtPhotoName->text()).toString());
   m_ui->chbButtons->setChecked(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
   m_ui->txtShowColor->setText(m_settings.value(m_ui->txtShowColor->objectName(), m_ui->txtShowColor->text()).toString());
+  m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Buzzer"));
   m_ui->spbInputPin->setValue(m_settings.value(m_ui->spbInputPin->objectName(), m_ui->spbInputPin->value()).toInt());
@@ -200,9 +205,12 @@ auto Preferences::showColor(const QString& i_colorName) -> void
 
 auto Preferences::savePreferences() -> void
 {
-  //GENERAL
+  m_settings.beginGroup(QStringLiteral("FotoBox"));
+  m_settings.setValue(m_ui->txtPhotoFolder->objectName(), PreferenceProvider::instance().photoFolder());
+  m_settings.setValue(m_ui->txtPhotoName->objectName(), PreferenceProvider::instance().photoName());
   m_settings.setValue(m_ui->chbButtons->objectName(), PreferenceProvider::instance().showButtons());
   m_settings.setValue(m_ui->txtShowColor->objectName(), PreferenceProvider::instance().backgroundColor());
+  m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Buzzer"));
   m_settings.setValue(m_ui->spbInputPin->objectName(), PreferenceProvider::instance().inputPin());
@@ -252,7 +260,9 @@ auto Preferences::hidePreferences() -> void
 
 auto Preferences::restoreDefaultPreferences() -> void
 {
-  //General
+  //FotoBox
+  m_ui->txtPhotoFolder->setText(QStringLiteral(".\\photo"));
+  m_ui->txtPhotoName->setText(QStringLiteral("yyyy_MM_dd-HH_mm_ss'.jpg'"));
   m_ui->chbButtons->setChecked(false);
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));
 
@@ -269,7 +279,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
     QStringLiteral("--output thumb.jpg --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
-  m_ui->spbTimout->setValue(15);
+  m_ui->spbTimout->setValue(10);
 }
 
 
