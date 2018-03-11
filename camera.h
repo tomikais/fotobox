@@ -40,11 +40,18 @@ public:
    */
   auto shootPhoto() -> bool;
 
+  /*!
+   * \brief return member \sa m_currentPhoto
+   * \return filepath current photo
+   */
+  auto currentPhoto() const -> QString;
+
 
 private:
   //start gphoto2
   QProcess *m_process;
 
-  QString m_lastPhoto;
+  //name of the current photo
+  QString m_currentPhoto;
 
 };

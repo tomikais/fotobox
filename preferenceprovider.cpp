@@ -21,19 +21,7 @@ auto PreferenceProvider::instance() -> PreferenceProvider&
 
 PreferenceProvider::PreferenceProvider(QObject *parent) : QObject(parent)
 {
-}
 
-auto PreferenceProvider::pictureDirectory() -> QString
-{
-#if defined __APPLE__
-  //macOS shit
-  return QApplication::applicationDirPath() + QDir::separator() +
-    QLatin1String("..") + QDir::separator() +
-    QLatin1String("..") + QDir::separator() +
-    QLatin1String("..") + QDir::separator();
-#else
-  return QApplication::applicationDirPath() + QDir::separator();
-#endif
 }
 
 

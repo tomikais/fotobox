@@ -16,6 +16,12 @@ class PreferenceProvider : public QObject
   Q_OBJECT
 
 public:
+  /*!
+  * \brief getInstance (Meyers Singleton)
+  * \return Preferences&
+  */
+  auto static instance()->PreferenceProvider&;
+
   //Qt Property
   Q_PROPERTY(QString photoFolder READ photoFolder WRITE setPhotoFolder NOTIFY photoFolderChanged)
   Q_PROPERTY(QString photoName READ photoName WRITE setPhotoName NOTIFY photoNameChanged)
@@ -27,18 +33,6 @@ public:
   Q_PROPERTY(QString cameraMode READ cameraMode WRITE setCameraMode NOTIFY cameraModeChanged)
   Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
   Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
-
-  /*!
-  * \brief getInstance (Meyers Singleton)
-  * \return Preferences&
-  */
-  auto static instance()->PreferenceProvider&;
-
-  /*!
-  * \brief return the directory to store the pictures
-  * \return QString absolute directory path
-  */
-  auto static pictureDirectory()->QString;
 
   QString photoFolder();
   QString photoName();
@@ -86,7 +80,7 @@ private:
   /*!
   * \brief hide Preferences destructor (Singleton)
   */
-  virtual ~PreferenceProvider() {};
+  virtual ~PreferenceProvider() {}
 
   /*!
   * \brief delete copy constructor (Singleton)

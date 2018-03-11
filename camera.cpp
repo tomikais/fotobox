@@ -8,7 +8,9 @@
 #include "camera.h"
 #include "preferenceprovider.h"
 
+#include <QCoreApplication>
 #include <QDateTime>
+#include <QFile>
 #include <QProcess>
 
 
@@ -28,10 +30,11 @@ Camera::~Camera()
 auto Camera::shootPhoto() -> bool
 {
   //File name for the current
-  m_lastPhoto = QDateTime::currentDateTime().toString(PreferenceProvider::instance().photoName());
+  m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + PreferenceProvider::instance().photoName();
 
   //Program name and arguments
-  const QString command = PreferenceProvider::instance().cameraMode() + QLatin1String(" ") + PreferenceProvider::instance().argumentLine();
+  auto command = PreferenceProvider::instance().cameraMode()
+      + QLatin1String(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
 
   //Start programm with given arguments
   m_process->start(command);
@@ -45,5 +48,12 @@ auto Camera::shootPhoto() -> bool
     return false;
   }
 
+  QFile::copy(QCoreApplication::applicationDirPath() + '/' + m_currentPhoto, PreferenceProvider::instance().photoFolder());
+
   return true;
+}
+
+auto Camera::currentPhoto() const -> QString
+{
+  return m_currentPhoto;
 }

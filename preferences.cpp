@@ -261,8 +261,16 @@ auto Preferences::hidePreferences() -> void
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
-  m_ui->txtPhotoFolder->setText(QStringLiteral(".\\photo"));
-  m_ui->txtPhotoName->setText(QStringLiteral("yyyy_MM_dd-HH_mm_ss'.jpg'"));
+#if defined Q_OS_MACOS
+  m_ui->txtPhotoFolder->setText(QStringLiteral("~/Pictures/FotoBox"));
+#endif
+#if defined Q_OS_LINUX
+  m_ui->txtPhotoFolder->setText(QStringLiteral("~/FotoBox"));
+#endif
+#if defined Q_OS_WIN
+  m_ui->txtPhotoFolder->setText(QStringLiteral("%CSIDL_DEFAULT_MYPICTURES%\\FotoBox"));
+#endif
+  m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
   m_ui->chbButtons->setChecked(false);
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));
 
@@ -275,10 +283,10 @@ auto Preferences::restoreDefaultPreferences() -> void
   m_ui->cmbCameraMode->clear();
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("gphoto2"),
-    QStringLiteral("--capture-image-and-download --keep --filename thumb.jpg --set-config /main/settings/capturetarget=1 --force-overwrite"));
+    QStringLiteral("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
     QStringLiteral("raspistill"),
-    QStringLiteral("--output thumb.jpg --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
+    QStringLiteral("--output \"%1\" --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(10);
 }
 
