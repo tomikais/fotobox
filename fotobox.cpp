@@ -110,7 +110,7 @@ auto FotoBox::showPicture() -> void
     QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
     //load photo
-    if (!m_thumbnail.load(PreferenceProvider::instance().photoFolder() + m_camera.currentPhoto())) {
+    if (!m_thumbnail.load(QStringLiteral("./") + m_camera.currentPhoto())) {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), 3000);
     }
     else {

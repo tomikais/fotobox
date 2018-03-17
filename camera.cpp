@@ -10,7 +10,6 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
-#include <QFile>
 #include <QProcess>
 
 
@@ -23,7 +22,7 @@ Camera::Camera(QObject *parent) : QObject(parent),
 
 Camera::~Camera()
 {
-
+  m_process->deleteLater();
 }
 
 
@@ -41,15 +40,13 @@ auto Camera::shootPhoto() -> bool
 
   //convert to milliseconds
   auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
+  m_process->waitForFinished(milliseconds);
 
   //check time out and process exit code
-  if (!m_process->waitForFinished(milliseconds) || m_process->exitCode() != EXIT_SUCCESS) {
-    //error
-    return false;
-  }
-
-  QFile::copy(QCoreApplication::applicationDirPath() + '/' + m_currentPhoto, PreferenceProvider::instance().photoFolder());
-
+  if (m_process->exitCode() != EXIT_SUCCESS) {
+      //error
+      return false;
+    }
   return true;
 }
 

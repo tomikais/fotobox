@@ -287,7 +287,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   m_ui->cmbCameraMode->addItem(
         QStringLiteral("raspistill"),
         QStringLiteral("--output \"%1\" --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
-  m_ui->spbTimout->setValue(10);
+  m_ui->spbTimout->setValue(30);
 }
 
 
