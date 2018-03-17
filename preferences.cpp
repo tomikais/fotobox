@@ -19,10 +19,10 @@
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-m_fotoBox(nullptr),
-m_ui(new Ui::PreferencesDialog),
-m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
-m_timer(new QTimer(this))
+  m_fotoBox(nullptr),
+  m_ui(new Ui::PreferencesDialog),
+  m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
+  m_timer(new QTimer(this))
 {
   //setup UI
   m_ui->setupUi(this);
@@ -262,13 +262,13 @@ auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
 #if defined Q_OS_MACOS
-  m_ui->txtPhotoFolder->setText(QStringLiteral("~/Pictures/FotoBox"));
+  m_ui->txtPhotoFolder->setText(QStringLiteral("~/Pictures/FotoBox/"));
 #endif
 #if defined Q_OS_LINUX
-  m_ui->txtPhotoFolder->setText(QStringLiteral("~/FotoBox"));
+  m_ui->txtPhotoFolder->setText(QStringLiteral("~/FotoBox/"));
 #endif
 #if defined Q_OS_WIN
-  m_ui->txtPhotoFolder->setText(QStringLiteral("%CSIDL_DEFAULT_MYPICTURES%\\FotoBox"));
+  m_ui->txtPhotoFolder->setText(QStringLiteral("%CSIDL_DEFAULT_MYPICTURES%\\FotoBox\\"));
 #endif
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
   m_ui->chbButtons->setChecked(false);
@@ -293,28 +293,27 @@ auto Preferences::restoreDefaultPreferences() -> void
 
 auto Preferences::applicationAvailable(const QString& i_name) -> void
 {
-  auto process = new QProcess(this);
-
   if (i_name == QLatin1String("gphoto2")) {
+      auto process = new QProcess(this);
       //specific 'gphoto2' check: auto-detect: get detected cameras
       process->start(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") });
       if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
-                                           QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
-      } else {
-        auto output = process->readAllStandardOutput();
-        //gphoto version
-        auto version = output.left(output.indexOf('\n'));
-        //get camera model
-        auto model = output.right(output.size() - output.lastIndexOf('-') - 1);
-        m_ui->lblCameraModeInfo->setText(version + model);
-      }
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+        } else {
+          auto output = process->readAllStandardOutput();
+          //gphoto version
+          auto version = output.left(output.indexOf('\n'));
+          //get camera model
+          auto model = output.right(output.size() - output.lastIndexOf('-') - 2);
+          model = model.left(model.indexOf(')') + 1 );
+          m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model);
+        }
+      process->deleteLater();
       return;
     } else if (i_name == QLatin1String("raspistill")) {
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
           //specific 'raspistill' show verbose message
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
-                                           QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
         }
       return;
     } else if (!i_name.isEmpty()) {
