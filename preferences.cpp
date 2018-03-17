@@ -293,12 +293,22 @@ auto Preferences::restoreDefaultPreferences() -> void
 
 auto Preferences::applicationAvailable(const QString& i_name) -> void
 {
+  auto process = new QProcess(this);
+
   if (i_name == QLatin1String("gphoto2")) {
-      if (QProcess::execute(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") }) != EXIT_SUCCESS) {
-          //specific 'gphoto2' check: auto-detect: get detected cameras
+      //specific 'gphoto2' check: auto-detect: get detected cameras
+      process->start(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") });
+      if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
                                            QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
-        }
+      } else {
+        auto output = process->readAllStandardOutput();
+        //gphoto version
+        auto version = output.left(output.indexOf('\n'));
+        //get camera model
+        auto model = output.right(output.size() - output.lastIndexOf('-') - 1);
+        m_ui->lblCameraModeInfo->setText(version + model);
+      }
       return;
     } else if (i_name == QLatin1String("raspistill")) {
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
