@@ -46,16 +46,16 @@ m_timer(new QTimer(this))
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-    [this]() {
-    //QComboBox has changed, show stored data to QLineEdit
-    m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
-  });
+          [this]() {
+      //QComboBox has changed, show stored data to QLineEdit
+      m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
+    });
   connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setArgumentLine);
   connect(m_ui->txtArgumentLine, &QLineEdit::textChanged,
-    [this](const QString& i_value) {
-    //save changed text in QComboBox model
-    m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
-  });
+          [this](const QString& i_value) {
+      //save changed text in QComboBox model
+      m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
+    });
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
 
   //connect buttons
@@ -64,12 +64,12 @@ m_timer(new QTimer(this))
   connect(this, &QDialog::accepted, this, &Preferences::startFotoBox);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   connect(m_ui->buttonBox, &QDialogButtonBox::clicked,
-    [this](QAbstractButton *button) {
+          [this](QAbstractButton *button) {
     //identify restore button
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
-      //restore defaults
-      restoreDefaultPreferences();
-    }
+        //restore defaults
+        restoreDefaultPreferences();
+      }
   });
   connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
 
@@ -103,9 +103,9 @@ void Preferences::startFotoBox()
 
   //Start FotoBox
   if (m_fotoBox) {
-    //delete old one
-    m_fotoBox->deleteLater();
-  }
+      //delete old one
+      m_fotoBox->deleteLater();
+    }
   m_fotoBox = new FotoBox(this);
   Q_CHECK_PTR(m_fotoBox);
   connect(m_fotoBox, &QDialog::rejected, this, &QApplication::restoreOverrideCursor);
@@ -117,12 +117,12 @@ void Preferences::startFotoBox()
 void Preferences::autoAcceptDialog()
 {
   if (m_counter >= 1) {
-    //set Window Title and start timer again
-    setWindowTitle(tr("launching FotoBox in ") + QString::number(m_counter) + tr(" seconds"));
-    --m_counter;
-    m_timer->start();
-    return;
-  }
+      //set Window Title and start timer again
+      setWindowTitle(tr("launching FotoBox in ") + QString::number(m_counter) + tr(" seconds"));
+      --m_counter;
+      m_timer->start();
+      return;
+    }
 
   //stop timer and close dialog
   m_timer->stop();
@@ -133,12 +133,12 @@ void Preferences::autoAcceptDialog()
 auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 {
   if (m_timer->isActive()) {
-    m_timer->stop();
-    setMouseTracking(false);
-    m_ui->scrollArea->setMouseTracking(false);
-    m_ui->scrollAreaWidgetContents->setMouseTracking(false);
-    setWindowTitle(tr("FotoBox preferences"));
-  }
+      m_timer->stop();
+      setMouseTracking(false);
+      m_ui->scrollArea->setMouseTracking(false);
+      m_ui->scrollAreaWidgetContents->setMouseTracking(false);
+      setWindowTitle(tr("FotoBox preferences"));
+    }
 
   //call base class method
   QWidget::mouseMoveEvent(event);
@@ -165,11 +165,11 @@ auto Preferences::loadPreferences() -> void
   auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Data")).toStringList();
   auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Text")).toStringList();
   if (!data.empty()) {
-    m_ui->cmbCameraMode->clear();
-    for (int i = 0; i < data.count(); ++i) {
-      m_ui->cmbCameraMode->addItem(text.at(i), data.at(i));
+      m_ui->cmbCameraMode->clear();
+      for (int i = 0; i < data.count(); ++i) {
+          m_ui->cmbCameraMode->addItem(text.at(i), data.at(i));
+        }
     }
-  }
   m_ui->cmbCameraMode->setCurrentText(m_settings.value(m_ui->cmbCameraMode->objectName(), m_ui->cmbCameraMode->currentText()).toString());
 
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
@@ -222,9 +222,9 @@ auto Preferences::savePreferences() -> void
   //Save QComboBox model
   QStringList text, data;
   for (int i = 0; i < m_ui->cmbCameraMode->count(); ++i) {
-    text << m_ui->cmbCameraMode->itemText(i);
-    data << m_ui->cmbCameraMode->itemData(i).toString();
-  }
+      text << m_ui->cmbCameraMode->itemText(i);
+      data << m_ui->cmbCameraMode->itemData(i).toString();
+    }
   m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Text"), text);
   m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Data"), data);
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
@@ -282,38 +282,38 @@ auto Preferences::restoreDefaultPreferences() -> void
   //Camera
   m_ui->cmbCameraMode->clear();
   m_ui->cmbCameraMode->addItem(
-    QStringLiteral("gphoto2"),
-    QStringLiteral("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
+        QStringLiteral("gphoto2"),
+        QStringLiteral("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
-    QStringLiteral("raspistill"),
-    QStringLiteral("--output \"%1\" --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
+        QStringLiteral("raspistill"),
+        QStringLiteral("--output \"%1\" --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(10);
 }
 
 
 auto Preferences::applicationAvailable(const QString& i_name) -> void
 {
-  //specific 'gphoto2' check: auto-detect: get detected cameras
-  if (i_name == QLatin1String("gphoto2") && QProcess::execute(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") }) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + 
-      QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>")
-    );
-    return;
-  }
-
-  //specific 'raspistill' show verbose message
-  if (i_name == QLatin1String("raspistill") && QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + 
-      QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>")
-    );
-    return;
-  }
-
-  //other applications
-  if (QProcess::execute(i_name) != EXIT_SUCCESS) {
-    m_ui->lblCameraModeInfo->setText(QLatin1String("'") + i_name + tr("' is missing!"));
-    return;
-  }
-
-  m_ui->lblCameraModeInfo->setText(QString());
+  if (i_name == QLatin1String("gphoto2")) {
+      if (QProcess::execute(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") }) != EXIT_SUCCESS) {
+          //specific 'gphoto2' check: auto-detect: get detected cameras
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
+                                           QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+        }
+      return;
+    } else if (i_name == QLatin1String("raspistill")) {
+      if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
+          //specific 'raspistill' show verbose message
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) +
+                                           QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
+        }
+      return;
+    } else if (!i_name.isEmpty()) {
+      if (QProcess::execute(i_name) != EXIT_SUCCESS) {
+          //other applications
+          m_ui->lblCameraModeInfo->setText(QLatin1String("'") + i_name + tr("' is missing!"));
+        }
+      return;
+    } else {
+      m_ui->lblCameraModeInfo->setText(QString());
+    }
 }
