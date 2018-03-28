@@ -43,11 +43,7 @@ auto Camera::shootPhoto() -> bool
   m_process->waitForFinished(milliseconds);
 
   //check time out and process exit code
-  if (m_process->exitCode() != EXIT_SUCCESS) {
-      //error
-      return false;
-    }
-  return true;
+  return (m_process->exitCode() != EXIT_SUCCESS);
 }
 
 auto Camera::currentPhoto() const -> QString

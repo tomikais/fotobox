@@ -5,11 +5,10 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#include "fotobox.h"
+#include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_preferences.h"
-
-#include "preferenceprovider.h"
-#include "fotobox.h"
 
 #include <QColorDialog>
 #include <QDesktopWidget>
@@ -102,7 +101,7 @@ void Preferences::startFotoBox()
   setWindowTitle(tr("FotoBox preferences"));
 
   //Start FotoBox
-  if (m_fotoBox) {
+  if (m_fotoBox != nullptr) {
       //delete old one
       m_fotoBox->deleteLater();
     }
@@ -324,6 +323,6 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
           m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
         }
       return;
-
+    }
   m_ui->lblCameraModeInfo->setText(QString());
 }

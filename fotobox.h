@@ -16,7 +16,7 @@ class Buzzer;
 namespace Ui
 {
   class FotoBoxDialog;
-}
+} //namespace Ui
 
 
 /*!

@@ -16,7 +16,7 @@ class FotoBox;
 
 namespace Ui {
   class PreferencesDialog;
-}
+} //namespace Ui
 
 
 /*!

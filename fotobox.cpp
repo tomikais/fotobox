@@ -30,7 +30,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
     //connect buttons
     connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
     connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &QDialog::reject);
-    connect(m_ui->btnQuitApp, &QPushButton::clicked, qApp, &QCoreApplication::quit);
+    connect(m_ui->btnQuitApp, &QPushButton::clicked, QCoreApplication::instance(), &QCoreApplication::quit);
   }
   else {
     //hide mouse cursor

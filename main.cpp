@@ -28,12 +28,14 @@ int main(int argc, char *argv[])
   QTranslator translator;
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-    result = translator.load(QStringLiteral(":/translations/german"));
-  }
+      result = translator.load(QStringLiteral(":/translations/german"));
+    }
   else {
-    result = translator.load(QStringLiteral(":/translations/english"));
-  }
-  result == true ? app.installTranslator(&translator) : false;
+      result = translator.load(QStringLiteral(":/translations/english"));
+    }
+  if (result) {
+      app.installTranslator(&translator);
+    }
 
   //Show preferences dialog
   Preferences prefDialog;

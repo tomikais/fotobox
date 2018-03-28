@@ -95,13 +95,13 @@ private:
 
   QString m_photoFolder;
   QString m_photoName;
-  bool m_showButtons;
+  bool m_showButtons = false;
   QString m_backgroundColor;
-  int m_inputPin;
-  int m_outputPin;
-  int m_queryInterval;
+  int m_inputPin = 0;
+  int m_outputPin = 0;
+  int m_queryInterval = 0;
   QString m_cameraMode;
   QString m_argumentLine;
-  int m_timeoutValue;
+  int m_timeoutValue = 0;
 
 };
