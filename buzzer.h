@@ -30,6 +30,6 @@ private:
   /*!
   * \brief Query the Raspberry Pi Pin
   */
-  auto virtual run() -> void override;
+  auto run() -> void override;
 
 };

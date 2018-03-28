@@ -17,6 +17,16 @@ class PreferenceProvider : public QObject
 
 public:
   /*!
+  * \brief delete copy constructor (Singleton)
+  */
+  PreferenceProvider(const PreferenceProvider&) = delete;
+
+  /*!
+  * \brief delete assigment (Singleton)
+  */
+  PreferenceProvider& operator=(const PreferenceProvider&) = delete;
+
+  /*!
   * \brief getInstance (Meyers Singleton)
   * \return Preferences&
   */
@@ -80,17 +90,7 @@ private:
   /*!
   * \brief hide Preferences destructor (Singleton)
   */
-  virtual ~PreferenceProvider() {}
-
-  /*!
-  * \brief delete copy constructor (Singleton)
-  */
-  PreferenceProvider(const PreferenceProvider&) = delete;
-
-  /*!
-  * \brief delete assigment (Singleton)
-  */
-  PreferenceProvider& operator=(const PreferenceProvider&) = delete;
+  virtual ~PreferenceProvider() = default;
 
 
   QString m_photoFolder;

@@ -7,9 +7,9 @@
  */
 #include "fotobox.h"
 
-#include "ui_fotobox.h"
 #include "buzzer.h"
 #include "preferenceprovider.h"
+#include "ui_fotobox.h"
 
 #include <QKeyEvent>
 
@@ -17,8 +17,7 @@
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(new Buzzer),
-  m_camera(this),
-  m_thumbnail()
+  m_camera(this)
 {
   //setup GUI
   m_ui->setupUi(this);

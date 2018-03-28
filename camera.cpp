@@ -33,7 +33,7 @@ auto Camera::shootPhoto() -> bool
 
   //Program name and arguments
   auto command = PreferenceProvider::instance().cameraMode()
-      + QLatin1String(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
+      + QStringLiteral(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
 
   //Start programm with given arguments
   m_process->start(command);
