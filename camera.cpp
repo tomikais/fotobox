@@ -33,7 +33,7 @@ auto Camera::shootPhoto() -> bool
 
   //Program name and arguments
   auto command = PreferenceProvider::instance().cameraMode()
-      + QLatin1String(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
+      + QStringLiteral(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
 
   //Start programm with given arguments
   m_process->start(command);
@@ -43,11 +43,7 @@ auto Camera::shootPhoto() -> bool
   m_process->waitForFinished(milliseconds);
 
   //check time out and process exit code
-  if (m_process->exitCode() != EXIT_SUCCESS) {
-      //error
-      return false;
-    }
-  return true;
+  return (m_process->exitCode() != EXIT_SUCCESS);
 }
 
 auto Camera::currentPhoto() const -> QString
