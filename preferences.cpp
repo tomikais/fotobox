@@ -35,6 +35,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
+  connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
@@ -261,15 +262,7 @@ auto Preferences::hidePreferences() -> void
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
-#if defined Q_OS_MACOS
-  m_ui->txtPhotoFolder->setText(QStringLiteral("~/Pictures/FotoBox/"));
-#endif
-#if defined Q_OS_LINUX
-  m_ui->txtPhotoFolder->setText(QStringLiteral("~/FotoBox/"));
-#endif
-#if defined Q_OS_WIN
-  m_ui->txtPhotoFolder->setText(QStringLiteral("%CSIDL_DEFAULT_MYPICTURES%\\FotoBox\\"));
-#endif
+  m_ui->txtPhotoFolder->setText(QStringLiteral(""));
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
   m_ui->chbButtons->setChecked(false);
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));

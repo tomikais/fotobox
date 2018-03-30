@@ -34,8 +34,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>776</width>
-        <height>468</height>
+        <width>782</width>
+        <height>473</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -196,17 +196,14 @@
          </item>
          <item row="2" column="1">
           <widget class="QLineEdit" name="txtPhotoFolder">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -312,16 +309,6 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2" colspan="2">
-          <widget class="QLabel" name="lblPhotoFolderInfo">
-           <property name="text">
-            <string>directory can contain absolute or relative path information</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="1" colspan="2">
           <widget class="QLineEdit" name="txtPhotoName">
            <property name="sizePolicy">
@@ -342,6 +329,23 @@
            </property>
            <property name="wordWrap">
             <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="lblPhotoFolderInfo">
+           <property name="text">
+            <string>directory can contain absolute or relative path information</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QPushButton" name="btnChooseDirectory">
+           <property name="text">
+            <string>Choose Directory</string>
            </property>
           </widget>
          </item>
