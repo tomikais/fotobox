@@ -32,7 +32,7 @@ public:
   /*!
     * \brief Camera destructor
     */
-  virtual ~Camera();
+   ~Camera() override;
 
   /*!
    * \brief shoot a photo with gphoto2

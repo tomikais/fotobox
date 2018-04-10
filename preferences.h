@@ -37,7 +37,7 @@ public:
   /*!
   * \brief hide Preferences destructor (Singleton)
   */
-  virtual ~Preferences();
+  ~Preferences() override;
 
 
   private slots:

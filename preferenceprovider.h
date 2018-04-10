@@ -90,7 +90,7 @@ private:
   /*!
   * \brief hide Preferences destructor (Singleton)
   */
-  virtual ~PreferenceProvider() = default;
+  ~PreferenceProvider() override = default;
 
 
   QString m_photoFolder;

@@ -12,6 +12,7 @@
 
 #include <QColorDialog>
 #include <QDesktopWidget>
+#include <QFileDialog>
 #include <QProcess>
 #include <QTimer>
 
@@ -34,7 +35,10 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
-  connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
+  connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, [&]() {
+      //File Dialog to choose photo folder
+      m_ui->txtPhotoFolder->setText(QFileDialog::getExistingDirectory(this, tr("Open Directory"), QStringLiteral("/home"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
+    });
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
@@ -220,13 +224,13 @@ auto Preferences::savePreferences() -> void
 
   m_settings.beginGroup(QStringLiteral("Camera"));
   //Save QComboBox model
-  QStringList text, data;
+  QStringList itemText, itemData;
   for (int i = 0; i < m_ui->cmbCameraMode->count(); ++i) {
-      text << m_ui->cmbCameraMode->itemText(i);
-      data << m_ui->cmbCameraMode->itemData(i).toString();
+      itemText << m_ui->cmbCameraMode->itemText(i);
+      itemData << m_ui->cmbCameraMode->itemData(i).toString();
     }
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text"), text);
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data"), data);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text"), itemText);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data"), itemData);
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
 
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());

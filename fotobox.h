@@ -38,7 +38,7 @@ public:
   /*!
   * \brief FotoBox destructor
   */
-  virtual ~FotoBox();
+  ~FotoBox() override;
 
 
 private:
@@ -57,9 +57,21 @@ private:
   auto mouseReleaseEvent(QMouseEvent *event) -> void override;
 
   /*!
-   * \brief show the picture that was taken
+   * \brief trigger camera and try to show photo
    */
-  auto showPicture() -> void;
+  auto startProcess() -> void;
+
+  /*!
+   * \brief try to load the photo to QPixmap
+   * \param i_filePath path to photo
+   */
+  auto loadPhoto(const QString& i_filePath) -> void;
+
+  /*!
+   * \brief move photo to folder set in preferences
+   * \return new file location of the photo
+   */
+  auto movePhoto() -> const QString;
 
 
   //User Interface
@@ -72,7 +84,7 @@ private:
   Camera m_camera;
 
   //store / load the photo
-  QPixmap m_thumbnail;
+  QPixmap m_photo;
 
 
 signals:
