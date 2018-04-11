@@ -32,7 +32,8 @@ auto Camera::shootPhoto() -> bool
   m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + PreferenceProvider::instance().photoName();
 
   //Program name and arguments
-  auto command = PreferenceProvider::instance().cameraMode() + QStringLiteral(" ") + PreferenceProvider::instance().argumentLine().arg(m_currentPhoto);
+  auto argument = PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
+  auto command = PreferenceProvider::instance().cameraMode() + QStringLiteral(" ") + argument;
 
   //Start programm with given arguments
   m_process->start(command);
