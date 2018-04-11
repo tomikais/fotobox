@@ -301,8 +301,8 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
           auto version = output.left(output.indexOf('\n'));
           //get camera model
           auto model = output.right(output.size() - output.lastIndexOf('-') - 2);
-          model = model.left(model.indexOf(')') + 1 );
-          m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model);
+          model = model.left(model.indexOf(QStringLiteral("usb"), Qt::CaseInsensitive));
+          m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
         }
       process->deleteLater();
       return;
