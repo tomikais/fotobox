@@ -3,7 +3,7 @@ Requirement to start application:
 * Raspberry Pi model >2 with latest Raspbian Stretch installed
 * Qt 5.7.1 libraries. Terminal: `sudo apt-get install qt5-default`
 * [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater)
-* Disable the screen saver: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not ssh) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the dropdown.
+* Disable the screen saver: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not ssh) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
 
 
 ---
