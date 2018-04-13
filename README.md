@@ -22,6 +22,7 @@ Requirement to start application:
 
 set GCC path in Qt Creator
 gcc C: `/usr/bin/gcc`
+
 gcc C++: `/usr/bin/g++`
 
 ## gphoto2 and libgphoto2
