@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>520</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -35,7 +35,7 @@
         <x>0</x>
         <y>0</y>
         <width>776</width>
-        <height>487</height>
+        <height>536</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -44,44 +44,7 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0" colspan="2">
-          <widget class="QLabel" name="lblGeneral">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>FotoBox</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="1">
-          <widget class="QSpinBox" name="spbOutputPin">
-           <property name="maximum">
-            <number>40</number>
-           </property>
-          </widget>
-         </item>
-         <item row="13" column="1" colspan="3">
-          <widget class="QLineEdit" name="txtArgumentLine">
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="lblBackground">
-           <property name="text">
-            <string>background color</string>
-           </property>
-           <property name="buddy">
-            <cstring>btnChooseColor</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="14" column="0">
+         <item row="13" column="0">
           <widget class="QLabel" name="lblTimeout">
            <property name="text">
             <string>timeout value</string>
@@ -91,123 +54,20 @@
            </property>
           </widget>
          </item>
-         <item row="14" column="1">
-          <widget class="QSpinBox" name="spbTimout">
-           <property name="suffix">
-            <string> seconds</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="lblButtons">
+         <item row="12" column="0">
+          <widget class="QLabel" name="lblArgumentLine">
            <property name="text">
-            <string>buttons</string>
+            <string>argument line</string>
            </property>
            <property name="buddy">
-            <cstring>chbButtons</cstring>
+            <cstring>txtArgumentLine</cstring>
            </property>
           </widget>
          </item>
-         <item row="7" column="1">
-          <widget class="QSpinBox" name="spbInputPin">
-           <property name="maximum">
-            <number>40</number>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QCheckBox" name="chbButtons">
-           <property name="text">
-            <string>(enable/disable)</string>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="1">
+         <item row="11" column="1">
           <widget class="QComboBox" name="cmbCameraMode"/>
          </item>
-         <item row="9" column="0">
-          <widget class="QLabel" name="lblQueryInterval">
-           <property name="text">
-            <string>query interval</string>
-           </property>
-           <property name="buddy">
-            <cstring>spbQueryInterval</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="2">
-          <widget class="QPushButton" name="btnChooseColor">
-           <property name="text">
-            <string>Choose Color</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="1">
-          <widget class="QLineEdit" name="txtShowColor">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="focusPolicy">
-            <enum>Qt::NoFocus</enum>
-           </property>
-           <property name="frame">
-            <bool>false</bool>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="lblInputPin">
-           <property name="text">
-            <string>input PIN</string>
-           </property>
-           <property name="buddy">
-            <cstring>spbInputPin</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="2" colspan="2">
-          <widget class="QLabel" name="lblCameraModeInfo">
-           <property name="styleSheet">
-            <string notr="true">QLabel { color : red; }</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="0" colspan="4">
-          <widget class="QLabel" name="lblCameraInfo">
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="txtPhotoFolder">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="0">
+         <item row="11" column="0">
           <widget class="QLabel" name="lblCameraMode">
            <property name="text">
             <string>camera mode</string>
@@ -217,7 +77,7 @@
            </property>
           </widget>
          </item>
-         <item row="10" column="0" colspan="2">
+         <item row="9" column="0">
           <widget class="QLabel" name="lblCamera">
            <property name="font">
             <font>
@@ -230,63 +90,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="3">
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="13" column="0">
-          <widget class="QLabel" name="lblArgumentLine">
-           <property name="text">
-            <string>argument line</string>
-           </property>
-           <property name="buddy">
-            <cstring>txtArgumentLine</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0" colspan="2">
-          <widget class="QLabel" name="lblBuzzer">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Buzzer</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="lblPhotoFolder">
-           <property name="text">
-            <string>photo folder</string>
-           </property>
-           <property name="buddy">
-            <cstring>txtPhotoFolder</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QLabel" name="lblOutputPin">
-           <property name="text">
-            <string>output PIN</string>
-           </property>
-           <property name="buddy">
-            <cstring>spbOutputPin</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="1">
+         <item row="8" column="1">
           <widget class="QSpinBox" name="spbQueryInterval">
            <property name="accelerated">
             <bool>true</bool>
@@ -302,14 +106,111 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="8" column="0">
+          <widget class="QLabel" name="lblQueryInterval">
+           <property name="text">
+            <string>query interval</string>
+           </property>
+           <property name="buddy">
+            <cstring>spbQueryInterval</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="1">
+          <widget class="QSpinBox" name="spbOutputPin">
+           <property name="maximum">
+            <number>40</number>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QLabel" name="lblOutputPin">
+           <property name="text">
+            <string>output PIN</string>
+           </property>
+           <property name="buddy">
+            <cstring>spbOutputPin</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="1">
+          <widget class="QSpinBox" name="spbInputPin">
+           <property name="maximum">
+            <number>40</number>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="lblInputPin">
+           <property name="text">
+            <string>input PIN</string>
+           </property>
+           <property name="buddy">
+            <cstring>spbInputPin</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="lblPhotoFolder">
+           <property name="text">
+            <string>photo folder</string>
+           </property>
+           <property name="buddy">
+            <cstring>txtPhotoFolder</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="lblBackground">
+           <property name="text">
+            <string>background color</string>
+           </property>
+           <property name="buddy">
+            <cstring>btnChooseColor</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
           <widget class="QLabel" name="lblPhotoName">
            <property name="text">
             <string>photo name</string>
            </property>
+           <property name="buddy">
+            <cstring>txtPhotoName</cstring>
+           </property>
           </widget>
          </item>
-         <item row="3" column="1" colspan="2">
+         <item row="5" column="0">
+          <widget class="QLabel" name="lblBuzzer">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Buzzer</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="lblButtons">
+           <property name="text">
+            <string>buttons</string>
+           </property>
+           <property name="buddy">
+            <cstring>chbButtons</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QCheckBox" name="chbButtons">
+           <property name="text">
+            <string>(enable/disable)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
           <widget class="QLineEdit" name="txtPhotoName">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -319,7 +220,31 @@
            </property>
           </widget>
          </item>
-         <item row="7" column="2" rowspan="3" colspan="2">
+         <item row="13" column="1">
+          <widget class="QSpinBox" name="spbTimout">
+           <property name="suffix">
+            <string> seconds</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="4">
+          <widget class="QPushButton" name="btnChooseDirectory">
+           <property name="text">
+            <string>Choose Directory</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="3">
+          <widget class="QLineEdit" name="txtPhotoFolder">
+           <property name="focusPolicy">
+            <enum>Qt::ClickFocus</enum>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="2" rowspan="2" colspan="3">
           <widget class="QLabel" name="lbl_pinInfo">
            <property name="text">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18,  21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -332,20 +257,66 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="3">
-          <widget class="QLabel" name="lblPhotoFolderInfo">
+         <item row="10" column="0" colspan="5">
+          <widget class="QLabel" name="lblCameraInfo">
            <property name="text">
-            <string>directory can contain absolute or relative path information</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QPushButton" name="btnChooseDirectory">
+         <item row="0" column="0">
+          <widget class="QLabel" name="lblGeneral">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string>Choose Directory</string>
+            <string>FotoBox</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="3">
+          <widget class="QPushButton" name="btnChooseColor">
+           <property name="text">
+            <string>Choose Color</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1" colspan="2">
+          <widget class="QLineEdit" name="txtShowColor">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="frame">
+            <bool>false</bool>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="2" colspan="3">
+          <widget class="QLabel" name="lblCameraModeInfo">
+           <property name="styleSheet">
+            <string notr="true">QLabel { color : red; }</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="12" column="1" colspan="4">
+          <widget class="QLineEdit" name="txtArgumentLine">
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -378,14 +349,14 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>txtPhotoName</tabstop>
   <tabstop>chbButtons</tabstop>
-  <tabstop>btnChooseColor</tabstop>
   <tabstop>spbInputPin</tabstop>
   <tabstop>spbOutputPin</tabstop>
   <tabstop>spbQueryInterval</tabstop>
+  <tabstop>cmbCameraMode</tabstop>
   <tabstop>txtArgumentLine</tabstop>
   <tabstop>spbTimout</tabstop>
-  <tabstop>scrollArea</tabstop>
  </tabstops>
  <resources/>
  <connections/>
