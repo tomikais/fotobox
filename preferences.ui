@@ -247,7 +247,7 @@
          <item row="7" column="2" rowspan="2" colspan="3">
           <widget class="QLabel" name="lbl_pinInfo">
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18,  21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

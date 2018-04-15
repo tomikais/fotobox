@@ -37,7 +37,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
   connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, [&]() {
       //File Dialog to choose photo folder
-      m_ui->txtPhotoFolder->setText(QFileDialog::getExistingDirectory(this, tr("Open Directory"), QStringLiteral("/home"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
+      m_ui->txtPhotoFolder->setText(QFileDialog::getExistingDirectory(this, tr("choose directory"), QStringLiteral("/home"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
     });
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);

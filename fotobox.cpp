@@ -119,7 +119,7 @@ auto FotoBox::startProcess() -> void
       loadPhoto(filePath);
     }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), STATUSBAR_MSG_TIMEOUT);
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the FotoBox owner."), STATUSBAR_MSG_TIMEOUT);
     }
 
   //restart Buzzer
