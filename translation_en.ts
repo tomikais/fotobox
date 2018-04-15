@@ -41,35 +41,40 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="preferences.cpp" line="125"/>
+        <location filename="preferences.cpp" line="131"/>
         <source> seconds</source>
         <translation> seconds</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="125"/>
+        <location filename="preferences.cpp" line="131"/>
         <source>launching FotoBox in </source>
         <translation>launching FotoBox in </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="106"/>
-        <location filename="preferences.cpp" line="144"/>
+        <location filename="preferences.cpp" line="112"/>
+        <location filename="preferences.cpp" line="150"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="40"/>
+        <location filename="preferences.cpp" line="46"/>
         <source>choose directory</source>
         <oldsource>Choose directory</oldsource>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="297"/>
-        <location filename="preferences.cpp" line="313"/>
+        <location filename="preferences.cpp" line="305"/>
+        <location filename="preferences.cpp" line="326"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1&apos; is missing! Get it </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="320"/>
+        <location filename="preferences.cpp" line="315"/>
+        <source>*** no camera detected ***</source>
+        <translation>*** no camera detected ***</translation>
+    </message>
+    <message>
+        <location filename="preferences.cpp" line="336"/>
         <source>&apos; is missing!</source>
         <translation>&apos; is missing!</translation>
     </message>

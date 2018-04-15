@@ -308,8 +308,12 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
           //gphoto version
           auto version = output.left(output.indexOf('\n'));
           //get camera model
-          auto model = output.right(output.size() - output.lastIndexOf('-') - 2);
+          QString model = output.right(output.size() - output.lastIndexOf('-') - 2);
           model = model.left(model.indexOf(QStringLiteral("usb"), Qt::CaseInsensitive));
+          if (model.isEmpty()) {
+              m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
+              model = tr("*** no camera detected ***");
+            }
           m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
         }
       process->deleteLater();
