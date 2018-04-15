@@ -86,6 +86,9 @@ private:
   //store / load the photo
   QPixmap m_photo;
 
+  //status bar timout value
+  static int STATUSBAR_MSG_TIMEOUT;
+
 
 signals:
   /*!

@@ -15,6 +15,9 @@
 #include <QKeyEvent>
 
 
+int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
+
+
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(new Buzzer),
@@ -25,7 +28,10 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::startProcess);
-  
+  connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [this] (const QString &i_message) {
+      //show QStatusBar only when needed (safe space for the photos)
+      i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
+    });
 
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
@@ -43,7 +49,9 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
     }
 
   //set Background Color
-  setStyleSheet(QStringLiteral("#FotoBoxDialog, #statusBar { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
+  setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
+  //hide status bar
+  m_ui->statusBar->hide();
 
 #ifdef __WIRING_PI_H__
   //running loop to check buzzer trigger
@@ -111,7 +119,7 @@ auto FotoBox::startProcess() -> void
       loadPhoto(filePath);
     }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), 2000);
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the Fotobox owner."), STATUSBAR_MSG_TIMEOUT);
     }
 
   //restart Buzzer
@@ -132,7 +140,7 @@ auto FotoBox::movePhoto() -> const QString
       return newName;
     }
   else {
-      m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, 3000);
+      m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
       return oldName;
     }
 }
@@ -146,6 +154,6 @@ auto FotoBox::loadPhoto(const QString& i_filePath) -> void
       m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
   else {
-      m_ui->statusBar->showMessage(tr("Couldn't load the photo."), 3000);
+      m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
     }
 }
