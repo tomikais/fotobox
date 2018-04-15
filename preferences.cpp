@@ -10,6 +10,12 @@
 #include "preferences.h"
 #include "ui_preferences.h"
 
+#if !defined(Q_OS_WIN)
+#include <sysexits.h>
+#else
+#define EX_USAGE 64 /* Windows: command line usage error */
+#endif
+
 #include <QColorDialog>
 #include <QDesktopWidget>
 #include <QFileDialog>
@@ -241,7 +247,7 @@ auto Preferences::savePreferences() -> void
 auto Preferences::hidePreferences() -> void
 {
   //hide buzzer settings if WiringPI isn't available
-#if defined __WIRING_PI_H__  && !defined QT_DEBUG
+#if defined(__WIRING_PI_H__) && !defined(QT_DEBUG)
   m_ui->lblBuzzer->hide();
   m_ui->lblInputPin->hide();
   m_ui->spbInputPin->hide();
@@ -252,7 +258,7 @@ auto Preferences::hidePreferences() -> void
 #endif
 
   //hide camera settings if Platform is Windows
-#if defined Q_OS_WIN && !defined QT_DEBUG
+#if defined(Q_OS_WIN) && !defined(QT_DEBUG)
   m_ui->lblCamera->hide();
   m_ui->lblGphoto2Arg->hide();
   m_ui->txtGphoto2Arg->hide();
@@ -308,7 +314,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       return;
     }
   if (i_name == QStringLiteral("raspistill")) {
-      if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EXIT_SUCCESS) {
+      if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
         }
