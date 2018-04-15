@@ -317,15 +317,19 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
-        }
+        } else {
+          m_ui->lblCameraModeInfo->clear();
+      }
       return;
     }
   if (!i_name.isEmpty()) {
       if (QProcess::execute(i_name) != EXIT_SUCCESS) {
           //other applications
           m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
-        }
+        } else {
+          m_ui->lblCameraModeInfo->clear();
+      }
       return;
     }
-  m_ui->lblCameraModeInfo->setText(QString());
+  m_ui->lblCameraModeInfo->clear();
 }
