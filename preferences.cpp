@@ -265,7 +265,7 @@ auto Preferences::hidePreferences() -> void
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
-  m_ui->txtPhotoFolder->setText(QStringLiteral(""));
+  m_ui->txtPhotoFolder->setText(QCoreApplication::applicationDirPath());
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
   m_ui->chbButtons->setChecked(false);
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));
@@ -282,7 +282,7 @@ auto Preferences::restoreDefaultPreferences() -> void
         QStringLiteral("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
   m_ui->cmbCameraMode->addItem(
         QStringLiteral("raspistill"),
-        QStringLiteral("--output \"%1\" --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
+        QStringLiteral("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(30);
 }
 
