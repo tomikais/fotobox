@@ -14,6 +14,10 @@
 #include <QDir>
 #include <QKeyEvent>
 
+#ifdef __arm__
+#include <wiringPi.h>
+#endif
+
 
 int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 
