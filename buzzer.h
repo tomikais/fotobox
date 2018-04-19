@@ -28,7 +28,7 @@ public:
 
 private:
   /*!
-  * \brief Query the Raspberry Pi Pin
+  * \brief Query the Raspberry Pi pin
   */
   auto run() -> void override;
 
