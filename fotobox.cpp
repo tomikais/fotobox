@@ -70,7 +70,10 @@ FotoBox::~FotoBox()
   //delete new
   delete m_ui;
 
-  //delete Buzzer thread
+  //terminate and delete Buzzer thread
+  if (m_buzzer->isRunning()) {
+      m_buzzer->requestInterruption();
+    }
   m_buzzer->deleteLater();
 }
 
@@ -91,8 +94,8 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
           QCoreApplication::quit();
         }
 
-      //P KEY
-      if (event->key() == Qt::Key_P) {
+      //Preferences KEYS (P)references, (S)ettings or (E)instellungen
+      if (event->key() == Qt::Key_P || event->key() == Qt::Key_S || event->key() == Qt::Key_E) {
           //show Preference Dialog
           reject();
         }
