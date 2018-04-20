@@ -36,9 +36,6 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   //move to center
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
 
-  //hide Preferences if they aren't available
-  hidePreferences();
-
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
   connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, [&]() {
@@ -244,30 +241,6 @@ auto Preferences::savePreferences() -> void
 }
 
 
-auto Preferences::hidePreferences() -> void
-{
-  //hide buzzer settings if WiringPI isn't available
-#if defined(__WIRING_PI_H__) && !defined(QT_DEBUG)
-  m_ui->lblBuzzer->hide();
-  m_ui->lblInputPin->hide();
-  m_ui->spbInputPin->hide();
-  m_ui->lblOutputPin->hide();
-  m_ui->spbOutputPin->hide();
-  m_ui->lblQueryInterval->hide();
-  m_ui->spbQueryInterval->hide();
-#endif
-
-  //hide camera settings if Platform is Windows
-#if defined(Q_OS_WIN) && !defined(QT_DEBUG)
-  m_ui->lblCamera->hide();
-  m_ui->lblGphoto2Arg->hide();
-  m_ui->txtGphoto2Arg->hide();
-  m_ui->lblTimeout->hide();
-  m_ui->spbTimout->hide();
-#endif
-}
-
-
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
@@ -299,7 +272,12 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
   if (i_name == QStringLiteral("gphoto2")) {
       auto process = new QProcess(this);
       //specific 'gphoto2' check: auto-detect: get detected cameras
+#if defined(Q_OS_WIN)
+      //try use Windows 10 Linux Subsystem to call gphoto2
+      process->start(QStringLiteral("bash.exe -c '") + i_name +  QStringLiteral(" --auto-detect --version '"));
+#else
       process->start(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") });
+#endif
       if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));

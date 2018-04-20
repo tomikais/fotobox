@@ -35,6 +35,11 @@ auto Camera::shootPhoto() -> bool
   auto argument = PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
   auto command = PreferenceProvider::instance().cameraMode() + QStringLiteral(" ") + argument;
 
+#if defined(Q_OS_WIN)
+  //try use Windows 10 Linux Subsystem to call gphoto2
+  command = QStringLiteral("bash.exe -c '%1'").arg(command);
+#endif
+
   //Start programm with given arguments
   m_process->start(command);
 

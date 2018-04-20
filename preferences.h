@@ -91,11 +91,6 @@ private:
   */
   auto mouseMoveEvent(QMouseEvent *event) -> void override;
 
-  /*!
-  * \brief Hide different preferences if they aren't available
-  */
-  auto hidePreferences() -> void;
-
 
   //FotoBox
   FotoBox* m_fotoBox;
