@@ -136,8 +136,8 @@ auto FotoBox::startProcess() -> void
 auto FotoBox::movePhoto() -> const QString
 {
   const QString fileName = m_camera.currentPhoto();
-  //old location of the photo
-  const QString oldName = QCoreApplication::applicationDirPath() + QDir::separator() + fileName;
+  //old location of the photo (working directory not application directory)
+  const QString oldName = QDir::currentPath() + QDir::separator() + fileName;
   //new location of the photo
   const QString newName = PreferenceProvider::instance().photoFolder() + QDir::separator() + fileName;
 
