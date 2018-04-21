@@ -6,7 +6,7 @@ Tutorial to built and run your own "photo booth" on a [Raspberry Pi](https://www
 * Download latest "fotobox" application [here](https://gitlab.com/tomikais/fotobox/tags). Start the application and configure it accordingly. 
 * Prepare for a continuous run
  * Disable the screen saver: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
- * Autostart: open file with `sudo nano ~/.config/lxsession/LXDE-pi/autostart` add this line `@sudo /home/pi/Downloads/fotobox` at the end of the file.
+ * Autostart: open file with `sudo nano ~/.config/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/fotobox` at the end of the file.
 
 
 ---
