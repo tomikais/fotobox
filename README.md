@@ -16,9 +16,7 @@ Requirement to start application:
 `sudo rpi-update`
 
 ## Qt
-`sudo apt-get install qt5-default qttools5-dev-tools qtdeclarative5-dev qtcreator qt5-doc`
-
-`sudo apt-get install ccache`
+`sudo apt-get install qt5-default qttools5-dev-tools qtdeclarative5-dev qtcreator qt5-doc ccache`
 
 set GCC path in Qt Creator
 * gcc C: `/usr/bin/gcc`
@@ -33,7 +31,7 @@ set GCC path in Qt Creator
 ## source code
 Prepare git client: `sudo apt-get install gitk git-gui git-doc`
 
-GitLab source code: `git clone git@gitlab.com:tomikais/fotobox.git`
+GitLab source code: `git clone https://gitlab.com/tomikais/fotobox.git`
 
 
 ## other stuff
