@@ -246,7 +246,11 @@ auto Preferences::restoreDefaultPreferences() -> void
   //FotoBox
   m_ui->txtPhotoFolder->setText(QCoreApplication::applicationDirPath());
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
+#if !defined(Q_OS_UNIX)
   m_ui->chbButtons->setChecked(false);
+#else
+  m_ui->chbButtons->setChecked(true);
+#endif
   m_ui->txtShowColor->setText(QStringLiteral("#000000"));
 
   //Buzzer
