@@ -4,13 +4,13 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="fotobox.cpp" line="122"/>
+        <location filename="fotobox.cpp" line="129"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
         <oldsource>Error: Taking a photo isn&apos;t working correctly! Please call the Fotobox owner.</oldsource>
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht! Bitte informieren sie den FotoBox Besitzer.</translation>
     </message>
     <message>
-        <location filename="fotobox.cpp" line="157"/>
+        <location filename="fotobox.cpp" line="164"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -41,40 +41,40 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="preferences.cpp" line="131"/>
+        <location filename="preferences.cpp" line="128"/>
         <source> seconds</source>
         <translation> sekunden</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="131"/>
+        <location filename="preferences.cpp" line="128"/>
         <source>launching FotoBox in </source>
         <translation>FotoBox wird gestartet in </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="112"/>
-        <location filename="preferences.cpp" line="150"/>
+        <location filename="preferences.cpp" line="109"/>
+        <location filename="preferences.cpp" line="147"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox preferences</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="46"/>
+        <location filename="preferences.cpp" line="43"/>
         <source>choose directory</source>
         <oldsource>Choose directory</oldsource>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="305"/>
-        <location filename="preferences.cpp" line="326"/>
+        <location filename="preferences.cpp" line="287"/>
+        <location filename="preferences.cpp" line="308"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1 fehlt! Lade es hier </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="315"/>
+        <location filename="preferences.cpp" line="297"/>
         <source>*** no camera detected ***</source>
         <translation>*** keine Kamera erkannt ***</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="336"/>
+        <location filename="preferences.cpp" line="318"/>
         <source>&apos; is missing!</source>
         <translation>&apos; fehlt!</translation>
     </message>

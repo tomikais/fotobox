@@ -21,7 +21,6 @@ auto PreferenceProvider::instance() -> PreferenceProvider&
 
 PreferenceProvider::PreferenceProvider(QObject *parent) : QObject(parent)
 {
-
 }
 
 
