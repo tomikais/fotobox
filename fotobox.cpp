@@ -57,14 +57,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //hide status bar
   m_ui->statusBar->hide();
 
-  //Buzzer (Raspberry Pi)
-#if defined (__WIRING_PI_H__)
-  m_buzzer = new Buzzer(this);
-  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
-  connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
-  connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
-  m_buzzer->start();
-#endif
+  buzzer();
 }
 
 
@@ -116,6 +109,19 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 }
 
 
+auto FotoBox::buzzer() -> void
+{
+  //Buzzer class (Raspberry Pi using wiringPi)
+#if defined (__WIRING_PI_H__)
+  m_buzzer = new Buzzer(this);
+  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
+  connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
+  connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
+  m_buzzer->start();
+#endif
+}
+
+
 auto FotoBox::startProcess() -> void
 {
   //remove current picture / refresh label (photo)
@@ -133,10 +139,7 @@ auto FotoBox::startProcess() -> void
     }
 
   //restart Buzzer
-#if defined (__WIRING_PI_H__)
-  m_buzzer = new Buzzer(this);
-  m_buzzer->start();
-#endif
+  buzzer();
 }
 
 auto FotoBox::movePhoto() -> const QString

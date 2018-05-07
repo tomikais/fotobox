@@ -57,6 +57,11 @@ private:
   auto mouseReleaseEvent(QMouseEvent *event) -> void override;
 
   /*!
+   * \brief creates a new Buzzer object
+   */
+  auto buzzer() -> void;
+
+  /*!
    * \brief trigger camera and try to show photo
    */
   auto startProcess() -> void;
