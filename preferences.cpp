@@ -169,8 +169,8 @@ auto Preferences::loadPreferences() -> void
 
   m_settings.beginGroup(QStringLiteral("Camera"));
   //restore QComboBox model
-  auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Data")).toStringList();
-  auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QLatin1String("Text")).toStringList();
+  auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data")).toStringList();
+  auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text")).toStringList();
   if (!data.empty()) {
       m_ui->cmbCameraMode->clear();
       for (int i = 0; i < data.count(); ++i) {
@@ -232,8 +232,8 @@ auto Preferences::savePreferences() -> void
       itemText << m_ui->cmbCameraMode->itemText(i);
       itemData << m_ui->cmbCameraMode->itemData(i).toString();
     }
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Text"), itemText);
-  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QLatin1String("Data"), itemData);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text"), itemText);
+  m_settings.setValue(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data"), itemData);
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
 
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
@@ -284,7 +284,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
 #endif
       if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QLatin1String("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         } else {
           auto output = process->readAllStandardOutput();
           //gphoto version
@@ -296,7 +296,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
               m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
               model = tr("*** no camera detected ***");
             }
-          m_ui->lblCameraModeInfo->setText(version + QLatin1String(" / ") + model.trimmed());
+          m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
         }
       process->deleteLater();
       return;
@@ -305,7 +305,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QLatin1String("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
         } else {
           m_ui->lblCameraModeInfo->clear();
       }
@@ -315,7 +315,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       if (QProcess::execute(i_name) != EXIT_SUCCESS) {
           //other applications
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(QLatin1String("'") + i_name + tr("' is missing!"));
+          m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
         } else {
           m_ui->lblCameraModeInfo->clear();
       }

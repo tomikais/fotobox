@@ -7,11 +7,11 @@
  */
 #include "buzzer.h"
 
-#ifdef __arm__
+#if defined (__arm__)
 #include <wiringPi.h>
 #endif
 
-#ifdef __WIRING_PI_H__
+#if defined (__WIRING_PI_H__)
 // ******************************************
 // DEVICE: Raspberry Pi (wiringPi available)
 

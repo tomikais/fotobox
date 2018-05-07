@@ -32,10 +32,10 @@ auto Camera::shootPhoto() -> bool
   m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + PreferenceProvider::instance().photoName();
 
   //Program name and arguments
-  auto argument = PreferenceProvider::instance().argumentLine().arg(QLatin1String("\"") + m_currentPhoto + QLatin1String("\""));
-  auto command = PreferenceProvider::instance().cameraMode() + QLatin1String(" ") + argument;
+  auto argument = PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
+  auto command = PreferenceProvider::instance().cameraMode() + QStringLiteral(" ") + argument;
 
-#if defined(Q_OS_WIN)
+#if defined (Q_OS_WIN)
   //try use Windows 10 Linux Subsystem to call gphoto2
   command = QString("bash.exe -c '%1'").arg(command);
 #endif

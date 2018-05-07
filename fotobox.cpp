@@ -14,7 +14,7 @@
 #include <QDir>
 #include <QKeyEvent>
 
-#ifdef __arm__
+#if defined (__arm__)
 #include <wiringPi.h>
 #endif
 
@@ -57,9 +57,10 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //hide status bar
   m_ui->statusBar->hide();
 
-#ifdef __WIRING_PI_H__
+#if defined (__WIRING_PI_H__)
   //running loop to check buzzer trigger
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
+  connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
   m_buzzer->start();
 #endif
 }
@@ -135,21 +136,23 @@ auto FotoBox::startProcess() -> void
 
 auto FotoBox::movePhoto() -> const QString
 {
-  const QString fileName = m_camera.currentPhoto();
+  QString result = m_camera.currentPhoto();
   //old location of the photo (working directory not application directory)
-  const QString oldName = QDir::currentPath() + QDir::separator() + fileName;
+  const QString oldName = QDir::currentPath() + QDir::separator() + result;
   //new location of the photo
-  const QString newName = PreferenceProvider::instance().photoFolder() + QDir::separator() + fileName;
+  const QString newName = PreferenceProvider::instance().photoFolder() + QDir::separator() + result;
 
   //move photo
   QDir dir;
   if(dir.rename(oldName, newName)) {
-      return newName;
+      result = newName;
     }
   else {
       m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
-      return oldName;
+      result = oldName;
     }
+
+  return result;
 }
 
 
