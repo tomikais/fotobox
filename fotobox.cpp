@@ -93,7 +93,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //Preferences KEYS (P)references, (S)ettings or (E)instellungen
       if (event->key() == Qt::Key_P || event->key() == Qt::Key_S || event->key() == Qt::Key_E) {
           //show Preference Dialog
-          reject();
+          emit rejected();
         }
     }
 }
@@ -111,13 +111,15 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 
 auto FotoBox::buzzer() -> void
 {
-  //Buzzer class (Raspberry Pi using wiringPi)
+  //Buzzer class (Raspberry Pi GPIO using wiringPi)
 #if defined (__WIRING_PI_H__)
-  m_buzzer = new Buzzer(this);
-  connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
-  connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
-  connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
-  m_buzzer->start();
+  if (m_buzzer != nullptr) {
+    m_buzzer = new Buzzer(this);
+    connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
+    connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
+    connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
+    m_buzzer->start();
+  }
 #endif
 }
 
