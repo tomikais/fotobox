@@ -24,7 +24,7 @@ int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
-  m_buzzer(new Buzzer),
+  m_buzzer(nullptr),
   m_camera(this)
 {
   //setup GUI
@@ -57,10 +57,12 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //hide status bar
   m_ui->statusBar->hide();
 
+  //Buzzer (Raspberry Pi)
 #if defined (__WIRING_PI_H__)
-  //running loop to check buzzer trigger
+  m_buzzer = new Buzzer(this);
   connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
   connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
+  connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
   m_buzzer->start();
 #endif
 }
@@ -72,10 +74,10 @@ FotoBox::~FotoBox()
   delete m_ui;
 
   //terminate and delete Buzzer thread
-  if (m_buzzer->isRunning()) {
+  if (m_buzzer != nullptr && m_buzzer->isRunning()) {
       m_buzzer->requestInterruption();
+      m_buzzer->deleteLater();
     }
-  m_buzzer->deleteLater();
 }
 
 
@@ -131,7 +133,10 @@ auto FotoBox::startProcess() -> void
     }
 
   //restart Buzzer
+#if defined (__WIRING_PI_H__)
+  m_buzzer = new Buzzer(this);
   m_buzzer->start();
+#endif
 }
 
 auto FotoBox::movePhoto() -> const QString

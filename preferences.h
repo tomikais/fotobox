@@ -106,5 +106,3 @@ private:
   QTimer* m_timer;
 
 };
-
-

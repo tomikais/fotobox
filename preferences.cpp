@@ -10,7 +10,7 @@
 #include "preferences.h"
 #include "ui_preferences.h"
 
-#if !defined(Q_OS_WIN)
+#if !defined (Q_OS_WIN)
 #include <sysexits.h>
 #else
 #define EX_USAGE 64 /* Windows: command line usage error */
@@ -21,7 +21,6 @@
 #include <QFileDialog>
 #include <QProcess>
 #include <QTimer>
-
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),

@@ -11,7 +11,6 @@
 #include <QDir>
 
 
-
 auto PreferenceProvider::instance() -> PreferenceProvider&
 {
   //thread safe static initializer
