@@ -67,8 +67,8 @@ FotoBox::~FotoBox()
   delete m_ui;
 
   //terminate and delete Buzzer thread
-  if (m_buzzer != nullptr && m_buzzer->isRunning()) {
-      m_buzzer->requestInterruption();
+  if (m_buzzer != nullptr) {
+      m_buzzer->terminate();
       m_buzzer->deleteLater();
     }
 }
@@ -113,7 +113,7 @@ auto FotoBox::buzzer() -> void
 {
   //Buzzer class (Raspberry Pi GPIO using wiringPi)
 #if defined (__WIRING_PI_H__)
-  if (m_buzzer != nullptr) {
+  if (m_buzzer == nullptr) {
     m_buzzer = new Buzzer(this);
     connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
     connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
