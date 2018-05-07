@@ -246,7 +246,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   //FotoBox
   m_ui->txtPhotoFolder->setText(QCoreApplication::applicationDirPath());
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
-#if !defined(Q_OS_UNIX)
+#if !defined (Q_OS_UNIX)
   m_ui->chbButtons->setChecked(false);
 #else
   m_ui->chbButtons->setChecked(true);
@@ -276,7 +276,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
   if (i_name == QLatin1String("gphoto2")) {
       auto process = new QProcess(this);
       //specific 'gphoto2' check: auto-detect: get detected cameras
-#if defined(Q_OS_WIN)
+#if defined (Q_OS_WIN)
       //try use Windows 10 Linux Subsystem to call gphoto2
       process->start(QLatin1String("bash.exe -c '") + i_name + QLatin1String(" --auto-detect --version '"));
 #else
