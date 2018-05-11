@@ -132,7 +132,7 @@ void Preferences::autoAcceptDialog()
 
   //stop timer and close dialog
   m_timer->stop();
-  emit accept();
+  emit accepted();
 }
 
 
