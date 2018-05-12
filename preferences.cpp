@@ -103,7 +103,6 @@ void Preferences::startFotoBox()
 {
   //Hide Preference dialog
   hide();
-
   m_timer->stop();
   setWindowTitle(tr("FotoBox preferences"));
 

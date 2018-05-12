@@ -6,16 +6,23 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #pragma once
-#include <QThread>
+#include <QObject>
 
 
 /*!
  * \brief This class handles the buzzer
  *  Run in a separate thread.
  */
-class Buzzer : public QThread
+class Buzzer : public QObject
 {
   Q_OBJECT
+
+
+public slots:
+  /*!
+  * \brief Query the Raspberry Pi pin
+  */
+  void queryPin();
 
 
 public:
@@ -26,10 +33,10 @@ public:
   explicit Buzzer(QObject *parent = nullptr);
 
 
-private:
+signals:
   /*!
-  * \brief Query the Raspberry Pi pin
+  * \brief Buzzer was pressed
   */
-  auto run() -> void override;
+  void resultReady();
 
 };

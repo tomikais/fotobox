@@ -18,7 +18,7 @@
 
 #include "preferenceprovider.h"
 
-Buzzer::Buzzer(QObject *parent) : QThread(parent)
+Buzzer::Buzzer(QObject *parent) : QObject(parent)
 {
   //wiringPi http://wiringpi.com/reference/setup/
   //function always returns zero 0, no need to check result!
@@ -30,13 +30,16 @@ Buzzer::Buzzer(QObject *parent) : QThread(parent)
 }
 
 
-auto Buzzer::run() -> void
+auto Buzzer::queryPin() -> void
 {
   //query pin
   while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
-    //wait before check again
+    //wait before query pin again
     delay(PreferenceProvider::instance().queryInterval());
   }
+
+  //buzzer was pressed
+  emit resultReady();
 }
 
 #else
@@ -44,8 +47,8 @@ auto Buzzer::run() -> void
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) : QThread(parent) { /* no wiringPi framework available */ }
+Buzzer::Buzzer(QObject *parent) : QObject(parent) { /* no wiringPi framework available */ }
 
-auto Buzzer::run() -> void { /* no wiringPi framework available */ }
+auto Buzzer::queryPin() -> void { /* no wiringPi framework available */ }
 
 #endif

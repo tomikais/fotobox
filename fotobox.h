@@ -7,11 +7,11 @@
  */
 #pragma once
 #include <QDialog>
+#include <QThread>
 
 #include "camera.h"
 
 class QKeyEvent;
-class Buzzer;
 
 namespace Ui
 {
@@ -41,6 +41,13 @@ public:
   ~FotoBox() override;
 
 
+private slots:
+  /*!
+   * \brief trigger camera and try to show photo
+   */
+  void startProcess();
+
+
 private:
   /*!
    * \brief filter key press events
@@ -62,11 +69,6 @@ private:
   auto buzzer() -> void;
 
   /*!
-   * \brief trigger camera and try to show photo
-   */
-  auto startProcess() -> void;
-
-  /*!
    * \brief try to load the photo to QPixmap
    * \param i_filePath path to photo
    */
@@ -83,7 +85,7 @@ private:
   Ui::FotoBoxDialog *m_ui;
 
   //Buzzer (Raspberry Pi GPIO)
-  Buzzer *m_buzzer;
+  QThread m_workerThread;
 
   //Camera (shot photo)
   Camera m_camera;
@@ -100,5 +102,10 @@ signals:
    * \brief Signal: Start shooting a picture
    */
   void start();
+
+  /*!
+   * \brief start query pin with Buzzer class
+   */
+  void startBuzzer();
 
 };

@@ -24,7 +24,6 @@ int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
-  m_buzzer(nullptr),
   m_camera(this)
 {
   //setup GUI
@@ -57,20 +56,23 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //hide status bar
   m_ui->statusBar->hide();
 
-  buzzer();
+  //Buzzer class (Raspberry Pi GPIO using wiringPi)
+    buzzer();
+#if defined (__WIRING_PI_H__)
+    //start query
+    emit startBuzzer();
+#endif
 }
 
 
 FotoBox::~FotoBox()
 {
+  //terminate and delete Buzzer thread
+  m_workerThread.quit();
+  m_workerThread.wait();
+
   //delete new
   delete m_ui;
-
-  //terminate and delete Buzzer thread
-  if (m_buzzer != nullptr) {
-      m_buzzer->terminate();
-      m_buzzer->deleteLater();
-    }
 }
 
 
@@ -101,6 +103,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 
 auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 {
+  //touch support
   if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
       emit start();
     }
@@ -111,16 +114,15 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 
 auto FotoBox::buzzer() -> void
 {
-  //Buzzer class (Raspberry Pi GPIO using wiringPi)
-#if defined (__WIRING_PI_H__)
-  if (m_buzzer == nullptr) {
-    m_buzzer = new Buzzer(this);
-    connect(m_buzzer, &Buzzer::finished, this, &FotoBox::start);
-    connect(m_buzzer, &Buzzer::finished, m_buzzer, &QObject::deleteLater);
-    connect(this, &FotoBox::rejected, m_buzzer, &QObject::deleteLater);
-    m_buzzer->start();
-  }
-#endif
+  //create Buzzer and move to a thread
+  auto* buzzer = new Buzzer;
+  buzzer->moveToThread(&m_workerThread);
+
+  //connect and start Buzzer
+  connect(&m_workerThread, &QThread::finished, buzzer, &QObject::deleteLater);
+  connect(this, &FotoBox::startBuzzer, buzzer, &Buzzer::queryPin);
+  connect(buzzer, &Buzzer::resultReady, this, &FotoBox::startProcess);
+  m_workerThread.start();
 }
 
 
