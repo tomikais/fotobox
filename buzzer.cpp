@@ -39,7 +39,7 @@ auto Buzzer::queryPin() -> void
   }
 
   //buzzer was pressed
-  emit resultReady();
+  emit triggered();
 }
 
 #else
