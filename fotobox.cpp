@@ -58,11 +58,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui->statusBar->hide();
 
   //Buzzer class (Raspberry Pi GPIO using wiringPi)
-    buzzer();
-#if defined (__WIRING_PI_H__)
-    //start query
-    emit startBuzzer();
-#endif
+  buzzer();
 }
 
 
@@ -115,6 +111,11 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 
 auto FotoBox::buzzer() -> void
 {
+  if (m_workerThread.isRunning()) {
+      m_workerThread.quit();
+      m_workerThread.wait();
+    }
+
   //create Buzzer and move to a thread
   auto* buzzer = new Buzzer;
   buzzer->moveToThread(&m_workerThread);
@@ -124,6 +125,11 @@ auto FotoBox::buzzer() -> void
   connect(this, &FotoBox::startBuzzer, buzzer, &Buzzer::queryPin);
   connect(buzzer, &Buzzer::resultReady, this, &FotoBox::startProcess);
   m_workerThread.start();
+
+#if !defined (__WIRING_PI_H__)
+  //start query
+  emit startBuzzer();
+#endif
 }
 
 
