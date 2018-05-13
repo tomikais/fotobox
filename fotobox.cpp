@@ -31,6 +31,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::startProcess);
+  connect(this, &QDialog::rejected, this, &QObject::deleteLater);
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [this] (const QString &i_message) {
       //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();

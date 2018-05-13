@@ -107,10 +107,6 @@ void Preferences::startFotoBox()
   setWindowTitle(tr("FotoBox preferences"));
 
   //Start FotoBox
-  if (m_fotoBox != nullptr) {
-      //delete old one
-      m_fotoBox->deleteLater();
-    }
   m_fotoBox = new FotoBox(this);
   Q_CHECK_PTR(m_fotoBox);
   connect(m_fotoBox, &QDialog::rejected, this, &QApplication::restoreOverrideCursor);

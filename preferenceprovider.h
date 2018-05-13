@@ -15,6 +15,7 @@ class PreferenceProvider : public QObject
 {
   Q_OBJECT
 
+
 public:
   /*!
   * \brief delete copy constructor (Singleton)
