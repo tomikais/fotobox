@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>FotoBox by Thomas Kais ©</string>
+   <string>FotoBox (Copyright Thomas Kais)</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

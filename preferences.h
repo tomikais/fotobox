@@ -92,9 +92,6 @@ private:
   auto mouseMoveEvent(QMouseEvent *event) -> void override;
 
 
-  //FotoBox
-  FotoBox* m_fotoBox;
-
   //User Interface
   Ui::PreferencesDialog *m_ui;
 

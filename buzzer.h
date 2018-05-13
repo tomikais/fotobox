@@ -37,6 +37,6 @@ signals:
   /*!
   * \brief Buzzer was pressed
   */
-  void resultReady();
+  void triggered();
 
 };

@@ -9,6 +9,7 @@
 
 #include "buzzer.h"
 #include "preferenceprovider.h"
+#include "preferences.h"
 #include "ui_fotobox.h"
 
 #include <QDir>
@@ -92,6 +93,9 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //Preferences KEYS (P)references, (S)ettings or (E)instellungen
       if (event->key() == Qt::Key_P || event->key() == Qt::Key_S || event->key() == Qt::Key_E) {
           //show Preference Dialog
+          setWindowState(Qt::WindowNoState);
+          auto dialog = new Preferences;
+          dialog->show();
           emit rejected();
         }
     }
@@ -123,10 +127,10 @@ auto FotoBox::buzzer() -> void
   //connect and start Buzzer
   connect(&m_workerThread, &QThread::finished, buzzer, &QObject::deleteLater);
   connect(this, &FotoBox::startBuzzer, buzzer, &Buzzer::queryPin);
-  connect(buzzer, &Buzzer::resultReady, this, &FotoBox::startProcess);
+  connect(buzzer, &Buzzer::triggered, this, &FotoBox::startProcess);
   m_workerThread.start();
 
-#if !defined (__WIRING_PI_H__)
+#if defined (__WIRING_PI_H__)
   //start query
   emit startBuzzer();
 #endif

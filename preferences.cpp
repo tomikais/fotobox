@@ -24,7 +24,6 @@
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
-  m_fotoBox(nullptr),
   m_ui(new Ui::PreferencesDialog),
   m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
   m_timer(new QTimer(this))
@@ -34,6 +33,9 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //move to center
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
+
+  //cleanup
+  connect(this, &QDialog::finished, this, &QObject::deleteLater);
 
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
@@ -101,17 +103,10 @@ Preferences::~Preferences()
 
 void Preferences::startFotoBox()
 {
-  //Hide Preference dialog
-  hide();
-  m_timer->stop();
-  setWindowTitle(tr("FotoBox preferences"));
-
   //Start FotoBox
-  m_fotoBox = new FotoBox(this);
-  Q_CHECK_PTR(m_fotoBox);
-  connect(m_fotoBox, &QDialog::rejected, this, &QApplication::restoreOverrideCursor);
-  connect(m_fotoBox, &QDialog::rejected, this, &QDialog::show);
-  m_fotoBox->showFullScreen();
+  m_timer->stop();
+  auto* dialog = new FotoBox;
+  dialog->showFullScreen();
 }
 
 
@@ -302,7 +297,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
         } else {
           m_ui->lblCameraModeInfo->clear();
-      }
+        }
       return;
     }
   if (!i_name.isEmpty()) {
@@ -312,7 +307,7 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
           m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
         } else {
           m_ui->lblCameraModeInfo->clear();
-      }
+        }
       return;
     }
   m_ui->lblCameraModeInfo->clear();

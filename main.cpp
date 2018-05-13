@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   app.setOrganizationName(QStringLiteral("Thomas Kais"));
   app.setApplicationName(QStringLiteral("FotoBox"));
-  app.setApplicationVersion(QStringLiteral("1.2.2"));
+  app.setApplicationVersion(QStringLiteral("1.2.3"));
 
   //German or English (=default language)
   QTranslator translator;
@@ -38,9 +38,8 @@ int main(int argc, char *argv[])
     }
 
   //Show preferences dialog
-  Preferences prefDialog;
-  prefDialog.show();
+  auto* dialog = new Preferences;
+  dialog->show();
 
   return app.exec();
 }
-
