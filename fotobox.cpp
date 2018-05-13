@@ -32,7 +32,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::startProcess);
-  connect(this, &QDialog::rejected, this, &QObject::deleteLater);
+  connect(this, &QDialog::finished, this, &QObject::deleteLater);
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [this] (const QString &i_message) {
       //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
@@ -41,7 +41,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
-      connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &QDialog::reject);
+      connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &FotoBox::preferenceDialog);
       connect(m_ui->btnQuitApp, &QPushButton::clicked, QCoreApplication::instance(), &QCoreApplication::quit);
     }
   else {
@@ -93,10 +93,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //Preferences KEYS (P)references, (S)ettings or (E)instellungen
       if (event->key() == Qt::Key_P || event->key() == Qt::Key_S || event->key() == Qt::Key_E) {
           //show Preference Dialog
-          setWindowState(Qt::WindowNoState);
-          auto dialog = new Preferences;
-          dialog->show();
-          emit rejected();
+          preferenceDialog();
         }
     }
 }
@@ -134,6 +131,14 @@ auto FotoBox::buzzer() -> void
   //start query
   emit startBuzzer();
 #endif
+}
+
+
+void FotoBox::preferenceDialog()
+{
+  auto dialog = new Preferences;
+  dialog->show();
+  close();
 }
 
 

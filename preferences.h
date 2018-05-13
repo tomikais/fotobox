@@ -40,7 +40,7 @@ public:
   ~Preferences() override;
 
 
-  private slots:
+private slots:
   /*!
   * \brief start the FotoBox
   */

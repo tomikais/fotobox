@@ -47,6 +47,11 @@ private slots:
    */
   void startProcess();
 
+  /*!
+   * \brief show preference dialog and close dialog
+   */
+  void preferenceDialog();
+
 
 private:
   /*!
