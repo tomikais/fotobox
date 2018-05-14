@@ -29,15 +29,15 @@ class Preferences : public QDialog
 
 public:
   /*!
-  * \brief hide Preferences constructor (Singleton)
+  * \brief hide Preferences constructor
   * \param parent QWidget
   */
   explicit Preferences(QWidget *parent = nullptr);
 
   /*!
-  * \brief hide Preferences destructor (Singleton)
+  * \brief Preferences destructor
   */
-  ~Preferences() override;
+  ~Preferences() = default;
 
 
 private slots:

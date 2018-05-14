@@ -68,9 +68,6 @@ FotoBox::~FotoBox()
   //terminate and delete Buzzer thread
   m_workerThread.quit();
   m_workerThread.wait();
-
-  //delete new
-  delete m_ui;
 }
 
 
@@ -136,8 +133,14 @@ auto FotoBox::buzzer() -> void
 
 void FotoBox::preferenceDialog()
 {
+  //Preferences dialog
   auto dialog = new Preferences;
   dialog->show();
+
+  //restore mouse cursor
+  QApplication::restoreOverrideCursor();
+
+  //close fotobox
   close();
 }
 

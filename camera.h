@@ -8,7 +8,6 @@
 #pragma once
 #include <QObject>
 
-class QProcess;
 
 /*!
  * \brief The Camera class
@@ -20,9 +19,6 @@ class Camera : public QObject
 
 
 public:
-  //Qt Property
-  //Q_PROPERTY(QString m_lastPhoto READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
-
   /*!
    * \brief Camera constructor
    * \param parent QObject
@@ -32,7 +28,7 @@ public:
   /*!
     * \brief Camera destructor
     */
-   ~Camera() override;
+   ~Camera() = default;
 
   /*!
    * \brief shoot a photo with gphoto2
@@ -48,9 +44,6 @@ public:
 
 
 private:
-  //start gphoto2
-  QProcess *m_process;
-
   //name of the current photo
   QString m_currentPhoto;
 

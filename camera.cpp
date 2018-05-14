@@ -13,16 +13,9 @@
 #include <QProcess>
 
 
-Camera::Camera(QObject *parent) : QObject(parent),
-  m_process(new QProcess(this))
+Camera::Camera(QObject *parent) : QObject(parent)
 {
 
-}
-
-
-Camera::~Camera()
-{
-  m_process->deleteLater();
 }
 
 
@@ -41,15 +34,17 @@ auto Camera::shootPhoto() -> bool
 #endif
 
   //Start programm with given arguments
-  m_process->start(command);
+  QProcess process;
+  process.start(command);
 
   //convert to milliseconds
   auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
-  m_process->waitForFinished(milliseconds);
+  process.waitForFinished(milliseconds);
 
   //check time out and process exit code
-  return (m_process->exitCode() == EXIT_SUCCESS);
+  return (process.exitCode() == EXIT_SUCCESS);
 }
+
 
 auto Camera::currentPhoto() const -> QString
 {

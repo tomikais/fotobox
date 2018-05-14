@@ -31,7 +31,7 @@ class FotoBox : public QDialog
 public:
   /*!
   * \brief FotoBox constructor
-  * \param parent QObject
+  * \param parent QWidget
   */
   explicit FotoBox(QWidget *parent = nullptr);
 

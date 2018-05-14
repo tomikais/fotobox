@@ -95,12 +95,6 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 }
 
 
-Preferences::~Preferences()
-{
-  delete m_ui;
-}
-
-
 void Preferences::startFotoBox()
 {
   //Start FotoBox
