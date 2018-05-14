@@ -4,13 +4,12 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="fotobox.cpp" line="129"/>
+        <location filename="fotobox.cpp" line="155"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
-        <oldsource>Error: Taking a photo isn&apos;t working correctly! Please call the Fotobox owner.</oldsource>
         <translation>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</translation>
     </message>
     <message>
-        <location filename="fotobox.cpp" line="164"/>
+        <location filename="fotobox.cpp" line="192"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -19,8 +18,8 @@
     <name>FotoBoxDialog</name>
     <message>
         <location filename="fotobox.ui" line="15"/>
-        <source>FotoBox by Thomas Kais ©</source>
-        <translation>FotoBox by Thomas Kais ©</translation>
+        <source>FotoBox (Copyright Thomas Kais)</source>
+        <translation>FotoBox (Copyright Thomas Kais)</translation>
     </message>
     <message>
         <location filename="fotobox.ui" line="76"/>
@@ -41,40 +40,38 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="preferences.cpp" line="128"/>
+        <location filename="preferences.cpp" line="114"/>
         <source> seconds</source>
         <translation> seconds</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="128"/>
+        <location filename="preferences.cpp" line="114"/>
         <source>launching FotoBox in </source>
         <translation>launching FotoBox in </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="109"/>
-        <location filename="preferences.cpp" line="147"/>
+        <location filename="preferences.cpp" line="133"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="43"/>
+        <location filename="preferences.cpp" line="47"/>
         <source>choose directory</source>
-        <oldsource>Choose directory</oldsource>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="287"/>
-        <location filename="preferences.cpp" line="308"/>
+        <location filename="preferences.cpp" line="273"/>
+        <location filename="preferences.cpp" line="294"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1&apos; is missing! Get it </translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="297"/>
+        <location filename="preferences.cpp" line="283"/>
         <source>*** no camera detected ***</source>
         <translation>*** no camera detected ***</translation>
     </message>
     <message>
-        <location filename="preferences.cpp" line="318"/>
+        <location filename="preferences.cpp" line="304"/>
         <source>&apos; is missing!</source>
         <translation>&apos; is missing!</translation>
     </message>
@@ -129,7 +126,6 @@
     <message>
         <location filename="preferences.ui" line="250"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18,  21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
