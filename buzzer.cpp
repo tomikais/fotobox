@@ -18,7 +18,8 @@
 
 #include "preferenceprovider.h"
 
-Buzzer::Buzzer(QObject *parent) : QObject(parent)
+Buzzer::Buzzer(QObject *parent) : QObject(parent),
+  m_stop(false)
 {
   //wiringPi http://wiringpi.com/reference/setup/
   //function always returns zero 0, no need to check result!
@@ -36,19 +37,30 @@ auto Buzzer::queryPin() -> void
   while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
     //wait before query pin again
     delay(PreferenceProvider::instance().queryInterval());
+
+    //if stop is true, stop while loop and return to caller (don't emit triggered)
+    if (m_stop) {
+      return;
+    }
   }
 
   //buzzer was pressed
   emit triggered();
 }
-
 #else
 
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) : QObject(parent) { /* no wiringPi framework available */ }
+Buzzer::Buzzer(QObject *parent) : QObject(parent), m_stop(false) { /* no wiringPi framework available */ }
 
 auto Buzzer::queryPin() -> void { /* no wiringPi framework available */ }
 
 #endif
+
+
+void Buzzer::stop()
+{
+  //set std::atomic to true
+  m_stop = true;
+}

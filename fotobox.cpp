@@ -25,6 +25,7 @@ int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
+  m_buzzer(nullptr),
   m_camera(this)
 {
   //setup GUI
@@ -32,7 +33,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::startProcess);
-  connect(this, &QDialog::finished, this, &QObject::deleteLater);
+  connect(this, &QDialog::rejected, this, &QObject::deleteLater);
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [this] (const QString &i_message) {
       //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
@@ -66,7 +67,9 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 FotoBox::~FotoBox()
 {
   //terminate and delete Buzzer thread
+  m_buzzer->stop();
   m_workerThread.quit();
+  m_workerThread.terminate();
   m_workerThread.wait();
 }
 
@@ -115,13 +118,13 @@ auto FotoBox::buzzer() -> void
     }
 
   //create Buzzer and move to a thread
-  auto* buzzer = new Buzzer;
-  buzzer->moveToThread(&m_workerThread);
+  m_buzzer = new Buzzer;
+  m_buzzer->moveToThread(&m_workerThread);
 
   //connect and start Buzzer
-  connect(&m_workerThread, &QThread::finished, buzzer, &QObject::deleteLater);
-  connect(this, &FotoBox::startBuzzer, buzzer, &Buzzer::queryPin);
-  connect(buzzer, &Buzzer::triggered, this, &FotoBox::startProcess);
+  connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
+  connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
+  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::startProcess);
   m_workerThread.start();
 
 #if defined (__WIRING_PI_H__)
@@ -135,13 +138,13 @@ void FotoBox::preferenceDialog()
 {
   //Preferences dialog
   auto dialog = new Preferences;
-  dialog->show();
 
   //restore mouse cursor
   QApplication::restoreOverrideCursor();
 
-  //close fotobox
-  close();
+  //close fotobox and show preferences
+  emit rejected();
+  dialog->show();
 }
 
 

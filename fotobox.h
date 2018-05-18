@@ -11,6 +11,7 @@
 
 #include "camera.h"
 
+class Buzzer;
 class QKeyEvent;
 
 namespace Ui
@@ -89,7 +90,10 @@ private:
   //User Interface
   Ui::FotoBoxDialog *m_ui;
 
-  //Buzzer (Raspberry Pi GPIO)
+  //Buzzer
+  Buzzer *m_buzzer;
+
+  //handle Buzzer thread (Raspberry Pi GPIO)
   QThread m_workerThread;
 
   //Camera (shot photo)

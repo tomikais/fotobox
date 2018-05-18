@@ -6,6 +6,7 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #pragma once
+#include <atomic>
 #include <QObject>
 
 
@@ -32,11 +33,22 @@ public:
    */
   explicit Buzzer(QObject *parent = nullptr);
 
+  /*!
+  * \brief Stop executing \sa queryPin()
+  */
+  void stop();
+
 
 signals:
   /*!
   * \brief Buzzer was pressed
   */
   void triggered();
+
+private:
+  /*!
+  * atomic bool to stop /sa queryPin()
+  */
+  std::atomic<bool> m_stop;
 
 };
