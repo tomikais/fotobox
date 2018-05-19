@@ -34,8 +34,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   //move to center
   setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
 
-  //cleanup
-  connect(this, &QDialog::finished, this, &QObject::deleteLater);
+  //delete everything on close
+  setAttribute(Qt::WA_DeleteOnClose);
 
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
@@ -45,41 +45,36 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
     });
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
+  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &QLineEdit::setToolTip);
   connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::showColor);
-  connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
-  connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
-  connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
-  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
-  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
-  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-          [&]() {
+  connect(m_ui->spbInputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
+  connect(m_ui->spbOutputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
+  connect(m_ui->spbQueryInterval, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
+  connect(m_ui->cmbCameraMode, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
+  connect(m_ui->cmbCameraMode, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
+  connect(m_ui->cmbCameraMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [&]() {
       //QComboBox has changed, show stored data to QLineEdit
       m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
     });
   connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setArgumentLine);
-  connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, this,
-          [&](const QString& i_value) {
+  connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, this, [&](const QString& i_value) {
       //save changed text in QComboBox model
       m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
-  connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
+  connect(m_ui->spbTimout, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
 
   //connect buttons
-  connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
-  connect(this, &QDialog::accepted, this, &Preferences::savePreferences);
-  connect(this, &QDialog::accepted, this, &Preferences::startFotoBox);
+  connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this,
-          [&](QAbstractButton *button) {
+  connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this, [&](QAbstractButton *button) {
     //identify restore button
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
         //restore defaults
         restoreDefaultPreferences();
       }
   });
-  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
 
   //restore default values
   restoreDefaultPreferences();
@@ -95,11 +90,23 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 }
 
 
+Preferences::~Preferences()
+{
+  m_timer->deleteLater();
+}
+
+
 void Preferences::startFotoBox()
 {
-  //Start FotoBox
+  //save settings to ini file
+  savePreferences();
   m_timer->stop();
-  auto* dialog = new FotoBox;
+
+  //Start FotoBox;
+  auto *dialog = new FotoBox;
+
+  //close dialog and start fotobox
+  reject();
   dialog->showFullScreen();
 }
 
@@ -114,9 +121,8 @@ void Preferences::autoAcceptDialog()
       return;
     }
 
-  //stop timer and close dialog
-  m_timer->stop();
-  emit accepted();
+  //start FotoBox
+  startFotoBox();
 }
 
 
@@ -239,7 +245,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   //Buzzer
   m_ui->spbInputPin->setValue(5);
   m_ui->spbOutputPin->setValue(0);
-  m_ui->spbQueryInterval->setValue(10);
+  m_ui->spbQueryInterval->setValue(50);
 
   //Camera
   m_ui->cmbCameraMode->clear();

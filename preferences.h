@@ -9,7 +9,6 @@
 #include <QDialog>
 #include <QSettings>
 
-class QLineEdit;
 class QTimer;
 class FotoBox;
 
@@ -37,7 +36,7 @@ public:
   /*!
   * \brief Preferences destructor
   */
-  ~Preferences() = default;
+  ~Preferences() override = default;
 
 
 private slots:
@@ -50,11 +49,6 @@ private slots:
   * \brief Open a color picker to choose background color for FotoBox
   */
   void colorDialog();
-
-  /*!
-  * \brief Save the preferences to QSettings
-  */
-  void savePreferences();
 
   /*!
   * \brief Accept dialog after 10 seconds. You can stop that by moving mouse into preference dialog.
@@ -84,6 +78,11 @@ private:
   * \brief load application settings from INI file
   */
   auto loadPreferences() -> void;
+
+  /*!
+  * \brief Save the preferences to QSettings
+  */
+  void savePreferences();
 
   /*!
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget
