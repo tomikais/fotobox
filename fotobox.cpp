@@ -147,7 +147,10 @@ auto FotoBox::buzzer() -> void
 
 void FotoBox::preferenceDialog()
 {
+#if defined (Q_OS_MACOS)
+  //QTBUG-36714: Window can't be fully closed on Mac OS X after calling showFullScreen()
   showNormal();
+#endif
 
   //Preferences dialog
   auto dialog = new Preferences;
