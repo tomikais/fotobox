@@ -239,7 +239,7 @@ auto Preferences::restoreDefaultPreferences() -> void
   //Buzzer
   m_ui->spbInputPin->setValue(5);
   m_ui->spbOutputPin->setValue(0);
-  m_ui->spbQueryInterval->setValue(50);
+  m_ui->spbQueryInterval->setValue(10);
 
   //Camera
   m_ui->cmbCameraMode->clear();
