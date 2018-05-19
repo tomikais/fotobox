@@ -90,12 +90,6 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 }
 
 
-Preferences::~Preferences()
-{
-  m_timer->deleteLater();
-}
-
-
 void Preferences::startFotoBox()
 {
   //save settings to ini file

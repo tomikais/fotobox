@@ -26,15 +26,18 @@ int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
+  m_workerThread(this),
   m_camera(this)
 {
   //setup GUI
   m_ui->setupUi(this);
 
+  //delete everything on close
+  setAttribute(Qt::WA_DeleteOnClose);
+
   //Fotobox process
   connect(this, &FotoBox::start, this, &FotoBox::startProcess);
-  connect(this, &QDialog::rejected, this, &QObject::deleteLater);
-  connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [this] (const QString &i_message) {
+  connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
       //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
     });
@@ -67,9 +70,11 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 FotoBox::~FotoBox()
 {
   //terminate and delete Buzzer thread
-  m_buzzer->stop();
+  if (m_buzzer != nullptr) {
+      //stop query pin
+      m_buzzer->stop();
+    }
   m_workerThread.quit();
-  m_workerThread.terminate();
   m_workerThread.wait();
 }
 
@@ -112,7 +117,13 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 
 auto FotoBox::buzzer() -> void
 {
+  if (m_buzzer != nullptr) {
+      //stop query pin
+      m_buzzer->stop();
+    }
+
   if (m_workerThread.isRunning()) {
+      //stop QThread
       m_workerThread.quit();
       m_workerThread.wait();
     }
@@ -136,6 +147,8 @@ auto FotoBox::buzzer() -> void
 
 void FotoBox::preferenceDialog()
 {
+  showNormal();
+
   //Preferences dialog
   auto dialog = new Preferences;
 
@@ -143,7 +156,7 @@ void FotoBox::preferenceDialog()
   QApplication::restoreOverrideCursor();
 
   //close fotobox and show preferences
-  emit rejected();
+  reject();
   dialog->show();
 }
 
