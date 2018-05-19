@@ -7,9 +7,6 @@
 */
 #include "preferenceprovider.h"
 
-#include <QApplication>
-#include <QDir>
-
 
 auto PreferenceProvider::instance() -> PreferenceProvider&
 {
