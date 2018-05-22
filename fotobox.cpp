@@ -27,7 +27,10 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
   m_workerThread(this),
-  m_camera(this)
+   m_camera(this),
+  m_photo(),
+  m_workingDir(QDir::currentPath() + QDir::separator()),
+  m_photoDir(PreferenceProvider::instance().photoFolder() + QDir::separator())
 {
   //setup GUI
   m_ui->setupUi(this);
@@ -186,18 +189,21 @@ auto FotoBox::startProcess() -> void
 
 auto FotoBox::movePhoto() -> const QString
 {
+  //get name of the photo
   QString result = m_camera.currentPhoto();
   //old location of the photo (working directory not application directory)
-  const QString oldName = QDir::currentPath() + QDir::separator() + result;
+  const QString oldName = m_workingDir + result;
   //new location of the photo
-  const QString newName = PreferenceProvider::instance().photoFolder() + QDir::separator() + result;
+  const QString newName = m_photoDir + result;
 
   //move photo
   QDir dir;
   if(dir.rename(oldName, newName)) {
+      //successfully moved the file/photo
       result = newName;
     }
   else {
+      //error handling
       m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
       result = oldName;
     }
@@ -208,6 +214,7 @@ auto FotoBox::movePhoto() -> const QString
 
 auto FotoBox::loadPhoto(const QString& i_filePath) -> void
 {
+  //try to load the photo shot by camera
   if (m_photo.load(i_filePath)) {
       //resize picture to label size
       QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());

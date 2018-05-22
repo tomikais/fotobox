@@ -13,7 +13,12 @@
 #include <QProcess>
 
 
-Camera::Camera(QObject *parent) : QObject(parent)
+Camera::Camera(QObject *parent) : QObject(parent),
+  m_photoSuffix(PreferenceProvider::instance().photoName()),
+  m_cameraMode(PreferenceProvider::instance().cameraMode()),
+  m_argLine(PreferenceProvider::instance().argumentLine()),
+  m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue()),
+  m_process(new QProcess(this))
 {
 
 }
@@ -22,11 +27,10 @@ Camera::Camera(QObject *parent) : QObject(parent)
 auto Camera::shootPhoto() -> bool
 {
   //File name for the current
-  m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + PreferenceProvider::instance().photoName();
+  m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
 
   //Program name and arguments
-  auto argument = PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
-  auto command = PreferenceProvider::instance().cameraMode() + QStringLiteral(" ") + argument;
+  auto command = m_cameraMode + QStringLiteral(" ") + m_argLine.arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
 
 #if defined (Q_OS_WIN)
   //try use Windows 10 Linux Subsystem to call gphoto2
@@ -34,15 +38,11 @@ auto Camera::shootPhoto() -> bool
 #endif
 
   //Start programm with given arguments
-  QProcess process;
-  process.start(command);
-
-  //convert to milliseconds
-  auto milliseconds = 1000 * PreferenceProvider::instance().timeoutValue();
-  process.waitForFinished(milliseconds);
+  m_process->start(command);
+  m_process->waitForFinished(m_timeoutValue);
 
   //check time out and process exit code
-  return (process.exitCode() == EXIT_SUCCESS);
+  return (m_process->exitCode() == EXIT_SUCCESS);
 }
 
 

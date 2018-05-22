@@ -102,6 +102,12 @@ private:
   //store / load the photo
   QPixmap m_photo;
 
+  //working directory
+  const QString m_workingDir;
+
+  //photo directory
+  const QString m_photoDir;
+
   //status bar timout value
   static int STATUSBAR_MSG_TIMEOUT;
 
