@@ -1,0 +1,25 @@
+language: cpp
+dist: trusty
+
+compiler: clang
+os: osx
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      brew update;
+    fi
+
+install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
+      brew install qt5;
+      brew link --force qt5;
+    fi
+
+
+script:
+  - qmake -v
+  - qmake -r
+  - make
+
+notifications:
+  email: false
