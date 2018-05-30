@@ -8,13 +8,12 @@ matrix:
       dist: trusty
       sudo: required
       services: docker
-      env: raspbian=true
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       brew update;
     fi
-  - if [ "$raspbian" == "true" ]; then
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker pull resin/raspberrypi3-debian:stretch
       docker build --cache-from resin/raspberrypi3-debian:stretch --tag resin/raspberrypi3-debian:stretch --file Dockerfile .;
     fi
