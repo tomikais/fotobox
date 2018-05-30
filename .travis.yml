@@ -1,11 +1,22 @@
 language: cpp
 
-compiler: clang
-os: osx
+matrix:
+  include:
+    - os: osx
+      compiler: clang
+    - os: linux
+      dist: trusty
+      sudo: required
+      services: docker
+      env: raspbian=true
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       brew update;
+    fi
+  - if [ "$raspbian" == "true" ]; then
+      docker pull resin/raspberrypi3-debian:stretch
+      docker build --cache-from resin/raspberrypi3-debian:stretch --tag resin/raspberrypi3-debian:stretch --file Dockerfile .;
     fi
 
 install:
@@ -15,10 +26,10 @@ install:
     fi
 
 script:
-  - qmake -v
-  - qmake -r
-  - make
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+      qmake -v
+      qmake -r
+      make
       macdeployqt fotobox.app -dmg;
     fi
 
