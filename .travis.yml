@@ -1,6 +1,7 @@
 matrix:
   include:
     - os: osx
+      osx_image: xcode9.3
       compiler: clang
       language: cpp
       env: MAKEFLAGS="-j 2"
@@ -15,8 +16,8 @@ before_install:
       brew update;
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --name raspbian --rm --privileged multiarch/qemu-user-static:register --reset;
-      docker build --tag resin/raspberrypi3-debian:stretch --file Dockerfile .;
+      docker run --rm --privileged multiarch/qemu-user-static:register --reset;
+      docker build --tag resin/raspberrypi3-debian --file Dockerfile .;
     fi
 
 install:
@@ -33,7 +34,8 @@ script:
       macdeployqt fotobox.app -dmg;
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker cp raspbian:/fotobox/fotobox.tar.gz .
+      docker run --name artifacts --volume ${TRAVIS_BUILD_DIR}:/fotobox -it resin/raspberrypi3-debian
+      docker cp artifacts:/fotobox/fotobox.tar.gz .
     fi
 
 notifications:
