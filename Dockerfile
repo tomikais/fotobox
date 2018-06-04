@@ -3,6 +3,13 @@ FROM resin/raspberrypi3-debian:stretch
 # Enable systemd
 ENV INITSYSTEM on
 
+# Default to using 2 make jobs, which is a good default for CI.
+ARG MAKEFLAGS=-j2
+
+# Copy repository to container
+COPY . /fotobox/
+WORKDIR /fotobox/
+
 # Install development tools
 RUN sudo apt-get update && sudo apt-get -y install \
   wiringpi \
@@ -12,14 +19,9 @@ RUN sudo apt-get update && sudo apt-get -y install \
   ccache \
   git
 
-# Clone Repo
-RUN rm -f -r ./fotobox
-RUN git clone https://gitlab.com/tomikais/fotobox.git
-
 # Build FotoBox
-RUN cd fotobox && qmake -v
-RUN cd fotobox && qmake -r
-RUN cd fotobox && make
+RUN qmake -v && qmake -r
+RUN make
 
-# Compress apllication
-RUN tar -czvf fotobox.tar.gz ./fotobox/fotobox
+# Compress application
+RUN tar -czvf fotobox.tar.gz ./fotobox
