@@ -16,7 +16,7 @@ before_install:
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm --privileged multiarch/qemu-user-static:register --reset;
-      docker build --tag build-fotobox --file Dockerfile;
+      docker build --tag buildfotobox --file Dockerfile .;
     fi
 
 install:
@@ -33,7 +33,7 @@ script:
       macdeployqt fotobox.app -dmg;
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --volume $TRAVIS_BUILD_DIR:/output build-fotobox;
+      docker run --volume $TRAVIS_BUILD_DIR:/fotobox.tar.gz buildfotobox;
     fi
 
 notifications:
