@@ -33,7 +33,7 @@ script:
       macdeployqt fotobox.app -dmg;
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --volume $TRAVIS_BUILD_DIR:/output build-fotobox
+      docker run --volume $TRAVIS_BUILD_DIR:/output build-fotobox;
     fi
 
 notifications:
