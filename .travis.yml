@@ -4,7 +4,6 @@ matrix:
       osx_image: xcode9.3
       compiler: clang
       language: cpp
-      env: MAKEFLAGS="-j 2"
     - os: linux
       dist: trusty
       sudo: required
@@ -17,7 +16,7 @@ before_install:
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --rm --privileged multiarch/qemu-user-static:register --reset;
-      docker build --tag resin/raspberrypi3-debian --file Dockerfile .;
+      docker build --tag build-fotobox --file Dockerfile;
     fi
 
 install:
@@ -30,8 +29,11 @@ script:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       qmake -v
       qmake -r
-      make
+      make -j2
       macdeployqt fotobox.app -dmg;
+    fi
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      docker run --volume $TRAVIS_BUILD_DIR:/output build-fotobox
     fi
 
 notifications:
@@ -41,7 +43,9 @@ deploy:
   provider: releases
   api_key:
     secure: VfkN32PaoMCfF+ceNC1MzLr+izDUCOIN2G0AKF2DDxQ08tJBfwIuQiR7UYfecqjzVoLD4IsOswPAh6J5wp3fNofzhqWagC5jJRdgWo435cwPHkdbm39WN+j1LMhJn2Uwr51HBQp9FkTWQBPS6JPnKFhG2iuDDIBxx9am24sg3N/tHRAAhgscrlibenxRaEK47aRny+V0fArc9O6tFEPL+bQQlq+P1brV6FJaRjjYp0k3TZtJDW/CWiQEbTOeB4BykDrro5AkRic73M+VizzX4ojy1cB7wArLoqV2+mawiQ3HKIL6DSK5z+XZb9kQk8JPtr/MUJcKcZOvAT4PnspZbcFWfC/3zwigXM2lV6tNcfC5qLxHGjV2ryHi2omEtb9cozaZdG/X0SVKdV9YRI21tONYHIFK8d9fDunB91mI+7SyCHo5T4TKXfD1P7ynB13MYtY2kKkv9TzYqaQBwlhp9XChQpjzqJOmPVIpBYou3QYvwpi2Dzis8TdWjxHAmeJ1c4jMq4T0gKNuodPh4fd4YJVY+lCr37DnHWlKELRmFhfnAZfpU4uE6nSYNaznZgC4YvEte1Ju8wvndBVnA6q3bs0rNqQ05+9Jre9QgpeLT9GUPMVIlEO4tLrE90x2B96MiHCOHwhaHqXvZfRc4ws1XVV2J9ywYZzmsnXCfASrKmQ=
-  file: fotobox.dmg
+  file: 
+    - fotobox.dmg
+    - fotobox.tar.gz
   skip_cleanup: true
   on:
     tags: true
