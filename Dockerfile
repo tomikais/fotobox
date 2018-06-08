@@ -16,4 +16,4 @@ COPY . /fotobox/
 WORKDIR /fotobox/
 
 # Show qmake Version / generate project / build FotoBox / compress artifact
-CMD qmake -v && qmake -r && make -j2 && tar -czvf FotoBox_RasPi.tar.gz ./FotoBox
+CMD qmake -v && qmake -r && make -j2 && tar -czvf ./FotoBox_RasPi.tar.gz ./FotoBox

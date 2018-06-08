@@ -7,9 +7,10 @@
 # file 'LICENSE', which is part of this source code package.
 #------------------------------------------------------------
 
-contains(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 7)
-{
-  error("Your Qt version is too old (required >=5.7.0)")
+if (greaterThan(QT_MAJOR_VERSION, 5)) {
+  if (lessThan(QT_MINOR_VERSION, 7)) {
+    error("Your Qt version is too old (required >=5.7.0)")
+  }
 }
 
 QT            += core gui widgets
@@ -47,23 +48,18 @@ OTHER_FILES   += README.md \
                  LICENSE
 
 # Speed-Up compiling time with ccache (apt-get install ccache)
-linux
-{
+linux {
   QMAKE_CXX = ccache g++
 }
 
 # wiringPi framework
-linux
-{
+linux {
   # DEVICE: Raspberry Pi (wiringPi available)
-  contains(QMAKE_HOST.arch, arm.*):
-  {
-    debug
-    {
+  contains(QMAKE_HOST.arch, arm.*): {
+    debug {
       LIBS += -lwiringPiDev
     }
-    release
-    {
+    release {
       LIBS += -lwiringPi
     }
   }

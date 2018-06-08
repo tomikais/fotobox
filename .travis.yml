@@ -30,8 +30,8 @@ script:
       qmake -v;
       qmake -r;
       make -j2;
-      macdeployqt FotoBox.app -dmg;
-      mv FotoBox.dmg FotoBox_macOS.dmg;
+      macdeployqt ./FotoBox.app -dmg;
+      mv ./FotoBox.dmg ./FotoBox_macOS.dmg;
     fi
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       docker run --volume $TRAVIS_BUILD_DIR:/FotoBox_RasPi.tar.gz buildfotobox;
