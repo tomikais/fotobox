@@ -27,9 +27,9 @@ install:
 
 script:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      qmake -v
-      qmake -r
-      make -j2
+      qmake -v;
+      qmake -r;
+      make -j2;
       macdeployqt FotoBox.app -dmg;
       mv FotoBox.dmg FotoBox_macOS.dmg;
     fi
