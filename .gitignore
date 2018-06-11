@@ -63,7 +63,6 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-**/Properties/launchSettings.json
 
 # StyleCop
 StyleCopReport.xml
@@ -75,8 +74,10 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+*.iobj
 *.pch
 *.pdb
+*.ipdb
 *.pgc
 *.pgd
 *.rsp
@@ -249,6 +250,7 @@ Backup*/
 UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
+*.rptproj.bak
 
 # SQL Server files
 *.mdf
@@ -259,6 +261,7 @@ ServiceFabricBackup/
 *.rdl.data
 *.bim.layout
 *.bim_*.settings
+*.rptproj.rsuser
 
 # Microsoft Fakes
 FakesAssemblies/
@@ -329,6 +332,12 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+
+# NVidia Nsight GPU debugger configuration file
+*.nvuser
+
+# MFractors (Xamarin productivity tool) working folder 
+.mfractor/
 
 
 #######################################################################################################
@@ -443,6 +452,7 @@ $RECYCLE.BIN/
 # Windows Installer files
 *.cab
 *.msi
+*.msix
 *.msm
 *.msp
 
