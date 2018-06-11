@@ -14,32 +14,30 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       brew update;
     fi
+  #install https://github.com/multiarch/qemu-user-static to QEMU (execute ARM code) and build the container
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      #install https://github.com/multiarch/qemu-user-static to QEMU (execute ARM code)
       docker run --rm --privileged multiarch/qemu-user-static:register --reset;
-      #build container
       docker build --tag buildfotobox --file Dockerfile .;
     fi
 
 install:
+  #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      #install latest Qt https://formulae.brew.sh/formula/qt
       brew install qt;
-      #creates symlinks to installations
       brew link --force qt;
     fi
 
 script:
+  #http://doc.qt.io/qt-5/osx-deployment.html
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       qmake -v;
       qmake -r;
       make -j2;
-      #http://doc.qt.io/qt-5/osx-deployment.html
       macdeployqt -dmg -verbose=2 ./FotoBox.app;
       mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg;
     fi
+  #execute 'CMD' command (Dockerfile)
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      #execute 'CMD' command
       docker run --volume $TRAVIS_BUILD_DIR:/FotoBox_RasPi.tar.gz buildfotobox;
     fi
 
