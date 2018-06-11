@@ -33,7 +33,7 @@ script:
       qmake -v;
       qmake -r;
       make -j2;
-      macdeployqt -dmg -verbose=2 ./FotoBox.app;
+      macdeployqt FotoBox.app -dmg -verbose=2;
       mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg;
     fi
   #execute 'CMD' command (Dockerfile)
