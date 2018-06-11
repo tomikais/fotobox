@@ -52,12 +52,12 @@ linux {
   QMAKE_CXX = ccache g++
 
   # Raspberry Pi wiringPi framework
-  contains(QMAKE_HOST.arch, arm.*): {
-    debug {
-      LIBS += -lwiringPiDev
-    }
-    release {
+  contains(QMAKE_HOST.arch, arm.*) {
+    CONFIG(release, debug|release) {
       LIBS += -lwiringPi
+    }
+    CONFIG(debug, debug|release) {
+      LIBS += -lwiringPiDev
     }
   }
 }
