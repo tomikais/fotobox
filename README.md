@@ -1,4 +1,4 @@
-# Photobooth for Raspberry Pi's
+# Photobooth for Raspberry Pi's [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=master)](https://travis-ci.org/tomikais/fotobox)
 Tutorial to built and run your own "photo booth" on a [Raspberry Pi](https://www.raspberrypi.org):
 * [Raspberry Pi model >2](https://www.raspberrypi.org/products/) with latest [Raspbian Stretch](https://www.raspberrypi.org/downloads/noobs/) installed. Update to latest version, run this commands in [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/): `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
 * Download and install the [Qt](https://www.qt.io) libraries with [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/) command: `sudo apt-get install qt5-default`
@@ -12,11 +12,8 @@ Tutorial to built and run your own "photo booth" on a [Raspberry Pi](https://www
 ---
 
 
-# Development environment
-branch build status
-* master: [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=master)](https://travis-ci.org/tomikais/fotobox)
-* develop: [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox)
-
+# Development
+prepare the environment
 ## update Raspbian and firmware
 Raspbian: `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`<br>
 firmware: `sudo rpi-update`
