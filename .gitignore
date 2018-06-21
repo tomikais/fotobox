@@ -5,6 +5,14 @@
 *.vcxproj
 *.vcxproj.filters
 
+# Doxygen standard output directories
+html/
+latex/
+rtf/
+man/
+xml/
+docbook/
+
 
 #######################################################################################################
 
