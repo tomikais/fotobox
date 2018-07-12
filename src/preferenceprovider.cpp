@@ -8,6 +8,10 @@
 #include "preferenceprovider.h"
 
 
+//STATIC VARIABLE
+int PreferenceProvider::ONE_SECOND = 1000;
+
+
 auto PreferenceProvider::instance() -> PreferenceProvider&
 {
   //thread safe static initializer
@@ -50,6 +54,38 @@ void PreferenceProvider::setPhotoName(const QString& i_value)
 
   m_photoName = i_value;
   emit photoNameChanged(m_photoName);
+}
+
+
+int PreferenceProvider::countdown()
+{
+  return m_countdown;
+}
+
+void PreferenceProvider::setCountdown(const int i_value)
+{
+  if (m_countdown == i_value) {
+    return;
+  }
+
+  m_countdown = i_value;
+  emit countdownChanged(m_countdown);
+}
+
+
+QString PreferenceProvider::countdownColor()
+{
+  return m_countdownColor;
+}
+
+void PreferenceProvider::setCountdownColor(const QString& i_value)
+{
+  if (m_countdownColor == i_value) {
+    return;
+  }
+
+  m_countdownColor = i_value;
+  emit countdownColorChanged(m_countdownColor);
 }
 
 

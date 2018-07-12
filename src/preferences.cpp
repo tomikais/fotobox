@@ -44,11 +44,16 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
       m_ui->txtPhotoFolder->setText(QFileDialog::getExistingDirectory(this, tr("choose directory"), QStringLiteral("/home"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
     });
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
+  connect(m_ui->spbCountdown, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
+  connect(m_ui->btnChooseColorCD, &QPushButton::clicked, this, &Preferences::colorDialog);
+  connect(m_ui->txtShowColorCD, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setCountdownColor);
+  connect(m_ui->txtShowColorCD, &QLineEdit::textChanged, m_ui->txtShowColorCD, &QLineEdit::setToolTip);
+  connect(m_ui->txtShowColorCD, &QLineEdit::textChanged, this, &Preferences::showColor);
   connect(m_ui->chbButtons, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setShowButtons);
-  connect(m_ui->btnChooseColor, &QPushButton::clicked, this, &Preferences::colorDialog);
-  connect(m_ui->txtShowColor, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
-  connect(m_ui->txtShowColor, &QLineEdit::textChanged, m_ui->txtShowColor, &QLineEdit::setToolTip);
-  connect(m_ui->txtShowColor, &QLineEdit::textChanged, this, &Preferences::showColor);
+  connect(m_ui->btnChooseColorBG, &QPushButton::clicked, this, &Preferences::colorDialog);
+  connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
+  connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, m_ui->txtShowColorBG, &QLineEdit::setToolTip);
+  connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, this, &Preferences::showColor);
   connect(m_ui->spbInputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
   connect(m_ui->spbOutputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
   connect(m_ui->spbQueryInterval, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
@@ -83,8 +88,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   loadPreferences();
 
   //auto accept Dialog
-  const int oneSecond = 1000;
-  m_timer->setInterval(oneSecond);
+  m_timer->setInterval(PreferenceProvider::ONE_SECOND);
   connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
   m_timer->start();
 }
@@ -140,8 +144,10 @@ auto Preferences::loadPreferences() -> void
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_ui->txtPhotoFolder->setText(m_settings.value(m_ui->txtPhotoFolder->objectName(), m_ui->txtPhotoFolder->text()).toString());
   m_ui->txtPhotoName->setText(m_settings.value(m_ui->txtPhotoName->objectName(), m_ui->txtPhotoName->text()).toString());
+  m_ui->spbCountdown->setValue(m_settings.value(m_ui->spbCountdown->objectName(), m_ui->spbCountdown->value()).toInt());
+  m_ui->txtShowColorCD->setText(m_settings.value(m_ui->txtShowColorCD->objectName(), m_ui->txtShowColorCD->text()).toString());
   m_ui->chbButtons->setChecked(m_settings.value(m_ui->chbButtons->objectName(), m_ui->chbButtons->isChecked()).toBool());
-  m_ui->txtShowColor->setText(m_settings.value(m_ui->txtShowColor->objectName(), m_ui->txtShowColor->text()).toString());
+  m_ui->txtShowColorBG->setText(m_settings.value(m_ui->txtShowColorBG->objectName(), m_ui->txtShowColorBG->text()).toString());
   m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Buzzer"));
@@ -174,7 +180,15 @@ auto Preferences::colorDialog() -> void
   dialog.exec();
 
   //show the color which the user has selected
-  m_ui->txtShowColor->setText(dialog.selectedColor().name());
+  auto* button = qobject_cast<QPushButton*>(sender());
+  if (button == m_ui->btnChooseColorCD) {
+      //font countdown
+      m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
+    }
+  if (button == m_ui->btnChooseColorBG) {
+      //background color
+      m_ui->txtShowColorBG->setText(dialog.selectedColor().name());
+    }
 }
 
 
@@ -184,12 +198,15 @@ auto Preferences::showColor(const QString& i_colorName) -> void
   QColor color(i_colorName);
 
   //set color (text + background)
-  auto palette = m_ui->txtShowColor->palette();
-  palette.setColor(QPalette::Text, color);
-  palette.setColor(QPalette::Base, color);
-
-  //apply styling
-  m_ui->txtShowColor->setPalette(palette);
+  auto* lineEdit = qobject_cast<QLineEdit*>(sender());
+  if (lineEdit != nullptr) {
+      auto palette = lineEdit->palette();
+      palette.setColor(QPalette::Text, color);
+      palette.setColor(QPalette::Base, color);
+      lineEdit->setPalette(palette);
+      //force repaint (Restore Default issue)
+      lineEdit->repaint();
+    }
 }
 
 
@@ -198,8 +215,10 @@ auto Preferences::savePreferences() -> void
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_settings.setValue(m_ui->txtPhotoFolder->objectName(), PreferenceProvider::instance().photoFolder());
   m_settings.setValue(m_ui->txtPhotoName->objectName(), PreferenceProvider::instance().photoName());
+  m_settings.setValue(m_ui->spbCountdown->objectName(), PreferenceProvider::instance().countdown());
+  m_settings.setValue(m_ui->txtShowColorCD->objectName(), PreferenceProvider::instance().countdownColor());
   m_settings.setValue(m_ui->chbButtons->objectName(), PreferenceProvider::instance().showButtons());
-  m_settings.setValue(m_ui->txtShowColor->objectName(), PreferenceProvider::instance().backgroundColor());
+  m_settings.setValue(m_ui->txtShowColorBG->objectName(), PreferenceProvider::instance().backgroundColor());
   m_settings.endGroup();
 
   m_settings.beginGroup(QStringLiteral("Buzzer"));
@@ -229,12 +248,14 @@ auto Preferences::restoreDefaultPreferences() -> void
   //FotoBox
   m_ui->txtPhotoFolder->setText(QCoreApplication::applicationDirPath());
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
+  m_ui->spbCountdown->setValue(3);
+  m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
 #if !defined (Q_OS_UNIX)
   m_ui->chbButtons->setChecked(false);
 #else
   m_ui->chbButtons->setChecked(true);
 #endif
-  m_ui->txtShowColor->setText(QStringLiteral("#000000"));
+  m_ui->txtShowColorBG->setText(QStringLiteral("#000000"));
 
   //Buzzer
   m_ui->spbInputPin->setValue(5);

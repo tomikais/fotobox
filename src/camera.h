@@ -62,6 +62,6 @@ private:
   const int m_timeoutValue;
 
   //executing commands
-  QProcess* m_process;
+  QProcess *m_process;
 
 };

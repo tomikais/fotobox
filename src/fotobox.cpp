@@ -14,6 +14,7 @@
 
 #include <QDir>
 #include <QKeyEvent>
+#include <QTimer>
 
 #if defined (__arm__)
 #include <wiringPi.h>
@@ -26,9 +27,10 @@ int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
+  m_timer(new QTimer(this)),
+  m_countdown(m_countdown = PreferenceProvider::instance().countdown()),
   m_workerThread(this),
-   m_camera(this),
-  m_photo(),
+  m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
   m_photoDir(PreferenceProvider::instance().photoFolder() + QDir::separator())
 {
@@ -39,7 +41,6 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   setAttribute(Qt::WA_DeleteOnClose);
 
   //Fotobox process
-  connect(this, &FotoBox::start, this, &FotoBox::startProcess);
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
       //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
@@ -47,7 +48,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
-      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
+      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startFotoBox);
       connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &FotoBox::preferenceDialog);
       connect(m_ui->btnQuitApp, &QPushButton::clicked, QCoreApplication::instance(), &QCoreApplication::quit);
     }
@@ -58,6 +59,24 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       m_ui->btnStart->setVisible(false);
       m_ui->btnPreferencesDialog->setVisible(false);
       m_ui->btnQuitApp->setVisible(false);
+    }
+
+  //show countdown only when needed
+  m_ui->lcdCountdown->setVisible(false);
+  if (m_countdown == 0) {
+      //disable countdown
+      connect(this, &FotoBox::startFotoBox, this, &FotoBox::startProcess);
+  }
+  else {
+      //initialize countdown
+      m_timer->setInterval(PreferenceProvider::ONE_SECOND);
+      connect(m_timer, &QTimer::timeout, this, &FotoBox::countdown);
+      connect(this, &FotoBox::startFotoBox, this, &FotoBox::countdown);
+
+      //apply font color
+      auto palette = m_ui->lcdCountdown->palette();
+      palette.setColor(QPalette::WindowText, PreferenceProvider::instance().countdownColor());
+      m_ui->lcdCountdown->setPalette(palette);
     }
 
   //set Background Color
@@ -89,7 +108,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //ENTER key and ENTER on keypad
       if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
           //take a photo
-          emit start();
+          emit startFotoBox();
         }
 
       //ESCAPE KEY
@@ -111,7 +130,7 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 {
   //touch support
   if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
-      emit start();
+      emit startFotoBox();
     }
 
   QWidget::mouseReleaseEvent(event);
@@ -164,6 +183,30 @@ void FotoBox::preferenceDialog()
   //close fotobox and show preferences
   reject();
   dialog->show();
+}
+
+
+void FotoBox::countdown()
+{
+  if (m_countdown >= 1) {
+      //hide photo and show countdown
+      m_ui->lblPhoto->setVisible(false);
+      m_ui->lcdCountdown->setVisible(true);
+      m_ui->lcdCountdown->display(m_countdown);
+
+      --m_countdown;
+      m_timer->start();
+      return;
+    }
+
+  //reset counter, stop timer and hide countdown
+  m_countdown = PreferenceProvider::instance().countdown();
+  m_timer->stop();
+  m_ui->lcdCountdown->setVisible(false);
+  m_ui->lblPhoto->setVisible(true);
+
+  //start FotoBox
+  startProcess();
 }
 
 

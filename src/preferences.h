@@ -99,6 +99,6 @@ private:
 
   //Auto close dialog
   int m_counter = 9;
-  QTimer* m_timer;
+  QTimer *m_timer;
 
 };

@@ -30,6 +30,8 @@ private:
 
   QString m_photoFolder;
   QString m_photoName;
+  int m_countdown = 0;
+  QString m_countdownColor;
   bool m_showButtons = false;
   QString m_backgroundColor;
   int m_inputPin = 0;
@@ -44,6 +46,8 @@ public:
   //Qt Property System
   Q_PROPERTY(QString m_photoFolder     READ photoFolder     WRITE setPhotoFolder     NOTIFY photoFolderChanged)
   Q_PROPERTY(QString m_photoName       READ photoName       WRITE setPhotoName       NOTIFY photoNameChanged)
+  Q_PROPERTY(int m_countdown           READ countdown       WRITE setCountdown       NOTIFY countdownChanged)
+  Q_PROPERTY(QString m_countdownColor  READ countdownColor  WRITE setCountdownColor  NOTIFY countdownColorChanged)
   Q_PROPERTY(bool m_showButtons        READ showButtons     WRITE setShowButtons     NOTIFY showButtonsChanged)
   Q_PROPERTY(QString m_backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
   Q_PROPERTY(int m_inputPin            READ inputPin        WRITE setInputPin        NOTIFY inputPinChanged)
@@ -67,7 +71,12 @@ public:
   * \brief getInstance (Meyers Singleton)
   * \return Preferences&
   */
-  auto static instance()->PreferenceProvider&;
+  auto static instance() -> PreferenceProvider&;
+
+  /*!
+  * \brief one second = 1000 ms
+  */
+  static int ONE_SECOND;
 
 
   /*!
@@ -81,6 +90,18 @@ public:
   * \return QString m_photoName
   */
   QString photoName();
+
+  /*!
+  * \brief countdown until photo is taken
+  * \return int m_countdown
+  */
+  int countdown();
+
+  /*!
+  * \brief font color of the countdown
+  * \return QString m_countdownColor
+  */
+  QString countdownColor();
 
   /*!
   * \brief buttons are displayed on the UI
@@ -145,10 +166,22 @@ public slots:
   void setPhotoName(const QString& i_value);
 
   /*!
+  * \brief set countdown until photo is taken
+  * \param i_value int
+  */
+  void setCountdown(int i_value);
+
+  /*!
+  * \brief set font color of the countdown
+  * \param i_value QString&
+  */
+  void setCountdownColor(const QString& i_value);
+
+  /*!
   * \brief set whether buttons are displayed on the UI
   * \param i_value bool
   */
-  void setShowButtons(const bool i_value);
+  void setShowButtons(bool i_value);
 
   /*!
   * \brief set background color of the FotoBox UI
@@ -160,19 +193,19 @@ public slots:
   * \brief set wiringPi GPIO input pin
   * \param i_value int
   */
-  void setInputPin(const int i_value);
+  void setInputPin(int i_value);
 
   /*!
   * \brief set wiringPi GPIO output pin
   * \param i_value int
   */
-  void setOutputPin(const int i_value);
+  void setOutputPin(int i_value);
 
   /*!
   * \brief set how often the pin should be queried
   * \param i_value int
   */
-  void setQueryInterval(const int i_value);
+  void setQueryInterval(int i_value);
 
   /*!
   * \brief set the camera framework to be used
@@ -190,7 +223,7 @@ public slots:
   * \brief set timeout value for the camera framework
   * \param i_value int
   */
-  void setTimeoutValue(const int i_value);
+  void setTimeoutValue(int i_value);
 
 
 signals:
@@ -203,6 +236,16 @@ signals:
   * \brief signal: photo name template has changed
   */
   void photoNameChanged(QString);
+
+  /*!
+  * \brief signal: countdown until photo is taken has changed
+  */
+  void countdownChanged(int);
+
+  /*!
+  * \brief signal: font color of the countdown has changed
+  */
+  void countdownColorChanged(QString);
 
   /*!
   * \brief signal: whether buttons are displayed on the UI has changed
