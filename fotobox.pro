@@ -47,20 +47,17 @@ TRANSLATIONS  += resources/translation_en.ts \
 OTHER_FILES   += README.md \
                  LICENSE
 
-# Speed-Up compiling time with ccache (apt-get install ccache)
 linux {
+  # Speed-Up compiling time with ccache (apt-get install ccache)
   QMAKE_CXX = ccache g++
-}
 
-# wiringPi framework
-linux {
-  # DEVICE: Raspberry Pi (wiringPi available)
-  contains(QMAKE_HOST.arch, arm.*): {
-    debug {
-      LIBS += -lwiringPiDev
-    }
-    release {
+  # Raspberry Pi wiringPi framework
+  contains(QMAKE_HOST.arch, arm.*) {
+    CONFIG(release, debug|release) {
       LIBS += -lwiringPi
+    }
+    CONFIG(debug, debug|release) {
+      LIBS += -lwiringPiDev
     }
   }
 }

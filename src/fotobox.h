@@ -13,6 +13,7 @@
 
 class Buzzer;
 class QKeyEvent;
+class QTimer;
 
 namespace Ui
 {
@@ -44,14 +45,19 @@ public:
 
 private slots:
   /*!
-   * \brief trigger camera and try to show photo
+   * \brief trigger camera to shot a photo and try to show it
    */
-  void startProcess();
+  void photo();
 
   /*!
    * \brief show preference dialog and close dialog
    */
   void preferenceDialog();
+
+  /*!
+   * \brief show countdown
+   */
+  void countdown();
 
 
 private:
@@ -93,6 +99,10 @@ private:
   //Buzzer
   Buzzer *m_buzzer;
 
+  //Countdown
+  QTimer *m_timer;
+  int m_countdown;
+
   //handle Buzzer thread (Raspberry Pi GPIO)
   QThread m_workerThread;
 
@@ -114,13 +124,23 @@ private:
 
 signals:
   /*!
-   * \brief Signal: Start shooting a picture
+   * \brief signal: start FotoBox
    */
   void start();
 
   /*!
-   * \brief start query pin with Buzzer class
+   * \brief signal: start shooting a picture
+   */
+  void startPhoto();
+
+  /*!
+   * \brief signal: start query pin with Buzzer class
    */
   void startBuzzer();
+
+  /*!
+   * \brief signal: start a countdown
+   */
+  void startCountdown();
 
 };

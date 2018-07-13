@@ -1,8 +1,8 @@
-# https://docs.resin.io/reference/base-images/resin-base-images/
-# https://hub.docker.com/r/resin/raspberrypi3-debian/
+#https://docs.resin.io/reference/base-images/resin-base-images/
+#https://hub.docker.com/r/resin/raspberrypi3-debian/
 FROM resin/raspberrypi3-debian:stretch
 
-# Install frameworks, build tools, ...
+#install frameworks and build tools
 RUN sudo apt-get update && sudo apt-get -y install \
   wiringpi \
   qt5-default \
@@ -11,9 +11,9 @@ RUN sudo apt-get update && sudo apt-get -y install \
   ccache
 
 
-# Copy repository to container
+#copy repository to container
 COPY . /fotobox/
 WORKDIR /fotobox/
 
-# Show qmake Version / generate project / build FotoBox / compress artifact
+#show qmake version / generate project / build FotoBox / compress artifact
 CMD qmake -v && qmake -r && make -j2 && tar -czvf ./FotoBox_RasPi.tar.gz ./FotoBox

@@ -12,7 +12,8 @@ Tutorial to built and run your own "photo booth" on a [Raspberry Pi](https://www
 ---
 
 
-# Development environment
+# Development
+prepare the environment
 ## update Raspbian and firmware
 Raspbian: `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`<br>
 firmware: `sudo rpi-update`

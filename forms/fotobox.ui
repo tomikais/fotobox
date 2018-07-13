@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>341</width>
-    <height>121</height>
+    <height>131</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,37 +17,20 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="3">
-      <widget class="QPushButton" name="btnQuitApp">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
+     <item row="1" column="0" colspan="4">
+      <widget class="QLabel" name="lblPhoto">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
        </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: grey;</string>
-       </property>
-       <property name="text">
-        <string>exit</string>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="btnPreferencesDialog">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">background-color: grey;</string>
-       </property>
-       <property name="text">
-        <string>preferences</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
+     <item row="2" column="1">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -60,7 +43,7 @@
        </property>
       </spacer>
      </item>
-     <item row="1" column="0">
+     <item row="2" column="0">
       <widget class="QPushButton" name="btnStart">
        <property name="font">
         <font>
@@ -77,16 +60,52 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="2">
+      <widget class="QPushButton" name="btnPreferencesDialog">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: grey;</string>
+       </property>
+       <property name="text">
+        <string>preferences</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QPushButton" name="btnQuitApp">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: grey;</string>
+       </property>
+       <property name="text">
+        <string>exit</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0" colspan="4">
-      <widget class="QLabel" name="lblPhoto">
+      <widget class="QLCDNumber" name="lcdCountdown">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="digitCount">
+        <number>1</number>
+       </property>
+       <property name="segmentStyle">
+        <enum>QLCDNumber::Flat</enum>
        </property>
       </widget>
      </item>

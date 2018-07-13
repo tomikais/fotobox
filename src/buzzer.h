@@ -6,9 +6,8 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #pragma once
-#include <atomic>
 #include <QObject>
-
+#include <atomic>
 
 /*!
  * \brief This class handles the buzzer
