@@ -41,7 +41,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   setAttribute(Qt::WA_DeleteOnClose);
 
   //connect signal to corresponding slot
-  connect(this, &FotoBox::startPhoto, this, &FotoBox::start);
+  connect(this, &FotoBox::startPhoto, this, &FotoBox::photo);
   connect(this, &FotoBox::startCountdown, this, &FotoBox::countdown);
 
   //show QStatusBar only when needed (safe space for the photos)
@@ -74,7 +74,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       //initialize countdown
       m_timer->setInterval(PreferenceProvider::ONE_SECOND);
       connect(m_timer, &QTimer::timeout, this, &FotoBox::startCountdown);
-      connect(this, &FotoBox::start, this, &FotoBox::countdown);
+      connect(this, &FotoBox::start, this, &FotoBox::startCountdown);
 
       //apply font color
       auto palette = m_ui->lcdCountdown->palette();
@@ -208,7 +208,7 @@ auto FotoBox::countdown() -> void
   m_ui->lcdCountdown->setVisible(false);
   m_ui->lblPhoto->setVisible(true);
 
-  //start FotoBox
+  //shot photo
   emit startPhoto();
 }
 
