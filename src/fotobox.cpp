@@ -28,7 +28,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
   m_timer(new QTimer(this)),
-  m_countdown(m_countdown = PreferenceProvider::instance().countdown()),
+  m_countdown(PreferenceProvider::instance().countdown()),
   m_workerThread(this),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
@@ -40,15 +40,18 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
 
-  //Fotobox process
+  //connect signal to corresponding slot
+  connect(this, &FotoBox::startPhoto, this, &FotoBox::start);
+  connect(this, &FotoBox::startCountdown, this, &FotoBox::countdown);
+
+  //show QStatusBar only when needed (safe space for the photos)
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
-      //show QStatusBar only when needed (safe space for the photos)
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
     });
 
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
-      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::startFotoBox);
+      connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
       connect(m_ui->btnPreferencesDialog, &QPushButton::clicked, this, &FotoBox::preferenceDialog);
       connect(m_ui->btnQuitApp, &QPushButton::clicked, QCoreApplication::instance(), &QCoreApplication::quit);
     }
@@ -65,13 +68,13 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui->lcdCountdown->setVisible(false);
   if (m_countdown == 0) {
       //disable countdown
-      connect(this, &FotoBox::startFotoBox, this, &FotoBox::startProcess);
+      connect(this, &FotoBox::start, this, &FotoBox::startPhoto);
   }
   else {
       //initialize countdown
       m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-      connect(m_timer, &QTimer::timeout, this, &FotoBox::countdown);
-      connect(this, &FotoBox::startFotoBox, this, &FotoBox::countdown);
+      connect(m_timer, &QTimer::timeout, this, &FotoBox::startCountdown);
+      connect(this, &FotoBox::start, this, &FotoBox::countdown);
 
       //apply font color
       auto palette = m_ui->lcdCountdown->palette();
@@ -108,7 +111,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
       //ENTER key and ENTER on keypad
       if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
           //take a photo
-          emit startFotoBox();
+          emit start();
         }
 
       //ESCAPE KEY
@@ -130,7 +133,7 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 {
   //touch support
   if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
-      emit startFotoBox();
+      emit start();
     }
 
   QWidget::mouseReleaseEvent(event);
@@ -157,7 +160,7 @@ auto FotoBox::buzzer() -> void
   //connect and start Buzzer
   connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
   connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
-  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::startProcess);
+  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
   m_workerThread.start();
 
 #if defined (__WIRING_PI_H__)
@@ -167,7 +170,7 @@ auto FotoBox::buzzer() -> void
 }
 
 
-void FotoBox::preferenceDialog()
+auto FotoBox::preferenceDialog() -> void
 {
 #if defined (Q_OS_MACOS)
   //QTBUG-36714: Window can't be fully closed on Mac OS X after calling showFullScreen()
@@ -186,7 +189,7 @@ void FotoBox::preferenceDialog()
 }
 
 
-void FotoBox::countdown()
+auto FotoBox::countdown() -> void
 {
   if (m_countdown >= 1) {
       //hide photo and show countdown
@@ -206,11 +209,11 @@ void FotoBox::countdown()
   m_ui->lblPhoto->setVisible(true);
 
   //start FotoBox
-  startProcess();
+  emit startPhoto();
 }
 
 
-auto FotoBox::startProcess() -> void
+auto FotoBox::photo() -> void
 {
   //remove current picture / refresh label (photo)
   m_ui->lblPhoto->clear();

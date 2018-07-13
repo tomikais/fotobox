@@ -45,9 +45,9 @@ public:
 
 private slots:
   /*!
-   * \brief trigger camera and try to show photo
+   * \brief trigger camera to shot a photo and try to show it
    */
-  void startProcess();
+  void photo();
 
   /*!
    * \brief show preference dialog and close dialog
@@ -124,9 +124,14 @@ private:
 
 signals:
   /*!
+   * \brief signal: start FotoBox
+   */
+  void start();
+
+  /*!
    * \brief signal: start shooting a picture
    */
-  void startFotoBox();
+  void startPhoto();
 
   /*!
    * \brief signal: start query pin with Buzzer class
