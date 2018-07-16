@@ -38,7 +38,7 @@ script:
     fi
   #execute 'CMD' command (Dockerfile)
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --volume $TRAVIS_BUILD_DIR:/FotoBox_RasPi.tar.gz buildfotobox;
+      docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox;
     fi
 
 notifications:

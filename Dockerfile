@@ -12,8 +12,7 @@ RUN sudo apt-get update && sudo apt-get -y install \
 
 
 #copy repository to container
-COPY . /fotobox/
-WORKDIR /fotobox/
+COPY . .
 
-#show qmake version / generate project / build FotoBox / compress artifact
-CMD qmake -v && qmake -r && make -j2 && tar -czvf ./FotoBox_RasPi.tar.gz ./FotoBox
+#show qmake version / generate project / build FotoBox / compress artifact / copy to host (mounted directory '--volume')
+CMD qmake -v && qmake -r && make -j2 && tar -cvzf ./FotoBox_RasPi.tar.gz ./FotoBox && cp ./FotoBox_RasPi.tar.gz ./artifact/
