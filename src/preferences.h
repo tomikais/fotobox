@@ -51,6 +51,11 @@ private slots:
   void colorDialog();
 
   /*!
+  * \brief Open a File Dialog and set path in UI.
+  */
+  void chooseDirectory();
+
+  /*!
   * \brief Accept dialog after 10 seconds. You can stop that by moving mouse into preference dialog.
   */
   void autoAcceptDialog();
