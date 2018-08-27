@@ -243,8 +243,7 @@ auto FotoBox::movePhoto() -> const QString
   const QString newName = m_photoDir + result;
 
   //move photo
-  QDir dir;
-  if(dir.rename(oldName, newName)) {
+  if(QFile::rename(oldName, newName)) {
       //successfully moved the file/photo
       result = newName;
     }
