@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   QApplication app(argc, argv);
   app.setOrganizationName(QStringLiteral("Thomas Kais"));
   app.setApplicationName(QStringLiteral("FotoBox"));
-  app.setApplicationVersion(QStringLiteral("1.3.0"));
+  app.setApplicationVersion(QStringLiteral("1.2.6"));
 
   //German or English (=default language)
   QTranslator translator;
