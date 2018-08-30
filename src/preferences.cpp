@@ -39,10 +39,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
-  connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, [&]() {
-      //File Dialog to choose photo folder
-      m_ui->txtPhotoFolder->setText(QFileDialog::getExistingDirectory(this, tr("choose directory"), QStringLiteral("/home"), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks));
-    });
+  connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
   connect(m_ui->spbCountdown, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
   connect(m_ui->btnChooseColorCD, &QPushButton::clicked, this, &Preferences::colorDialog);
@@ -74,9 +71,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
   connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this, [&](QAbstractButton *button) {
-    //identify restore button
+    //identify restore button and restore defaults
     if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
-        //restore defaults
         restoreDefaultPreferences();
       }
   });
@@ -177,17 +173,32 @@ auto Preferences::colorDialog() -> void
 {
   //"Color Picker" Dialog
   QColorDialog dialog(this);
-  dialog.exec();
 
-  //show the color which the user has selected
-  auto* button = qobject_cast<QPushButton*>(sender());
-  if (button == m_ui->btnChooseColorCD) {
-      //font countdown
-      m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
+  if (dialog.exec() == QDialog::Accepted) {
+      //show the color which the user has selected
+      auto* button = qobject_cast<QPushButton*>(sender());
+      if (button == m_ui->btnChooseColorCD) {
+          //font countdown
+          m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
+        }
+      if (button == m_ui->btnChooseColorBG) {
+          //background color
+          m_ui->txtShowColorBG->setText(dialog.selectedColor().name());
+        }
     }
-  if (button == m_ui->btnChooseColorBG) {
-      //background color
-      m_ui->txtShowColorBG->setText(dialog.selectedColor().name());
+}
+
+
+auto Preferences::chooseDirectory() -> void
+{
+  //File Dialog to choose photo folder
+  QFileDialog dialog(this, tr("choose directory"), QStringLiteral("/home"));
+  dialog.setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+  //only set it if user don't abort dialog
+  if (dialog.exec() == QDialog::Accepted) {
+      auto path = dialog.directory().absolutePath();
+      m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
     }
 }
 
@@ -246,7 +257,7 @@ auto Preferences::savePreferences() -> void
 auto Preferences::restoreDefaultPreferences() -> void
 {
   //FotoBox
-  m_ui->txtPhotoFolder->setText(QCoreApplication::applicationDirPath());
+  m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
   m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
   m_ui->spbCountdown->setValue(3);
   m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
