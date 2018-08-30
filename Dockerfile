@@ -3,7 +3,7 @@
 FROM resin/raspberrypi3-debian:stretch
 
 #install frameworks and build tools
-RUN sudo apt-get update && sudo apt-get -y install \
+RUN sudo apt-get update -qq && sudo apt-get install -qq \
   wiringpi \
   qt5-default \
   qttools5-dev-tools \
