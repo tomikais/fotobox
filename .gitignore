@@ -13,8 +13,10 @@ man/
 xml/
 docbook/
 
-# macOS application
-*.app
+# application
+[Ff]oto[Bb]ox.app
+[Ff]oto[Bb]ox.exe
+[Ff]oto[Bb]ox
 
 
 #######################################################################################################
@@ -492,6 +494,7 @@ $RECYCLE.BIN/
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/CMake.gitignore
 
+*_autogen/*
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
