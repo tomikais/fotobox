@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.9.0)
 
 project(FotoBox)
 
+# MacOS Qt5 Homebrew fix
+if(APPLE AND EXISTS /usr/local/opt/qt5)
+    # Homebrew installs Qt5 (up to at least 5.9.1) in
+    # /usr/local/qt5, ensure it can be found by CMake since
+    # it is not in the default /usr/local prefix.
+    list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt5")
+endif()
 # By default, QT contains core and gui
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(Qt5Core_FOUND)
