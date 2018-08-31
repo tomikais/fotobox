@@ -483,3 +483,21 @@ $RECYCLE.BIN/
 
 # Project-level settings
 /.tgitconfig
+
+
+#######################################################################################################
+
+
+## Ignore CMake generated files and folders
+##
+## Get latest from https://github.com/github/gitignore/blob/master/CMake.gitignore
+
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake

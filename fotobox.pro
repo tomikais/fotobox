@@ -21,7 +21,7 @@ TEMPLATE       = app
 # By default, QT contains core and gui
 QT            += widgets
 
-CONFIG        += c++11 c++14
+CONFIG        += c++14
 
 INCLUDEPATH   += src
 HEADERS        = src/fotobox.h \
