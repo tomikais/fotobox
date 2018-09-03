@@ -30,16 +30,22 @@ set(CMAKE_AUTORCC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/resources)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-file(GLOB SRC
-    ${PROJECT_SOURCE_DIR}/src/*.cpp
-    ${PROJECT_SOURCE_DIR}/src/*.cxx
+set(SRC
+    ${PROJECT_SOURCE_DIR}/src/main.cpp
+    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
+    ${PROJECT_SOURCE_DIR}/src/buzzer.cpp
+    ${PROJECT_SOURCE_DIR}/src/camera.cpp
+    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
+    ${PROJECT_SOURCE_DIR}/src/preferenceprovider.cpp
     )
-file(GLOB FORMS
-    ${PROJECT_SOURCE_DIR}/forms/*.ui
+set(FORMS
+    ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
+    ${PROJECT_SOURCE_DIR}/forms/preferences.ui
     )
-file(GLOB RESOURCES
-    ${PROJECT_SOURCE_DIR}/resources/*.qrc
-    ${PROJECT_SOURCE_DIR}/resources/*.ts
+set(RESOURCES
+    ${PROJECT_SOURCE_DIR}/resources/qresource.qrc
+    ${PROJECT_SOURCE_DIR}/resources/translation_de.ts
+    ${PROJECT_SOURCE_DIR}/resources/translation_en.ts
     )
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
