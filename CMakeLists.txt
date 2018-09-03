@@ -5,11 +5,11 @@ project(FotoBox)
 
 # MacOS Qt5 Homebrew fix
 if(APPLE AND EXISTS /usr/local/opt/qt5)
-    # Homebrew installs Qt5 (up to at least 5.9.1) in
-    # /usr/local/qt5, ensure it can be found by CMake since
-    # it is not in the default /usr/local prefix.
+    # Homebrew installs Qt5 (up to at least 5.9.1) in /usr/local/qt5, ensure
+    # it can be found by CMake since it is not in the default /usr/local prefix.
     list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt5")
 endif()
+
 # By default, QT contains core and gui
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(Qt5Core_FOUND)
@@ -30,26 +30,31 @@ set(CMAKE_AUTORCC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/resources)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-file(GLOB SOURCES src/*.cpp)
-file(GLOB FORMS forms/*.ui)
-file(GLOB RESOURCES
-    resources/*.qrc
-    resources/*.ts
+file(GLOB SRC
+    ${PROJECT_SOURCE_DIR}/src/*.cpp
+    ${PROJECT_SOURCE_DIR}/src/*.cxx
     )
-
+file(GLOB FORMS
+    ${PROJECT_SOURCE_DIR}/forms/*.ui
+    )
+file(GLOB RESOURCES
+    ${PROJECT_SOURCE_DIR}/resources/*.qrc
+    ${PROJECT_SOURCE_DIR}/resources/*.ts
+    )
 add_executable(${CMAKE_PROJECT_NAME}
-    ${SOURCES}
+    ${SRC}
     ${FORMS}
     ${RESOURCES}
     )
 
+# Libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets)
-
 if(UNIX AND NOT APPLE)
     # Speed-Up compiling time with ccache (apt-get install ccache)
     find_program(CCACHE_PROGRAM ccache)
     if(CCACHE_PROGRAM)
         set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
     endif()
 
     # Raspberry Pi wiringPi framework
