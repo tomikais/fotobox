@@ -66,3 +66,17 @@ linux {
     }
   }
 }
+
+# Disable the Dark Mode in the app if macOS SDK is Mojave (10.14) and Qt version is less than 5.12
+mac {
+  # macOS SDK version
+  QMAKE_MAC_SDK_INFO = $$system("xcrun --sdk macosx --show-sdk-version")
+  isEmpty(QMAKE_MAC_SDK_INFO): error("Could not resolve SDK \'$$QMAKE_MAC_SDK_INFO\'")
+  if (greaterThan(QMAKE_MAC_SDK_INFO, 10.13)) {
+    if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12)) {
+      # https://developer.apple.com/documentation/appkit/nsappearancecustomization/choosing_a_specific_appearance_for_your_app
+      # use Info.plist with NSRequiresAquaSystemAppearance=true to disable Dark Mode
+      QMAKE_INFO_PLIST = resources/Info.plist
+    }
+  }
+}
