@@ -16,4 +16,4 @@ RUN sudo apt-get update -qq && sudo apt-get install -qq \
 COPY . .
 
 # show qmake version / generate project / build FotoBox / compress artifact and copy to host (mounted directory '--volume')
-CMD qmake -v && qmake -r && make -j2 target CXXFLAGS='-std=c++11' && tar -cvzf ./artifact/FotoBox_RasPi_jessie.tar.gz ./FotoBox
+CMD export CXXFLAGS='-std=c++11' && qmake -v && qmake -r && make -j2 && tar -cvzf ./artifact/FotoBox_RasPi_jessie.tar.gz ./FotoBox
