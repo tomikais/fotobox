@@ -1,43 +1,32 @@
 matrix:
   include:
-    - os: osx
+    - name: macOS
+      os: osx
       compiler: clang
       language: cpp
-    - os: linux
+      before_install:
+        - brew update
+      install:
+        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
+        - brew install qt
+        - brew link --force qt
+      script:
+        - qmake -v
+        - qmake -r
+        - make -j2
+        - macdeployqt FotoBox.app -dmg -verbose=2
+        - mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg
+    - name: Raspbian
+      os: linux
+      language: minimal
       dist: xenial
       sudo: true
-      language: minimal
-
-before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      brew update;
-    fi
-  #install https://github.com/multiarch/qemu-user-static to QEMU (execute ARM code) and build the container
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm --privileged multiarch/qemu-user-static:register --reset;
-      docker build --tag buildfotobox --file Dockerfile .;
-    fi
-
-install:
-  #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      brew install qt;
-      brew link --force qt;
-    fi
-
-script:
-  #http://doc.qt.io/qt-5/osx-deployment.html
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      qmake -v;
-      qmake -r;
-      make -j2;
-      macdeployqt FotoBox.app -dmg -verbose=2;
-      mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg;
-    fi
-  #execute 'CMD' command (Dockerfile)
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox;
-    fi
+      before_install:
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - docker build --tag buildfotobox --file Dockerfile .
+      script:
+        #execute 'CMD' command (Dockerfile)
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
 notifications:
   email: tomikais@t-online.de
