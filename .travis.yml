@@ -26,10 +26,10 @@ matrix:
       sudo: true
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotoboxstretch --file Dockerfile --target stretch .
+        - docker build --tag buildfotobox --file DockerfileStretch .
       script:
         #execute 'CMD' command (Dockerfile)
-        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotoboxstretch
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
     - name: "Raspbian Jessie"
       os: linux
@@ -38,10 +38,10 @@ matrix:
       sudo: true
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotoboxjessie --file Dockerfile --target jessie .
+        - docker build --tag buildfotobox --file DockerfileJessie .
       script:
         #execute 'CMD' command (Dockerfile)
-        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotoboxjessie
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
     - name: "Ubuntu"
       os: linux
