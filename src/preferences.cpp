@@ -41,7 +41,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
   connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
   connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
-  connect(m_ui->spbCountdown, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
+  connect(m_ui->spbCountdown, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
   connect(m_ui->btnChooseColorCD, &QPushButton::clicked, this, &Preferences::colorDialog);
   connect(m_ui->txtShowColorCD, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setCountdownColor);
   connect(m_ui->txtShowColorCD, &QLineEdit::textChanged, m_ui->txtShowColorCD, &QLineEdit::setToolTip);
@@ -51,12 +51,12 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setBackgroundColor);
   connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, m_ui->txtShowColorBG, &QLineEdit::setToolTip);
   connect(m_ui->txtShowColorBG, &QLineEdit::textChanged, this, &Preferences::showColor);
-  connect(m_ui->spbInputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
-  connect(m_ui->spbOutputPin, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
-  connect(m_ui->spbQueryInterval, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
-  connect(m_ui->cmbCameraMode, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
-  connect(m_ui->cmbCameraMode, QOverload<const QString &>::of(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
-  connect(m_ui->cmbCameraMode, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [&]() {
+  connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
+  connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
+  connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
+  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
+  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
+  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [&]() {
       //QComboBox has changed, show stored data to QLineEdit
       m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
     });
@@ -65,7 +65,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
       //save changed text in QComboBox model
       m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
-  connect(m_ui->spbTimout, QOverload<int>::of(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
+  connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
 
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
