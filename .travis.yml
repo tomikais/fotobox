@@ -9,13 +9,16 @@ matrix:
       install:
         #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
         - brew install qt
+      before_script:
         - brew link --force qt
-      script:
         - qmake -v
+      script:
         - qmake -r
         - make -j2
+      before_deploy:
         - macdeployqt FotoBox.app -dmg -verbose=2
         - mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg
+
     - name: Raspbian
       os: linux
       language: minimal
@@ -28,6 +31,24 @@ matrix:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
+    - name: Ubuntu
+      os: linux
+      language: cpp
+      compiler: gcc
+      dist: xenial
+      sudo: true
+      before_install:
+        - sudo apt-get update -qq
+      install:
+        - sudo apt-get install -qq qt5-default qttools5-dev-tools ccache
+      before_script:
+        - qmake -v
+      script:
+        - qmake -r
+        - make -j2
+      before_deploy:
+        - tar -cvzf ./FotoBox_Ubuntu.tar.gz ./FotoBox
+
 notifications:
   email: tomikais@t-online.de
 
@@ -38,6 +59,7 @@ deploy:
   file:
     - FotoBox_macOS.dmg
     - FotoBox_RasPi.tar.gz
+    - FotoBox_Ubuntu.tar.gz
   skip_cleanup: true
   on:
     tags: true
