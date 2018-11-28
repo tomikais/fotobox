@@ -7,7 +7,7 @@
  */
 #include "buzzer.h"
 
-#if defined (__arm__)
+#if defined (__arm__) && __has_include(<wiringPi.h>)
 #include <wiringPi.h>
 #endif
 
