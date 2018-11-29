@@ -43,7 +43,7 @@ matrix:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-    - name: "Ubuntu"
+    - name: "Ubuntu Xenial CMake"
       os: linux
       language: cpp
       compiler: gcc
@@ -54,9 +54,9 @@ matrix:
       install:
         - sudo apt-get install -qq qt5-default qttools5-dev-tools ccache
       before_script:
-        - qmake -v
+        - cmake --version
       script:
-        - qmake -r
+        - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu.tar.gz ./FotoBox
