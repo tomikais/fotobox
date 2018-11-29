@@ -132,7 +132,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 {
   //touch support
-  if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
+  if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton && event->button() == Qt::RightButton) {
       emit start();
     }
 
