@@ -13,12 +13,12 @@ endif()
 # By default, QT contains core and gui
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(Qt5Core_FOUND)
-    if(Qt5Core_VERSION VERSION_LESS 5.7.0)
-        message(FATAL_ERROR "Your Qt 5 version is outdated (required Qt >=5.7)")
+    if(Qt5Core_VERSION VERSION_LESS 5.5.0)
+        message(WARNING "Your Qt 5 version is might not be compatible anymore.")
     endif()
 endif()
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Running moc/uic/rcc automatically
