@@ -60,18 +60,18 @@
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="302"/>
-        <location filename="../src/preferences.cpp" line="323"/>
+        <location filename="../src/preferences.cpp" line="303"/>
+        <location filename="../src/preferences.cpp" line="324"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1&apos; is missing! Get it </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="312"/>
+        <location filename="../src/preferences.cpp" line="313"/>
         <source>*** no camera detected ***</source>
         <translation>*** no camera detected ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="333"/>
+        <location filename="../src/preferences.cpp" line="334"/>
         <source>&apos; is missing!</source>
         <translation>&apos; is missing!</translation>
     </message>

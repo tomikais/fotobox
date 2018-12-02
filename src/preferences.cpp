@@ -192,8 +192,9 @@ auto Preferences::colorDialog() -> void
 auto Preferences::chooseDirectory() -> void
 {
   //File Dialog to choose photo folder
-  QFileDialog dialog(this, tr("choose directory"), QStringLiteral("/home"));
-  dialog.setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+  QFileDialog dialog(this, tr("choose directory"), QDir::homePath());
+  dialog.setFileMode(QFileDialog::Directory);
+  dialog.setOptions(QFileDialog::ShowDirsOnly);
 
   //only set it if user don't abort dialog
   if (dialog.exec() == QDialog::Accepted) {
