@@ -5,6 +5,10 @@
 *.vcxproj
 *.vcxproj.filters
 
+# CMake
+mocs_*.cpp
+*_autogen/
+
 # Doxygen standard output directories
 html/
 latex/
