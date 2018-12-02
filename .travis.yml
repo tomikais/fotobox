@@ -1,3 +1,8 @@
+# blacklist
+branches:
+  except:
+    - gh-pages
+
 matrix:
   include:
     - name: "macOS"
@@ -48,11 +53,13 @@ matrix:
       language: cpp
       compiler: gcc
       dist: xenial
-      sudo: true
-      before_install:
-        - sudo apt-get update -qq
-      install:
-        - sudo apt-get install -qq qt5-default qttools5-dev-tools ccache
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - qt5-default
+            - qttools5-dev-tools
       before_script:
         - cmake --version
       script:
@@ -60,6 +67,30 @@ matrix:
         - make -j2
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu.tar.gz ./FotoBox
+
+    - name: "Ubuntu Xenial Doxygen"
+      os: linux
+      language: minimal
+      dist: xenial
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - doxygen
+            - graphviz
+      before_script:
+        - doxygen -v
+      script:
+        - doxygen Doxyfile
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: html
+        github_token: $GH_REPO_TOKEN
+        keep-history: true
+        on:
+          branch: develop
 
 notifications:
   email: tomikais@t-online.de
@@ -76,4 +107,3 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    repo: tomikais/fotobox
