@@ -10,8 +10,8 @@
 if (lessThan(QT_MAJOR_VERSION, 5)) {
   error("Qt 4 isn't supported (required Qt 5)")
 } else {
-  if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 5)) {
-    warning("Your Qt 5 version: '"$$QT_MAJOR_VERSION"."$$QT_MINOR_VERSION"' is might not be compatible anymore.")
+  if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 3)) {
+    warning("Your Qt 5 version '"$$QT_MAJOR_VERSION"."$$QT_MINOR_VERSION"' is might not be compatible anymore.")
   }
 }
 
@@ -45,10 +45,13 @@ RESOURCES      = resources/qresource.qrc
 TRANSLATIONS   = resources/translation_en.ts \
                  resources/translation_de.ts
 
-OTHER_FILES    = .gitignore \
+OTHER_FILES    = resources/Info.plist \
+                 .gitignore \
                  .gitmodules \
                  .travis.yml \
-                 Dockerfile \
+                 CMakeLists.txt \
+                 DockerfileJessie \
+                 DockerfileStretch \
                  Doxyfile \
                  LICENSE \
                  README.md

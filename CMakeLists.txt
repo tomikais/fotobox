@@ -13,8 +13,8 @@ endif()
 # By default, QT contains core and gui
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 if(Qt5Core_FOUND)
-    if(Qt5Core_VERSION VERSION_LESS 5.5.0)
-        message(WARNING "Your Qt 5 version is might not be compatible anymore.")
+    if(Qt5Core_VERSION VERSION_LESS 5.3.0)
+        message(WARNING "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
     endif()
 endif()
 
@@ -23,10 +23,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Running moc/uic/rcc automatically
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/forms)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTORCC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/resources)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -47,10 +46,23 @@ set(RESOURCES
     ${PROJECT_SOURCE_DIR}/resources/translation_de.ts
     ${PROJECT_SOURCE_DIR}/resources/translation_en.ts
     )
+set(OTHER
+    ${PROJECT_SOURCE_DIR}/resources/Info.plist
+    ${PROJECT_SOURCE_DIR}/.gitignore
+    ${PROJECT_SOURCE_DIR}/.gitmodules
+    ${PROJECT_SOURCE_DIR}/.travis.yml
+    ${PROJECT_SOURCE_DIR}/DockerfileJessie
+    ${PROJECT_SOURCE_DIR}/DockerfileStretch
+    ${PROJECT_SOURCE_DIR}/Doxyfile
+    ${PROJECT_SOURCE_DIR}/fotobox.pro
+    ${PROJECT_SOURCE_DIR}/LICENSE
+    ${PROJECT_SOURCE_DIR}/README.md
+    )
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
     ${FORMS}
     ${RESOURCES}
+    ${OTHER}
     )
 
 # Libraries
@@ -71,4 +83,20 @@ if(UNIX AND NOT APPLE)
         target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${WiringPi_LIBRARY_REL})
         target_link_libraries(${CMAKE_PROJECT_NAME} debug     ${WiringPi_LIBRARY_DEB})
     endif()
+endif()
+
+# Disable the Dark Mode in the app if macOS SDK is Mojave (10.14) and Qt version is less than 5.12
+if(UNIX AND APPLE)
+  # macOS SDK version
+  execute_process(COMMAND xcrun --sdk macosx --show-sdk-version OUTPUT_VARIABLE MAC_SDK_INFO)
+  if(MAC_SDK_INFO STREQUAL "")
+    message(FATAL_ERROR "Could not resolve SDK" ${MAC_SDK_INFO})
+  endif()
+  if(MAC_SDK_INFO VERSION_GREATER 10.13)
+    if(Qt5Core_VERSION VERSION_LESS 5.12.0)
+      # https://developer.apple.com/documentation/appkit/nsappearancecustomization/choosing_a_specific_appearance_for_your_app
+      # use Info.plist with NSRequiresAquaSystemAppearance=true to disable Dark Mode
+      set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/resources/Info.plist)
+    endif()
+  endif()
 endif()
