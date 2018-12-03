@@ -22,7 +22,6 @@ TEMPLATE       = app
 QT            += widgets
 
 CONFIG        += c++11
-QMAKE_CXXFLAGS+= -std=c++11
 
 INCLUDEPATH   += src
 HEADERS        = src/fotobox.h \
