@@ -1,57 +1,108 @@
+# blacklist
+branches:
+  except:
+    - gh-pages
+
 matrix:
   include:
-    - os: osx
-      osx_image: xcode9.3
+    - name: "macOS"
+      os: osx
       compiler: clang
       language: cpp
-    - os: linux
-      dist: trusty
-      sudo: required
-      language: bash
-      services: docker
+      before_install:
+        - brew update
+      install:
+        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
+        - brew install qt
+      before_script:
+        - brew link --force qt
+        - qmake -v
+      script:
+        - qmake -r
+        - make -j2
+      before_deploy:
+        - macdeployqt FotoBox.app -dmg -verbose=2
+        - mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg
 
-before_install:
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      brew update;
-    fi
-  #install https://github.com/multiarch/qemu-user-static to QEMU (execute ARM code) and build the container
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm --privileged multiarch/qemu-user-static:register --reset;
-      docker build --tag buildfotobox --file Dockerfile .;
-    fi
+    - name: "Raspbian Stretch"
+      os: linux
+      language: minimal
+      dist: xenial
+      sudo: true
+      before_install:
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - docker build --tag buildfotobox --file DockerfileStretch .
+      script:
+        #execute 'CMD' command (Dockerfile)
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-install:
-  #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then
-      brew install qt;
-      brew link --force qt;
-    fi
+    - name: "Raspbian Jessie"
+      os: linux
+      language: minimal
+      dist: xenial
+      sudo: true
+      before_install:
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - docker build --tag buildfotobox --file DockerfileJessie .
+      script:
+        #execute 'CMD' command (Dockerfile)
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-script:
-  #http://doc.qt.io/qt-5/osx-deployment.html
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      qmake -v;
-      qmake -r;
-      make -j2;
-      macdeployqt FotoBox.app -dmg -verbose=2;
-      mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg;
-    fi
-  #execute 'CMD' command (Dockerfile)
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox;
-    fi
+    - name: "Ubuntu Xenial CMake"
+      os: linux
+      language: cpp
+      compiler: gcc
+      dist: xenial
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - qt5-default
+            - qttools5-dev-tools
+      before_script:
+        - cmake --version
+      script:
+        - cmake CMakeLists.txt -G "Unix Makefiles"
+        - make -j2
+      before_deploy:
+        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
+
+    - name: "Ubuntu Xenial Doxygen"
+      os: linux
+      language: minimal
+      dist: xenial
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - doxygen
+            - graphviz
+      before_script:
+        - doxygen -v
+      script:
+        - doxygen Doxyfile
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: html
+        github_token: $GH_REPO_TOKEN
+        keep-history: true
+        on:
+          branch: develop
 
 notifications:
   email: tomikais@t-online.de
 
 deploy:
   provider: releases
-  api_key:
-    secure: VfkN32PaoMCfF+ceNC1MzLr+izDUCOIN2G0AKF2DDxQ08tJBfwIuQiR7UYfecqjzVoLD4IsOswPAh6J5wp3fNofzhqWagC5jJRdgWo435cwPHkdbm39WN+j1LMhJn2Uwr51HBQp9FkTWQBPS6JPnKFhG2iuDDIBxx9am24sg3N/tHRAAhgscrlibenxRaEK47aRny+V0fArc9O6tFEPL+bQQlq+P1brV6FJaRjjYp0k3TZtJDW/CWiQEbTOeB4BykDrro5AkRic73M+VizzX4ojy1cB7wArLoqV2+mawiQ3HKIL6DSK5z+XZb9kQk8JPtr/MUJcKcZOvAT4PnspZbcFWfC/3zwigXM2lV6tNcfC5qLxHGjV2ryHi2omEtb9cozaZdG/X0SVKdV9YRI21tONYHIFK8d9fDunB91mI+7SyCHo5T4TKXfD1P7ynB13MYtY2kKkv9TzYqaQBwlhp9XChQpjzqJOmPVIpBYou3QYvwpi2Dzis8TdWjxHAmeJ1c4jMq4T0gKNuodPh4fd4YJVY+lCr37DnHWlKELRmFhfnAZfpU4uE6nSYNaznZgC4YvEte1Ju8wvndBVnA6q3bs0rNqQ05+9Jre9QgpeLT9GUPMVIlEO4tLrE90x2B96MiHCOHwhaHqXvZfRc4ws1XVV2J9ywYZzmsnXCfASrKmQ=
+  api_key: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.dmg
-    - FotoBox_RasPi.tar.gz
+    - FotoBox_RasPi_jessie.tar.gz
+    - FotoBox_RasPi_stretch.tar.gz
+    - FotoBox_Ubuntu_Xenial.tar.gz
   skip_cleanup: true
   on:
     tags: true
-    repo: tomikais/fotobox

@@ -16,7 +16,7 @@
 #include <QKeyEvent>
 #include <QTimer>
 
-#if defined (__arm__)
+#if defined (__arm__) && __has_include(<wiringPi.h>)
 #include <wiringPi.h>
 #endif
 
@@ -131,8 +131,8 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 
 auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 {
-  //touch support
-  if (!PreferenceProvider::instance().showButtons() && event->button() == Qt::LeftButton) {
+  //touch support only when no buttons are shown
+  if (!PreferenceProvider::instance().showButtons() && (event->button() == Qt::LeftButton || event->button() == Qt::RightButton)) {
       emit start();
     }
 

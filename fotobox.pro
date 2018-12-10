@@ -8,10 +8,17 @@
 #------------------------------------------------------------
 
 if (lessThan(QT_MAJOR_VERSION, 5)) {
+<<<<<<< .merge_file_a17840
   error("Qt 4 isn't supported (required Qt >=5.7)")
 } else {
   if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 7)) {
     error("Your Qt 5 version is outdated (required Qt >=5.7)")
+=======
+  error("Qt 4 isn't supported (required Qt 5)")
+} else {
+  if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 3)) {
+    warning("Your Qt 5 version '"$$QT_MAJOR_VERSION"."$$QT_MINOR_VERSION"' is might not be compatible anymore.")
+>>>>>>> .merge_file_a21716
   }
 }
 
@@ -21,7 +28,11 @@ TEMPLATE       = app
 # By default, QT contains core and gui
 QT            += widgets
 
+<<<<<<< .merge_file_a17840
 CONFIG        += c++14
+=======
+CONFIG        += c++11
+>>>>>>> .merge_file_a21716
 
 INCLUDEPATH   += src
 HEADERS        = src/fotobox.h \
@@ -44,10 +55,20 @@ RESOURCES      = resources/qresource.qrc
 TRANSLATIONS   = resources/translation_en.ts \
                  resources/translation_de.ts
 
+<<<<<<< .merge_file_a17840
 OTHER_FILES    = .gitignore \
                  .gitmodules \
                  .travis.yml \
                  Dockerfile \
+=======
+OTHER_FILES    = resources/Info.plist \
+                 .gitignore \
+                 .gitmodules \
+                 .travis.yml \
+                 CMakeLists.txt \
+                 DockerfileJessie \
+                 DockerfileStretch \
+>>>>>>> .merge_file_a21716
                  Doxyfile \
                  LICENSE \
                  README.md

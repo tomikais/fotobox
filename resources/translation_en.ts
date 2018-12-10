@@ -4,12 +4,12 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../src/fotobox.cpp" line="226"/>
+        <location filename="../src/fotobox.cpp" line="229"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
         <translation>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="267"/>
+        <location filename="../src/fotobox.cpp" line="269"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -40,38 +40,38 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../src/preferences.cpp" line="116"/>
+        <location filename="../src/preferences.cpp" line="112"/>
         <source> seconds</source>
         <translation> seconds</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="116"/>
+        <location filename="../src/preferences.cpp" line="112"/>
         <source>launching FotoBox in </source>
         <translation>launching FotoBox in </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="134"/>
+        <location filename="../src/preferences.cpp" line="130"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="44"/>
+        <location filename="../src/preferences.cpp" line="195"/>
         <source>choose directory</source>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="291"/>
-        <location filename="../src/preferences.cpp" line="312"/>
+        <location filename="../src/preferences.cpp" line="303"/>
+        <location filename="../src/preferences.cpp" line="324"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1&apos; is missing! Get it </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="301"/>
+        <location filename="../src/preferences.cpp" line="313"/>
         <source>*** no camera detected ***</source>
         <translation>*** no camera detected ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="322"/>
+        <location filename="../src/preferences.cpp" line="334"/>
         <source>&apos; is missing!</source>
         <translation>&apos; is missing!</translation>
     </message>
