@@ -1,4 +1,0 @@
-[submodule "gphoto2-updater"]
-	path = gphoto2-updater
-	url = https://github.com/gonzalo/gphoto2-updater.git
-	branch = master
