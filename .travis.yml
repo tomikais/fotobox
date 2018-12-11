@@ -66,7 +66,7 @@ matrix:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
       before_deploy:
-        - tar -cvzf ./FotoBox_Ubuntu.tar.gz ./FotoBox
+        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
 
     - name: "Ubuntu Xenial Doxygen"
       os: linux
@@ -102,7 +102,7 @@ deploy:
     - FotoBox_macOS.dmg
     - FotoBox_RasPi_jessie.tar.gz
     - FotoBox_RasPi_stretch.tar.gz
-    - FotoBox_Ubuntu.tar.gz
+    - FotoBox_Ubuntu_Xenial.tar.gz
   skip_cleanup: true
   on:
     tags: true

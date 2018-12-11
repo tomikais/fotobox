@@ -61,12 +61,7 @@ linux {
 
   # Raspberry Pi wiringPi framework
   contains(QMAKE_HOST.arch, arm.*) {
-    CONFIG(release, debug|release) {
       LIBS += -lwiringPi
-    }
-    CONFIG(debug, debug|release) {
-      LIBS += -lwiringPiDev
-    }
   }
 }
 
