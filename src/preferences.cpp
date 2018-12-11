@@ -127,6 +127,9 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
       setMouseTracking(false);
       m_ui->scrollArea->setMouseTracking(false);
       m_ui->scrollAreaWidgetContents->setMouseTracking(false);
+      m_ui->tabWidget->setMouseTracking(false);
+      m_ui->tabGenal->setMouseTracking(false);
+      m_ui->tabExpert->setMouseTracking(false);
       setWindowTitle(tr("FotoBox preferences"));
     }
 
