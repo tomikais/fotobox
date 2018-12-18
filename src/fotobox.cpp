@@ -69,7 +69,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   if (m_countdown == 0) {
       //disable countdown
       connect(this, &FotoBox::start, this, &FotoBox::startPhoto);
-  }
+    }
   else {
       //initialize countdown
       m_timer->setInterval(PreferenceProvider::ONE_SECOND);
@@ -235,25 +235,25 @@ auto FotoBox::photo() -> void
 
 auto FotoBox::movePhoto() -> const QString
 {
-  //get name of the photo
-  QString result = m_camera.currentPhoto();
   //old location of the photo (working directory not application directory)
-  const QString oldName = m_workingDir + result;
+  const QString oldName = m_workingDir + m_camera.currentPhoto();;
   //new location of the photo
-  const QString newName = m_photoDir + result;
+  const QString newName = m_photoDir + m_camera.currentPhoto();;
 
-  //move photo
-  if(QFile::rename(oldName, newName)) {
-      //successfully moved the file/photo
-      result = newName;
-    }
-  else {
-      //error handling
-      m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
-      result = oldName;
+  //move photo only if working directory isn't same as preference folder
+  if (QDir(oldName) != QDir(newName)) {
+      //move photo
+      if(QFile::rename(oldName, newName)) {
+          //successfully moved the file/photo
+          return newName;
+        }
+      else {
+          //error handling
+          m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
+        }
     }
 
-  return result;
+  return oldName;
 }
 
 
