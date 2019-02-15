@@ -8,6 +8,7 @@
 #include "preferences.h"
 
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QTranslator>
 
 
@@ -24,17 +25,21 @@ int main(int argc, char *argv[])
   app.setApplicationName(QStringLiteral("FotoBox"));
   app.setApplicationVersion(QStringLiteral("1.2.7"));
 
-  //German or English (=default language)
-  QTranslator translator;
+  QTranslator qtTranslator, appTranslator;
+  // Qt Translation
+  if (qtTranslator.load(QLocale(), QLatin1String("qt"), QLatin1String("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+      app.installTranslator(&qtTranslator);
+    }
+  //App Translation: German or English (=default language)
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-      result = translator.load(QStringLiteral(":/translations/german"));
+      result = appTranslator.load(QStringLiteral(":/translations/german"));
     }
   else {
-      result = translator.load(QStringLiteral(":/translations/english"));
+      result = appTranslator.load(QStringLiteral(":/translations/english"));
     }
   if (result) {
-      app.installTranslator(&translator);
+      app.installTranslator(&appTranslator);
     }
 
   //Show preferences dialog
