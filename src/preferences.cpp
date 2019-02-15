@@ -20,6 +20,7 @@
 #include <QDesktopWidget>
 #include <QFileDialog>
 #include <QProcess>
+#include <QScreen>
 #include <QTimer>
 
 
@@ -32,7 +33,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui->setupUi(this);
 
   //move to center
-  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
+  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QGuiApplication::primaryScreen()->availableGeometry()));
 
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
