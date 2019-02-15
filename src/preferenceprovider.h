@@ -76,7 +76,7 @@ public:
   /*!
   * \brief one second = 1000 ms
   */
-  static int ONE_SECOND;
+  static constexpr int ONE_SECOND = 1000;
 
 
   /*!

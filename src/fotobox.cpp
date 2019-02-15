@@ -21,9 +21,6 @@
 #endif
 
 
-int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
-
-
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),

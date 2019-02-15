@@ -119,7 +119,7 @@ private:
   const QString m_photoDir;
 
   //status bar timout value
-  static int STATUSBAR_MSG_TIMEOUT;
+  static constexpr int STATUSBAR_MSG_TIMEOUT = 4000;
 
 
 signals:

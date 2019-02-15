@@ -8,10 +8,6 @@
 #include "preferenceprovider.h"
 
 
-//STATIC VARIABLE
-int PreferenceProvider::ONE_SECOND = 1000;
-
-
 auto PreferenceProvider::instance() -> PreferenceProvider&
 {
   //thread safe static initializer
