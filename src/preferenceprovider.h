@@ -44,18 +44,18 @@ private:
 
 public:
   //Qt Property System
-  Q_PROPERTY(QString m_photoFolder     READ photoFolder     WRITE setPhotoFolder     NOTIFY photoFolderChanged)
-  Q_PROPERTY(QString m_photoName       READ photoName       WRITE setPhotoName       NOTIFY photoNameChanged)
-  Q_PROPERTY(int m_countdown           READ countdown       WRITE setCountdown       NOTIFY countdownChanged)
-  Q_PROPERTY(QString m_countdownColor  READ countdownColor  WRITE setCountdownColor  NOTIFY countdownColorChanged)
-  Q_PROPERTY(bool m_showButtons        READ showButtons     WRITE setShowButtons     NOTIFY showButtonsChanged)
-  Q_PROPERTY(QString m_backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
-  Q_PROPERTY(int m_inputPin            READ inputPin        WRITE setInputPin        NOTIFY inputPinChanged)
-  Q_PROPERTY(int m_outputPin           READ outputPin       WRITE setOutputPin       NOTIFY outputPinChanged)
-  Q_PROPERTY(int m_queryInterval       READ queryInterval   WRITE setQueryInterval   NOTIFY queryIntervalChanged)
-  Q_PROPERTY(QString m_cameraMode      READ cameraMode      WRITE setCameraMode      NOTIFY cameraModeChanged)
-  Q_PROPERTY(QString m_argumentLine    READ argumentLine    WRITE setArgumentLine    NOTIFY argumentLineChanged)
-  Q_PROPERTY(int m_timeoutValue        READ timeoutValue    WRITE setTimeoutValue    NOTIFY timeoutValueChanged)
+  Q_PROPERTY(QString photoFolder     READ photoFolder     WRITE setPhotoFolder     NOTIFY photoFolderChanged)
+  Q_PROPERTY(QString photoName       READ photoName       WRITE setPhotoName       NOTIFY photoNameChanged)
+  Q_PROPERTY(int countdown           READ countdown       WRITE setCountdown       NOTIFY countdownChanged)
+  Q_PROPERTY(QString countdownColor  READ countdownColor  WRITE setCountdownColor  NOTIFY countdownColorChanged)
+  Q_PROPERTY(bool showButtons        READ showButtons     WRITE setShowButtons     NOTIFY showButtonsChanged)
+  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+  Q_PROPERTY(int inputPin            READ inputPin        WRITE setInputPin        NOTIFY inputPinChanged)
+  Q_PROPERTY(int outputPin           READ outputPin       WRITE setOutputPin       NOTIFY outputPinChanged)
+  Q_PROPERTY(int queryInterval       READ queryInterval   WRITE setQueryInterval   NOTIFY queryIntervalChanged)
+  Q_PROPERTY(QString cameraMode      READ cameraMode      WRITE setCameraMode      NOTIFY cameraModeChanged)
+  Q_PROPERTY(QString argumentLine    READ argumentLine    WRITE setArgumentLine    NOTIFY argumentLineChanged)
+  Q_PROPERTY(int timeoutValue        READ timeoutValue    WRITE setTimeoutValue    NOTIFY timeoutValueChanged)
 
   /*!
   * \brief delete copy constructor (Singleton)
