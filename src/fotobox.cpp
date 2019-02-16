@@ -244,10 +244,8 @@ const QString FotoBox::movePhoto()
           //successfully moved the file/photo
           return newName;
         }
-      else {
-          //error handling
-          m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
-        }
+        //error handling
+        m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
     }
 
   return oldName;

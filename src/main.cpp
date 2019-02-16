@@ -21,14 +21,14 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  app.setOrganizationName(QStringLiteral("Thomas Kais"));
-  app.setApplicationName(QStringLiteral("FotoBox"));
-  app.setApplicationVersion(QStringLiteral("1.2.7"));
+  QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
+  QApplication::setApplicationName(QStringLiteral("FotoBox"));
+  QApplication::setApplicationVersion(QStringLiteral("1.2.7"));
 
   QTranslator qtTranslator, appTranslator;
   // Qt Translation
   if (qtTranslator.load(QLocale(), QLatin1String("qt"), QLatin1String("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
-      app.installTranslator(&qtTranslator);
+      QApplication::installTranslator(&qtTranslator);
     }
   //App Translation: German or English (=default language)
   bool result = false;
@@ -39,12 +39,12 @@ int main(int argc, char *argv[])
       result = appTranslator.load(QStringLiteral(":/i18n/translation_en.qm"));
     }
   if (result) {
-      app.installTranslator(&appTranslator);
+      QApplication::installTranslator(&appTranslator);
     }
 
   //Show preferences dialog
   auto* dialog = new Preferences;
   dialog->show();
 
-  return app.exec();
+  return QApplication::exec();
 }
