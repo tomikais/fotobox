@@ -74,7 +74,7 @@ set(OTHER
 
 # Translation: build qm files and copy qrc file from 'resources' folder to build directory
 qt5_add_translation(QM_FILES ${TS_FILES})
-configure_file(${RESOURCES} ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file(resources/qresource.qrc ${CMAKE_BINARY_DIR} COPYONLY)
 
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
