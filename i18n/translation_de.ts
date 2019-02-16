@@ -4,12 +4,17 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../src/fotobox.cpp" line="226"/>
+        <location filename="../src/fotobox.cpp" line="37"/>
+        <source>FotoBox %1 (Copyright Thomas Kais)</source>
+        <translation>FotoBox %1 (Copyright Thomas Kais)</translation>
+    </message>
+    <message>
+        <location filename="../src/fotobox.cpp" line="228"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht! Bitte informieren sie den FotoBox Besitzer.</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="249"/>
+        <location filename="../src/fotobox.cpp" line="250"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <translation>Kann das Foto nicht bewegen nach: %1</translation>
     </message>
@@ -27,17 +32,17 @@
         <translation>FotoBox (Copyright Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../forms/fotobox.ui" line="59"/>
+        <location filename="../forms/fotobox.ui" line="71"/>
         <source>take picture</source>
         <translation>Bild aufnehmen</translation>
     </message>
     <message>
-        <location filename="../forms/fotobox.ui" line="74"/>
+        <location filename="../forms/fotobox.ui" line="86"/>
         <source>preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../forms/fotobox.ui" line="89"/>
+        <location filename="../forms/fotobox.ui" line="101"/>
         <source>exit</source>
         <translation>Beenden</translation>
     </message>

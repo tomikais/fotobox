@@ -34,6 +34,8 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //setup GUI
   m_ui->setupUi(this);
 
+  setWindowTitle(tr("FotoBox %1 (Copyright Thomas Kais)").arg(QApplication::applicationVersion()));
+
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
 
