@@ -237,7 +237,7 @@ public slots:
   * \brief set grayscale bool (monochrome photography)
   * \param i_value int
   */
-  void setGrayscale(bool i_grayscale);
+  void setGrayscale(bool i_value);
 
 
 signals:

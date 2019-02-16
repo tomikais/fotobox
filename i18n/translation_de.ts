@@ -19,7 +19,7 @@
         <translation>Kann das Foto nicht bewegen nach: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="273"/>
+        <location filename="../src/fotobox.cpp" line="276"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -49,38 +49,38 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../src/preferences.cpp" line="114"/>
+        <location filename="../src/preferences.cpp" line="127"/>
         <source> seconds</source>
         <translation> sekunden</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="114"/>
+        <location filename="../src/preferences.cpp" line="127"/>
         <source>launching FotoBox in </source>
         <translation>FotoBox wird gestartet in </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="135"/>
+        <location filename="../src/preferences.cpp" line="148"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="201"/>
+        <location filename="../src/preferences.cpp" line="214"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="311"/>
-        <location filename="../src/preferences.cpp" line="332"/>
+        <location filename="../src/preferences.cpp" line="324"/>
+        <location filename="../src/preferences.cpp" line="345"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1 fehlt! Lade es hier </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="321"/>
+        <location filename="../src/preferences.cpp" line="334"/>
         <source>*** no camera detected ***</source>
         <translation>*** keine Kamera erkannt ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="342"/>
+        <location filename="../src/preferences.cpp" line="355"/>
         <source>&apos; is missing!</source>
         <translation>&apos; fehlt!</translation>
     </message>
@@ -116,7 +116,7 @@
     <message>
         <location filename="../forms/preferences.ui" line="264"/>
         <source>show photo</source>
-        <translation>zeige Bild</translation>
+        <translation type="unfinished">Zeige Bild</translation>
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="274"/>

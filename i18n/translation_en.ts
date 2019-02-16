@@ -19,7 +19,7 @@
         <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="273"/>
+        <location filename="../src/fotobox.cpp" line="276"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -49,38 +49,38 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../src/preferences.cpp" line="114"/>
+        <location filename="../src/preferences.cpp" line="127"/>
         <source> seconds</source>
         <translation> seconds</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="114"/>
+        <location filename="../src/preferences.cpp" line="127"/>
         <source>launching FotoBox in </source>
         <translation>launching FotoBox in </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="135"/>
+        <location filename="../src/preferences.cpp" line="148"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox preferences</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="201"/>
+        <location filename="../src/preferences.cpp" line="214"/>
         <source>choose directory</source>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="311"/>
-        <location filename="../src/preferences.cpp" line="332"/>
+        <location filename="../src/preferences.cpp" line="324"/>
+        <location filename="../src/preferences.cpp" line="345"/>
         <source>&apos;%1&apos; is missing! Get it </source>
         <translation>&apos;%1&apos; is missing! Get it </translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="321"/>
+        <location filename="../src/preferences.cpp" line="334"/>
         <source>*** no camera detected ***</source>
         <translation>*** no camera detected ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="342"/>
+        <location filename="../src/preferences.cpp" line="355"/>
         <source>&apos; is missing!</source>
         <translation>&apos; is missing!</translation>
     </message>

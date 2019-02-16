@@ -38,6 +38,29 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
 
+  //Signal & Slot
+  connectUi();
+
+  //restore default values
+  restoreDefaultPreferences();
+
+  //load settings from ini file
+  loadPreferences();
+
+  //auto accept Dialog
+  m_timer->setInterval(PreferenceProvider::ONE_SECOND);
+  connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
+  m_timer->start();
+
+  //function only available Qt 5.5 or newer
+#if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
+  m_ui->chbGrayscale->setEnabled(false);
+#endif
+}
+
+
+void Preferences::connectUi()
+{
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
   connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
@@ -78,18 +101,8 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
         restoreDefaultPreferences();
       }
   });
-
-  //restore default values
-  restoreDefaultPreferences();
-
-  //load settings from ini file
-  loadPreferences();
-
-  //auto accept Dialog
-  m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-  connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
-  m_timer->start();
 }
+
 
 
 void Preferences::startFotoBox()

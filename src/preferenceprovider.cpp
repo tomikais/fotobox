@@ -217,13 +217,13 @@ bool PreferenceProvider::grayscale() const
   return m_grayscale;
 }
 
-void PreferenceProvider::setGrayscale(bool i_grayscale)
+void PreferenceProvider::setGrayscale(bool i_value)
 {
-  if (m_grayscale == i_grayscale) {
+  if (m_grayscale == i_value) {
       return;
     }
 
-  m_grayscale = i_grayscale;
+  m_grayscale = i_value;
   emit grayscaleChanged(m_grayscale);
 }
 

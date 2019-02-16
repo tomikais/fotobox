@@ -80,6 +80,11 @@ private slots:
 
 private:
   /*!
+  * \brief Signal & Slot connect
+  */
+  void connectUi();
+
+  /*!
   * \brief load application settings from INI file
   */
   void loadPreferences();
