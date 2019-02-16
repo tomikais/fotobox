@@ -1,5 +1,11 @@
 ## Ignore other files
 
+# application
+[Ff]oto[Bb]ox.[Aa][Pp][Pp]
+[Ff]oto[Bb]ox.[Dd][Mm][Gg]
+[Ff]oto[Bb]ox.[Ee][Xx][Ee]
+[Ff]oto[Bb]ox
+
 # Microsoft Visual Studio Solution / Project
 *.sln
 *.vcxproj
@@ -17,13 +23,8 @@ man/
 xml/
 docbook/
 
-# application
-[Ff]oto[Bb]ox.[Aa][Pp][Pp]
-[Ff]oto[Bb]ox.[Dd][Mm][Gg]
-[Ff]oto[Bb]ox.[Ee][Xx][Ee]
-[Ff]oto[Bb]ox
 
-
+#######################################################################################################
 #######################################################################################################
 
 
@@ -240,7 +241,7 @@ _pkginfo.txt
 # files ending in .cache can be ignored
 *.[Cc]ache
 # but keep track of directories ending in .cache
-!*.[Cc]ache/
+!?*.[Cc]ache/
 
 # Others
 ClientBin/
@@ -286,6 +287,7 @@ ServiceFabricBackup/
 *.bim.layout
 *.bim_*.settings
 *.rptproj.rsuser
+*- Backup*.rdl
 
 # Microsoft Fakes
 FakesAssemblies/
@@ -366,6 +368,12 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+# BeatPulse healthcheck temp database
+healthchecksdb
+
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
 
 #######################################################################################################
 
@@ -431,6 +439,12 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
+
+# QtCreator 4.8< compilation database 
+compile_commands.json
+
+# QtCreator local machine specific files for imported projects
+*creator.user*
 
 
 #######################################################################################################
@@ -551,3 +565,4 @@ cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+_deps
