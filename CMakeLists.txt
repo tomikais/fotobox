@@ -11,7 +11,7 @@ if(APPLE AND EXISTS /usr/local/opt/qt5)
 endif()
 
 # By default, QT contains core and gui
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 if(Qt5Core_FOUND)
     if(Qt5Core_VERSION VERSION_LESS 5.3.0)
         message(WARNING "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
@@ -52,10 +52,12 @@ set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
     ${PROJECT_SOURCE_DIR}/forms/preferences.ui
     )
+set(TS_FILES
+    ${PROJECT_SOURCE_DIR}/i18n/translation_de.ts
+    ${PROJECT_SOURCE_DIR}/i18n/translation_en.ts
+    )
 set(RESOURCES
-    ${PROJECT_SOURCE_DIR}/resources/qresource.qrc
-    ${PROJECT_SOURCE_DIR}/resources/translation_de.ts
-    ${PROJECT_SOURCE_DIR}/resources/translation_en.ts
+    ${CMAKE_BINARY_DIR}/qresource.qrc
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/resources/Info.plist
@@ -69,10 +71,16 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/LICENSE
     ${PROJECT_SOURCE_DIR}/README.md
     )
+
+# Translation: build qm files and copy qrc file from 'resources' folder to build directory
+qt5_add_translation(QM_FILES ${TS_FILES})
+configure_file(${RESOURCES} ${CMAKE_BINARY_DIR} COPYONLY)
+
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
     ${FORMS}
     ${RESOURCES}
+    ${QM_FILES}
     ${OTHER}
     )
 
