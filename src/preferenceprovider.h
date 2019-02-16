@@ -40,6 +40,7 @@ private:
   QString m_cameraMode;
   QString m_argumentLine;
   int m_timeoutValue = 0;
+  bool m_grayscale = false;
 
 
 public:
@@ -56,6 +57,7 @@ public:
   Q_PROPERTY(QString cameraMode      READ cameraMode      WRITE setCameraMode      NOTIFY cameraModeChanged)
   Q_PROPERTY(QString argumentLine    READ argumentLine    WRITE setArgumentLine    NOTIFY argumentLineChanged)
   Q_PROPERTY(int timeoutValue        READ timeoutValue    WRITE setTimeoutValue    NOTIFY timeoutValueChanged)
+  Q_PROPERTY(bool grayscale          READ grayscale       WRITE setGrayscale       NOTIFY grayscaleChanged)
 
   /*!
   * \brief delete copy constructor (Singleton)
@@ -83,73 +85,79 @@ public:
   * \brief photo output directory
   * \return QString m_photoFolder
   */
-  QString photoFolder();
+  QString photoFolder() const;
 
   /*!
   * \brief photo name template
   * \return QString m_photoName
   */
-  QString photoName();
+  QString photoName() const;
 
   /*!
   * \brief countdown until photo is taken
   * \return int m_countdown
   */
-  int countdown();
+  int countdown() const;
 
   /*!
   * \brief font color of the countdown
   * \return QString m_countdownColor
   */
-  QString countdownColor();
+  QString countdownColor() const;
 
   /*!
   * \brief buttons are displayed on the UI
   * \return bool m_showButtons
   */
-  bool showButtons();
+  bool showButtons() const;
 
   /*!
   * \brief background color of the FotoBox UI
   * \return QString m_backgroundColor
   */
-  QString backgroundColor();
+  QString backgroundColor() const;
 
   /*!
   * \brief wiringPi GPIO input pin
   * \return int m_inputPin
   */
-  int inputPin();
+  int inputPin() const;
 
   /*!
   * \brief wiringPi GPIO output pin
   * \return int m_outputPin
   */
-  int outputPin();
+  int outputPin() const;
 
   /*!
   * \brief how often the pin should be queried
   * \return int m_queryInterval
   */
-  int queryInterval();
+  int queryInterval() const;
 
   /*!
   * \brief the camera framework to be used
   * \return QString m_cameraMode
   */
-  QString cameraMode();
+  QString cameraMode() const;
 
   /*!
   * \brief camera framework arguments
   * \return QString m_argumentLine
   */
-  QString argumentLine();
+  QString argumentLine() const;
 
   /*!
   * \brief timeout value for the camera framework
   * \return int m_timeoutValue
   */
-  int timeoutValue();
+  int timeoutValue() const;
+
+  /*!
+  * \brief show photo in grayscale (monochrome photography)
+  * \return bool m_grayscale
+  */
+  bool grayscale() const;
 
 
 public slots:
@@ -225,6 +233,12 @@ public slots:
   */
   void setTimeoutValue(int i_value);
 
+  /*!
+  * \brief set grayscale bool (monochrome photography)
+  * \param i_value int
+  */
+  void setGrayscale(bool i_grayscale);
+
 
 signals:
   /*!
@@ -287,4 +301,8 @@ signals:
   */
   void timeoutValueChanged(int);
 
+  /*!
+  * \brief signal: grayscale (monochrome photography) has changed
+  */
+  void grayscaleChanged(bool);
 };

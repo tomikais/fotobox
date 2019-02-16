@@ -35,14 +35,14 @@ void Buzzer::queryPin()
 {
   //query pin
   while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
-    //wait before query pin again
-    delay(PreferenceProvider::instance().queryInterval());
+      //wait before query pin again
+      delay(PreferenceProvider::instance().queryInterval());
 
-    //if stop is true, stop while loop and return to caller (don't emit triggered)
-    if (m_stop) {
-      return;
+      //if stop is true, stop while loop and return to caller (don't emit triggered)
+      if (m_stop) {
+          return;
+        }
     }
-  }
 
   //buzzer was pressed
   emit triggered();

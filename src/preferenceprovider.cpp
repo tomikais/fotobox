@@ -21,7 +21,7 @@ PreferenceProvider::PreferenceProvider(QObject *parent) : QObject(parent)
 
 
 //Qt Porperty
-QString PreferenceProvider::photoFolder()
+QString PreferenceProvider::photoFolder() const
 {
   return m_photoFolder;
 }
@@ -29,15 +29,15 @@ QString PreferenceProvider::photoFolder()
 void PreferenceProvider::setPhotoFolder(const QString& i_value)
 {
   if (m_photoFolder == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_photoFolder = i_value;
   emit photoFolderChanged(m_photoFolder);
 }
 
 
-QString PreferenceProvider::photoName()
+QString PreferenceProvider::photoName() const
 {
   return m_photoName;
 }
@@ -45,15 +45,15 @@ QString PreferenceProvider::photoName()
 void PreferenceProvider::setPhotoName(const QString& i_value)
 {
   if (m_photoName == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_photoName = i_value;
   emit photoNameChanged(m_photoName);
 }
 
 
-int PreferenceProvider::countdown()
+int PreferenceProvider::countdown() const
 {
   return m_countdown;
 }
@@ -61,15 +61,15 @@ int PreferenceProvider::countdown()
 void PreferenceProvider::setCountdown(const int i_value)
 {
   if (m_countdown == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_countdown = i_value;
   emit countdownChanged(m_countdown);
 }
 
 
-QString PreferenceProvider::countdownColor()
+QString PreferenceProvider::countdownColor() const
 {
   return m_countdownColor;
 }
@@ -77,15 +77,15 @@ QString PreferenceProvider::countdownColor()
 void PreferenceProvider::setCountdownColor(const QString& i_value)
 {
   if (m_countdownColor == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_countdownColor = i_value;
   emit countdownColorChanged(m_countdownColor);
 }
 
 
-bool PreferenceProvider::showButtons()
+bool PreferenceProvider::showButtons() const
 {
   return m_showButtons;
 }
@@ -93,15 +93,15 @@ bool PreferenceProvider::showButtons()
 void PreferenceProvider::setShowButtons(const bool i_value)
 {
   if (m_showButtons == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_showButtons = i_value;
   emit showButtonsChanged(m_showButtons);
 }
 
 
-QString PreferenceProvider::backgroundColor()
+QString PreferenceProvider::backgroundColor() const
 {
   return m_backgroundColor;
 }
@@ -109,15 +109,15 @@ QString PreferenceProvider::backgroundColor()
 void PreferenceProvider::setBackgroundColor(const QString& i_value)
 {
   if (m_backgroundColor == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_backgroundColor = i_value;
   emit backgroundColorChanged(m_backgroundColor);
 }
 
 
-int PreferenceProvider::inputPin()
+int PreferenceProvider::inputPin() const
 {
   return m_inputPin;
 }
@@ -125,15 +125,15 @@ int PreferenceProvider::inputPin()
 void PreferenceProvider::setInputPin(const int i_value)
 {
   if (m_inputPin == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_inputPin = i_value;
   emit inputPinChanged(m_inputPin);
 }
 
 
-int PreferenceProvider::outputPin()
+int PreferenceProvider::outputPin() const
 {
   return m_outputPin;
 }
@@ -141,15 +141,15 @@ int PreferenceProvider::outputPin()
 void PreferenceProvider::setOutputPin(const int i_value)
 {
   if (m_outputPin == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_outputPin = i_value;
   emit outputPinChanged(m_outputPin);
 }
 
 
-int PreferenceProvider::queryInterval()
+int PreferenceProvider::queryInterval() const
 {
   return m_queryInterval;
 }
@@ -157,15 +157,15 @@ int PreferenceProvider::queryInterval()
 void PreferenceProvider::setQueryInterval(const int i_value)
 {
   if (m_queryInterval == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_queryInterval = i_value;
   emit queryIntervalChanged(m_queryInterval);
 }
 
 
-QString PreferenceProvider::cameraMode()
+QString PreferenceProvider::cameraMode() const
 {
   return m_cameraMode;
 }
@@ -173,15 +173,15 @@ QString PreferenceProvider::cameraMode()
 void PreferenceProvider::setCameraMode(const QString& i_value)
 {
   if (m_cameraMode == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_cameraMode = i_value;
   emit cameraModeChanged(m_cameraMode);
 }
 
 
-QString PreferenceProvider::argumentLine()
+QString PreferenceProvider::argumentLine() const
 {
   return m_argumentLine;
 }
@@ -189,15 +189,15 @@ QString PreferenceProvider::argumentLine()
 void PreferenceProvider::setArgumentLine(const QString& i_value)
 {
   if (m_argumentLine == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_argumentLine = i_value;
   emit argumentLineChanged(m_argumentLine);
 }
 
 
-int PreferenceProvider::timeoutValue()
+int PreferenceProvider::timeoutValue() const
 {
   return m_timeoutValue;
 }
@@ -205,9 +205,25 @@ int PreferenceProvider::timeoutValue()
 void PreferenceProvider::setTimeoutValue(const int i_value)
 {
   if (m_timeoutValue == i_value) {
-    return;
-  }
+      return;
+    }
 
   m_timeoutValue = i_value;
   emit timeoutValueChanged(m_timeoutValue);
 }
+
+bool PreferenceProvider::grayscale() const
+{
+  return m_grayscale;
+}
+
+void PreferenceProvider::setGrayscale(bool i_grayscale)
+{
+  if (m_grayscale == i_grayscale) {
+      return;
+    }
+
+  m_grayscale = i_grayscale;
+  emit grayscaleChanged(m_grayscale);
+}
+

@@ -12,9 +12,9 @@ class QProcess;
 
 
 /*!
- * \brief The Camera class
- * Use gphoto2 to send commands to camera.
- */
+* \brief The Camera class
+* Use gphoto2 to send commands to camera.
+*/
 class Camera : public QObject
 {
   Q_OBJECT
@@ -22,26 +22,26 @@ class Camera : public QObject
 
 public:
   /*!
-   * \brief Camera constructor
-   * \param parent QObject
-   */
+  * \brief Camera constructor
+  * \param parent QObject
+  */
   explicit Camera(QObject *parent = nullptr);
 
   /*!
-    * \brief Camera destructor
-    */
-   ~Camera() override = default;
+  * \brief Camera destructor
+  */
+  ~Camera() override = default;
 
   /*!
-   * \brief shoot a photo with gphoto2
-   * \return true: processed finished / false:error
-   */
+  * \brief shoot a photo with gphoto2
+  * \return true: processed finished / false:error
+  */
   bool shootPhoto();
 
   /*!
-   * \brief return member \sa m_currentPhoto
-   * \return filepath current photo
-   */
+  * \brief return member \sa m_currentPhoto
+  * \return filepath current photo
+  */
   QString currentPhoto() const;
 
 

@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>750</width>
-    <height>460</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="mouseTracking">
@@ -33,6 +33,14 @@
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>726</width>
+        <height>436</height>
+       </rect>
+      </property>
       <property name="mouseTracking">
        <bool>true</bool>
       </property>
@@ -55,16 +63,42 @@
           <layout class="QVBoxLayout" name="verticalLayoutTabGeneral">
            <item>
             <layout class="QGridLayout" name="gridLayoutTabGeneral">
-             <item row="3" column="1" colspan="2">
-              <widget class="QLineEdit" name="txtPhotoName"/>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="lblButtons">
+             <item row="2" column="3">
+              <widget class="QPushButton" name="btnChooseDirectory">
                <property name="text">
-                <string>buttons</string>
+                <string>Choose Directory</string>
                </property>
-               <property name="buddy">
-                <cstring>chbButtons</cstring>
+              </widget>
+             </item>
+             <item row="4" column="2">
+              <widget class="QLineEdit" name="txtShowColorCD">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="focusPolicy">
+                <enum>Qt::NoFocus</enum>
+               </property>
+               <property name="frame">
+                <bool>false</bool>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="lblCamera">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Camera</string>
                </property>
               </widget>
              </item>
@@ -78,13 +112,23 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
-              <widget class="QLabel" name="lblCameraMode">
+             <item row="6" column="3">
+              <widget class="QPushButton" name="btnChooseColorBG">
                <property name="text">
-                <string>camera mode</string>
+                <string>Choose Color</string>
                </property>
-               <property name="buddy">
-                <cstring>cmbCameraMode</cstring>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lblGeneral">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>FotoBox</string>
                </property>
               </widget>
              </item>
@@ -117,10 +161,20 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="3">
-              <widget class="QPushButton" name="btnChooseDirectory">
+             <item row="8" column="0" colspan="4">
+              <widget class="QLabel" name="lblCameraInfo">
                <property name="text">
-                <string>Choose Directory</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QCheckBox" name="chbButtons">
+               <property name="text">
+                <string>(enable/disable)</string>
                </property>
               </widget>
              </item>
@@ -134,31 +188,8 @@
                </property>
               </widget>
              </item>
-             <item row="9" column="1">
-              <widget class="QComboBox" name="cmbCameraMode"/>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lblGeneral">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>FotoBox</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="0" colspan="4">
-              <widget class="QLabel" name="lblCameraInfo">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
+             <item row="3" column="1" colspan="2">
+              <widget class="QLineEdit" name="txtPhotoName"/>
              </item>
              <item row="2" column="1" colspan="2">
               <widget class="QLineEdit" name="txtPhotoFolder">
@@ -167,6 +198,40 @@
                </property>
                <property name="readOnly">
                 <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="3">
+              <widget class="QPushButton" name="btnChooseColorCD">
+               <property name="text">
+                <string>Choose Color</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="2" colspan="2">
+              <widget class="QLabel" name="lblCameraModeInfo">
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lblButtons">
+               <property name="text">
+                <string>buttons</string>
+               </property>
+               <property name="buddy">
+                <cstring>chbButtons</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="lblCameraMode">
+               <property name="text">
+                <string>camera mode</string>
+               </property>
+               <property name="buddy">
+                <cstring>cmbCameraMode</cstring>
                </property>
               </widget>
              </item>
@@ -190,63 +255,23 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="2">
-              <widget class="QLineEdit" name="txtShowColorCD">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="focusPolicy">
-                <enum>Qt::NoFocus</enum>
-               </property>
-               <property name="frame">
-                <bool>false</bool>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
-              </widget>
+             <item row="9" column="1">
+              <widget class="QComboBox" name="cmbCameraMode"/>
              </item>
-             <item row="6" column="3">
-              <widget class="QPushButton" name="btnChooseColorBG">
+             <item row="10" column="0">
+              <widget class="QLabel" name="lblGrayscale">
                <property name="text">
-                <string>Choose Color</string>
+                <string>show photo</string>
+               </property>
+               <property name="buddy">
+                <cstring>chbGrayscale</cstring>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <widget class="QCheckBox" name="chbButtons">
+             <item row="10" column="1">
+              <widget class="QCheckBox" name="chbGrayscale">
                <property name="text">
-                <string>(enable/disable)</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="3">
-              <widget class="QPushButton" name="btnChooseColorCD">
-               <property name="text">
-                <string>Choose Color</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="2" colspan="2">
-              <widget class="QLabel" name="lblCameraModeInfo">
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="lblCamera">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Camera</string>
+                <string>monochrome</string>
                </property>
               </widget>
              </item>
@@ -451,6 +476,7 @@
   <tabstop>chbButtons</tabstop>
   <tabstop>btnChooseColorBG</tabstop>
   <tabstop>cmbCameraMode</tabstop>
+  <tabstop>chbGrayscale</tabstop>
   <tabstop>spbInputPin</tabstop>
   <tabstop>spbOutputPin</tabstop>
   <tabstop>spbQueryInterval</tabstop>

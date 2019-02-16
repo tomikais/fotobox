@@ -22,9 +22,9 @@ namespace Ui
 
 
 /*!
- * \brief The FotoBox class
- * Main class to control UI and controll the process
- */
+* \brief The FotoBox class
+* Main class to control UI and controll the process
+*/
 class FotoBox : public QDialog
 {
   Q_OBJECT

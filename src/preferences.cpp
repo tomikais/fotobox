@@ -67,6 +67,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
       m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
+  connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
 
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
@@ -169,6 +170,7 @@ void Preferences::loadPreferences()
   m_ui->cmbCameraMode->setCurrentText(m_settings.value(m_ui->cmbCameraMode->objectName(), m_ui->cmbCameraMode->currentText()).toString());
 
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
+  m_ui->chbGrayscale->setChecked(m_settings.value(m_ui->chbGrayscale->objectName(), m_ui->chbGrayscale->isChecked()).toBool());
   m_settings.endGroup();
 }
 
@@ -255,6 +257,7 @@ void Preferences::savePreferences()
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
 
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
+  m_settings.setValue(m_ui->chbGrayscale->objectName(), PreferenceProvider::instance().grayscale());
   m_settings.endGroup();
 }
 
@@ -287,6 +290,7 @@ void Preferences::restoreDefaultPreferences()
         QStringLiteral("raspistill"),
         QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(30);
+  m_ui->chbGrayscale->setChecked(false);
 }
 
 

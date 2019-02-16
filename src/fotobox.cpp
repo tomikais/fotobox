@@ -246,8 +246,8 @@ const QString FotoBox::movePhoto()
           //successfully moved the file/photo
           return newName;
         }
-        //error handling
-        m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
+      //error handling
+      m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
     }
 
   return oldName;
@@ -260,6 +260,13 @@ void FotoBox::loadPhoto(const QString& i_filePath)
   if (m_photo.load(i_filePath)) {
       //resize picture to label size
       QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
+
+      //show photo in grayscale (monochrome photography)
+      if (PreferenceProvider::instance().grayscale()) {
+          auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
+          m_photo.convertFromImage(grey);
+        }
+
       m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
   else {

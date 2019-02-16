@@ -20,8 +20,8 @@ class Buzzer : public QObject
 
 public slots:
   /*!
-  * \brief Query the Raspberry Pi pin
-  */
+   * \brief Query the Raspberry Pi pin
+   */
   void queryPin();
 
 
@@ -33,15 +33,15 @@ public:
   explicit Buzzer(QObject *parent = nullptr);
 
   /*!
-  * \brief Stop executing \sa queryPin()
-  */
+   * \brief Stop executing \sa queryPin()
+   */
   void stop();
 
 
 signals:
   /*!
-  * \brief Buzzer was pressed
-  */
+   * \brief Buzzer was pressed
+   */
   void triggered();
 
 private:
