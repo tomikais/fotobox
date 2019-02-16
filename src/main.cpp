@@ -33,10 +33,10 @@ int main(int argc, char *argv[])
   //App Translation: German or English (=default language)
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-      result = appTranslator.load(QStringLiteral(":/translations/german"));
+      result = appTranslator.load(QStringLiteral(":/i18n/translation_de.qm"));
     }
   else {
-      result = appTranslator.load(QStringLiteral(":/translations/english"));
+      result = appTranslator.load(QStringLiteral(":/i18n/translation_en.qm"));
     }
   if (result) {
       app.installTranslator(&appTranslator);

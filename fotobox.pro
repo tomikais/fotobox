@@ -33,6 +33,8 @@ TEMPLATE       = app
 QT            += widgets
 
 CONFIG        += c++11
+# add translation
+CONFIG        += lrelease embed_translations
 
 INCLUDEPATH   += src
 HEADERS        = src/fotobox.h \
@@ -51,9 +53,8 @@ SOURCES        = src/main.cpp \
 FORMS          = forms/fotobox.ui \
                  forms/preferences.ui
 
-RESOURCES      = resources/qresource.qrc
-TRANSLATIONS   = resources/translation_en.ts \
-                 resources/translation_de.ts
+TRANSLATIONS   = i18n/translation_en.ts \
+                 i18n/translation_de.ts
 
 OTHER_FILES    = resources/Info.plist \
                  .gitignore \
