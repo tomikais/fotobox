@@ -33,8 +33,6 @@ TEMPLATE       = app
 QT            += widgets
 
 CONFIG        += c++11
-# add translation
-CONFIG        += lrelease embed_translations
 
 INCLUDEPATH   += src
 HEADERS        = src/fotobox.h \
@@ -53,8 +51,17 @@ SOURCES        = src/main.cpp \
 FORMS          = forms/fotobox.ui \
                  forms/preferences.ui
 
-TRANSLATIONS   = i18n/translation_en.ts \
-                 i18n/translation_de.ts
+RESOURCES     += i18n/qresource.qrc
+TRANSLATIONS  += i18n/translation_de.ts \
+                 i18n/translation_en.ts
+# run lrelease to generate the QM files and to embed them in the application resources
+qtPrepareTool(LRELEASE, lrelease)
+for(tsfile, TRANSLATIONS) {
+  qmfile  = $$tsfile
+  qmfile ~= s,.ts$,.qm,
+  command = $$LRELEASE $$tsfile -qm $$qmfile
+  system($$command)|error("Failed to run: $$command")
+}
 
 OTHER_FILES    = resources/Info.plist \
                  .gitignore \

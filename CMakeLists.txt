@@ -57,7 +57,7 @@ set(TS_FILES
     ${PROJECT_SOURCE_DIR}/i18n/translation_en.ts
     )
 set(RESOURCES
-    ${CMAKE_BINARY_DIR}/qresource.qrc
+    ${PROJECT_SOURCE_DIR}/i18n/qresource.qrc
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/resources/Info.plist
@@ -72,9 +72,9 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/README.md
     )
 
-# Translation: build qm files and copy qrc file from 'resources' folder to build directory
+# Translation: build qm files in source directory
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/i18n)
 qt5_add_translation(QM_FILES ${TS_FILES})
-configure_file(resources/qresource.qrc ${CMAKE_BINARY_DIR} COPYONLY)
 
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
