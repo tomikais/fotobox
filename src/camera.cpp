@@ -24,7 +24,7 @@ Camera::Camera(QObject *parent) : QObject(parent),
 }
 
 
-auto Camera::shootPhoto() -> bool
+bool Camera::shootPhoto()
 {
   //File name for the current
   m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
@@ -46,7 +46,7 @@ auto Camera::shootPhoto() -> bool
 }
 
 
-auto Camera::currentPhoto() const -> QString
+QString Camera::currentPhoto() const
 {
   return m_currentPhoto;
 }

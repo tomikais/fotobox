@@ -8,7 +8,7 @@
 #include "preferenceprovider.h"
 
 
-auto PreferenceProvider::instance() -> PreferenceProvider&
+PreferenceProvider& PreferenceProvider::instance()
 {
   //thread safe static initializer
   static PreferenceProvider instance;

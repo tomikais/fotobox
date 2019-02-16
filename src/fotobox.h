@@ -66,31 +66,31 @@ private:
    * \details Enter -> take a photo / Escape -> quit application
    * \param event QKeyEvent
    */
-  auto keyPressEvent(QKeyEvent *event) -> void override;
+  void keyPressEvent(QKeyEvent *event) override;
 
   /*!
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse release events for the widget.
   * \details no buttons on UI and left click \sa emit start()
   * \param event QMouseEvent
   */
-  auto mouseReleaseEvent(QMouseEvent *event) -> void override;
+  void mouseReleaseEvent(QMouseEvent *event) override;
 
   /*!
    * \brief creates a new Buzzer object
    */
-  auto buzzer() -> void;
+  void buzzer();
 
   /*!
    * \brief try to load the photo to QPixmap
    * \param i_filePath path to photo
    */
-  auto loadPhoto(const QString& i_filePath) -> void;
+  void loadPhoto(const QString& i_filePath);
 
   /*!
    * \brief move photo to folder set in preferences
    * \return new file location of the photo
    */
-  auto movePhoto() -> const QString;
+  const QString movePhoto();
 
 
   //User Interface

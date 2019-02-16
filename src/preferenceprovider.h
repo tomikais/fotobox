@@ -71,7 +71,7 @@ public:
   * \brief getInstance (Meyers Singleton)
   * \return Preferences&
   */
-  auto static instance() -> PreferenceProvider&;
+  static PreferenceProvider& instance();
 
   /*!
   * \brief one second = 1000 ms

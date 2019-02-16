@@ -36,13 +36,13 @@ public:
    * \brief shoot a photo with gphoto2
    * \return true: processed finished / false:error
    */
-  auto shootPhoto() -> bool;
+  bool shootPhoto();
 
   /*!
    * \brief return member \sa m_currentPhoto
    * \return filepath current photo
    */
-  auto currentPhoto() const -> QString;
+  QString currentPhoto() const;
 
 
 private:

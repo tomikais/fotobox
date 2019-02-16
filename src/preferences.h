@@ -82,7 +82,7 @@ private:
   /*!
   * \brief load application settings from INI file
   */
-  auto loadPreferences() -> void;
+  void loadPreferences();
 
   /*!
   * \brief Save the preferences to QSettings
@@ -93,7 +93,7 @@ private:
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget
   * \details stopping auto accept dialog \sa autoAcceptDialog()
   */
-  auto mouseMoveEvent(QMouseEvent *event) -> void override;
+  void mouseMoveEvent(QMouseEvent *event) override;
 
 
   //User Interface

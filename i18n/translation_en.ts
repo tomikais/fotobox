@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US">
+<TS version="2.1" language="en_US" sourcelanguage="en">
 <context>
     <name>FotoBox</name>
     <message>
         <location filename="../src/fotobox.cpp" line="226"/>
         <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
         <translation>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</translation>
+    </message>
+    <message>
+        <location filename="../src/fotobox.cpp" line="249"/>
+        <source>Couldn&apos;t move the photo to: %1</source>
+        <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
         <location filename="../src/fotobox.cpp" line="266"/>

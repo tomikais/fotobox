@@ -121,7 +121,7 @@ void Preferences::autoAcceptDialog()
 }
 
 
-auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
+void Preferences::mouseMoveEvent(QMouseEvent *event)
 {
   if (m_timer->isActive()) {
       m_timer->stop();
@@ -139,7 +139,7 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 }
 
 
-auto Preferences::loadPreferences() -> void
+void Preferences::loadPreferences()
 {
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_ui->txtPhotoFolder->setText(m_settings.value(m_ui->txtPhotoFolder->objectName(), m_ui->txtPhotoFolder->text()).toString());
@@ -173,7 +173,7 @@ auto Preferences::loadPreferences() -> void
 }
 
 
-auto Preferences::colorDialog() -> void
+void Preferences::colorDialog()
 {
   //"Color Picker" Dialog
   QColorDialog dialog(this);
@@ -193,7 +193,7 @@ auto Preferences::colorDialog() -> void
 }
 
 
-auto Preferences::chooseDirectory() -> void
+void Preferences::chooseDirectory()
 {
   //File Dialog to choose photo folder
   QFileDialog dialog(this, tr("choose directory"), QDir::homePath());
@@ -208,7 +208,7 @@ auto Preferences::chooseDirectory() -> void
 }
 
 
-auto Preferences::showColor(const QString& i_colorName) -> void
+void Preferences::showColor(const QString& i_colorName)
 {
   //create color
   QColor color(i_colorName);
@@ -226,7 +226,7 @@ auto Preferences::showColor(const QString& i_colorName) -> void
 }
 
 
-auto Preferences::savePreferences() -> void
+void Preferences::savePreferences()
 {
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_settings.setValue(m_ui->txtPhotoFolder->objectName(), PreferenceProvider::instance().photoFolder());
@@ -259,7 +259,7 @@ auto Preferences::savePreferences() -> void
 }
 
 
-auto Preferences::restoreDefaultPreferences() -> void
+void Preferences::restoreDefaultPreferences()
 {
   //FotoBox
   m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
@@ -290,7 +290,7 @@ auto Preferences::restoreDefaultPreferences() -> void
 }
 
 
-auto Preferences::applicationAvailable(const QString& i_name) -> void
+void Preferences::applicationAvailable(const QString& i_name)
 {
   m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral(""));
   if (i_name == QLatin1String("gphoto2")) {

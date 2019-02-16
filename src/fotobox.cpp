@@ -101,7 +101,7 @@ FotoBox::~FotoBox()
 }
 
 
-auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
+void FotoBox::keyPressEvent(QKeyEvent *event)
 {
   //prevent triggering method too often
   if (!event->isAutoRepeat()) {
@@ -126,7 +126,7 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 }
 
 
-auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
+void FotoBox::mouseReleaseEvent(QMouseEvent *event)
 {
   //touch support only when no buttons are shown
   if (!PreferenceProvider::instance().showButtons() && (event->button() == Qt::LeftButton || event->button() == Qt::RightButton)) {
@@ -137,7 +137,7 @@ auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
 }
 
 
-auto FotoBox::buzzer() -> void
+void FotoBox::buzzer()
 {
   if (m_buzzer != nullptr) {
       //stop query pin
@@ -167,7 +167,7 @@ auto FotoBox::buzzer() -> void
 }
 
 
-auto FotoBox::preferenceDialog() -> void
+void FotoBox::preferenceDialog()
 {
 #if defined (Q_OS_MACOS)
   //QTBUG-36714: Window can't be fully closed on Mac OS X after calling showFullScreen()
@@ -186,7 +186,7 @@ auto FotoBox::preferenceDialog() -> void
 }
 
 
-auto FotoBox::countdown() -> void
+void FotoBox::countdown()
 {
   if (m_countdown >= 1) {
       //hide photo and show countdown
@@ -210,7 +210,7 @@ auto FotoBox::countdown() -> void
 }
 
 
-auto FotoBox::photo() -> void
+void FotoBox::photo()
 {
   //remove current picture / refresh label (photo)
   m_ui->lblPhoto->clear();
@@ -230,7 +230,7 @@ auto FotoBox::photo() -> void
   buzzer();
 }
 
-auto FotoBox::movePhoto() -> const QString
+const QString FotoBox::movePhoto()
 {
   //old location of the photo (working directory not application directory)
   const QString oldName = m_workingDir + m_camera.currentPhoto();;
@@ -246,7 +246,7 @@ auto FotoBox::movePhoto() -> const QString
         }
       else {
           //error handling
-          m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
+          m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
         }
     }
 
@@ -254,7 +254,7 @@ auto FotoBox::movePhoto() -> const QString
 }
 
 
-auto FotoBox::loadPhoto(const QString& i_filePath) -> void
+void FotoBox::loadPhoto(const QString& i_filePath)
 {
   //try to load the photo shot by camera
   if (m_photo.load(i_filePath)) {

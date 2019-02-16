@@ -31,7 +31,7 @@ Buzzer::Buzzer(QObject *parent) : QObject(parent),
 }
 
 
-auto Buzzer::queryPin() -> void
+void Buzzer::queryPin()
 {
   //query pin
   while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
@@ -54,7 +54,7 @@ auto Buzzer::queryPin() -> void
 
 Buzzer::Buzzer(QObject *parent) : QObject(parent), m_stop(false) { /* no wiringPi framework available */ }
 
-auto Buzzer::queryPin() -> void { /* no wiringPi framework available */ }
+void Buzzer::queryPin() { /* no wiringPi framework available */ }
 
 #endif
 
