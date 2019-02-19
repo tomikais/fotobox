@@ -31,7 +31,7 @@ set GCC compiler path in Qt Creator:
 
 ### source code
 Prepare git client: `sudo apt-get install gitk git-gui git-doc`  
-GitLab source code: `git clone git@gitlab.com:tomikais/fotobox.git` or `https://gitlab.com/tomikais/fotobox.git`
+GitLab source code: `git clone --recursive git@gitlab.com:tomikais/fotobox.git` or `https://gitlab.com/tomikais/fotobox.git`
 
 ### gphoto2 and libgphoto2
 `chmod +x ./gphoto2-updater/gphoto2-updater.sh && sudo ./gphoto2-updater/gphoto2-updater.sh`
