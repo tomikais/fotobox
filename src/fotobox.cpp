@@ -34,14 +34,10 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //setup GUI
   m_ui->setupUi(this);
 
-  setWindowTitle(tr("FotoBox %1 (Copyright Thomas Kais)").arg(QApplication::applicationVersion()));
+  setWindowTitle(tr("FotoBox %1 (Copyright %2 Thomas Kais)").arg(QApplication::applicationVersion()).arg(QDate::currentDate().year()));
 
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
-
-  //connect signal to corresponding slot
-  connect(this, &FotoBox::startPhoto, this, &FotoBox::photo);
-  connect(this, &FotoBox::startCountdown, this, &FotoBox::countdown);
 
   //show QStatusBar only when needed (safe space for the photos)
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {

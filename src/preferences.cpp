@@ -336,7 +336,8 @@ void Preferences::applicationAvailable(const QString& i_name)
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
+          //: %2 and %3 are html tags
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! %2Raspberry Pi (connecting and enabling the camera)%3").arg(i_name).arg("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>").arg("</a>"));
         } else {
           m_ui->lblCameraModeInfo->clear();
         }
@@ -346,7 +347,7 @@ void Preferences::applicationAvailable(const QString& i_name)
       if (QProcess::execute(i_name) != EXIT_SUCCESS) {
           //other applications
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing!").arg(i_name));
         } else {
           m_ui->lblCameraModeInfo->clear();
         }

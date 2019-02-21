@@ -6,6 +6,7 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "camera.h"
+
 #include "preferenceprovider.h"
 
 #include <QCoreApplication>

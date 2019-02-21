@@ -302,6 +302,7 @@ signals:
   * \brief signal: grayscale (monochrome photography) has changed
   */
   void grayscaleChanged(bool);
+
 };
 
 #endif // PREFERENCEPROVIDER_H
