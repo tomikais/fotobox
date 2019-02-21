@@ -5,6 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#ifndef BUZZER_H
+#define BUZZER_H
+
 #pragma once
 #include <QObject>
 #include <atomic>
@@ -51,3 +54,5 @@ private:
   std::atomic<bool> m_stop;
 
 };
+
+#endif // BUZZER_H

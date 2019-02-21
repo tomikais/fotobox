@@ -5,6 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #pragma once
 #include <QObject>
 
@@ -65,3 +68,5 @@ private:
   QProcess *m_process;
 
 };
+
+#endif // CAMERA_H

@@ -5,6 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#ifndef FOTOBOX_H
+#define FOTOBOX_H
+
 #pragma once
 #include <QDialog>
 #include <QThread>
@@ -144,3 +147,5 @@ signals:
   void startCountdown();
 
 };
+
+#endif // FOTOBOX_H

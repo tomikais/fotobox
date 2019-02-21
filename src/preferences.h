@@ -5,6 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'LICENSE', which is part of this source code package.
  */
+#ifndef PREFERENCES_H
+#define PREFERENCES_H
+
 #pragma once
 #include <QDialog>
 #include <QSettings>
@@ -112,3 +115,5 @@ private:
   QTimer *m_timer;
 
 };
+
+#endif // PREFERENCES_H

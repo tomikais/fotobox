@@ -5,6 +5,9 @@
 * This file is subject to the terms and conditions defined in
 * file 'LICENSE', which is part of this source code package.
 */
+#ifndef PREFERENCEPROVIDER_H
+#define PREFERENCEPROVIDER_H
+
 #pragma once
 #include <QObject>
 
@@ -306,3 +309,5 @@ signals:
   */
   void grayscaleChanged(bool);
 };
+
+#endif // PREFERENCEPROVIDER_H
