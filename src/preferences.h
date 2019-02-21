@@ -12,7 +12,7 @@
 #include <QDialog>
 #include <QSettings>
 
-class QTimer;
+class Countdown;
 class FotoBox;
 
 
@@ -57,11 +57,6 @@ private slots:
   * \brief Open a File Dialog and set path in UI.
   */
   void chooseDirectory();
-
-  /*!
-  * \brief Accept dialog after 10 seconds. You can stop that by moving mouse into preference dialog.
-  */
-  void autoAcceptDialog();
 
   /*!
   * \brief Restore default preferences.
@@ -110,9 +105,8 @@ private:
   //Store and read settings (INI file)
   QSettings m_settings;
 
-  //Auto close dialog
-  int m_counter = 9;
-  QTimer *m_timer;
+  //Countdown to "auto close dialog"
+  Countdown *m_countdown;
 
 };
 

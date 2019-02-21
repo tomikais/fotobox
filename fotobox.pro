@@ -35,18 +35,21 @@ QT            += widgets
 CONFIG        += c++11
 
 INCLUDEPATH   += src
-HEADERS        = src/fotobox.h \
+HEADERS        = \
                  src/buzzer.h \
                  src/camera.h \
-                 src/preferences.h \
-                 src/preferenceprovider.h
+                 src/countdown.h \
+                 src/fotobox.h \
+                 src/preferenceprovider.h \
+                 src/preferences.h
 
 SOURCES        = src/main.cpp \
-                 src/fotobox.cpp \
                  src/buzzer.cpp \
                  src/camera.cpp \
-                 src/preferences.cpp \
-                 src/preferenceprovider.cpp
+                 src/countdown.cpp \
+                 src/fotobox.cpp \
+                 src/preferenceprovider.cpp \
+                 src/preferences.cpp
 
 FORMS          = forms/fotobox.ui \
                  forms/preferences.ui

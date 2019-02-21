@@ -6,6 +6,8 @@
  * file 'LICENSE', which is part of this source code package.
  */
 #include "fotobox.h"
+
+#include "countdown.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_preferences.h"
@@ -21,13 +23,12 @@
 #include <QFileDialog>
 #include <QProcess>
 #include <QScreen>
-#include <QTimer>
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::PreferencesDialog),
   m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
-  m_timer(new QTimer(this))
+  m_countdown(new Countdown(this, 10))
 {
   //setup UI
   m_ui->setupUi(this);
@@ -48,9 +49,17 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   loadPreferences();
 
   //auto accept Dialog
-  m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-  connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
-  m_timer->start();
+  connect(m_countdown, &Countdown::elapsed, this, [&] () {
+      //start FotoBox
+      startFotoBox();
+    });
+  m_countdown->start();
+
+  //update window title
+  connect(m_countdown, &Countdown::update, this, [&] (unsigned int i_timeLeft) {
+      setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
+    });
+
 
   //function only available Qt 5.5 or newer
 #if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
@@ -109,7 +118,7 @@ void Preferences::startFotoBox()
 {
   //save settings to ini file
   savePreferences();
-  m_timer->stop();
+  m_countdown->stop();
 
   //Start FotoBox;
   auto *dialog = new FotoBox;
@@ -120,25 +129,10 @@ void Preferences::startFotoBox()
 }
 
 
-void Preferences::autoAcceptDialog()
-{
-  if (m_counter >= 1) {
-      //set Window Title and start timer again
-      setWindowTitle(tr("launching FotoBox in ") + QString::number(m_counter) + tr(" seconds"));
-      --m_counter;
-      m_timer->start();
-      return;
-    }
-
-  //start FotoBox
-  startFotoBox();
-}
-
-
 void Preferences::mouseMoveEvent(QMouseEvent *event)
 {
-  if (m_timer->isActive()) {
-      m_timer->stop();
+  if (m_countdown->isActive()) {
+      m_countdown->stop();
       setMouseTracking(false);
       m_ui->scrollArea->setMouseTracking(false);
       m_ui->scrollAreaWidgetContents->setMouseTracking(false);

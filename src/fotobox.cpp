@@ -8,13 +8,14 @@
 #include "fotobox.h"
 
 #include "buzzer.h"
+#include "countdown.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_fotobox.h"
 
+#include <QDate>
 #include <QDir>
 #include <QKeyEvent>
-#include <QTimer>
 
 #if defined (__arm__) && __has_include(<wiringPi.h>)
 #include <wiringPi.h>
@@ -24,8 +25,7 @@
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
-  m_timer(new QTimer(this)),
-  m_countdown(PreferenceProvider::instance().countdown()),
+  m_countdown(new Countdown(this, static_cast<unsigned int>(PreferenceProvider::instance().countdown()))),
   m_workerThread(this),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
@@ -63,22 +63,28 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       m_ui->btnQuitApp->setVisible(false);
     }
 
-  //show countdown only when needed
-  m_ui->lcdCountdown->setVisible(false);
-  if (m_countdown == 0) {
-      //disable countdown
-      connect(this, &FotoBox::start, this, &FotoBox::startPhoto);
-    }
-  else {
+  //countdown?
+  if (PreferenceProvider::instance().countdown() > 0) {
       //initialize countdown
-      m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-      connect(m_timer, &QTimer::timeout, this, &FotoBox::startCountdown);
-      connect(this, &FotoBox::start, this, &FotoBox::startCountdown);
+      m_ui->lcdCountdown->setVisible(false);
+
+      connect(this, &FotoBox::start, m_countdown, &Countdown::start);
+      connect(m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
+      connect(m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
+          //hide photo and show countdown
+          m_ui->lblPhoto->setVisible(false);
+          m_ui->lcdCountdown->setVisible(true);
+          m_ui->lcdCountdown->display(QString::number(i_timeLeft));
+        });
 
       //apply font color
       auto palette = m_ui->lcdCountdown->palette();
       palette.setColor(QPalette::WindowText, PreferenceProvider::instance().countdownColor());
       m_ui->lcdCountdown->setPalette(palette);
+    }
+  else {
+      //disable countdown
+      connect(this, &FotoBox::start, this, &FotoBox::photo);
     }
 
   //set Background Color
@@ -188,33 +194,11 @@ void FotoBox::preferenceDialog()
 }
 
 
-void FotoBox::countdown()
-{
-  if (m_countdown >= 1) {
-      //hide photo and show countdown
-      m_ui->lblPhoto->setVisible(false);
-      m_ui->lcdCountdown->setVisible(true);
-      m_ui->lcdCountdown->display(m_countdown);
-
-      --m_countdown;
-      m_timer->start();
-      return;
-    }
-
-  //reset counter, stop timer and hide countdown
-  m_countdown = PreferenceProvider::instance().countdown();
-  m_timer->stop();
-  m_ui->lcdCountdown->setVisible(false);
-  m_ui->lblPhoto->setVisible(true);
-
-  //shot photo
-  emit startPhoto();
-}
-
-
 void FotoBox::photo()
 {
-  //remove current picture / refresh label (photo)
+  //remove countdown and current picture / refresh label (photo)
+  m_ui->lcdCountdown->setVisible(false);
+  m_ui->lblPhoto->setVisible(true);
   m_ui->lblPhoto->clear();
   m_ui->lblPhoto->repaint();
 

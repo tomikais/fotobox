@@ -79,12 +79,6 @@ public:
   static PreferenceProvider& instance();
 
   /*!
-  * \brief one second = 1000 ms
-  */
-  static constexpr int ONE_SECOND = 1000;
-
-
-  /*!
   * \brief photo output directory
   * \return QString m_photoFolder
   */
