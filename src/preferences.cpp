@@ -57,6 +57,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
 
   //update window title
   connect(m_countdown, &Countdown::update, this, [&] (unsigned int i_timeLeft) {
+      //: %1 countdown (number)
       setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
     });
 
@@ -315,7 +316,8 @@ void Preferences::applicationAvailable(const QString& i_name)
 #endif
       if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+          //: %1 name of the application from QComboBox CameraMode
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>").arg(i_name));
         } else {
           auto output = process->readAllStandardOutput();
           //gphoto version
@@ -336,8 +338,8 @@ void Preferences::applicationAvailable(const QString& i_name)
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          //: %2 and %3 are html tags
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! %2Raspberry Pi (connecting and enabling the camera)%3").arg(i_name).arg("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>").arg("</a>"));
+          //: %1 name of the application from QComboBox CameraMode
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>").arg(i_name));
         } else {
           m_ui->lblCameraModeInfo->clear();
         }
@@ -347,6 +349,7 @@ void Preferences::applicationAvailable(const QString& i_name)
       if (QProcess::execute(i_name) != EXIT_SUCCESS) {
           //other applications
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
+          //: %1 name of the application from QComboBox CameraMode
           m_ui->lblCameraModeInfo->setText(tr("'%1' is missing!").arg(i_name));
         } else {
           m_ui->lblCameraModeInfo->clear();

@@ -4,32 +4,30 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../src/fotobox.cpp" line="37"/>
-        <source>FotoBox %1 (Copyright Thomas Kais)</source>
-        <translation>FotoBox %1 (Copyright Thomas Kais)</translation>
+        <location filename="../src/fotobox.cpp" line="38"/>
+        <source>FotoBox %1 (Copyright %2 Thomas Kais)</source>
+        <extracomment>%1 application version e.g. v1.2.3 and %3 is current year e.g. 2019</extracomment>
+        <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="228"/>
-        <source>Error: Taking a photo isn&apos;t working correctly! Please call the FotoBox owner.</source>
-        <translation>Fehler: Aufnehmen des Fotos funktioniert nicht! Bitte informieren sie den FotoBox Besitzer.</translation>
+        <location filename="../src/fotobox.cpp" line="209"/>
+        <source>Error: Taking a photo isn&apos;t working correctly!</source>
+        <translation>Fehler: Aufnehmen des Fotos funktioniert nicht!</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="250"/>
+        <location filename="../src/fotobox.cpp" line="232"/>
         <source>Couldn&apos;t move the photo to: %1</source>
+        <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Kann das Foto nicht bewegen nach: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="276"/>
+        <location filename="../src/fotobox.cpp" line="258"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
 </context>
 <context>
     <name>FotoBoxDialog</name>
-    <message>
-        <source>FotoBox (Copyright Thomas Kais)</source>
-        <translation type="vanished">FotoBox (Copyright Thomas Kais)</translation>
-    </message>
     <message>
         <location filename="../forms/fotobox.ui" line="68"/>
         <source>take picture</source>
@@ -49,40 +47,43 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../src/preferences.cpp" line="127"/>
-        <source> seconds</source>
-        <translation> sekunden</translation>
+        <location filename="../src/preferences.cpp" line="61"/>
+        <source>launching FotoBox in %1 seconds</source>
+        <extracomment>%1 countdown (number)</extracomment>
+        <translation>FotoBox wird gestartet in %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="127"/>
-        <source>launching FotoBox in </source>
-        <translation>FotoBox wird gestartet in </translation>
-    </message>
-    <message>
-        <location filename="../src/preferences.cpp" line="148"/>
+        <location filename="../src/preferences.cpp" line="143"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="214"/>
+        <location filename="../src/preferences.cpp" line="209"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="324"/>
-        <location filename="../src/preferences.cpp" line="345"/>
-        <source>&apos;%1&apos; is missing! Get it </source>
-        <translation>&apos;%1 fehlt! Lade es hier </translation>
+        <location filename="../src/preferences.cpp" line="320"/>
+        <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
+        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
+        <translation>&apos;%1&apos; nicht gefunden: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 Updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="334"/>
+        <location filename="../src/preferences.cpp" line="342"/>
+        <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (connecting and enabling the camera)&lt;/a&gt;</source>
+        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
+        <translation>&apos;%1&apos; nicht gefunden: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (verbinden und aktivieren der Kamera)&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/preferences.cpp" line="330"/>
         <source>*** no camera detected ***</source>
         <translation>*** keine Kamera erkannt ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="355"/>
-        <source>&apos; is missing!</source>
-        <translation>&apos; fehlt!</translation>
+        <location filename="../src/preferences.cpp" line="353"/>
+        <source>&apos;%1&apos; is missing!</source>
+        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
+        <translation>&apos;%1&apos; nicht gefunden!</translation>
     </message>
 </context>
 <context>
@@ -116,7 +117,7 @@
     <message>
         <location filename="../forms/preferences.ui" line="264"/>
         <source>show photo</source>
-        <translation type="unfinished">Zeige Bild</translation>
+        <translation>Zeige Bild</translation>
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="274"/>

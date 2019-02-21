@@ -34,6 +34,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //setup GUI
   m_ui->setupUi(this);
 
+  //: %1 application version e.g. v1.2.3 and %3 is current year e.g. 2019
   setWindowTitle(tr("FotoBox %1 (Copyright %2 Thomas Kais)").arg(QApplication::applicationVersion()).arg(QDate::currentDate().year()));
 
   //delete everything on close
@@ -205,7 +206,7 @@ void FotoBox::photo()
       loadPhoto(filePath);
     }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the FotoBox owner."), STATUSBAR_MSG_TIMEOUT);
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly!"), STATUSBAR_MSG_TIMEOUT);
     }
 
   //restart Buzzer
@@ -227,6 +228,7 @@ const QString FotoBox::movePhoto()
           return newName;
         }
       //error handling
+      //: %1 directory e.g. /home/pi/FotoBox/
       m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
     }
 
