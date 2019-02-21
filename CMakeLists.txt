@@ -42,11 +42,12 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/forms)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SRC
     ${PROJECT_SOURCE_DIR}/src/main.cpp
-    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
     ${PROJECT_SOURCE_DIR}/src/buzzer.cpp
     ${PROJECT_SOURCE_DIR}/src/camera.cpp
-    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
+    ${PROJECT_SOURCE_DIR}/src/countdown.cpp
+    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
     ${PROJECT_SOURCE_DIR}/src/preferenceprovider.cpp
+    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
     )
 set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
