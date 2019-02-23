@@ -74,6 +74,16 @@ private:
   void mouseReleaseEvent(QMouseEvent *event) override;
 
   /*!
+   * \brief With or without buttons
+   */
+  void buttons();
+
+  /*!
+   * \brief With or without countdown
+   */
+  void countdown();
+
+  /*!
    * \brief creates a new Buzzer object
    */
   void buzzer();

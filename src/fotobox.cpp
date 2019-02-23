@@ -37,6 +37,9 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //: %1 application version e.g. v1.2.3 and %3 is current year e.g. 2019
   setWindowTitle(tr("FotoBox %1 (Copyright %2 Thomas Kais)").arg(QApplication::applicationVersion()).arg(QDate::currentDate().year()));
 
+  //set Background Color
+  setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
+
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
 
@@ -44,7 +47,22 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
     });
+  //hide status bar
+  m_ui->statusBar->hide();
 
+  //with or without buttons?
+  buttons();
+
+  //Buzzer class (Raspberry Pi GPIO using wiringPi)
+  buzzer();
+
+  //countdown?
+  countdown();
+}
+
+
+void FotoBox::buttons()
+{
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
@@ -59,8 +77,44 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       m_ui->btnPreferencesDialog->setVisible(false);
       m_ui->btnQuitApp->setVisible(false);
     }
+}
 
-  //countdown?
+
+void FotoBox::buzzer()
+{
+  if (m_buzzer != nullptr) {
+      //stop query pin
+      m_buzzer->stop();
+    }
+
+  if (m_workerThread.isRunning()) {
+      //stop QThread
+      m_workerThread.quit();
+      m_workerThread.wait();
+    }
+
+  //create Buzzer and move to a thread
+  m_buzzer = new Buzzer;
+  m_buzzer->moveToThread(&m_workerThread);
+
+  //delete after job is finished
+  connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
+  //connect the start signale for buzzer
+  connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
+  //start fotobox if buzzer was triggered
+  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
+
+  m_workerThread.start();
+
+#if defined (__WIRING_PI_H__)
+  //start query
+  emit startBuzzer();
+#endif
+}
+
+
+void FotoBox::countdown()
+{
   if (PreferenceProvider::instance().countdown() > 0) {
       //initialize countdown
       m_ui->lcdCountdown->setVisible(false);
@@ -86,14 +140,6 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       //disable countdown
       connect(this, &FotoBox::start, this, &FotoBox::photo);
     }
-
-  //set Background Color
-  setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
-  //hide status bar
-  m_ui->statusBar->hide();
-
-  //Buzzer class (Raspberry Pi GPIO using wiringPi)
-  buzzer();
 }
 
 
@@ -142,36 +188,6 @@ void FotoBox::mouseReleaseEvent(QMouseEvent *event)
     }
 
   QWidget::mouseReleaseEvent(event);
-}
-
-
-void FotoBox::buzzer()
-{
-  if (m_buzzer != nullptr) {
-      //stop query pin
-      m_buzzer->stop();
-    }
-
-  if (m_workerThread.isRunning()) {
-      //stop QThread
-      m_workerThread.quit();
-      m_workerThread.wait();
-    }
-
-  //create Buzzer and move to a thread
-  m_buzzer = new Buzzer;
-  m_buzzer->moveToThread(&m_workerThread);
-
-  //connect and start Buzzer
-  connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
-  connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
-  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
-  m_workerThread.start();
-
-#if defined (__WIRING_PI_H__)
-  //start query
-  emit startBuzzer();
-#endif
 }
 
 
