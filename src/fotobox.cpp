@@ -209,8 +209,9 @@ void FotoBox::photo()
       m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly!"), STATUSBAR_MSG_TIMEOUT);
     }
 
-  //restart Buzzer
+  //restart Buzzer and countdown
   buzzer();
+  m_countdown->reset();
 }
 
 const QString FotoBox::movePhoto()

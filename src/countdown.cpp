@@ -19,6 +19,7 @@ Countdown::Countdown(QObject *parent, const unsigned int i_seconds) : QObject(pa
   //set update intervall to one second
   m_timer->setInterval(ONE_SECOND);
 
+  //Every second it is checked if the countdown is elapsed
   connect(m_timer, &QTimer::timeout, this, &Countdown::run);
 }
 
@@ -33,12 +34,18 @@ Countdown::~Countdown()
 
 void Countdown::run()
 {
-  if (m_timeLeft > 0) {
-      //go on
+  //this function always deals with the already expired second
+  //check if countdown isn't elapsed
+  if (m_timeLeft > 1) {
+      //reduce counter before sending the signal
+      --m_timeLeft;
+
+      //send the signal that one second has passed
+      emit update(m_timeLeft);
+
+      //next round
       m_timer->start();
 
-      emit update(m_timeLeft);
-      --m_timeLeft;
       return;
     }
 
@@ -49,11 +56,7 @@ void Countdown::run()
 
 void Countdown::setStartTime(const unsigned int i_seconds)
 {
-  //only set start time if countdown not running
-  if (!m_isActive) {
-      m_startTime = i_seconds;
-      m_timeLeft = i_seconds;
-    }
+  m_startTime = i_seconds;
 }
 
 
@@ -74,8 +77,9 @@ bool Countdown::start()
       if (m_timer->isActive()) {
           //countdown active
           m_isActive = true;
-          //set start time and time left are equal
-          m_timeLeft = m_startTime;
+
+          //inform whith current value
+          emit update(m_timeLeft);
           return true;
         }
     }
@@ -86,8 +90,20 @@ bool Countdown::start()
 
 bool Countdown::stop()
 {
+  //stop timer
   m_timer->stop();
   m_isActive = m_timer->isActive();
 
   return m_isActive;
+}
+
+
+bool Countdown::reset()
+{
+  //stop countdown
+  if (stop()) {
+      m_timeLeft = m_startTime;
+      return true;
+    }
+  return false;
 }
