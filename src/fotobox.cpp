@@ -65,8 +65,11 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       //initialize countdown
       m_ui->lcdCountdown->setVisible(false);
 
+      //add countdown
       connect(this, &FotoBox::start, m_countdown, &Countdown::start);
       connect(m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
+
+      //update UI
       connect(m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
           //hide photo and show countdown
           m_ui->lblPhoto->setVisible(false);
@@ -210,8 +213,8 @@ void FotoBox::photo()
     }
 
   //restart Buzzer and countdown
-  buzzer();
   m_countdown->reset();
+  buzzer();
 }
 
 const QString FotoBox::movePhoto()

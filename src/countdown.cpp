@@ -50,6 +50,7 @@ void Countdown::run()
     }
 
   //countdown finished/elapsed
+  m_timeLeft = 0;
   emit elapsed();
 }
 

@@ -92,7 +92,7 @@ signals:
 private:
   /*!
   * \brief Start the timer until there is no time left, means \sa m_timeLeft reaches zero
-  * \details Attention: this function always deals with the already expired second
+  * \details Attention: this function always deals with the already expired second.
   */
   void run();
 
