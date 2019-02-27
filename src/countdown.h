@@ -27,12 +27,6 @@ public:
   /*!
   * \brief Countdown constructor
   * \param parent QObject
-  */
-  explicit Countdown(QObject *parent = nullptr);
-
-  /*!
-  * \brief Countdown constructor
-  * \param parent QObject
   * \param i_seconds set the start time \sa m_startTime
   */
   explicit Countdown(QObject *parent = nullptr, const unsigned int i_seconds = 0);
@@ -94,7 +88,7 @@ private:
   * \brief Start the timer until there is no time left, means \sa m_timeLeft reaches zero
   * \details Attention: this function always deals with the already expired second.
   */
-  void run();
+  void updateTimeLeft();
 
 
   //one second = 1000 ms

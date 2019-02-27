@@ -25,7 +25,7 @@
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
-  m_countdown(new Countdown(this, static_cast<unsigned int>(PreferenceProvider::instance().countdown()))),
+  m_countdown(new Countdown(this)),
   m_workerThread(this),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
@@ -120,6 +120,7 @@ void FotoBox::countdown()
       m_ui->lcdCountdown->setVisible(false);
 
       //add countdown
+      m_countdown->setStartTime(static_cast<unsigned int>(PreferenceProvider::instance().countdown()));
       connect(this, &FotoBox::start, m_countdown, &Countdown::start);
       connect(m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
 

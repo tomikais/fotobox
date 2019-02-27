@@ -20,7 +20,7 @@ Countdown::Countdown(QObject *parent, const unsigned int i_seconds) : QObject(pa
   m_timer->setInterval(ONE_SECOND);
 
   //Every second it is checked if the countdown is elapsed
-  connect(m_timer, &QTimer::timeout, this, &Countdown::run);
+  connect(m_timer, &QTimer::timeout, this, &Countdown::updateTimeLeft);
 }
 
 
@@ -32,7 +32,7 @@ Countdown::~Countdown()
 }
 
 
-void Countdown::run()
+void Countdown::updateTimeLeft()
 {
   //this function always deals with the already expired second
   //check if countdown isn't elapsed
@@ -43,13 +43,12 @@ void Countdown::run()
       //send the signal that one second has passed
       emit update(m_timeLeft);
 
-      //next round
-      m_timer->start();
-
+      //Because it isn't a single shot time we don't need to start it again
       return;
     }
 
   //countdown finished/elapsed
+  stop();
   m_timeLeft = 0;
   emit elapsed();
 }
@@ -58,6 +57,7 @@ void Countdown::run()
 void Countdown::setStartTime(const unsigned int i_seconds)
 {
   m_startTime = i_seconds;
+  reset();
 }
 
 
@@ -95,7 +95,8 @@ bool Countdown::stop()
   m_timer->stop();
   m_isActive = m_timer->isActive();
 
-  return m_isActive;
+  //if isn't active it's stopped so negate bool
+  return !m_isActive;
 }
 
 
@@ -103,8 +104,10 @@ bool Countdown::reset()
 {
   //stop countdown
   if (stop()) {
+      //reset it
       m_timeLeft = m_startTime;
       return true;
     }
+
   return false;
 }
