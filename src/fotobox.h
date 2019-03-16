@@ -59,6 +59,14 @@ private slots:
 
 
 private:
+#if defined (Q_OS_MACOS)
+  /*!
+  * \brief Is used as a workaround for macOS to close a fullscreen window.
+  * \details close the window again, using the native MacOS API (https://bugreports.qt.io/browse/QTBUG-46701)
+  */
+  void closeFullscreenWindowOnMac();
+#endif
+
   /*!
    * \brief filter key press events
    * \details Enter -> take a photo / Escape -> quit application

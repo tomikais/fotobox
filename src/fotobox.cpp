@@ -194,11 +194,6 @@ void FotoBox::mouseReleaseEvent(QMouseEvent *event)
 
 void FotoBox::preferenceDialog()
 {
-#if defined (Q_OS_MACOS)
-  //QTBUG-36714: Window can't be fully closed on Mac OS X after calling showFullScreen()
-  showNormal();
-#endif
-
   //Preferences dialog
   auto dialog = new Preferences;
 
@@ -207,6 +202,12 @@ void FotoBox::preferenceDialog()
 
   //close fotobox and show preferences
   reject();
+
+#if defined (Q_OS_MACOS)
+  //QTBUG-36714: Window can't be closed on Mac OS X after calling showFullScreen()
+  closeFullscreenWindowOnMac();
+#endif
+
   dialog->show();
 }
 

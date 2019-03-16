@@ -87,6 +87,13 @@ linux {
   }
 }
 
+# WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+mac {
+  OBJECTIVE_SOURCES += src/fotoboxmac.mm
+  LIBS              += -framework Foundation \
+                       -framework AppKit
+}
+
 # Disable the Dark Mode in the app if macOS SDK is Mojave (10.14) and Qt version is less than 5.12
 mac {
   # macOS SDK version

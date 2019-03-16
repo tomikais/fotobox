@@ -77,8 +77,14 @@ set(OTHER
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/i18n)
 qt5_add_translation(QM_FILES ${TS_FILES})
 
+# WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+if(UNIX AND APPLE)
+  set(SRC_MAC ${PROJECT_SOURCE_DIR}/src/fotoboxmac.mm)
+endif()
+
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
+    ${SRC_MAC}
     ${FORMS}
     ${RESOURCES}
     ${QM_FILES}
@@ -103,6 +109,11 @@ if(UNIX AND NOT APPLE)
         target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${WiringPi_LIBRARY_REL})
         target_link_libraries(${CMAKE_PROJECT_NAME} debug     ${WiringPi_LIBRARY_DEB})
     endif()
+endif()
+
+# WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+if(UNIX AND APPLE)
+  target_link_libraries(${CMAKE_PROJECT_NAME} "-framework Foundation" "-framework AppKit")
 endif()
 
 # Disable the Dark Mode in the app if macOS SDK is Mojave (10.14) and Qt version is less than 5.12
