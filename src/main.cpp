@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
   QTranslator qtTranslator, appTranslator;
   // Qt Translation
-  if (qtTranslator.load(QLocale(), QLatin1String("qt"), QLatin1String("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+  if (qtTranslator.load(QLocale(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
       QApplication::installTranslator(&qtTranslator);
     }
   //App Translation: German or English (=default language)

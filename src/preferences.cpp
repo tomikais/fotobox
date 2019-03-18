@@ -122,7 +122,7 @@ void Preferences::startFotoBox()
   m_countdown->stop();
 
   //Start FotoBox;
-  auto *dialog = new FotoBox;
+  auto dialog = new FotoBox;
 
   //close dialog and start fotobox
   reject();
@@ -304,7 +304,7 @@ void Preferences::restoreDefaultPreferences()
 
 void Preferences::applicationAvailable(const QString& i_name)
 {
-  m_ui->lblCameraModeInfo->setStyleSheet(QString(""));
+  m_ui->lblCameraModeInfo->setStyleSheet(QLatin1String(""));
   if (i_name == QLatin1String("gphoto2")) {
       auto process = new QProcess(this);
       //specific 'gphoto2' check: auto-detect: get detected cameras
