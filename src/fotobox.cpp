@@ -160,14 +160,20 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
 {
   //prevent triggering method too often
   if (!event->isAutoRepeat()) {
-      //ENTER key and ENTER on keypad
+      //ENTER and ENTER on keypad
       if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
           //take a photo
           emit start();
         }
 
-      //ESCAPE KEY
-      if (event->key() == Qt::Key_Escape) {
+      //Logitech Presenter
+      if (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_PageUp) {
+          //take a photo
+          emit start();
+        }
+
+      //ESCAPE with SHIFT
+      if (event->modifiers() == Qt::ShiftModifier && event->key() == Qt::Key_Escape) {
           //Quit application
           QCoreApplication::quit();
         }
