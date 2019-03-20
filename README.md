@@ -1,4 +1,4 @@
-# Photobooth for Raspberry Pi, Linux and macOS [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox)
+# Photobooth (FotoBox) for Raspberry Pi, Linux and macOS [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox)
 
 ## installation and operating instructions
 
@@ -9,18 +9,18 @@ Tutorial to run your own "photo booth" on a [Raspberry Pi](https://www.raspberry
 * Set up DSLR and/or official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)
   * [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest [gPhoto2](http://gphoto.org) (__recommended__) or use latest available gphoto2 version provided from Raspbian: `sudo apt-get install gphoto2`
   * [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/)
-* Download latest "fotobox" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian). Start the application and configure it accordingly.
+* Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian). Start the application and configure it accordingly.
 * Prepare for a continuous solution
   * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
   * _Autostart_: open file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__if necessary adjust path__) at the end of the file.
 
 ## keyboard shortcuts
 
-| key                | action           |
-| -------------------|------------------|
-| `Enter`            | start Fotobox    |
-| `Shift` + `Escape` | quit application |
-| `P`, `S` or `E`    | preferences      |
+| key                     | action                               |
+| ------------------------|--------------------------------------|
+| `Enter`, `PgUp`, `PgDn` | start FotoBox (presenter compatible) |
+| `P`, `S`, `E`           | preference dialog                    |
+| `Shift` + `Escape`      | quit application                     |
 
 ---
 
