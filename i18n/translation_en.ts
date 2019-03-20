@@ -10,18 +10,23 @@
         <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="209"/>
+        <location filename="../src/fotobox.cpp" line="182"/>
+        <source>To quit the application, please hold down the Shift key while press Escape key.</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/fotobox.cpp" line="241"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="232"/>
+        <location filename="../src/fotobox.cpp" line="265"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="258"/>
+        <location filename="../src/fotobox.cpp" line="291"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>

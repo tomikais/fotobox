@@ -128,7 +128,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color:red;</string>
+      <string notr="true">color:darkRed;</string>
      </property>
     </widget>
    </item>
