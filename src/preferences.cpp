@@ -7,7 +7,6 @@
  */
 #include "fotobox.h"
 
-#include "countdown.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_preferences.h"
@@ -28,7 +27,7 @@
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::PreferencesDialog),
   m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
-  m_countdown(new Countdown(this, 10))
+  m_countdown(this, 10)
 {
   //setup UI
   m_ui->setupUi(this);
@@ -49,14 +48,14 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
   loadPreferences();
 
   //auto accept Dialog
-  connect(m_countdown, &Countdown::elapsed, this, [&] () {
+  connect(&m_countdown, &Countdown::elapsed, this, [&] () {
       //start FotoBox
       startFotoBox();
     });
-  m_countdown->start();
+  m_countdown.start();
 
   //update window title
-  connect(m_countdown, &Countdown::update, this, [&] (unsigned int i_timeLeft) {
+  connect(&m_countdown, &Countdown::update, this, [&] (unsigned int i_timeLeft) {
       //: %1 countdown (number)
       setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
     });
@@ -119,7 +118,7 @@ void Preferences::startFotoBox()
 {
   //save settings to ini file
   savePreferences();
-  m_countdown->stop();
+  m_countdown.stop();
 
   //Start FotoBox;
   auto dialog = new FotoBox;
@@ -132,8 +131,8 @@ void Preferences::startFotoBox()
 
 void Preferences::mouseMoveEvent(QMouseEvent *event)
 {
-  if (m_countdown->isActive()) {
-      m_countdown->stop();
+  if (m_countdown.isActive()) {
+      m_countdown.stop();
       setMouseTracking(false);
       m_ui->scrollArea->setMouseTracking(false);
       m_ui->scrollAreaWidgetContents->setMouseTracking(false);

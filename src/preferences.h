@@ -11,10 +11,7 @@
 #pragma once
 #include <QDialog>
 #include <QSettings>
-
-class Countdown;
-class FotoBox;
-
+#include "countdown.h"
 
 namespace Ui {
   class PreferencesDialog;
@@ -37,9 +34,19 @@ public:
   explicit Preferences(QWidget *parent = nullptr);
 
   /*!
-  * \brief Preferences destructor
+  * \brief Preferences default destructor
   */
   ~Preferences() override = default;
+
+  /*!
+  * \brief Preferences default move constructor
+  */
+  Preferences(Preferences&& other) = default;
+
+  /*!
+  * \brief Preferences default move assignment
+  */
+  Preferences& operator=(Preferences&& other) = default;
 
 
 private slots:
@@ -78,6 +85,16 @@ private slots:
 
 private:
   /*!
+  * \brief Preferences default copy constructor
+  */
+  Preferences(const Preferences& other) = default;
+
+  /*!
+  * \brief Preferences default copy assignment
+  */
+  Preferences& operator=(const Preferences& other) = default;
+
+  /*!
   * \brief Signal & Slot connect
   */
   void connectUi();
@@ -106,7 +123,7 @@ private:
   QSettings m_settings;
 
   //Countdown to "auto close dialog"
-  Countdown *m_countdown;
+  Countdown m_countdown;
 
 };
 

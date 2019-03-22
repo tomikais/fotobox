@@ -10,8 +10,7 @@
 
 #pragma once
 #include <QObject>
-
-class QTimer;
+#include <QTimer>
 
 
 /*!
@@ -32,9 +31,29 @@ public:
   explicit Countdown(QObject *parent = nullptr, const unsigned int i_seconds = 0);
 
   /*!
-  * \brief Countdown destructor
+  * \brief Countdown default destructor
   */
-  ~Countdown() override;
+  ~Countdown() override = default;
+
+  /*!
+  * \brief Countdown default move constructor
+  */
+  Countdown(Countdown&& other) = default;
+
+  /*!
+  * \brief Countdown default move assignment
+  */
+  Countdown& operator=(Countdown&& other) = default;
+
+  /*!
+  * \brief Countdown default copy constructor
+  */
+  Countdown(const Countdown& other) = default;
+
+  /*!
+  * \brief Countdown default copy assignment
+  */
+  Countdown& operator=(const Countdown& other) = default;
 
   /*!
   * \brief Set the countdown start time
@@ -95,7 +114,7 @@ private:
   static constexpr int ONE_SECOND = 1000;
 
   //timer intervall (one second)
-  QTimer *m_timer;
+  QTimer m_timer;
 
   //countdown start time (seconds)
   unsigned int m_startTime;

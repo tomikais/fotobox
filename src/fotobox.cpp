@@ -8,7 +8,6 @@
 #include "fotobox.h"
 
 #include "buzzer.h"
-#include "countdown.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_fotobox.h"
@@ -25,7 +24,7 @@
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_buzzer(nullptr),
-  m_countdown(new Countdown(this)),
+  m_countdown(this),
   m_workerThread(this),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
@@ -120,12 +119,12 @@ void FotoBox::countdown()
       m_ui->lcdCountdown->setVisible(false);
 
       //add countdown
-      m_countdown->setStartTime(static_cast<unsigned int>(PreferenceProvider::instance().countdown()));
-      connect(this, &FotoBox::start, m_countdown, &Countdown::start);
-      connect(m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
+      m_countdown.setStartTime(static_cast<unsigned int>(PreferenceProvider::instance().countdown()));
+      connect(this, &FotoBox::start, &m_countdown, &Countdown::start);
+      connect(&m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
 
       //update UI
-      connect(m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
+      connect(&m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
           //hide photo and show countdown
           m_ui->lblPhoto->setVisible(false);
           m_ui->lcdCountdown->setVisible(true);
@@ -242,7 +241,7 @@ void FotoBox::photo()
     }
 
   //restart Buzzer and countdown
-  m_countdown->reset();
+  m_countdown.reset();
   buzzer();
 }
 

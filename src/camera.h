@@ -10,8 +10,7 @@
 
 #pragma once
 #include <QObject>
-
-class QProcess;
+#include <QProcess>
 
 
 /*!
@@ -34,6 +33,26 @@ public:
   * \brief Camera destructor
   */
   ~Camera() override = default;
+
+  /*!
+  * \brief Camera default move constructor
+  */
+  Camera(Camera&& other) = default;
+
+  /*!
+  * \brief Camera default move assignment
+  */
+  Camera& operator=(Camera&& other) = default;
+
+  /*!
+  * \brief Camera default copy constructor
+  */
+  Camera(const Camera& other) = default;
+
+  /*!
+  * \brief Camera default copy assignment
+  */
+  Camera& operator=(const Camera& other) = default;
 
   /*!
   * \brief shoot a photo with gphoto2
@@ -65,7 +84,7 @@ private:
   const int m_timeoutValue;
 
   //executing commands
-  QProcess *m_process;
+  QProcess m_process;
 
 };
 

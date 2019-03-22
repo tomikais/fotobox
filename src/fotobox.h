@@ -13,9 +13,9 @@
 #include <QThread>
 
 #include "camera.h"
+#include "countdown.h"
 
 class Buzzer;
-class Countdown;
 class QKeyEvent;
 
 namespace Ui
@@ -45,6 +45,16 @@ public:
   */
   ~FotoBox() override;
 
+  /*!
+  * \brief FotoBox default move constructor
+  */
+  FotoBox(FotoBox&& other) = default;
+
+  /*!
+  * \brief FotoBox default move assignment
+  */
+  FotoBox& operator=(FotoBox&& other) = default;
+
 
 private slots:
   /*!
@@ -59,6 +69,16 @@ private slots:
 
 
 private:
+  /*!
+  * \brief FotoBox default copy constructor
+  */
+  FotoBox(const FotoBox& other) = default;
+
+  /*!
+  * \brief FotoBox default copy assignment
+  */
+  FotoBox& operator=(const FotoBox& other) = default;
+
 #if defined (Q_OS_MACOS)
   /*!
   * \brief Is used as a workaround for macOS to close a fullscreen window.
@@ -116,7 +136,7 @@ private:
   Buzzer *m_buzzer;
 
   //Countdown
-  Countdown *m_countdown;
+  Countdown m_countdown;
 
   //handle Buzzer thread (Raspberry Pi GPIO)
   QThread m_workerThread;

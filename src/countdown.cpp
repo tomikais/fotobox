@@ -7,28 +7,18 @@
  */
 #include "countdown.h"
 
-#include <QTimer>
-
 
 Countdown::Countdown(QObject *parent, const unsigned int i_seconds) : QObject(parent),
-  m_timer(new QTimer(this)),
+  m_timer(this),
   m_startTime(i_seconds),
   m_timeLeft(i_seconds),
   m_isActive(false)
 {
   //set update intervall to one second
-  m_timer->setInterval(ONE_SECOND);
+  m_timer.setInterval(ONE_SECOND);
 
   //Every second it is checked if the countdown is elapsed
-  connect(m_timer, &QTimer::timeout, this, &Countdown::updateTimeLeft);
-}
-
-
-Countdown::~Countdown()
-{
-  //stop and delete timer
-  m_timer->stop();
-  m_timer->deleteLater();
+  connect(&m_timer, &QTimer::timeout, this, &Countdown::updateTimeLeft);
 }
 
 
@@ -72,10 +62,10 @@ bool Countdown::start()
   //not running and start time set
   if (!m_isActive && m_startTime > 0) {
       //start countdown
-      m_timer->start();
+      m_timer.start();
 
       //check if really running
-      if (m_timer->isActive()) {
+      if (m_timer.isActive()) {
           //countdown active
           m_isActive = true;
 
@@ -92,8 +82,8 @@ bool Countdown::start()
 bool Countdown::stop()
 {
   //stop timer
-  m_timer->stop();
-  m_isActive = m_timer->isActive();
+  m_timer.stop();
+  m_isActive = m_timer.isActive();
 
   //if isn't active it's stopped so negate bool
   return !m_isActive;

@@ -11,7 +11,6 @@
 
 #include <QCoreApplication>
 #include <QDateTime>
-#include <QProcess>
 
 
 Camera::Camera(QObject *parent) : QObject(parent),
@@ -19,7 +18,7 @@ Camera::Camera(QObject *parent) : QObject(parent),
   m_cameraMode(PreferenceProvider::instance().cameraMode()),
   m_argLine(PreferenceProvider::instance().argumentLine()),
   m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue()),
-  m_process(new QProcess(this))
+  m_process(this)
 {
 
 }
@@ -39,11 +38,11 @@ bool Camera::shootPhoto()
 #endif
 
   //Start programm with given arguments
-  m_process->start(command);
-  m_process->waitForFinished(m_timeoutValue);
+  m_process.start(command);
+  m_process.waitForFinished(m_timeoutValue);
 
   //check time out and process exit code
-  return (m_process->exitCode() == EXIT_SUCCESS);
+  return (m_process.exitCode() == EXIT_SUCCESS);
 }
 
 

@@ -36,6 +36,31 @@ public:
   explicit Buzzer(QObject *parent = nullptr);
 
   /*!
+  * \brief Buzzer default destructor
+  */
+  ~Buzzer() override = default;
+
+  /*!
+  * \brief Buzzer default move constructor
+  */
+  Buzzer(Buzzer&& other) = default;
+
+  /*!
+  * \brief Buzzer default move assignment
+  */
+  Buzzer& operator=(Buzzer&& other) = default;
+
+  /*!
+  * \brief Buzzer default copy constructor
+  */
+  Buzzer(const Buzzer& other) = default;
+
+  /*!
+  * \brief Buzzer default copy assignment
+  */
+  Buzzer& operator=(const Buzzer& other) = default;
+
+  /*!
    * \brief Stop executing \sa queryPin()
    */
   void stop();

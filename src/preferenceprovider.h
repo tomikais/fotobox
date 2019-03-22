@@ -63,17 +63,27 @@ public:
   Q_PROPERTY(bool grayscale          READ grayscale       WRITE setGrayscale       NOTIFY grayscaleChanged)
 
   /*!
-  * \brief delete copy constructor (Singleton)
+  * \brief PreferenceProvider delete copy constructor (Singleton)
   */
   PreferenceProvider(const PreferenceProvider&) = delete;
 
   /*!
-  * \brief delete assigment (Singleton)
+  * \brief PreferenceProvider delete copy assignment (Singleton)
   */
   PreferenceProvider& operator=(const PreferenceProvider&) = delete;
 
   /*!
-  * \brief getInstance (Meyers Singleton)
+  * \brief PreferenceProvider default move constructor
+  */
+  PreferenceProvider(PreferenceProvider&& other) = default;
+
+  /*!
+  * \brief PreferenceProvider default move assignment
+  */
+  PreferenceProvider& operator=(PreferenceProvider&& other) = default;
+
+  /*!
+  * \brief get instance (Meyers Singleton)
   * \return Preferences&
   */
   static PreferenceProvider& instance();
