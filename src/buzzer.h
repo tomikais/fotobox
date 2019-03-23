@@ -11,15 +11,9 @@
 //detect wiringPi framework
 #if defined (__arm__) && __has_include(<wiringPi.h>)
 //wiringPi detected
-#include <wiringPi.h>
-  #if defined (__WIRING_PI_H__)
-    //enable implementation
-    #define BUZZER_AVAILABLE
-  #endif
+#define BUZZER_AVAILABLE
 #endif
 
-
-#if defined (BUZZER_AVAILABLE)
 #pragma once
 #include <QObject>
 #include <atomic>
@@ -63,8 +57,8 @@ public:
 
 public slots:
   /*!
-   * \brief Query the Raspberry Pi pin
-   */
+  * \brief Query the Raspberry Pi pin
+  */
   void queryPin();
 
   /*!
@@ -75,14 +69,15 @@ public slots:
 
 signals:
   /*!
-   * \brief Buzzer was pressed
-   */
+  * \brief Buzzer was pressed
+  */
   void triggered();
+
 
 
 private:
   /*!
-  * \brief hide Buzzer default constructor (Singleton)
+  * \brief hide Buzzer constructor (Singleton)
   */
   explicit Buzzer();
 
@@ -98,11 +93,5 @@ private:
   std::atomic<bool> m_stop;
 
 };
-#else
-//Buzzer stub: fix Qt moc warning
-#pragma once
-#include <QObject>
-class Buzzer : QObject { Q_OBJECT };
-#endif
 
 #endif // BUZZER_H

@@ -7,9 +7,6 @@
  */
 #include "buzzer.h"
 
-#if defined (BUZZER_AVAILABLE)
-#include "preferenceprovider.h"
-
 
 Buzzer& Buzzer::instance()
 {
@@ -17,6 +14,18 @@ Buzzer& Buzzer::instance()
   static Buzzer instance;
   return instance;
 }
+
+
+void Buzzer::stop()
+{
+  //set std::atomic to true
+  m_stop = true;
+}
+
+
+#if defined (BUZZER_AVAILABLE)
+#include <wiringPi.h>
+#include "preferenceprovider.h"
 
 
 Buzzer::Buzzer() : QObject(),
@@ -48,11 +57,7 @@ void Buzzer::queryPin()
   //buzzer was pressed
   emit triggered();
 }
-
-
-void Buzzer::stop()
-{
-  //set std::atomic to true
-  m_stop = true;
-}
+#else
+Buzzer::Buzzer() : QObject(nullptr), m_stop(false) {/* stub */};
+void Buzzer::queryPin(){/* stub */};
 #endif
