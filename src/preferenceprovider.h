@@ -21,10 +21,9 @@ class PreferenceProvider : public QObject
 
 private:
   /*!
-  * \brief hide Preferences constructor (Singleton)
-  * \param parent QWidget
+  * \brief hide Preferences default constructor (Singleton)
   */
-  explicit PreferenceProvider(QObject *parent = nullptr);
+  explicit PreferenceProvider() = default;
 
   /*!
   * \brief hide Preferences destructor (Singleton)

@@ -15,11 +15,6 @@ PreferenceProvider& PreferenceProvider::instance()
   return instance;
 }
 
-PreferenceProvider::PreferenceProvider(QObject *parent) : QObject(parent)
-{
-}
-
-
 //Qt Porperty
 QString PreferenceProvider::photoFolder() const
 {
