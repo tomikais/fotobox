@@ -19,7 +19,7 @@ Buzzer& Buzzer::instance()
 }
 
 
-Buzzer::Buzzer() : QObject(parent),
+Buzzer::Buzzer() : QObject(),
   m_stop(false)
 {
   //wiringPi http://wiringpi.com/reference/setup/
