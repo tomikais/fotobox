@@ -12,13 +12,29 @@
 #endif
 
 
+Buzzer& Buzzer::instance()
+{
+  //thread safe static initializer
+  static Buzzer instance;
+  return instance;
+}
+
+
+void Buzzer::stop()
+{
+  //set std::atomic to true
+  m_stop = true;
+}
+
+
+
 #if defined (__WIRING_PI_H__)
 // ******************************************
 // DEVICE: Raspberry Pi (wiringPi available)
 
 #include "preferenceprovider.h"
 
-Buzzer::Buzzer(QObject *parent) : QObject(parent),
+Buzzer::Buzzer() : QObject(parent),
   m_stop(false)
 {
   //wiringPi http://wiringpi.com/reference/setup/
@@ -48,19 +64,17 @@ void Buzzer::queryPin()
   emit triggered();
 }
 #else
-
 // **************************************
 // DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer(QObject *parent) : QObject(parent), m_stop(false) { /* no wiringPi framework available */ }
-
-void Buzzer::queryPin() { /* no wiringPi framework available */ }
-
-#endif
-
-
-void Buzzer::stop()
+Buzzer::Buzzer() : QObject(),
+  m_stop(false)
 {
-  //set std::atomic to true
-  m_stop = true;
+  /* no wiringPi framework available */
 }
+
+void Buzzer::queryPin()
+{
+  /* no wiringPi framework available */
+}
+#endif

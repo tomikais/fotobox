@@ -23,7 +23,6 @@
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
-  m_buzzer(nullptr),
   m_countdown(this),
   m_workerThread(this),
   m_camera(this),
@@ -53,7 +52,11 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   buttons();
 
   //Buzzer class (Raspberry Pi GPIO using wiringPi)
+#if defined (__WIRING_PI_H__)
   buzzer();
+  //start query
+  emit startBuzzer();
+#endif
 
   //countdown?
   countdown();
@@ -81,34 +84,19 @@ void FotoBox::buttons()
 
 void FotoBox::buzzer()
 {
-  if (m_buzzer != nullptr) {
-      //stop query pin
-      m_buzzer->stop();
-    }
-
   if (m_workerThread.isRunning()) {
-      //stop QThread
-      m_workerThread.quit();
-      m_workerThread.wait();
+      return;
     }
 
-  //create Buzzer and move to a thread
-  m_buzzer = new Buzzer;
-  m_buzzer->moveToThread(&m_workerThread);
+  //move to a thread
+  Buzzer::instance().moveToThread(&m_workerThread);
 
-  //delete after job is finished
-  connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
   //connect the start signale for buzzer
-  connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
+  connect(this, &FotoBox::startBuzzer, &Buzzer::instance(), &Buzzer::queryPin);
   //start fotobox if buzzer was triggered
-  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
+  connect(&Buzzer::instance(), &Buzzer::triggered, this, &FotoBox::start);
 
   m_workerThread.start();
-
-#if defined (__WIRING_PI_H__)
-  //start query
-  emit startBuzzer();
-#endif
 }
 
 
@@ -145,11 +133,9 @@ void FotoBox::countdown()
 
 FotoBox::~FotoBox()
 {
+  //stop query pin
+  Buzzer::instance().stop();
   //terminate and delete Buzzer thread
-  if (m_buzzer != nullptr) {
-      //stop query pin
-      m_buzzer->stop();
-    }
   m_workerThread.quit();
   m_workerThread.wait();
 }
@@ -242,7 +228,10 @@ void FotoBox::photo()
 
   //restart Buzzer and countdown
   m_countdown.reset();
-  buzzer();
+#if defined (__WIRING_PI_H__)
+  //start query
+  emit startBuzzer();
+#endif
 }
 
 const QString FotoBox::movePhoto()

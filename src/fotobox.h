@@ -15,7 +15,6 @@
 #include "camera.h"
 #include "countdown.h"
 
-class Buzzer;
 class QKeyEvent;
 
 namespace Ui
@@ -131,9 +130,6 @@ private:
 
   //User Interface
   Ui::FotoBoxDialog *m_ui;
-
-  //Buzzer
-  Buzzer *m_buzzer;
 
   //Countdown
   Countdown m_countdown;

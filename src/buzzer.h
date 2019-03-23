@@ -12,6 +12,7 @@
 #include <QObject>
 #include <atomic>
 
+
 /*!
  * \brief This class handles the buzzer
  *  Run in a separate thread.
@@ -21,24 +22,16 @@ class Buzzer : public QObject
   Q_OBJECT
 
 
-public slots:
-  /*!
-   * \brief Query the Raspberry Pi pin
-   */
-  void queryPin();
-
-
 public:
   /*!
-   * Buzzer constructor
-   * \param parent QObject
-   */
-  explicit Buzzer(QObject *parent = nullptr);
+  * \brief Buzzer delete copy constructor (Singleton)
+  */
+  Buzzer(const Buzzer&) = delete;
 
   /*!
-  * \brief Buzzer default destructor
+  * \brief Buzzer delete copy assignment (Singleton)
   */
-  ~Buzzer() override = default;
+  Buzzer& operator=(const Buzzer&) = delete;
 
   /*!
   * \brief Buzzer default move constructor
@@ -51,18 +44,21 @@ public:
   Buzzer& operator=(Buzzer&& other) = default;
 
   /*!
-  * \brief Buzzer default copy constructor
+  * \brief get instance (Meyers Singleton)
+  * \return Buzzer&
   */
-  Buzzer(const Buzzer& other) = default;
+  static Buzzer& instance();
 
-  /*!
-  * \brief Buzzer default copy assignment
-  */
-  Buzzer& operator=(const Buzzer& other) = default;
 
+public slots:
   /*!
-   * \brief Stop executing \sa queryPin()
+   * \brief Query the Raspberry Pi pin
    */
+  void queryPin();
+
+  /*!
+  * \brief Stop executing \sa queryPin()
+  */
   void stop();
 
 
@@ -72,7 +68,19 @@ signals:
    */
   void triggered();
 
+
 private:
+  /*!
+  * \brief hide Buzzer default constructor (Singleton)
+  */
+  explicit Buzzer();
+
+  /*!
+  * \brief hide Preferences destructor (Singleton)
+  */
+  ~Buzzer() override = default;
+
+
   /*!
   * atomic bool to stop /sa queryPin()
   */
