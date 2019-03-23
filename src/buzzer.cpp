@@ -7,9 +7,8 @@
  */
 #include "buzzer.h"
 
-#if defined (__arm__) && __has_include(<wiringPi.h>)
-#include <wiringPi.h>
-#endif
+#if defined (BUZZER_AVAILABLE)
+#include "preferenceprovider.h"
 
 
 Buzzer& Buzzer::instance()
@@ -19,20 +18,6 @@ Buzzer& Buzzer::instance()
   return instance;
 }
 
-
-void Buzzer::stop()
-{
-  //set std::atomic to true
-  m_stop = true;
-}
-
-
-
-#if defined (__WIRING_PI_H__)
-// ******************************************
-// DEVICE: Raspberry Pi (wiringPi available)
-
-#include "preferenceprovider.h"
 
 Buzzer::Buzzer() : QObject(parent),
   m_stop(false)
@@ -63,18 +48,11 @@ void Buzzer::queryPin()
   //buzzer was pressed
   emit triggered();
 }
-#else
-// **************************************
-// DEVICE: other (no wiringPi available)
 
-Buzzer::Buzzer() : QObject(),
-  m_stop(false)
-{
-  /* no wiringPi framework available */
-}
 
-void Buzzer::queryPin()
+void Buzzer::stop()
 {
-  /* no wiringPi framework available */
+  //set std::atomic to true
+  m_stop = true;
 }
 #endif

@@ -8,6 +8,18 @@
 #ifndef BUZZER_H
 #define BUZZER_H
 
+//detect wiringPi framework
+#if defined (__arm__) && __has_include(<wiringPi.h>)
+//wiringPi detected
+#include <wiringPi.h>
+  #if defined (__WIRING_PI_H__)
+    //enable implementation
+    #define BUZZER_AVAILABLE
+  #endif
+#endif
+
+
+#if defined (BUZZER_AVAILABLE)
 #pragma once
 #include <QObject>
 #include <atomic>
@@ -15,7 +27,6 @@
 
 /*!
  * \brief This class handles the buzzer
- *  Run in a separate thread.
  */
 class Buzzer : public QObject
 {
@@ -87,5 +98,11 @@ private:
   std::atomic<bool> m_stop;
 
 };
+#else
+//Buzzer stub: fix Qt moc warning
+#pragma once
+#include <QObject>
+class Buzzer : QObject { Q_OBJECT };
+#endif
 
 #endif // BUZZER_H

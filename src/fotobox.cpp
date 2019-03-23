@@ -16,10 +16,6 @@
 #include <QDir>
 #include <QKeyEvent>
 
-#if defined (__arm__) && __has_include(<wiringPi.h>)
-#include <wiringPi.h>
-#endif
-
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
@@ -52,10 +48,8 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   buttons();
 
   //Buzzer class (Raspberry Pi GPIO using wiringPi)
-#if defined (__WIRING_PI_H__)
+#if defined (BUZZER_AVAILABLE)
   buzzer();
-  //start query
-  emit startBuzzer();
 #endif
 
   //countdown?
@@ -84,6 +78,7 @@ void FotoBox::buttons()
 
 void FotoBox::buzzer()
 {
+#if defined (BUZZER_AVAILABLE)
   if (m_workerThread.isRunning()) {
       return;
     }
@@ -97,6 +92,10 @@ void FotoBox::buzzer()
   connect(&Buzzer::instance(), &Buzzer::triggered, this, &FotoBox::start);
 
   m_workerThread.start();
+
+  //start query
+  emit startBuzzer();
+#endif
 }
 
 
@@ -133,8 +132,10 @@ void FotoBox::countdown()
 
 FotoBox::~FotoBox()
 {
+#if defined (BUZZER_AVAILABLE)
   //stop query pin
   Buzzer::instance().stop();
+#endif
   //terminate and delete Buzzer thread
   m_workerThread.quit();
   m_workerThread.wait();
@@ -228,8 +229,7 @@ void FotoBox::photo()
 
   //restart Buzzer and countdown
   m_countdown.reset();
-#if defined (__WIRING_PI_H__)
-  //start query
+#if defined (BUZZER_AVAILABLE)
   emit startBuzzer();
 #endif
 }
