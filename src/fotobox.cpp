@@ -7,7 +7,6 @@
  */
 #include "fotobox.h"
 
-#include "buzzer.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_fotobox.h"
@@ -21,6 +20,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_countdown(this),
   m_workerThread(this),
+  m_buzzer(),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
   m_photoDir(PreferenceProvider::instance().photoFolder() + QDir::separator())
@@ -84,12 +84,12 @@ void FotoBox::buzzer()
     }
 
   //move to a thread
-  Buzzer::instance().moveToThread(&m_workerThread);
+  m_buzzer.moveToThread(&m_workerThread);
 
   //connect the start signale for buzzer
-  connect(this, &FotoBox::startBuzzer, &Buzzer::instance(), &Buzzer::queryPin);
+  connect(this, &FotoBox::startBuzzer, &m_buzzer, &Buzzer::queryPin);
   //start fotobox if buzzer was triggered
-  connect(&Buzzer::instance(), &Buzzer::triggered, this, &FotoBox::start);
+  connect(&m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
 
   m_workerThread.start();
 
@@ -134,7 +134,7 @@ FotoBox::~FotoBox()
 {
 #if defined (BUZZER_AVAILABLE)
   //stop query pin
-  Buzzer::instance().stop();
+  m_buzzer.stop();
 #endif
   //terminate and delete Buzzer thread
   m_workerThread.quit();

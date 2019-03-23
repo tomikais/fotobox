@@ -8,21 +8,6 @@
 #include "buzzer.h"
 
 
-Buzzer& Buzzer::instance()
-{
-  //thread safe static initializer
-  static Buzzer instance;
-  return instance;
-}
-
-
-void Buzzer::stop()
-{
-  //set std::atomic to true
-  m_stop = true;
-}
-
-
 #if defined (BUZZER_AVAILABLE)
 #include <wiringPi.h>
 #include "preferenceprovider.h"
@@ -61,3 +46,10 @@ void Buzzer::queryPin()
 Buzzer::Buzzer() : QObject(nullptr), m_stop(false) {/* stub */};
 void Buzzer::queryPin(){/* stub */};
 #endif
+
+
+void Buzzer::stop()
+{
+  //set std::atomic to true
+  m_stop = true;
+}

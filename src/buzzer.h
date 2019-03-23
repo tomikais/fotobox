@@ -29,14 +29,24 @@ class Buzzer : public QObject
 
 public:
   /*!
-  * \brief Buzzer delete copy constructor (Singleton)
+  * \brief hide Buzzer constructor
   */
-  Buzzer(const Buzzer&) = delete;
+  explicit Buzzer();
 
   /*!
-  * \brief Buzzer delete copy assignment (Singleton)
+  * \brief hide Preferences destructor
   */
-  Buzzer& operator=(const Buzzer&) = delete;
+  ~Buzzer() override = default;
+
+  /*!
+  * \brief Buzzer copy constructor
+  */
+  Buzzer(const Buzzer&) = default;
+
+  /*!
+  * \brief Buzzer delete copy assignment
+  */
+  Buzzer& operator=(const Buzzer&) = default;
 
   /*!
   * \brief Buzzer default move constructor
@@ -49,10 +59,9 @@ public:
   Buzzer& operator=(Buzzer&& other) = default;
 
   /*!
-  * \brief get instance (Meyers Singleton)
-  * \return Buzzer&
+  * \brief Stop executing \sa queryPin()
   */
-  static Buzzer& instance();
+  void stop();
 
 
 public slots:
@@ -60,11 +69,6 @@ public slots:
   * \brief Query the Raspberry Pi pin
   */
   void queryPin();
-
-  /*!
-  * \brief Stop executing \sa queryPin()
-  */
-  void stop();
 
 
 signals:
@@ -74,19 +78,7 @@ signals:
   void triggered();
 
 
-
 private:
-  /*!
-  * \brief hide Buzzer constructor (Singleton)
-  */
-  explicit Buzzer();
-
-  /*!
-  * \brief hide Preferences destructor (Singleton)
-  */
-  ~Buzzer() override = default;
-
-
   /*!
   * atomic bool to stop /sa queryPin()
   */

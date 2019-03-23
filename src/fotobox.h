@@ -12,6 +12,7 @@
 #include <QDialog>
 #include <QThread>
 
+#include "buzzer.h"
 #include "camera.h"
 #include "countdown.h"
 
@@ -136,6 +137,9 @@ private:
 
   //handle Buzzer thread (Raspberry Pi GPIO)
   QThread m_workerThread;
+
+  //buzzer using wiringPi framework
+  Buzzer m_buzzer;
 
   //Camera (shot photo)
   Camera m_camera;
