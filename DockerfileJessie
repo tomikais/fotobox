@@ -1,3 +1,10 @@
+#------------------------------------------------------------
+# Copyright (c) 2019 Thomas Kais
+#
+# This file is subject to the terms and conditions defined in
+# file 'COPYING', which is part of this source code package.
+#------------------------------------------------------------
+
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://docs.resin.io/reference/base-images/resin-base-images/
 # https://hub.docker.com/r/resin/raspberrypi3-debian/

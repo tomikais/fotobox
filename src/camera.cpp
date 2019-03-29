@@ -3,7 +3,7 @@
  * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "camera.h"
 
