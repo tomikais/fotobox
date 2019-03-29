@@ -76,7 +76,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/DockerfileStretch
     ${PROJECT_SOURCE_DIR}/Doxyfile
     ${PROJECT_SOURCE_DIR}/fotobox.pro
-    ${PROJECT_SOURCE_DIR}/LICENSE
+    ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
     )
 

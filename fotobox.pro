@@ -74,7 +74,7 @@ OTHER_FILES    = resources/Info.plist \
                  DockerfileJessie \
                  DockerfileStretch \
                  Doxyfile \
-                 LICENSE \
+                 COPYING \
                  README.md
 
 linux {
