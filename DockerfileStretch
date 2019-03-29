@@ -6,9 +6,9 @@
 #------------------------------------------------------------
 
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
-# https://docs.resin.io/reference/base-images/resin-base-images/
-# https://hub.docker.com/r/resin/raspberrypi3-debian/
-FROM resin/raspberrypi3-debian:stretch
+# https://www.balena.io/docs/reference/base-images/base-images-ref/
+# https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
+FROM balenalib/raspberry-pi2-debian:stretch-build
 
 # install frameworks and build tools
 RUN sudo apt-get update -qq && sudo apt-get install -qq \
