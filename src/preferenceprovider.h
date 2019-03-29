@@ -72,14 +72,14 @@ public:
   PreferenceProvider& operator=(const PreferenceProvider&) = delete;
 
   /*!
-  * \brief PreferenceProvider default move constructor
+  * \brief PreferenceProvider delete move constructor (Singleton)
   */
-  PreferenceProvider(PreferenceProvider&& other) = default;
+  PreferenceProvider(PreferenceProvider&& other) = delete;
 
   /*!
-  * \brief PreferenceProvider default move assignment
+  * \brief PreferenceProvider delete move assignment (Singleton)
   */
-  PreferenceProvider& operator=(PreferenceProvider&& other) = default;
+  PreferenceProvider& operator=(PreferenceProvider&& other) = delete;
 
   /*!
   * \brief get instance (Meyers Singleton)
