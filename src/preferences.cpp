@@ -255,7 +255,10 @@ void Preferences::savePreferences()
   m_settings.beginGroup(QStringLiteral("Camera"));
   //Save QComboBox model
   QStringList itemText, itemData;
-  for (int i = 0; i < m_ui->cmbCameraMode->count(); ++i) {
+  auto size = m_ui->cmbCameraMode->count();
+  itemText.reserve(size);
+  itemData.reserve(size);
+  for (int i = 0; i < size; ++i) {
       itemText << m_ui->cmbCameraMode->itemText(i);
       itemData << m_ui->cmbCameraMode->itemData(i).toString();
     }
@@ -322,7 +325,7 @@ void Preferences::applicationAvailable(const QString& i_name)
           //gphoto version
           auto version = output.left(output.indexOf('\n'));
           //get camera model
-          QString model = output.right(output.size() - output.lastIndexOf('-') - 2);
+          QString model = QString::fromLatin1(output.right(output.size() - output.lastIndexOf('-') - 2));
           model = model.left(model.indexOf(QLatin1String("usb"), Qt::CaseInsensitive));
           if (model.isEmpty()) {
               m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));

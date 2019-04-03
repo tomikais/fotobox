@@ -11,8 +11,7 @@
 Countdown::Countdown(QObject *parent, const unsigned int i_seconds) : QObject(parent),
   m_timer(this),
   m_startTime(i_seconds),
-  m_timeLeft(i_seconds),
-  m_isActive(false)
+  m_timeLeft(i_seconds)
 {
   //set update intervall to one second
   m_timer.setInterval(ONE_SECOND);
@@ -31,7 +30,7 @@ void Countdown::updateTimeLeft()
       --m_timeLeft;
 
       //send the signal that one second has passed
-      emit update(m_timeLeft);
+      Q_EMIT update(m_timeLeft);
 
       //Because it isn't a single shot time we don't need to start it again
       return;
@@ -40,7 +39,7 @@ void Countdown::updateTimeLeft()
   //countdown finished/elapsed
   stop();
   m_timeLeft = 0;
-  emit elapsed();
+  Q_EMIT elapsed();
 }
 
 
@@ -70,7 +69,7 @@ bool Countdown::start()
           m_isActive = true;
 
           //inform whith current value
-          emit update(m_timeLeft);
+          Q_EMIT update(m_timeLeft);
           return true;
         }
     }

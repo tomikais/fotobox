@@ -28,7 +28,7 @@ public:
   * \param parent QObject
   * \param i_seconds set the start time \sa m_startTime
   */
-  explicit Countdown(QObject *parent = nullptr, const unsigned int i_seconds = 0);
+  explicit Countdown(QObject *parent = nullptr, unsigned int i_seconds = 0);
 
   /*!
   * \brief Countdown default destructor
@@ -36,30 +36,30 @@ public:
   ~Countdown() override = default;
 
   /*!
-  * \brief Countdown default move constructor
-  */
-  Countdown(Countdown&& other) = default;
-
-  /*!
-  * \brief Countdown default move assignment
-  */
-  Countdown& operator=(Countdown&& other) = default;
-
-  /*!
   * \brief Countdown default copy constructor
   */
-  Countdown(const Countdown& other) = default;
+  Countdown(const Countdown& other) = delete;
 
   /*!
   * \brief Countdown default copy assignment
   */
-  Countdown& operator=(const Countdown& other) = default;
+  Countdown& operator=(const Countdown& other) = delete;
+
+  /*!
+  * \brief Countdown default move constructor
+  */
+  Countdown(Countdown&& other) = delete;
+
+  /*!
+  * \brief Countdown default move assignment
+  */
+  Countdown& operator=(Countdown&& other) = delete;
 
   /*!
   * \brief Set the countdown start time
   * \param i_seconds setter \sa m_startTime
   */
-  void setStartTime(const unsigned int i_seconds);
+  void setStartTime(unsigned int i_seconds);
 
   /*!
   * \brief Show countdown status
@@ -88,12 +88,12 @@ public:
   bool reset();
 
 
-signals:
+Q_SIGNALS:
   /*!
   * \brief Update countdown
   * \param timeLeft current \sa m_timeLeft value
   */
-  void update(const unsigned int timeLeft);
+  void update(unsigned int timeLeft);
 
   /*!
   * \brief Countdown elapsed
@@ -123,7 +123,7 @@ private:
   unsigned int m_timeLeft;
 
   //status of the countdown
-  bool m_isActive;
+  bool m_isActive{false};
 
 };
 

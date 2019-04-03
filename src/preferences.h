@@ -39,17 +39,27 @@ public:
   ~Preferences() override = default;
 
   /*!
+  * \brief Preferences default copy constructor
+  */
+  Preferences(const Preferences& other) = delete;
+
+  /*!
+  * \brief Preferences default copy assignment
+  */
+  Preferences& operator=(const Preferences& other) = delete;
+
+  /*!
   * \brief Preferences default move constructor
   */
-  Preferences(Preferences&& other) = default;
+  Preferences(Preferences&& other) = delete;
 
   /*!
   * \brief Preferences default move assignment
   */
-  Preferences& operator=(Preferences&& other) = default;
+  Preferences& operator=(Preferences&& other) = delete;
 
 
-private slots:
+private Q_SLOTS:
   /*!
   * \brief start the FotoBox
   */
@@ -84,16 +94,6 @@ private slots:
 
 
 private:
-  /*!
-  * \brief Preferences default copy constructor
-  */
-  Preferences(const Preferences& other) = default;
-
-  /*!
-  * \brief Preferences default copy assignment
-  */
-  Preferences& operator=(const Preferences& other) = default;
-
   /*!
   * \brief Signal & Slot connect
   */

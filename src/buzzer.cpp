@@ -13,8 +13,7 @@
 #include "preferenceprovider.h"
 
 
-Buzzer::Buzzer() : QObject(),
-  m_stop(false)
+Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr)
 {
   //wiringPi http://wiringpi.com/reference/setup/
   //function always returns zero 0, no need to check result!
@@ -43,7 +42,7 @@ void Buzzer::queryPin()
   emit triggered();
 }
 #else
-Buzzer::Buzzer() : QObject(nullptr), m_stop(false) {/* stub */};
+Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr) {/* stub */};
 void Buzzer::queryPin(){/* stub */};
 #endif
 

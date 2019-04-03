@@ -35,24 +35,24 @@ public:
   ~Camera() override = default;
 
   /*!
-  * \brief Camera default move constructor
-  */
-  Camera(Camera&& other) = default;
-
-  /*!
-  * \brief Camera default move assignment
-  */
-  Camera& operator=(Camera&& other) = default;
-
-  /*!
   * \brief Camera default copy constructor
   */
-  Camera(const Camera& other) = default;
+  Camera(const Camera& other) = delete;
 
   /*!
   * \brief Camera default copy assignment
   */
-  Camera& operator=(const Camera& other) = default;
+  Camera& operator=(const Camera& other) = delete;
+
+  /*!
+  * \brief Camera default move constructor
+  */
+  Camera(Camera&& other) = delete;
+
+  /*!
+  * \brief Camera default move assignment
+  */
+  Camera& operator=(Camera&& other) = delete;
 
   /*!
   * \brief shoot a photo with gphoto2

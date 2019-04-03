@@ -30,8 +30,9 @@ class Buzzer : public QObject
 public:
   /*!
   * \brief hide Buzzer constructor
+  * \param parent QObject
   */
-  explicit Buzzer();
+  explicit Buzzer(QObject *parent = nullptr);
 
   /*!
   * \brief hide Preferences destructor
@@ -41,22 +42,22 @@ public:
   /*!
   * \brief Buzzer copy constructor
   */
-  Buzzer(const Buzzer&) = default;
+  Buzzer(const Buzzer&) = delete;
 
   /*!
   * \brief Buzzer delete copy assignment
   */
-  Buzzer& operator=(const Buzzer&) = default;
+  Buzzer& operator=(const Buzzer&) = delete;
 
   /*!
   * \brief Buzzer default move constructor
   */
-  Buzzer(Buzzer&& other) = default;
+  Buzzer(Buzzer&& other) = delete;
 
   /*!
   * \brief Buzzer default move assignment
   */
-  Buzzer& operator=(Buzzer&& other) = default;
+  Buzzer& operator=(Buzzer&& other) = delete;
 
   /*!
   * \brief Stop executing \sa queryPin()
@@ -64,14 +65,14 @@ public:
   void stop();
 
 
-public slots:
+public Q_SLOTS:
   /*!
   * \brief Query the Raspberry Pi pin
   */
   void queryPin();
 
 
-signals:
+Q_SIGNALS:
   /*!
   * \brief Buzzer was pressed
   */
@@ -82,7 +83,7 @@ private:
   /*!
   * atomic bool to stop /sa queryPin()
   */
-  std::atomic<bool> m_stop;
+  std::atomic<bool> m_stop{false};
 
 };
 

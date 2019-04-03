@@ -22,8 +22,9 @@ class PreferenceProvider : public QObject
 private:
   /*!
   * \brief hide Preferences default constructor (Singleton)
+  * \param parent QObject
   */
-  explicit PreferenceProvider() = default;
+  explicit PreferenceProvider(QObject *parent = nullptr);
 
   /*!
   * \brief hide Preferences destructor (Singleton)
@@ -166,7 +167,7 @@ public:
   bool grayscale() const;
 
 
-public slots:
+public Q_SLOTS:
   /*!
   * \brief set photo output directory
   * \param i_value QString&
@@ -246,7 +247,7 @@ public slots:
   void setGrayscale(bool i_value);
 
 
-signals:
+Q_SIGNALS:
   /*!
   * \brief signal: photo output directory has changed
   */

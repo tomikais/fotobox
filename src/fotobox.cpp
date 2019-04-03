@@ -20,7 +20,6 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
   m_countdown(this),
   m_workerThread(this),
-  m_buzzer(),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
   m_photoDir(PreferenceProvider::instance().photoFolder() + QDir::separator())
@@ -149,13 +148,13 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
       //ENTER and ENTER on keypad
       if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
           //take a photo
-          emit start();
+          Q_EMIT start();
         }
 
       //Logitech Presenter
       if (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_PageUp) {
           //take a photo
-          emit start();
+          Q_EMIT start();
         }
 
       //ESCAPE with SHIFT
@@ -182,7 +181,7 @@ void FotoBox::mouseReleaseEvent(QMouseEvent *event)
 {
   //touch support only when no buttons are shown
   if (!PreferenceProvider::instance().showButtons() && (event->button() == Qt::LeftButton || event->button() == Qt::RightButton)) {
-      emit start();
+      Q_EMIT start();
     }
 
   QWidget::mouseReleaseEvent(event);

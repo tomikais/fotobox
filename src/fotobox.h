@@ -46,17 +46,27 @@ public:
   ~FotoBox() override;
 
   /*!
+  * \brief FotoBox default copy constructor
+  */
+  FotoBox(const FotoBox& other) = delete;
+
+  /*!
+  * \brief FotoBox default copy assignment
+  */
+  FotoBox& operator=(const FotoBox& other) = delete;
+
+  /*!
   * \brief FotoBox default move constructor
   */
-  FotoBox(FotoBox&& other) = default;
+  FotoBox(FotoBox&& other) = delete;
 
   /*!
   * \brief FotoBox default move assignment
   */
-  FotoBox& operator=(FotoBox&& other) = default;
+  FotoBox& operator=(FotoBox&& other) = delete;
 
 
-private slots:
+private Q_SLOTS:
   /*!
    * \brief trigger camera to shot a photo and try to show it
    */
@@ -69,16 +79,6 @@ private slots:
 
 
 private:
-  /*!
-  * \brief FotoBox default copy constructor
-  */
-  FotoBox(const FotoBox& other) = default;
-
-  /*!
-  * \brief FotoBox default copy assignment
-  */
-  FotoBox& operator=(const FotoBox& other) = default;
-
 #if defined (Q_OS_MACOS)
   /*!
   * \brief Is used as a workaround for macOS to close a fullscreen window.
@@ -157,7 +157,7 @@ private:
   static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
 
 
-signals:
+Q_SIGNALS:
   /*!
    * \brief signal: start FotoBox
    */
