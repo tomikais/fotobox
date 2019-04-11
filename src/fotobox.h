@@ -128,6 +128,12 @@ private:
    */
   const QString movePhoto();
 
+  /*!
+   * \brief Draw text on the QPixmap \sa m_photo
+   * \param i_text path to photo
+   */
+  void drawText(const QString& i_text);
+
 
   //User Interface
   Ui::FotoBoxDialog *m_ui;

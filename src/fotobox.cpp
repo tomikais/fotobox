@@ -14,6 +14,7 @@
 #include <QDate>
 #include <QDir>
 #include <QKeyEvent>
+#include <QPainter>
 
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
@@ -278,9 +279,26 @@ void FotoBox::loadPhoto(const QString& i_filePath)
         }
 #endif
 
-      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+      m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+      m_ui->lblPhoto->setPixmap(m_photo);
     }
   else {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
     }
+}
+
+
+void FotoBox::drawText(const QString& i_text)
+{
+  //painter begins painting the paint device immediately!
+  QPainter painter(&m_photo);
+
+  //set color and font
+  painter.setPen(QPen(PreferenceProvider::instance().countdownColor()));
+  painter.setFont(QFont("Times", 60, QFont::Bold));
+
+  //draw text on image
+  painter.drawText(m_photo.rect(), Qt::AlignCenter, i_text);
+
+  m_ui->lblPhoto->setPixmap(m_photo);
 }
