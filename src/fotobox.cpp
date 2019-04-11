@@ -100,10 +100,10 @@ void FotoBox::buzzer()
 
 void FotoBox::countdown()
 {
-  if (PreferenceProvider::instance().countdown() > 0) {
-      //initialize countdown
-      m_ui->lcdCountdown->setVisible(false);
+  //initialize countdown
+  m_ui->lcdCountdown->setVisible(false);
 
+  if (PreferenceProvider::instance().countdown() > 0) {
       //add countdown
       m_countdown.setStartTime(static_cast<unsigned int>(PreferenceProvider::instance().countdown()));
       connect(this, &FotoBox::start, &m_countdown, &Countdown::start);
