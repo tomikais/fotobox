@@ -210,8 +210,14 @@ void FotoBox::preferenceDialog()
 
 void FotoBox::photo()
 {
-  //remove countdown and current picture / refresh label (photo)
+  //show label and hide other widgets
   m_ui->lcdCountdown->setVisible(false);
+  m_ui->lcdCountdown->update();
+  m_ui->statusBar->setVisible(false);
+  m_ui->statusBar->update();
+  QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+  //remove current photo
   m_ui->lblPhoto->setVisible(true);
   m_ui->lblPhoto->clear();
   m_ui->lblPhoto->repaint();
