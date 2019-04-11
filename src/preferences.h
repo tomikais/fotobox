@@ -28,7 +28,7 @@ class Preferences : public QDialog
 
 public:
   /*!
-  * \brief hide Preferences constructor
+  * \brief Preferences constructor
   * \param parent QWidget
   */
   explicit Preferences(QWidget *parent = nullptr);

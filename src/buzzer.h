@@ -29,13 +29,13 @@ class Buzzer : public QObject
 
 public:
   /*!
-  * \brief hide Buzzer constructor
+  * \brief Buzzer constructor
   * \param parent QObject
   */
   explicit Buzzer(QObject *parent = nullptr);
 
   /*!
-  * \brief hide Preferences destructor
+  * \brief Buzzer destructor
   */
   ~Buzzer() override = default;
 
