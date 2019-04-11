@@ -281,6 +281,9 @@ void FotoBox::loadPhoto(const QString& i_filePath)
 
       m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
       m_ui->lblPhoto->setPixmap(m_photo);
+      QTimer::singleShot(20000, this, [this] () {
+          drawText("touch to start");
+        });
     }
   else {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
@@ -294,11 +297,26 @@ void FotoBox::drawText(const QString& i_text)
   QPainter painter(&m_photo);
 
   //set color and font
-  painter.setPen(QPen(PreferenceProvider::instance().countdownColor()));
-  painter.setFont(QFont("Times", 60, QFont::Bold));
+  painter.setPen(QPen(PreferenceProvider::instance().backgroundColor()));
+
+  //calculate best font size
+  QFont font = painter.font();
+  auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
+  font.setPointSizeF(font.pointSizeF() * size);
+  painter.setFont(font);
 
   //draw text on image
   painter.drawText(m_photo.rect(), Qt::AlignCenter, i_text);
 
   m_ui->lblPhoto->setPixmap(m_photo);
+}
+
+
+double FotoBox::calculateFontSize(const double i_width, const double i_widthFont)
+{
+  double factor = i_width / i_widthFont;
+  if ((factor < 1) || (factor > 1.25)) {
+      return factor;
+    }
+  return 0.0;
 }

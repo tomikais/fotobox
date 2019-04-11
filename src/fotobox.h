@@ -130,9 +130,17 @@ private:
 
   /*!
    * \brief Draw text on the QPixmap \sa m_photo
-   * \param i_text path to photo
+   * \param i_text text to write
    */
   void drawText(const QString& i_text);
+
+  /*!
+   * \brief calculate "maximum" fitting font size
+   * \param i_width double
+   * \param i_widthFont double
+   * \return best fitting fontsize
+   */
+  double calculateFontSize(const double i_width, const double i_widthFont);
 
 
   //User Interface
