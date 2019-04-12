@@ -281,9 +281,6 @@ void FotoBox::loadPhoto(const QString& i_filePath)
 
       m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
       m_ui->lblPhoto->setPixmap(m_photo);
-      QTimer::singleShot(20000, this, [this] () {
-          drawText("touch to start");
-        });
     }
   else {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
