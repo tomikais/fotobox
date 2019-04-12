@@ -1,36 +1,63 @@
 /* buzzer.h
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
+#ifndef BUZZER_H
+#define BUZZER_H
+
+//detect wiringPi framework
+#if defined (__arm__) && __has_include(<wiringPi.h>)
+//wiringPi detected
+#define BUZZER_AVAILABLE
+#endif
+
 #pragma once
 #include <QObject>
 #include <atomic>
 
+
 /*!
  * \brief This class handles the buzzer
- *  Run in a separate thread.
  */
 class Buzzer : public QObject
 {
   Q_OBJECT
 
 
-public slots:
-  /*!
-  * \brief Query the Raspberry Pi pin
-  */
-  void queryPin();
-
-
 public:
   /*!
-   * Buzzer constructor
-   * \param parent QObject
-   */
+  * \brief Buzzer constructor
+  * \param parent QObject
+  */
   explicit Buzzer(QObject *parent = nullptr);
+
+  /*!
+  * \brief Buzzer destructor
+  */
+  ~Buzzer() override = default;
+
+  /*!
+  * \brief Buzzer copy constructor
+  */
+  Buzzer(const Buzzer&) = delete;
+
+  /*!
+  * \brief Buzzer delete copy assignment
+  */
+  Buzzer& operator=(const Buzzer&) = delete;
+
+  /*!
+  * \brief Buzzer default move constructor
+  */
+  Buzzer(Buzzer&& other) = delete;
+
+  /*!
+  * \brief Buzzer default move assignment
+  */
+  Buzzer& operator=(Buzzer&& other) = delete;
 
   /*!
   * \brief Stop executing \sa queryPin()
@@ -38,16 +65,26 @@ public:
   void stop();
 
 
-signals:
+public Q_SLOTS:
+  /*!
+  * \brief Query the Raspberry Pi pin
+  */
+  void queryPin();
+
+
+Q_SIGNALS:
   /*!
   * \brief Buzzer was pressed
   */
   void triggered();
 
+
 private:
   /*!
   * atomic bool to stop /sa queryPin()
   */
-  std::atomic<bool> m_stop;
+  std::atomic<bool> m_stop{false};
 
 };
+
+#endif // BUZZER_H

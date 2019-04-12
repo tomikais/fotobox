@@ -1,25 +1,19 @@
 /* buzzer.cpp
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "buzzer.h"
 
-#if defined (__arm__) && __has_include(<wiringPi.h>)
+
+#if defined (BUZZER_AVAILABLE)
 #include <wiringPi.h>
-#endif
-
-
-#if defined (__WIRING_PI_H__)
-// ******************************************
-// DEVICE: Raspberry Pi (wiringPi available)
-
 #include "preferenceprovider.h"
 
-Buzzer::Buzzer(QObject *parent) : QObject(parent),
-  m_stop(false)
+
+Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr)
 {
   //wiringPi http://wiringpi.com/reference/setup/
   //function always returns zero 0, no need to check result!
@@ -31,31 +25,25 @@ Buzzer::Buzzer(QObject *parent) : QObject(parent),
 }
 
 
-auto Buzzer::queryPin() -> void
+void Buzzer::queryPin()
 {
   //query pin
   while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
-    //wait before query pin again
-    delay(PreferenceProvider::instance().queryInterval());
+      //wait before query pin again
+      delay(PreferenceProvider::instance().queryInterval());
 
-    //if stop is true, stop while loop and return to caller (don't emit triggered)
-    if (m_stop) {
-      return;
+      //if stop is true, stop while loop and return to caller (don't emit triggered)
+      if (m_stop) {
+          return;
+        }
     }
-  }
 
   //buzzer was pressed
   emit triggered();
 }
 #else
-
-// **************************************
-// DEVICE: other (no wiringPi available)
-
-Buzzer::Buzzer(QObject *parent) : QObject(parent), m_stop(false) { /* no wiringPi framework available */ }
-
-auto Buzzer::queryPin() -> void { /* no wiringPi framework available */ }
-
+Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr) {/* stub */};
+void Buzzer::queryPin(){/* stub */};
 #endif
 
 

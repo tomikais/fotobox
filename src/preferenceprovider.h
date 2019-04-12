@@ -1,10 +1,13 @@
 /* preferenceprovider.h
-*
-* Copyright (c) 2018 Thomas Kais
-*
-* This file is subject to the terms and conditions defined in
-* file 'LICENSE', which is part of this source code package.
-*/
+ *
+ * Copyright (c) 2019 Thomas Kais
+ *
+ * This file is subject to the terms and conditions defined in
+ * file 'COPYING', which is part of this source code package.
+ */
+#ifndef PREFERENCEPROVIDER_H
+#define PREFERENCEPROVIDER_H
+
 #pragma once
 #include <QObject>
 
@@ -18,8 +21,8 @@ class PreferenceProvider : public QObject
 
 private:
   /*!
-  * \brief hide Preferences constructor (Singleton)
-  * \param parent QWidget
+  * \brief hide Preferences default constructor (Singleton)
+  * \param parent QObject
   */
   explicit PreferenceProvider(QObject *parent = nullptr);
 
@@ -40,119 +43,131 @@ private:
   QString m_cameraMode;
   QString m_argumentLine;
   int m_timeoutValue = 0;
+  bool m_grayscale = false;
 
 
 public:
   //Qt Property System
-  Q_PROPERTY(QString m_photoFolder     READ photoFolder     WRITE setPhotoFolder     NOTIFY photoFolderChanged)
-  Q_PROPERTY(QString m_photoName       READ photoName       WRITE setPhotoName       NOTIFY photoNameChanged)
-  Q_PROPERTY(int m_countdown           READ countdown       WRITE setCountdown       NOTIFY countdownChanged)
-  Q_PROPERTY(QString m_countdownColor  READ countdownColor  WRITE setCountdownColor  NOTIFY countdownColorChanged)
-  Q_PROPERTY(bool m_showButtons        READ showButtons     WRITE setShowButtons     NOTIFY showButtonsChanged)
-  Q_PROPERTY(QString m_backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
-  Q_PROPERTY(int m_inputPin            READ inputPin        WRITE setInputPin        NOTIFY inputPinChanged)
-  Q_PROPERTY(int m_outputPin           READ outputPin       WRITE setOutputPin       NOTIFY outputPinChanged)
-  Q_PROPERTY(int m_queryInterval       READ queryInterval   WRITE setQueryInterval   NOTIFY queryIntervalChanged)
-  Q_PROPERTY(QString m_cameraMode      READ cameraMode      WRITE setCameraMode      NOTIFY cameraModeChanged)
-  Q_PROPERTY(QString m_argumentLine    READ argumentLine    WRITE setArgumentLine    NOTIFY argumentLineChanged)
-  Q_PROPERTY(int m_timeoutValue        READ timeoutValue    WRITE setTimeoutValue    NOTIFY timeoutValueChanged)
+  Q_PROPERTY(QString photoFolder     READ photoFolder     WRITE setPhotoFolder     NOTIFY photoFolderChanged)
+  Q_PROPERTY(QString photoName       READ photoName       WRITE setPhotoName       NOTIFY photoNameChanged)
+  Q_PROPERTY(int countdown           READ countdown       WRITE setCountdown       NOTIFY countdownChanged)
+  Q_PROPERTY(QString countdownColor  READ countdownColor  WRITE setCountdownColor  NOTIFY countdownColorChanged)
+  Q_PROPERTY(bool showButtons        READ showButtons     WRITE setShowButtons     NOTIFY showButtonsChanged)
+  Q_PROPERTY(QString backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
+  Q_PROPERTY(int inputPin            READ inputPin        WRITE setInputPin        NOTIFY inputPinChanged)
+  Q_PROPERTY(int outputPin           READ outputPin       WRITE setOutputPin       NOTIFY outputPinChanged)
+  Q_PROPERTY(int queryInterval       READ queryInterval   WRITE setQueryInterval   NOTIFY queryIntervalChanged)
+  Q_PROPERTY(QString cameraMode      READ cameraMode      WRITE setCameraMode      NOTIFY cameraModeChanged)
+  Q_PROPERTY(QString argumentLine    READ argumentLine    WRITE setArgumentLine    NOTIFY argumentLineChanged)
+  Q_PROPERTY(int timeoutValue        READ timeoutValue    WRITE setTimeoutValue    NOTIFY timeoutValueChanged)
+  Q_PROPERTY(bool grayscale          READ grayscale       WRITE setGrayscale       NOTIFY grayscaleChanged)
 
   /*!
-  * \brief delete copy constructor (Singleton)
+  * \brief PreferenceProvider delete copy constructor (Singleton)
   */
   PreferenceProvider(const PreferenceProvider&) = delete;
 
   /*!
-  * \brief delete assigment (Singleton)
+  * \brief PreferenceProvider delete copy assignment (Singleton)
   */
   PreferenceProvider& operator=(const PreferenceProvider&) = delete;
 
   /*!
-  * \brief getInstance (Meyers Singleton)
-  * \return Preferences&
+  * \brief PreferenceProvider delete move constructor (Singleton)
   */
-  auto static instance() -> PreferenceProvider&;
+  PreferenceProvider(PreferenceProvider&& other) = delete;
 
   /*!
-  * \brief one second = 1000 ms
+  * \brief PreferenceProvider delete move assignment (Singleton)
   */
-  static int ONE_SECOND;
+  PreferenceProvider& operator=(PreferenceProvider&& other) = delete;
 
+  /*!
+  * \brief get instance (Meyers Singleton)
+  * \return Preferences&
+  */
+  static PreferenceProvider& instance();
 
   /*!
   * \brief photo output directory
   * \return QString m_photoFolder
   */
-  QString photoFolder();
+  QString photoFolder() const;
 
   /*!
   * \brief photo name template
   * \return QString m_photoName
   */
-  QString photoName();
+  QString photoName() const;
 
   /*!
   * \brief countdown until photo is taken
   * \return int m_countdown
   */
-  int countdown();
+  int countdown() const;
 
   /*!
   * \brief font color of the countdown
   * \return QString m_countdownColor
   */
-  QString countdownColor();
+  QString countdownColor() const;
 
   /*!
   * \brief buttons are displayed on the UI
   * \return bool m_showButtons
   */
-  bool showButtons();
+  bool showButtons() const;
 
   /*!
   * \brief background color of the FotoBox UI
   * \return QString m_backgroundColor
   */
-  QString backgroundColor();
+  QString backgroundColor() const;
 
   /*!
   * \brief wiringPi GPIO input pin
   * \return int m_inputPin
   */
-  int inputPin();
+  int inputPin() const;
 
   /*!
   * \brief wiringPi GPIO output pin
   * \return int m_outputPin
   */
-  int outputPin();
+  int outputPin() const;
 
   /*!
   * \brief how often the pin should be queried
   * \return int m_queryInterval
   */
-  int queryInterval();
+  int queryInterval() const;
 
   /*!
   * \brief the camera framework to be used
   * \return QString m_cameraMode
   */
-  QString cameraMode();
+  QString cameraMode() const;
 
   /*!
   * \brief camera framework arguments
   * \return QString m_argumentLine
   */
-  QString argumentLine();
+  QString argumentLine() const;
 
   /*!
   * \brief timeout value for the camera framework
   * \return int m_timeoutValue
   */
-  int timeoutValue();
+  int timeoutValue() const;
+
+  /*!
+  * \brief show photo in grayscale (monochrome photography)
+  * \return bool m_grayscale
+  */
+  bool grayscale() const;
 
 
-public slots:
+public Q_SLOTS:
   /*!
   * \brief set photo output directory
   * \param i_value QString&
@@ -225,8 +240,14 @@ public slots:
   */
   void setTimeoutValue(int i_value);
 
+  /*!
+  * \brief set grayscale bool (monochrome photography)
+  * \param i_value int
+  */
+  void setGrayscale(bool i_value);
 
-signals:
+
+Q_SIGNALS:
   /*!
   * \brief signal: photo output directory has changed
   */
@@ -287,4 +308,11 @@ signals:
   */
   void timeoutValueChanged(int);
 
+  /*!
+  * \brief signal: grayscale (monochrome photography) has changed
+  */
+  void grayscaleChanged(bool);
+
 };
+
+#endif // PREFERENCEPROVIDER_H

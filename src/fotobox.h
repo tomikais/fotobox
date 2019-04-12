@@ -1,19 +1,22 @@
 /* fotobox.h
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
+#ifndef FOTOBOX_H
+#define FOTOBOX_H
+
 #pragma once
 #include <QDialog>
 #include <QThread>
 
+#include "buzzer.h"
 #include "camera.h"
+#include "countdown.h"
 
-class Buzzer;
 class QKeyEvent;
-class QTimer;
 
 namespace Ui
 {
@@ -22,9 +25,9 @@ namespace Ui
 
 
 /*!
- * \brief The FotoBox class
- * Main class to control UI and controll the process
- */
+* \brief The FotoBox class
+* Main class to control UI and controll the process
+*/
 class FotoBox : public QDialog
 {
   Q_OBJECT
@@ -42,8 +45,28 @@ public:
   */
   ~FotoBox() override;
 
+  /*!
+  * \brief FotoBox default copy constructor
+  */
+  FotoBox(const FotoBox& other) = delete;
 
-private slots:
+  /*!
+  * \brief FotoBox default copy assignment
+  */
+  FotoBox& operator=(const FotoBox& other) = delete;
+
+  /*!
+  * \brief FotoBox default move constructor
+  */
+  FotoBox(FotoBox&& other) = delete;
+
+  /*!
+  * \brief FotoBox default move assignment
+  */
+  FotoBox& operator=(FotoBox&& other) = delete;
+
+
+private Q_SLOTS:
   /*!
    * \brief trigger camera to shot a photo and try to show it
    */
@@ -54,57 +77,83 @@ private slots:
    */
   void preferenceDialog();
 
-  /*!
-   * \brief show countdown
-   */
-  void countdown();
-
 
 private:
+#if defined (Q_OS_MACOS)
+  /*!
+  * \brief Is used as a workaround for macOS to close a fullscreen window.
+  * \details close the window again, using the native MacOS API (https://bugreports.qt.io/browse/QTBUG-46701)
+  */
+  void closeFullscreenWindowOnMac();
+#endif
+
   /*!
    * \brief filter key press events
    * \details Enter -> take a photo / Escape -> quit application
    * \param event QKeyEvent
    */
-  auto keyPressEvent(QKeyEvent *event) -> void override;
+  void keyPressEvent(QKeyEvent *event) override;
 
   /*!
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse release events for the widget.
   * \details no buttons on UI and left click \sa emit start()
   * \param event QMouseEvent
   */
-  auto mouseReleaseEvent(QMouseEvent *event) -> void override;
+  void mouseReleaseEvent(QMouseEvent *event) override;
+
+  /*!
+   * \brief With or without buttons
+   */
+  void buttons();
+
+  /*!
+   * \brief With or without countdown
+   */
+  void countdown();
 
   /*!
    * \brief creates a new Buzzer object
    */
-  auto buzzer() -> void;
+  void buzzer();
 
   /*!
    * \brief try to load the photo to QPixmap
    * \param i_filePath path to photo
    */
-  auto loadPhoto(const QString& i_filePath) -> void;
+  void loadPhoto(const QString& i_filePath);
 
   /*!
    * \brief move photo to folder set in preferences
    * \return new file location of the photo
    */
-  auto movePhoto() -> const QString;
+  const QString movePhoto();
+
+  /*!
+   * \brief Draw text on the QPixmap \sa m_photo
+   * \param i_text text to write
+   */
+  void drawText(const QString& i_text);
+
+  /*!
+   * \brief calculate "maximum" fitting font size
+   * \param i_width double
+   * \param i_widthFont double
+   * \return best fitting fontsize
+   */
+  double calculateFontSize(const double i_width, const double i_widthFont);
 
 
   //User Interface
   Ui::FotoBoxDialog *m_ui;
 
-  //Buzzer
-  Buzzer *m_buzzer;
-
   //Countdown
-  QTimer *m_timer;
-  int m_countdown;
+  Countdown m_countdown;
 
   //handle Buzzer thread (Raspberry Pi GPIO)
   QThread m_workerThread;
+
+  //buzzer using wiringPi framework
+  Buzzer m_buzzer;
 
   //Camera (shot photo)
   Camera m_camera;
@@ -119,28 +168,20 @@ private:
   const QString m_photoDir;
 
   //status bar timout value
-  static int STATUSBAR_MSG_TIMEOUT;
+  static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
 
 
-signals:
+Q_SIGNALS:
   /*!
    * \brief signal: start FotoBox
    */
   void start();
 
   /*!
-   * \brief signal: start shooting a picture
-   */
-  void startPhoto();
-
-  /*!
    * \brief signal: start query pin with Buzzer class
    */
   void startBuzzer();
 
-  /*!
-   * \brief signal: start a countdown
-   */
-  void startCountdown();
-
 };
+
+#endif // FOTOBOX_H

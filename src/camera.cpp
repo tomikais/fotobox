@@ -1,16 +1,16 @@
 /* camera.cpp
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "camera.h"
+
 #include "preferenceprovider.h"
 
 #include <QCoreApplication>
 #include <QDateTime>
-#include <QProcess>
 
 
 Camera::Camera(QObject *parent) : QObject(parent),
@@ -18,13 +18,13 @@ Camera::Camera(QObject *parent) : QObject(parent),
   m_cameraMode(PreferenceProvider::instance().cameraMode()),
   m_argLine(PreferenceProvider::instance().argumentLine()),
   m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue()),
-  m_process(new QProcess(this))
+  m_process(this)
 {
 
 }
 
 
-auto Camera::shootPhoto() -> bool
+bool Camera::shootPhoto()
 {
   //File name for the current
   m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
@@ -38,15 +38,15 @@ auto Camera::shootPhoto() -> bool
 #endif
 
   //Start programm with given arguments
-  m_process->start(command);
-  m_process->waitForFinished(m_timeoutValue);
+  m_process.start(command);
+  m_process.waitForFinished(m_timeoutValue);
 
   //check time out and process exit code
-  return (m_process->exitCode() == EXIT_SUCCESS);
+  return (m_process.exitCode() == EXIT_SUCCESS);
 }
 
 
-auto Camera::currentPhoto() const -> QString
+QString Camera::currentPhoto() const
 {
   return m_currentPhoto;
 }

@@ -1,17 +1,17 @@
 /* preferences.h
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
+#ifndef PREFERENCES_H
+#define PREFERENCES_H
+
 #pragma once
 #include <QDialog>
 #include <QSettings>
-
-class QTimer;
-class FotoBox;
-
+#include "countdown.h"
 
 namespace Ui {
   class PreferencesDialog;
@@ -28,18 +28,38 @@ class Preferences : public QDialog
 
 public:
   /*!
-  * \brief hide Preferences constructor
+  * \brief Preferences constructor
   * \param parent QWidget
   */
   explicit Preferences(QWidget *parent = nullptr);
 
   /*!
-  * \brief Preferences destructor
+  * \brief Preferences default destructor
   */
   ~Preferences() override = default;
 
+  /*!
+  * \brief Preferences default copy constructor
+  */
+  Preferences(const Preferences& other) = delete;
 
-private slots:
+  /*!
+  * \brief Preferences default copy assignment
+  */
+  Preferences& operator=(const Preferences& other) = delete;
+
+  /*!
+  * \brief Preferences default move constructor
+  */
+  Preferences(Preferences&& other) = delete;
+
+  /*!
+  * \brief Preferences default move assignment
+  */
+  Preferences& operator=(Preferences&& other) = delete;
+
+
+private Q_SLOTS:
   /*!
   * \brief start the FotoBox
   */
@@ -54,11 +74,6 @@ private slots:
   * \brief Open a File Dialog and set path in UI.
   */
   void chooseDirectory();
-
-  /*!
-  * \brief Accept dialog after 10 seconds. You can stop that by moving mouse into preference dialog.
-  */
-  void autoAcceptDialog();
 
   /*!
   * \brief Restore default preferences.
@@ -80,9 +95,14 @@ private slots:
 
 private:
   /*!
+  * \brief Signal & Slot connect
+  */
+  void connectUi();
+
+  /*!
   * \brief load application settings from INI file
   */
-  auto loadPreferences() -> void;
+  void loadPreferences();
 
   /*!
   * \brief Save the preferences to QSettings
@@ -93,7 +113,7 @@ private:
   * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget
   * \details stopping auto accept dialog \sa autoAcceptDialog()
   */
-  auto mouseMoveEvent(QMouseEvent *event) -> void override;
+  void mouseMoveEvent(QMouseEvent *event) override;
 
 
   //User Interface
@@ -102,8 +122,9 @@ private:
   //Store and read settings (INI file)
   QSettings m_settings;
 
-  //Auto close dialog
-  int m_counter = 9;
-  QTimer *m_timer;
+  //Countdown to "auto close dialog"
+  Countdown m_countdown;
 
 };
+
+#endif // PREFERENCES_H

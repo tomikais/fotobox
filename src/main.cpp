@@ -1,13 +1,14 @@
 /* main.cpp
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "preferences.h"
 
 #include <QApplication>
+#include <QLibraryInfo>
 #include <QTranslator>
 
 
@@ -20,26 +21,30 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  app.setOrganizationName(QStringLiteral("Thomas Kais"));
-  app.setApplicationName(QStringLiteral("FotoBox"));
-  app.setApplicationVersion(QStringLiteral("1.2.7"));
+  QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
+  QApplication::setApplicationName(QStringLiteral("FotoBox"));
+  QApplication::setApplicationVersion(QStringLiteral("1.3.0"));
 
-  //German or English (=default language)
-  QTranslator translator;
+  QTranslator qtTranslator, appTranslator;
+  // Qt Translation
+  if (qtTranslator.load(QLocale(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
+      QApplication::installTranslator(&qtTranslator);
+    }
+  //App Translation: German or English (=default language)
   bool result = false;
   if (QLocale::system().language() == QLocale::German) {
-      result = translator.load(QStringLiteral(":/translations/german"));
+      result = appTranslator.load(QStringLiteral(":/i18n/translation_de.qm"));
     }
   else {
-      result = translator.load(QStringLiteral(":/translations/english"));
+      result = appTranslator.load(QStringLiteral(":/i18n/translation_en.qm"));
     }
   if (result) {
-      app.installTranslator(&translator);
+      QApplication::installTranslator(&appTranslator);
     }
 
   //Show preferences dialog
   auto* dialog = new Preferences;
   dialog->show();
 
-  return app.exec();
+  return QApplication::exec();
 }

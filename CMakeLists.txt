@@ -1,3 +1,10 @@
+#------------------------------------------------------------
+# Copyright (c) 2019 Thomas Kais
+#
+# This file is subject to the terms and conditions defined in
+# file 'COPYING', which is part of this source code package.
+#------------------------------------------------------------
+
 # http://doc.qt.io/qt-5/cmake-manual.html
 cmake_minimum_required(VERSION 3.9.0)
 
@@ -11,12 +18,23 @@ if(APPLE AND EXISTS /usr/local/opt/qt5)
 endif()
 
 # By default, QT contains core and gui
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 if(Qt5Core_FOUND)
     if(Qt5Core_VERSION VERSION_LESS 5.3.0)
         message(WARNING "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
     endif()
 endif()
+
+# The following define makes your compiler emit warnings if you use
+# any Qt feature that has been marked deprecated (the exact warnings
+# depend on your compiler). Please consult the documentation of the
+# deprecated API in order to know how to port your code away from it.
+add_definitions(-DQT_DEPRECATED_WARNINGS)
+
+# You can also make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+# You can also select to disable deprecated APIs only up to a certain version of Qt.
+add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -31,20 +49,23 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/forms)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(SRC
     ${PROJECT_SOURCE_DIR}/src/main.cpp
-    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
     ${PROJECT_SOURCE_DIR}/src/buzzer.cpp
     ${PROJECT_SOURCE_DIR}/src/camera.cpp
-    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
+    ${PROJECT_SOURCE_DIR}/src/countdown.cpp
+    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
     ${PROJECT_SOURCE_DIR}/src/preferenceprovider.cpp
+    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
     )
 set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
     ${PROJECT_SOURCE_DIR}/forms/preferences.ui
     )
+set(TS_FILES
+    ${PROJECT_SOURCE_DIR}/i18n/translation_de.ts
+    ${PROJECT_SOURCE_DIR}/i18n/translation_en.ts
+    )
 set(RESOURCES
-    ${PROJECT_SOURCE_DIR}/resources/qresource.qrc
-    ${PROJECT_SOURCE_DIR}/resources/translation_de.ts
-    ${PROJECT_SOURCE_DIR}/resources/translation_en.ts
+    ${PROJECT_SOURCE_DIR}/i18n/qresource.qrc
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/resources/Info.plist
@@ -55,13 +76,25 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/DockerfileStretch
     ${PROJECT_SOURCE_DIR}/Doxyfile
     ${PROJECT_SOURCE_DIR}/fotobox.pro
-    ${PROJECT_SOURCE_DIR}/LICENSE
+    ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
     )
+
+# Translation: build qm files in source directory
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/i18n)
+qt5_add_translation(QM_FILES ${TS_FILES})
+
+# WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+if(UNIX AND APPLE)
+  set(SRC_MAC ${PROJECT_SOURCE_DIR}/src/fotoboxmac.mm)
+endif()
+
 add_executable(${CMAKE_PROJECT_NAME}
     ${SRC}
+    ${SRC_MAC}
     ${FORMS}
     ${RESOURCES}
+    ${QM_FILES}
     ${OTHER}
     )
 
@@ -83,6 +116,11 @@ if(UNIX AND NOT APPLE)
         target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${WiringPi_LIBRARY_REL})
         target_link_libraries(${CMAKE_PROJECT_NAME} debug     ${WiringPi_LIBRARY_DEB})
     endif()
+endif()
+
+# WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+if(UNIX AND APPLE)
+  target_link_libraries(${CMAKE_PROJECT_NAME} "-framework Foundation" "-framework AppKit")
 endif()
 
 # Disable the Dark Mode in the app if macOS SDK is Mojave (10.14) and Qt version is less than 5.12

@@ -1,11 +1,12 @@
 /* preferences.cpp
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "fotobox.h"
+
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_preferences.h"
@@ -20,23 +21,55 @@
 #include <QDesktopWidget>
 #include <QFileDialog>
 #include <QProcess>
-#include <QTimer>
+#include <QScreen>
 
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::PreferencesDialog),
   m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this),
-  m_timer(new QTimer(this))
+  m_countdown(this, 10)
 {
   //setup UI
   m_ui->setupUi(this);
 
   //move to center
-  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QApplication::desktop()->availableGeometry()));
+  setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QGuiApplication::primaryScreen()->availableGeometry()));
 
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
 
+  //Signal & Slot
+  connectUi();
+
+  //restore default values
+  restoreDefaultPreferences();
+
+  //load settings from ini file
+  loadPreferences();
+
+  //auto accept Dialog
+  connect(&m_countdown, &Countdown::elapsed, this, [&] () {
+      //start FotoBox
+      startFotoBox();
+    });
+  m_countdown.start();
+
+  //update window title
+  connect(&m_countdown, &Countdown::update, this, [&] (unsigned int i_timeLeft) {
+      //: %1 countdown (number)
+      setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
+    });
+
+
+  //function only available Qt 5.5 or newer
+#if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
+  m_ui->chbGrayscale->setEnabled(false);
+#endif
+}
+
+
+void Preferences::connectUi()
+{
   //connect UI to preferences
   connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
   connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
@@ -66,6 +99,7 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
       m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
   connect(m_ui->spbTimout, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
+  connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
 
   //connect buttons
   connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
@@ -76,28 +110,18 @@ Preferences::Preferences(QWidget *parent) : QDialog(parent),
         restoreDefaultPreferences();
       }
   });
-
-  //restore default values
-  restoreDefaultPreferences();
-
-  //load settings from ini file
-  loadPreferences();
-
-  //auto accept Dialog
-  m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-  connect(m_timer, &QTimer::timeout, this, &Preferences::autoAcceptDialog);
-  m_timer->start();
 }
+
 
 
 void Preferences::startFotoBox()
 {
   //save settings to ini file
   savePreferences();
-  m_timer->stop();
+  m_countdown.stop();
 
   //Start FotoBox;
-  auto *dialog = new FotoBox;
+  auto dialog = new FotoBox;
 
   //close dialog and start fotobox
   reject();
@@ -105,25 +129,10 @@ void Preferences::startFotoBox()
 }
 
 
-void Preferences::autoAcceptDialog()
+void Preferences::mouseMoveEvent(QMouseEvent *event)
 {
-  if (m_counter >= 1) {
-      //set Window Title and start timer again
-      setWindowTitle(tr("launching FotoBox in ") + QString::number(m_counter) + tr(" seconds"));
-      --m_counter;
-      m_timer->start();
-      return;
-    }
-
-  //start FotoBox
-  startFotoBox();
-}
-
-
-auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
-{
-  if (m_timer->isActive()) {
-      m_timer->stop();
+  if (m_countdown.isActive()) {
+      m_countdown.stop();
       setMouseTracking(false);
       m_ui->scrollArea->setMouseTracking(false);
       m_ui->scrollAreaWidgetContents->setMouseTracking(false);
@@ -138,7 +147,7 @@ auto Preferences::mouseMoveEvent(QMouseEvent *event) -> void
 }
 
 
-auto Preferences::loadPreferences() -> void
+void Preferences::loadPreferences()
 {
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_ui->txtPhotoFolder->setText(m_settings.value(m_ui->txtPhotoFolder->objectName(), m_ui->txtPhotoFolder->text()).toString());
@@ -168,11 +177,12 @@ auto Preferences::loadPreferences() -> void
   m_ui->cmbCameraMode->setCurrentText(m_settings.value(m_ui->cmbCameraMode->objectName(), m_ui->cmbCameraMode->currentText()).toString());
 
   m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
+  m_ui->chbGrayscale->setChecked(m_settings.value(m_ui->chbGrayscale->objectName(), m_ui->chbGrayscale->isChecked()).toBool());
   m_settings.endGroup();
 }
 
 
-auto Preferences::colorDialog() -> void
+void Preferences::colorDialog()
 {
   //"Color Picker" Dialog
   QColorDialog dialog(this);
@@ -192,7 +202,7 @@ auto Preferences::colorDialog() -> void
 }
 
 
-auto Preferences::chooseDirectory() -> void
+void Preferences::chooseDirectory()
 {
   //File Dialog to choose photo folder
   QFileDialog dialog(this, tr("choose directory"), QDir::homePath());
@@ -207,7 +217,7 @@ auto Preferences::chooseDirectory() -> void
 }
 
 
-auto Preferences::showColor(const QString& i_colorName) -> void
+void Preferences::showColor(const QString& i_colorName)
 {
   //create color
   QColor color(i_colorName);
@@ -225,7 +235,7 @@ auto Preferences::showColor(const QString& i_colorName) -> void
 }
 
 
-auto Preferences::savePreferences() -> void
+void Preferences::savePreferences()
 {
   m_settings.beginGroup(QStringLiteral("FotoBox"));
   m_settings.setValue(m_ui->txtPhotoFolder->objectName(), PreferenceProvider::instance().photoFolder());
@@ -245,7 +255,10 @@ auto Preferences::savePreferences() -> void
   m_settings.beginGroup(QStringLiteral("Camera"));
   //Save QComboBox model
   QStringList itemText, itemData;
-  for (int i = 0; i < m_ui->cmbCameraMode->count(); ++i) {
+  auto size = m_ui->cmbCameraMode->count();
+  itemText.reserve(size);
+  itemData.reserve(size);
+  for (int i = 0; i < size; ++i) {
       itemText << m_ui->cmbCameraMode->itemText(i);
       itemData << m_ui->cmbCameraMode->itemData(i).toString();
     }
@@ -254,11 +267,12 @@ auto Preferences::savePreferences() -> void
   m_settings.setValue(m_ui->cmbCameraMode->objectName(), PreferenceProvider::instance().cameraMode());
 
   m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
+  m_settings.setValue(m_ui->chbGrayscale->objectName(), PreferenceProvider::instance().grayscale());
   m_settings.endGroup();
 }
 
 
-auto Preferences::restoreDefaultPreferences() -> void
+void Preferences::restoreDefaultPreferences()
 {
   //FotoBox
   m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
@@ -286,12 +300,13 @@ auto Preferences::restoreDefaultPreferences() -> void
         QStringLiteral("raspistill"),
         QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
   m_ui->spbTimout->setValue(30);
+  m_ui->chbGrayscale->setChecked(false);
 }
 
 
-auto Preferences::applicationAvailable(const QString& i_name) -> void
+void Preferences::applicationAvailable(const QString& i_name)
 {
-  m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral(""));
+  m_ui->lblCameraModeInfo->setStyleSheet(QLatin1String(""));
   if (i_name == QLatin1String("gphoto2")) {
       auto process = new QProcess(this);
       //specific 'gphoto2' check: auto-detect: get detected cameras
@@ -303,13 +318,14 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
 #endif
       if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a> / <a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+          //: %1 name of the application from QComboBox CameraMode
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>").arg(i_name));
         } else {
           auto output = process->readAllStandardOutput();
           //gphoto version
           auto version = output.left(output.indexOf('\n'));
           //get camera model
-          QString model = output.right(output.size() - output.lastIndexOf('-') - 2);
+          QString model = QString::fromLatin1(output.right(output.size() - output.lastIndexOf('-') - 2));
           model = model.left(model.indexOf(QLatin1String("usb"), Qt::CaseInsensitive));
           if (model.isEmpty()) {
               m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
@@ -324,7 +340,8 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
           //specific 'raspistill' show verbose message
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing! Get it ").arg(i_name) + QStringLiteral("<a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>"));
+          //: %1 name of the application from QComboBox CameraMode
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>").arg(i_name));
         } else {
           m_ui->lblCameraModeInfo->clear();
         }
@@ -334,7 +351,8 @@ auto Preferences::applicationAvailable(const QString& i_name) -> void
       if (QProcess::execute(i_name) != EXIT_SUCCESS) {
           //other applications
           m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          m_ui->lblCameraModeInfo->setText(QStringLiteral("'") + i_name + tr("' is missing!"));
+          //: %1 name of the application from QComboBox CameraMode
+          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing!").arg(i_name));
         } else {
           m_ui->lblCameraModeInfo->clear();
         }

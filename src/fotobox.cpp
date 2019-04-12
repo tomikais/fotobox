@@ -1,34 +1,25 @@
 /* fotobox.cpp
  *
- * Copyright (c) 2018 Thomas Kais
+ * Copyright (c) 2019 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
- * file 'LICENSE', which is part of this source code package.
+ * file 'COPYING', which is part of this source code package.
  */
 #include "fotobox.h"
 
-#include "buzzer.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_fotobox.h"
 
+#include <QDate>
 #include <QDir>
 #include <QKeyEvent>
-#include <QTimer>
-
-#if defined (__arm__) && __has_include(<wiringPi.h>)
-#include <wiringPi.h>
-#endif
-
-
-int FotoBox::STATUSBAR_MSG_TIMEOUT = 4000;
+#include <QPainter>
 
 
 FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::FotoBoxDialog),
-  m_buzzer(nullptr),
-  m_timer(new QTimer(this)),
-  m_countdown(PreferenceProvider::instance().countdown()),
+  m_countdown(this),
   m_workerThread(this),
   m_camera(this),
   m_workingDir(QDir::currentPath() + QDir::separator()),
@@ -37,18 +28,37 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   //setup GUI
   m_ui->setupUi(this);
 
+  //: %1 application version e.g. v1.2.3 and %3 is current year e.g. 2019
+  setWindowTitle(tr("FotoBox %1 (Copyright %2 Thomas Kais)").arg(QApplication::applicationVersion()).arg(QDate::currentDate().year()));
+
+  //set Background Color
+  setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
+
   //delete everything on close
   setAttribute(Qt::WA_DeleteOnClose);
-
-  //connect signal to corresponding slot
-  connect(this, &FotoBox::startPhoto, this, &FotoBox::photo);
-  connect(this, &FotoBox::startCountdown, this, &FotoBox::countdown);
 
   //show QStatusBar only when needed (safe space for the photos)
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
     });
+  //hide status bar
+  m_ui->statusBar->hide();
 
+  //with or without buttons?
+  buttons();
+
+  //Buzzer class (Raspberry Pi GPIO using wiringPi)
+#if defined (BUZZER_AVAILABLE)
+  buzzer();
+#endif
+
+  //countdown?
+  countdown();
+}
+
+
+void FotoBox::buttons()
+{
   if (PreferenceProvider::instance().showButtons()) {
       //connect buttons
       connect(m_ui->btnStart, &QPushButton::clicked, this, &FotoBox::start);
@@ -63,61 +73,100 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
       m_ui->btnPreferencesDialog->setVisible(false);
       m_ui->btnQuitApp->setVisible(false);
     }
+}
 
-  //show countdown only when needed
-  m_ui->lcdCountdown->setVisible(false);
-  if (m_countdown == 0) {
-      //disable countdown
-      connect(this, &FotoBox::start, this, &FotoBox::startPhoto);
+
+void FotoBox::buzzer()
+{
+#if defined (BUZZER_AVAILABLE)
+  if (m_workerThread.isRunning()) {
+      return;
     }
-  else {
-      //initialize countdown
-      m_timer->setInterval(PreferenceProvider::ONE_SECOND);
-      connect(m_timer, &QTimer::timeout, this, &FotoBox::startCountdown);
-      connect(this, &FotoBox::start, this, &FotoBox::startCountdown);
+
+  //move to a thread
+  m_buzzer.moveToThread(&m_workerThread);
+
+  //connect the start signale for buzzer
+  connect(this, &FotoBox::startBuzzer, &m_buzzer, &Buzzer::queryPin);
+  //start fotobox if buzzer was triggered
+  connect(&m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
+
+  m_workerThread.start();
+
+  //start query
+  emit startBuzzer();
+#endif
+}
+
+
+void FotoBox::countdown()
+{
+  //initialize countdown
+  m_ui->lcdCountdown->setVisible(false);
+
+  if (PreferenceProvider::instance().countdown() > 0) {
+      //add countdown
+      m_countdown.setStartTime(static_cast<unsigned int>(PreferenceProvider::instance().countdown()));
+      connect(this, &FotoBox::start, &m_countdown, &Countdown::start);
+      connect(&m_countdown, &Countdown::elapsed, this, &FotoBox::photo);
+
+      //update UI
+      connect(&m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
+          //hide photo and show countdown
+          m_ui->lblPhoto->setVisible(false);
+          m_ui->lcdCountdown->setVisible(true);
+          m_ui->lcdCountdown->display(QString::number(i_timeLeft));
+        });
 
       //apply font color
       auto palette = m_ui->lcdCountdown->palette();
       palette.setColor(QPalette::WindowText, PreferenceProvider::instance().countdownColor());
       m_ui->lcdCountdown->setPalette(palette);
     }
-
-  //set Background Color
-  setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
-  //hide status bar
-  m_ui->statusBar->hide();
-
-  //Buzzer class (Raspberry Pi GPIO using wiringPi)
-  buzzer();
+  else {
+      //disable countdown
+      connect(this, &FotoBox::start, this, &FotoBox::photo);
+    }
 }
 
 
 FotoBox::~FotoBox()
 {
+#if defined (BUZZER_AVAILABLE)
+  //stop query pin
+  m_buzzer.stop();
+#endif
   //terminate and delete Buzzer thread
-  if (m_buzzer != nullptr) {
-      //stop query pin
-      m_buzzer->stop();
-    }
   m_workerThread.quit();
   m_workerThread.wait();
 }
 
 
-auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
+void FotoBox::keyPressEvent(QKeyEvent *event)
 {
   //prevent triggering method too often
   if (!event->isAutoRepeat()) {
-      //ENTER key and ENTER on keypad
+      //ENTER and ENTER on keypad
       if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
           //take a photo
-          emit start();
+          Q_EMIT start();
         }
 
-      //ESCAPE KEY
+      //Logitech Presenter
+      if (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_PageUp) {
+          //take a photo
+          Q_EMIT start();
+        }
+
+      //ESCAPE with SHIFT
       if (event->key() == Qt::Key_Escape) {
-          //Quit application
-          QCoreApplication::quit();
+          if (event->modifiers() == Qt::ShiftModifier) {
+              //Quit application
+              QCoreApplication::quit();
+            }
+          else {
+              m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift key while press Escape key."), STATUSBAR_MSG_TIMEOUT);
+            }
         }
 
       //Preferences KEYS (P)references, (S)ettings or (E)instellungen
@@ -129,54 +178,19 @@ auto FotoBox::keyPressEvent(QKeyEvent *event) -> void
 }
 
 
-auto FotoBox::mouseReleaseEvent(QMouseEvent *event) -> void
+void FotoBox::mouseReleaseEvent(QMouseEvent *event)
 {
   //touch support only when no buttons are shown
   if (!PreferenceProvider::instance().showButtons() && (event->button() == Qt::LeftButton || event->button() == Qt::RightButton)) {
-      emit start();
+      Q_EMIT start();
     }
 
   QWidget::mouseReleaseEvent(event);
 }
 
 
-auto FotoBox::buzzer() -> void
+void FotoBox::preferenceDialog()
 {
-  if (m_buzzer != nullptr) {
-      //stop query pin
-      m_buzzer->stop();
-    }
-
-  if (m_workerThread.isRunning()) {
-      //stop QThread
-      m_workerThread.quit();
-      m_workerThread.wait();
-    }
-
-  //create Buzzer and move to a thread
-  m_buzzer = new Buzzer;
-  m_buzzer->moveToThread(&m_workerThread);
-
-  //connect and start Buzzer
-  connect(&m_workerThread, &QThread::finished, m_buzzer, &QObject::deleteLater);
-  connect(this, &FotoBox::startBuzzer, m_buzzer, &Buzzer::queryPin);
-  connect(m_buzzer, &Buzzer::triggered, this, &FotoBox::start);
-  m_workerThread.start();
-
-#if defined (__WIRING_PI_H__)
-  //start query
-  emit startBuzzer();
-#endif
-}
-
-
-auto FotoBox::preferenceDialog() -> void
-{
-#if defined (Q_OS_MACOS)
-  //QTBUG-36714: Window can't be fully closed on Mac OS X after calling showFullScreen()
-  showNormal();
-#endif
-
   //Preferences dialog
   auto dialog = new Preferences;
 
@@ -185,37 +199,27 @@ auto FotoBox::preferenceDialog() -> void
 
   //close fotobox and show preferences
   reject();
+
+#if defined (Q_OS_MACOS)
+  //QTBUG-36714: Window can't be closed on Mac OS X after calling showFullScreen()
+  closeFullscreenWindowOnMac();
+#endif
+
   dialog->show();
 }
 
 
-auto FotoBox::countdown() -> void
+void FotoBox::photo()
 {
-  if (m_countdown >= 1) {
-      //hide photo and show countdown
-      m_ui->lblPhoto->setVisible(false);
-      m_ui->lcdCountdown->setVisible(true);
-      m_ui->lcdCountdown->display(m_countdown);
-
-      --m_countdown;
-      m_timer->start();
-      return;
-    }
-
-  //reset counter, stop timer and hide countdown
-  m_countdown = PreferenceProvider::instance().countdown();
-  m_timer->stop();
+  //show label and hide other widgets
   m_ui->lcdCountdown->setVisible(false);
+  m_ui->lcdCountdown->update();
+  m_ui->statusBar->setVisible(false);
+  m_ui->statusBar->update();
+  QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+
+  //remove current photo
   m_ui->lblPhoto->setVisible(true);
-
-  //shot photo
-  emit startPhoto();
-}
-
-
-auto FotoBox::photo() -> void
-{
-  //remove current picture / refresh label (photo)
   m_ui->lblPhoto->clear();
   m_ui->lblPhoto->repaint();
 
@@ -226,14 +230,17 @@ auto FotoBox::photo() -> void
       loadPhoto(filePath);
     }
   else {
-      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly! Please call the FotoBox owner."), STATUSBAR_MSG_TIMEOUT);
+      m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly!"), STATUSBAR_MSG_TIMEOUT);
     }
 
-  //restart Buzzer
-  buzzer();
+  //restart Buzzer and countdown
+  m_countdown.reset();
+#if defined (BUZZER_AVAILABLE)
+  emit startBuzzer();
+#endif
 }
 
-auto FotoBox::movePhoto() -> const QString
+const QString FotoBox::movePhoto()
 {
   //old location of the photo (working directory not application directory)
   const QString oldName = m_workingDir + m_camera.currentPhoto();;
@@ -247,25 +254,66 @@ auto FotoBox::movePhoto() -> const QString
           //successfully moved the file/photo
           return newName;
         }
-      else {
-          //error handling
-          m_ui->statusBar->showMessage(tr("Couldn't move the photo to: ") + newName, STATUSBAR_MSG_TIMEOUT);
-        }
+      //error handling
+      //: %1 directory e.g. /home/pi/FotoBox/
+      m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
     }
 
   return oldName;
 }
 
 
-auto FotoBox::loadPhoto(const QString& i_filePath) -> void
+void FotoBox::loadPhoto(const QString& i_filePath)
 {
   //try to load the photo shot by camera
   if (m_photo.load(i_filePath)) {
       //resize picture to label size
       QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
-      m_ui->lblPhoto->setPixmap(m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+      //function only available Qt 5.5 or newer
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
+      //show photo in grayscale (monochrome photography)
+      if (PreferenceProvider::instance().grayscale()) {
+          auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
+          m_photo.convertFromImage(grey);
+        }
+#endif
+
+      m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+      m_ui->lblPhoto->setPixmap(m_photo);
     }
   else {
       m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
     }
+}
+
+
+void FotoBox::drawText(const QString& i_text)
+{
+  //painter begins painting the paint device immediately!
+  QPainter painter(&m_photo);
+
+  //set color and font
+  painter.setPen(QPen(PreferenceProvider::instance().backgroundColor()));
+
+  //calculate best font size
+  QFont font = painter.font();
+  auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
+  font.setPointSizeF(font.pointSizeF() * size);
+  painter.setFont(font);
+
+  //draw text on image
+  painter.drawText(m_photo.rect(), Qt::AlignCenter, i_text);
+
+  m_ui->lblPhoto->setPixmap(m_photo);
+}
+
+
+double FotoBox::calculateFontSize(const double i_width, const double i_widthFont)
+{
+  double factor = i_width / i_widthFont;
+  if ((factor < 1) || (factor > 1.25)) {
+      return factor;
+    }
+  return 0.0;
 }

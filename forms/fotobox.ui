@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Thomas Kais</author>
+ <comment>
+ #------------------------------------------------------------
+ # Copyright (c) 2019 Thomas Kais
+ #
+ # This file is subject to the terms and conditions defined in
+ # file 'COPYING', which is part of this source code package.
+ #------------------------------------------------------------
+ </comment>
  <class>FotoBoxDialog</class>
  <widget class="QDialog" name="FotoBoxDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
-    <height>131</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>FotoBox (Copyright Thomas Kais)</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0" colspan="4">
@@ -119,7 +136,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color:red;</string>
+      <string notr="true">color:darkRed;</string>
      </property>
     </widget>
    </item>

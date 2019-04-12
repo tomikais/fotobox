@@ -1,3 +1,10 @@
+#------------------------------------------------------------
+# Copyright (c) 2019 Thomas Kais
+#
+# This file is subject to the terms and conditions defined in
+# file 'COPYING', which is part of this source code package.
+#------------------------------------------------------------
+
 # Try to find the wiringPi library.
 # This will define:
 #
