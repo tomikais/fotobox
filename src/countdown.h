@@ -110,20 +110,20 @@ private:
   void updateTimeLeft();
 
 
-  //one second = 1000 ms
-  static constexpr int ONE_SECOND = 1000;
-
-  //timer intervall (one second)
+  /*! timer intervall (one second) */
   QTimer m_timer;
 
-  //countdown start time (seconds)
+  /*! countdown start time (seconds) */
   unsigned int m_startTime;
 
-  //time left (seconds)
+  /*! time left (seconds) */
   unsigned int m_timeLeft;
 
-  //status of the countdown
+  /*! status of the countdown */
   bool m_isActive{false};
+
+  /*! one second = 1000 ms */
+  static constexpr int ONE_SECOND = 1000;
 
 };
 

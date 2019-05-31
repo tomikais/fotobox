@@ -143,32 +143,46 @@ private:
   double calculateFontSize(const double i_width, const double i_widthFont);
 
 
-  //User Interface
+  /*! User Interface */
   Ui::FotoBoxDialog *m_ui;
 
-  //Countdown
+  /*! Countdown */
   Countdown m_countdown;
 
-  //handle Buzzer thread (Raspberry Pi GPIO)
+  /*! handle Buzzer thread (Raspberry Pi GPIO) */
   QThread m_workerThread;
 
-  //buzzer using wiringPi framework
+  /*! buzzer using wiringPi framework */
   Buzzer m_buzzer;
 
-  //Camera (shot photo)
+  /*! Camera (shot photo) */
   Camera m_camera;
 
-  //store / load the photo
+  /*! store / load the photo */
   QPixmap m_photo;
 
-  //working directory
+  /*! working directory */
   const QString m_workingDir;
 
-  //photo directory
+  /*! photo directory */
   const QString m_photoDir;
 
-  //status bar timout value
+  /*! status bar timout value */
   static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
+
+  /*! keyboard shortcut to start FotoBox */
+  std::vector<Qt::Key> m_triggerKey { Qt::Key_N,
+        Qt::Key_Return, Qt::Key_Enter,
+        Qt::Key_PageDown, Qt::Key_PageUp,
+        Qt::Key_Left, Qt::Key_Right,
+        Qt::Key_Up, Qt::Key_Down,
+        Qt::Key_Space, Qt::Key_Backspace };
+
+  /*! keyboard shortcut to go back to preference dialog */
+  std::vector<Qt::Key> m_preferenceKey { Qt::Key_P, Qt::Key_S, Qt::Key_E };
+
+  /*! keyboard shortcut to quit the application */
+  std::vector<Qt::Key> m_quitKey { Qt::Key_Escape, Qt::Key_Q };
 
 
 Q_SIGNALS:

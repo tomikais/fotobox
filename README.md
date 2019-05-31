@@ -16,11 +16,16 @@ Tutorial to run your own "photo booth" on a [Raspberry Pi](https://www.raspberry
 
 ## keyboard shortcuts
 
-| key                     | action                               |
-| ------------------------|--------------------------------------|
-| `Enter`, `PgUp`, `PgDn` | start FotoBox (presenter compatible) |
-| `P`, `S`, `E`           | preference dialog                    |
-| `Shift` + `Escape`      | quit application                     |
+| key                                                              | action            |
+|------------------------------------------------------------------|-------------------|
+| `N`, `Enter`, `Page Up/Down`, `Arrow Keys`, `Space`, `Backspace` | start FotoBox     |
+| `P`, `S`, `E`                                                    | preference dialog |
+| `Shift` + `Escape`, `Q`                                          | quit application  |
+
+## FotoBox community
+
+* [german Raspberry Pi Forum](https://forum-raspberrypi.de/forum/thread/39672-fotobox-projekt-fuer-den-raspberry-pi-c-qt-wiringpi-gphoto2/)
+* [official Raspberry Pi Forum](https://www.raspberrypi.org/forums/viewtopic.php?t=218279)
 
 ---
 
