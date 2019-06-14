@@ -14,6 +14,7 @@ matrix:
   include:
     - name: "macOS"
       os: osx
+      osx_image: xcode10.2
       compiler: clang
       language: cpp
       before_install:
@@ -33,9 +34,10 @@ matrix:
 
     - name: "Raspbian Stretch"
       os: linux
-      language: minimal
       dist: xenial
-      sudo: true
+      language: ruby
+      services:
+        - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - docker build --tag buildfotobox --file DockerfileStretch .
@@ -45,9 +47,10 @@ matrix:
 
     - name: "Raspbian Jessie"
       os: linux
-      language: minimal
       dist: xenial
-      sudo: true
+      language: ruby
+      services:
+        - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
         - docker build --tag buildfotobox --file DockerfileJessie .
@@ -57,9 +60,9 @@ matrix:
 
     - name: "Ubuntu Xenial CMake"
       os: linux
+      dist: xenial
       language: cpp
       compiler: gcc
-      dist: xenial
       sudo: false
       addons:
         apt:
@@ -77,9 +80,7 @@ matrix:
 
     - name: "Ubuntu Xenial Doxygen"
       os: linux
-      language: minimal
       dist: xenial
-      sudo: false
       addons:
         apt:
           update: true

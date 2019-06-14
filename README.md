@@ -1,32 +1,38 @@
 # Photobooth (FotoBox) for Raspberry Pi, Linux and macOS [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox)
 
-## installation and operating instructions
+## Raspberry Pi installation
 
-Tutorial to run your own "photo booth" on a [Raspberry Pi](https://www.raspberrypi.org):
-
-* [Raspberry Pi model >=2](https://www.raspberrypi.org/products/) with [Raspbian](https://www.raspberrypi.org/downloads/noobs/) installed. To update to latest [Raspbian version](https://en.wikipedia.org/wiki/Raspbian), run this commands in [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/): `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
-* Download and install the [Qt](https://www.qt.io) and [WiringPi](http://wiringpi.com) library with [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/) command: `sudo apt-get install qt5-default wiringpi`
+* [Raspberry Pi model >=2](https://www.raspberrypi.org/products/) with [Raspbian](https://www.raspberrypi.org/downloads/noobs/) (__'Stretch' recommended__) installed. To update to latest [Raspbian version](https://en.wikipedia.org/wiki/Raspbian), run this commands in [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/): `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
+* Download and install the [Qt](https://www.qt.io) library with [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/) command: `sudo apt-get install qt5-default`
 * Set up DSLR and/or official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)
   * [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest [gPhoto2](http://gphoto.org) (__recommended__) or use latest available gphoto2 version provided from Raspbian: `sudo apt-get install gphoto2`
   * [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/)
-* Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian). Start the application and configure it accordingly.
-* Prepare for a continuous solution
-  * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
-  * _Autostart_: open file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__if necessary adjust path__) at the end of the file.
+* Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian) ('Stretch' recommended because not all features are available in 'Jessie')
+* Start the application and configure it accordingly.
+
+## optional steps
+
+* _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
+* _Autostart_: open file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
+* _Using a button_: It's possible to connect a button to the Raspberry Pi GPIO ([WiringPi](http://wiringpi.com)) pins to trigger the FotoBox. You can configure [dedicated pins](http://wiringpi.com/pins/) in the applicatuion or use the programm default ones:  
+![Raspberry Pi 2 Model B default GPIO used by FotoBox](resources/RaspPi_2B_default_GPIO.jpg)
 
 ## keyboard shortcuts
 
-| key                     | action                               |
-| ------------------------|--------------------------------------|
-| `Enter`, `PgUp`, `PgDn` | start FotoBox (presenter compatible) |
-| `P`, `S`, `E`           | preference dialog                    |
-| `Shift` + `Escape`      | quit application                     |
+| key                                                              | action            |
+|------------------------------------------------------------------|-------------------|
+| `N`, `Enter`, `Page Up/Down`, `Arrow Keys`, `Space`, `Backspace` | start FotoBox     |
+| `P`, `S`, `E`                                                    | preference dialog |
+| `Shift` + `Escape`, `Q`                                          | quit application  |
+
+## FotoBox community
+
+* [german Raspberry Pi Forum](https://forum-raspberrypi.de/forum/thread/39672-fotobox-projekt-fuer-den-raspberry-pi-c-qt-wiringpi-gphoto2/)
+* [official Raspberry Pi Forum](https://www.raspberrypi.org/forums/viewtopic.php?t=218279)
 
 ---
 
-## development
-
-[latest Doxygen documentation](https://tomikais.github.io/fotobox/)
+## development ([Doxygen documentation](https://tomikais.github.io/fotobox/))
 
 ### update Raspbian and firmware
 

@@ -80,10 +80,8 @@ Q_SIGNALS:
 
 
 private:
-  /*!
-  * atomic bool to stop /sa queryPin()
-  */
-  std::atomic<bool> m_stop{false};
+  /*! atomic bool to stop /sa queryPin() */
+  std::atomic<bool> m_stop {false};
 
 };
 

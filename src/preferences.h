@@ -116,13 +116,13 @@ private:
   void mouseMoveEvent(QMouseEvent *event) override;
 
 
-  //User Interface
+  /*! User Interface */
   Ui::PreferencesDialog *m_ui;
 
-  //Store and read settings (INI file)
+  /*! Store and read settings (INI file) */
   QSettings m_settings;
 
-  //Countdown to "auto close dialog"
+  /*! Countdown to "auto close dialog" */
   Countdown m_countdown;
 
 };

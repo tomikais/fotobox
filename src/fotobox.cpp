@@ -49,7 +49,9 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
 
   //Buzzer class (Raspberry Pi GPIO using wiringPi)
 #if defined (BUZZER_AVAILABLE)
-  buzzer();
+  if (PreferenceProvider::instance().queryInterval() > 0) {
+      buzzer();
+    }
 #endif
 
   //countdown?
@@ -69,9 +71,9 @@ void FotoBox::buttons()
       //hide mouse cursor
       QGuiApplication::setOverrideCursor(Qt::BlankCursor);
       //hide buttons
-      m_ui->btnStart->setVisible(false);
-      m_ui->btnPreferencesDialog->setVisible(false);
-      m_ui->btnQuitApp->setVisible(false);
+      m_ui->btnStart->hide();
+      m_ui->btnPreferencesDialog->hide();
+      m_ui->btnQuitApp->hide();
     }
 }
 
@@ -102,7 +104,7 @@ void FotoBox::buzzer()
 void FotoBox::countdown()
 {
   //initialize countdown
-  m_ui->lcdCountdown->setVisible(false);
+  m_ui->lcdCountdown->hide();
 
   if (PreferenceProvider::instance().countdown() > 0) {
       //add countdown
@@ -113,8 +115,8 @@ void FotoBox::countdown()
       //update UI
       connect(&m_countdown, &Countdown::update, this, [&] (const unsigned int i_timeLeft) {
           //hide photo and show countdown
-          m_ui->lblPhoto->setVisible(false);
-          m_ui->lcdCountdown->setVisible(true);
+          m_ui->lblPhoto->hide();
+          m_ui->lcdCountdown->show();
           m_ui->lcdCountdown->display(QString::number(i_timeLeft));
         });
 
@@ -133,8 +135,10 @@ void FotoBox::countdown()
 FotoBox::~FotoBox()
 {
 #if defined (BUZZER_AVAILABLE)
-  //stop query pin
-  m_buzzer.stop();
+  if (PreferenceProvider::instance().queryInterval() > 0) {
+      //stop query pin
+      m_buzzer.stop();
+    }
 #endif
   //terminate and delete Buzzer thread
   m_workerThread.quit();
@@ -146,33 +150,31 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
 {
   //prevent triggering method too often
   if (!event->isAutoRepeat()) {
-      //ENTER and ENTER on keypad
-      if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-          //take a photo
-          Q_EMIT start();
-        }
-
-      //Logitech Presenter
-      if (event->key() == Qt::Key_PageDown || event->key() == Qt::Key_PageUp) {
-          //take a photo
-          Q_EMIT start();
-        }
-
-      //ESCAPE with SHIFT
-      if (event->key() == Qt::Key_Escape) {
-          if (event->modifiers() == Qt::ShiftModifier) {
-              //Quit application
-              QCoreApplication::quit();
+      //start FotoBox
+      for (const auto &key : m_triggerKey) {
+          if (event->key() == key) {
+              Q_EMIT start();
+              return;
             }
-          else {
+        }
+
+      //preferences dialog
+      for (const auto &key : m_preferenceKey) {
+          if (event->key() == key) {
+              preferenceDialog();
+              return;
+            }
+        }
+
+      //quit application
+      for (const auto &key : m_quitKey) {
+          if (event->key() == key) {
+              if (event->modifiers() == Qt::ShiftModifier) {
+                  QCoreApplication::quit();
+                }
               m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift key while press Escape key."), STATUSBAR_MSG_TIMEOUT);
+              return;
             }
-        }
-
-      //Preferences KEYS (P)references, (S)ettings or (E)instellungen
-      if (event->key() == Qt::Key_P || event->key() == Qt::Key_S || event->key() == Qt::Key_E) {
-          //show Preference Dialog
-          preferenceDialog();
         }
     }
 }
@@ -183,6 +185,7 @@ void FotoBox::mouseReleaseEvent(QMouseEvent *event)
   //touch support only when no buttons are shown
   if (!PreferenceProvider::instance().showButtons() && (event->button() == Qt::LeftButton || event->button() == Qt::RightButton)) {
       Q_EMIT start();
+      return;
     }
 
   QWidget::mouseReleaseEvent(event);
@@ -212,14 +215,12 @@ void FotoBox::preferenceDialog()
 void FotoBox::photo()
 {
   //show label and hide other widgets
-  m_ui->lcdCountdown->setVisible(false);
-  m_ui->lcdCountdown->update();
-  m_ui->statusBar->setVisible(false);
-  m_ui->statusBar->update();
+  m_ui->lcdCountdown->hide();
+  m_ui->statusBar->hide();
   QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
   //remove current photo
-  m_ui->lblPhoto->setVisible(true);
+  m_ui->lblPhoto->show();
   m_ui->lblPhoto->clear();
   m_ui->lblPhoto->repaint();
 
@@ -234,9 +235,13 @@ void FotoBox::photo()
     }
 
   //restart Buzzer and countdown
-  m_countdown.reset();
+  if (PreferenceProvider::instance().countdown() > 0) {
+      m_countdown.reset();
+    }
 #if defined (BUZZER_AVAILABLE)
-  emit startBuzzer();
+  if (PreferenceProvider::instance().queryInterval() > 0) {
+      emit startBuzzer();
+    }
 #endif
 }
 

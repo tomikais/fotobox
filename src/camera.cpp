@@ -14,10 +14,10 @@
 
 
 Camera::Camera(QObject *parent) : QObject(parent),
+  m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue()),
   m_photoSuffix(PreferenceProvider::instance().photoName()),
   m_cameraMode(PreferenceProvider::instance().cameraMode()),
   m_argLine(PreferenceProvider::instance().argumentLine()),
-  m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue()),
   m_process(this)
 {
 

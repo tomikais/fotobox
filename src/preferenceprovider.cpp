@@ -85,22 +85,6 @@ void PreferenceProvider::setCountdownColor(const QString& i_value)
 }
 
 
-bool PreferenceProvider::showButtons() const
-{
-  return m_showButtons;
-}
-
-void PreferenceProvider::setShowButtons(const bool i_value)
-{
-  if (m_showButtons == i_value) {
-      return;
-    }
-
-  m_showButtons = i_value;
-  Q_EMIT showButtonsChanged(m_showButtons);
-}
-
-
 QString PreferenceProvider::backgroundColor() const
 {
   return m_backgroundColor;
@@ -114,6 +98,38 @@ void PreferenceProvider::setBackgroundColor(const QString& i_value)
 
   m_backgroundColor = i_value;
   Q_EMIT backgroundColorChanged(m_backgroundColor);
+}
+
+
+QString PreferenceProvider::cameraMode() const
+{
+  return m_cameraMode;
+}
+
+void PreferenceProvider::setCameraMode(const QString& i_value)
+{
+  if (m_cameraMode == i_value) {
+      return;
+    }
+
+  m_cameraMode = i_value;
+  Q_EMIT cameraModeChanged(m_cameraMode);
+}
+
+
+QString PreferenceProvider::argumentLine() const
+{
+  return m_argumentLine;
+}
+
+void PreferenceProvider::setArgumentLine(const QString& i_value)
+{
+  if (m_argumentLine == i_value) {
+      return;
+    }
+
+  m_argumentLine = i_value;
+  Q_EMIT argumentLineChanged(m_argumentLine);
 }
 
 
@@ -165,38 +181,6 @@ void PreferenceProvider::setQueryInterval(const int i_value)
 }
 
 
-QString PreferenceProvider::cameraMode() const
-{
-  return m_cameraMode;
-}
-
-void PreferenceProvider::setCameraMode(const QString& i_value)
-{
-  if (m_cameraMode == i_value) {
-      return;
-    }
-
-  m_cameraMode = i_value;
-  Q_EMIT cameraModeChanged(m_cameraMode);
-}
-
-
-QString PreferenceProvider::argumentLine() const
-{
-  return m_argumentLine;
-}
-
-void PreferenceProvider::setArgumentLine(const QString& i_value)
-{
-  if (m_argumentLine == i_value) {
-      return;
-    }
-
-  m_argumentLine = i_value;
-  Q_EMIT argumentLineChanged(m_argumentLine);
-}
-
-
 int PreferenceProvider::timeoutValue() const
 {
   return m_timeoutValue;
@@ -211,6 +195,7 @@ void PreferenceProvider::setTimeoutValue(const int i_value)
   m_timeoutValue = i_value;
   Q_EMIT timeoutValueChanged(m_timeoutValue);
 }
+
 
 bool PreferenceProvider::grayscale() const
 {
@@ -227,3 +212,18 @@ void PreferenceProvider::setGrayscale(bool i_value)
   Q_EMIT grayscaleChanged(m_grayscale);
 }
 
+
+bool PreferenceProvider::showButtons() const
+{
+  return m_showButtons;
+}
+
+void PreferenceProvider::setShowButtons(const bool i_value)
+{
+  if (m_showButtons == i_value) {
+      return;
+    }
+
+  m_showButtons = i_value;
+  Q_EMIT showButtonsChanged(m_showButtons);
+}

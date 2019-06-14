@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>726</width>
-        <height>436</height>
+        <width>732</width>
+        <height>451</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -397,9 +397,6 @@
                </property>
                <property name="suffix">
                 <string> milliseconds</string>
-               </property>
-               <property name="minimum">
-                <number>1</number>
                </property>
                <property name="maximum">
                 <number>1000</number>

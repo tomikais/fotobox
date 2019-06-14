@@ -8,7 +8,7 @@
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://www.balena.io/docs/reference/base-images/base-images-ref/
 # https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
-FROM balenalib/raspberrypi3:jessie-build
+FROM balenalib/raspberry-pi2-debian:jessie-build
 
 # install frameworks and build tools
 RUN sudo apt-get update -qq && sudo apt-get install -qq \
