@@ -10,23 +10,23 @@
         <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="170"/>
+        <location filename="../src/fotobox.cpp" line="175"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation>Um die Anwendung zu beenden, halten Sie die Umschalttaste gedrückt, während Sie die Escape-Taste drücken.</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="231"/>
+        <location filename="../src/fotobox.cpp" line="234"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht!</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="257"/>
+        <location filename="../src/fotobox.cpp" line="264"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Kann das Foto nicht bewegen nach: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="284"/>
+        <location filename="../src/fotobox.cpp" line="291"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -192,7 +192,7 @@
         <translation>Kamera</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="426"/>
+        <location filename="../forms/preferences.ui" line="423"/>
         <source>output PIN</source>
         <translation>Output PIN</translation>
     </message>
