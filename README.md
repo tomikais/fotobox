@@ -1,14 +1,20 @@
 # Photobooth (FotoBox) for Raspberry Pi, Linux and macOS [![Build Status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox)
 
+## features
+
+* support a variety of different [DSLR cameras](http://www.gphoto.org/proj/libgphoto2/support.php)
+* trigger photos directly or start a countdown by touching or clicking the screen, using soft-/hardware buttons, keyboard shortcuts or a presenter
+* lightning fast and low-memory Linux and macOS customizable application
+
 ## Raspberry Pi installation
 
-* [Raspberry Pi model >=2](https://www.raspberrypi.org/products/) with [Raspbian](https://www.raspberrypi.org/downloads/noobs/) (__'Stretch' recommended__) installed. To update to latest [Raspbian version](https://en.wikipedia.org/wiki/Raspbian), run this commands in [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/): `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
-* Download and install the [Qt](https://www.qt.io) library with [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/) command: `sudo apt-get install qt5-default`
-* Set up DSLR and/or official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)
-  * [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest [gPhoto2](http://gphoto.org) (__recommended__) or use latest available gphoto2 version provided from Raspbian: `sudo apt-get install gphoto2`
-  * [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/)
-* Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian) ('Stretch' recommended because not all features are available in 'Jessie')
-* Start the application and configure it accordingly.
+1. [Raspberry Pi model >=2](https://www.raspberrypi.org/products/) with [Raspbian](https://www.raspberrypi.org/downloads/noobs/) (__'Stretch' recommended__) installed. To update to latest [Raspbian version](https://en.wikipedia.org/wiki/Raspbian), run this commands in [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/): `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
+2. Download and install the [Qt](https://www.qt.io) library with [Terminal](https://www.raspberrypi.org/documentation/usage/terminal/) command: `sudo apt-get install qt5-default`
+3. Set up DSLR and/or official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/)
+    * [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest [gPhoto2](http://gphoto.org) (__recommended__) or use latest   
+    * [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/)
+4. Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian) ('Stretch' recommended because not all features are available in 'Jessie')
+5. Start the application and configure it accordingly.
 
 ## optional steps
 
