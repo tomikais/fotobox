@@ -41,7 +41,7 @@ FotoBox::FotoBox(QWidget *parent) : QDialog(parent),
   connect(m_ui->statusBar, &QStatusBar::messageChanged, this, [&] (const QString &i_message) {
       i_message.isNull() ? m_ui->statusBar->hide() : m_ui->statusBar->show();
     });
-  //hide status bar
+  //hide status bar (ATTENTION: don't use at other places, see connect line above)
   m_ui->statusBar->hide();
 
   //with or without buttons?
@@ -216,7 +216,6 @@ void FotoBox::photo()
 {
   //show label and hide other widgets
   m_ui->lcdCountdown->hide();
-  m_ui->statusBar->hide();
   QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 
   //remove current photo

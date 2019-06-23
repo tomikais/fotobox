@@ -138,6 +138,9 @@
      <property name="styleSheet">
       <string notr="true">color:darkRed;</string>
      </property>
+     <property name="sizeGripEnabled">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
   </layout>
