@@ -20,7 +20,9 @@ Camera::Camera(QObject *parent) : QObject(parent),
   m_argLine(PreferenceProvider::instance().argumentLine()),
   m_process(this)
 {
-
+  //Call this function to save memory, if you are not interested in the output of the process
+  m_process.closeReadChannel(QProcess::StandardOutput);
+  m_process.closeReadChannel(QProcess::StandardError);
 }
 
 
