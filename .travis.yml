@@ -102,6 +102,7 @@ matrix:
 
 notifications:
   email: tomikais@t-online.de
+  slack: foto-box:QXDcNQc86kOdnsSHinv0sqd6
 
 deploy:
   provider: releases
