@@ -78,15 +78,13 @@ matrix:
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
 
-    - name: "Ubuntu Xenial Doxygen"
-      os: linux
-      dist: xenial
-      addons:
-        apt:
-          update: true
-          packages:
-            - doxygen
-            - graphviz
+    - name: "macOS Doxygen"
+      os: osx
+      osx_image: xcode10.2
+      before_install:
+        - brew update
+      install:
+        - brew install doxygen graphviz
       before_script:
         - doxygen -v
       script:

@@ -38,7 +38,7 @@
 
 ---
 
-## development [![Doxygen: documentation](https://img.shields.io/badge/Doxygen-documentation-lightgrey.svg)](https://tomikais.github.io/fotobox/)
+## development [![Doxygen: documentation](https://img.shields.io/badge/Doxygen-documentation-lightgrey.svg?logo=doxygen)](https://tomikais.github.io/fotobox/)
 
 ### update Raspbian and firmware
 
