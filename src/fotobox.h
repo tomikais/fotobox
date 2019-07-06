@@ -9,12 +9,12 @@
 #define FOTOBOX_H
 
 #pragma once
-#include <QDialog>
-#include <QThread>
-
 #include "buzzer.h"
 #include "camera.h"
 #include "countdown.h"
+
+#include <QDialog>
+#include <QThread>
 
 class QKeyEvent;
 

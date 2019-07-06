@@ -125,7 +125,6 @@ matrix:
         - CLANG_TIDY=clang-tidy-7
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
-        - make -j2
         - make tidy
 
     - name: "macOS Doxygen"
