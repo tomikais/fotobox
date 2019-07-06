@@ -58,7 +58,7 @@ matrix:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-    - name: "Ubuntu Xenial CMake"
+    - name: "Ubuntu Xenial CMake gcc"
       os: linux
       dist: xenial
       language: cpp
@@ -72,6 +72,7 @@ matrix:
             - qttools5-dev-tools
       before_script:
         - cmake --version
+        - gcc --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
@@ -123,7 +124,7 @@ matrix:
         - CLANG_TIDY=clang-tidy-7
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DENABLE_CLANG_TIDY=ON
-        - make
+        - make -j2
         - make tidy
 
     - name: "macOS Doxygen"
