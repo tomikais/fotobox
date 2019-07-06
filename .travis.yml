@@ -40,7 +40,7 @@ matrix:
         - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotobox --file DockerfileStretch .
+        - docker build --tag buildfotobox --file resources/DockerfileStretch .
       script:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
@@ -53,7 +53,7 @@ matrix:
         - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotobox --file DockerfileJessie .
+        - docker build --tag buildfotobox --file resources/DockerfileJessie .
       script:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
@@ -88,7 +88,7 @@ matrix:
       before_script:
         - doxygen -v
       script:
-        - doxygen Doxyfile
+        - doxygen resources/Doxyfile
       deploy:
         provider: pages
         skip_cleanup: true
