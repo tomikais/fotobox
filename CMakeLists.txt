@@ -141,15 +141,15 @@ endif()
 
 # clang tidy
 if(ENABLE_CLANG_TIDY)
-    find_program(CLANG_TIDY_BIN clang-tidy-7.0)
-    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-7.0.py)
+    find_program(CLANG_TIDY_BIN clang-tidy-7)
+    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-7.py)
 
     if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate clang-tidy-7.0")
+        message(FATAL_ERROR "unable to locate 'clang-tidy-7'")
     endif()
 
     if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate run-clang-tidy-7.0.py")
+        message(FATAL_ERROR "unable to locate 'run-clang-tidy-7.py'")
     endif()
 
     # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html

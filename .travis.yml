@@ -78,7 +78,7 @@ matrix:
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
 
-    - name: "Ubuntu Xenial CMake Debug clang 7"
+    - name: "Ubuntu Xenial CMake Debug clang diagnostic 7"
       os: linux
       dist: xenial
       sudo: false
@@ -97,8 +97,9 @@ matrix:
         - CC=clang-7
         - CXX=clang++-7
       script:
+        # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" + -Wno-padded
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused -Wno-padded"
-        - make -j2
+        - make
 
     - name: "Ubuntu Xenial CMake Debug clang tidy 7"
       os: linux
@@ -121,8 +122,8 @@ matrix:
         - CXX=clang++-7
         - CLANG_TIDY=clang-tidy-7
       script:
-        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_CLANG_TIDY=ON
-        - make -j2
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DENABLE_CLANG_TIDY=ON
+        - make
         - make tidy
 
     - name: "macOS Doxygen"
