@@ -68,16 +68,16 @@ set(RESOURCES
     ${PROJECT_SOURCE_DIR}/i18n/qresource.qrc
     )
 set(OTHER
-    ${PROJECT_SOURCE_DIR}/resources/Info.plist
     ${PROJECT_SOURCE_DIR}/.gitignore
     ${PROJECT_SOURCE_DIR}/.gitmodules
     ${PROJECT_SOURCE_DIR}/.travis.yml
-    ${PROJECT_SOURCE_DIR}/DockerfileJessie
-    ${PROJECT_SOURCE_DIR}/DockerfileStretch
-    ${PROJECT_SOURCE_DIR}/Doxyfile
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
+    ${PROJECT_SOURCE_DIR}/resources/DockerfileJessie
+    ${PROJECT_SOURCE_DIR}/resources/DockerfileStretch
+    ${PROJECT_SOURCE_DIR}/resources/Doxyfile
+    ${PROJECT_SOURCE_DIR}/resources/Info.plist
     )
 
 # Translation: build qm files in source directory

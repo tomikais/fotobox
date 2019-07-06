@@ -66,16 +66,16 @@ for(tsfile, TRANSLATIONS) {
   system($$command)|error("Failed to run: $$command")
 }
 
-OTHER_FILES    = resources/Info.plist \
-                 .gitignore \
+OTHER_FILES    = .gitignore \
                  .gitmodules \
                  .travis.yml \
                  CMakeLists.txt \
-                 DockerfileJessie \
-                 DockerfileStretch \
-                 Doxyfile \
                  COPYING \
-                 README.md
+                 README.md \
+                 resources/DockerfileJessie \
+                 resources/DockerfileStretch \
+                 resources/Doxyfile \
+                 resources/Info.plist
 
 linux {
   # Speed-Up compiling time with ccache (apt-get install ccache)
