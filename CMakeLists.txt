@@ -167,7 +167,11 @@ if(ENABLE_CLANG_TIDY)
     # Since the Qt code generators will generate source files in the binary tree,
     # clang-tidy will load the configuration from this dummy file when the sources
     # are built.
-    file(WRITE "${QtDialog_BINARY_DIR}/.clang-tidy" "---Checks: '-*,llvm-twine-local'...")
+    file(WRITE "${AUTOGEN_TARGETS_FOLDER}/.clang-tidy" "
+    ---
+    Checks: '-*,llvm-twine-local'
+    ...
+    ")
 
     add_custom_target(
         tidy
