@@ -140,7 +140,7 @@ private:
    * \param i_widthFont double
    * \return best fitting fontsize
    */
-  double calculateFontSize(const double i_width, const double i_widthFont);
+  double calculateFontSize(double i_width, double i_widthFont);
 
 
   /*! User Interface */

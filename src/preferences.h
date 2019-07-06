@@ -9,9 +9,10 @@
 #define PREFERENCES_H
 
 #pragma once
+#include "countdown.h"
+
 #include <QDialog>
 #include <QSettings>
-#include "countdown.h"
 
 namespace Ui {
   class PreferencesDialog;
