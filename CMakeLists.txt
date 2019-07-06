@@ -157,7 +157,7 @@ if(ENABLE_CLANG_TIDY)
         -clang-tidy-binary ${CLANG_TIDY_BIN}
         -header-filter=.*
         -warnings-as-errors=*
-        -checks=-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-*,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
+        -checks=-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
     )
 
     add_custom_target(
