@@ -81,7 +81,6 @@ matrix:
     - name: "Ubuntu Xenial clang 7"
       os: linux
       dist: xenial
-      language: cpp
       sudo: false
       addons:
         apt:
@@ -92,14 +91,16 @@ matrix:
           update: true
           packages:
             - clang-7
+      env:
+        - CC=clang-7
+        - CXX=clang++-7
       script:
-      - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang-7.0 -DCMAKE_CXX_COMPILER=clang++-7.0 -DCMAKE_CXX_FLAGS="-Werror -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
-      - make
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Werror -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
+        - make
 
     - name: "Ubuntu Xenial clang tidy 7"
       os: linux
       dist: xenial
-      language: cpp
       sudo: false
       addons:
         apt:
@@ -111,10 +112,14 @@ matrix:
           packages:
             - clang-7
             - clang-tidy-7
+      env:
+        - CC=clang-7
+        - CXX=clang++-7
+        - CLANG_TIDY=clang-tidy-7
       script:
-      - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_C_COMPILER=clang-7.0 -DCMAKE_CXX_COMPILER=clang++-7.0 -DENABLE_CLANG_TIDY=ON
-      - make
-      - make tidy
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DENABLE_CLANG_TIDY=ON
+        - make
+        - make tidy
 
     - name: "macOS Doxygen"
       os: osx
