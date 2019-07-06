@@ -138,3 +138,31 @@ if(UNIX AND APPLE)
     endif()
   endif()
 endif()
+
+# clang tidy
+if(ENABLE_CLANG_TIDY)
+    find_program(CLANG_TIDY_BIN clang-tidy-7.0)
+    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-7.0.py)
+
+    if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
+        message(FATAL_ERROR "unable to locate clang-tidy-7.0")
+    endif()
+
+    if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
+        message(FATAL_ERROR "unable to locate run-clang-tidy-7.0.py")
+    endif()
+
+    # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
+    list(APPEND RUN_CLANG_TIDY_BIN_ARGS
+        -clang-tidy-binary ${CLANG_TIDY_BIN}
+        -header-filter=.*
+        -warnings-as-errors=*
+        -checks=-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-*,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
+    )
+
+    add_custom_target(
+        tidy
+        COMMAND ${RUN_CLANG_TIDY_BIN} ${RUN_CLANG_TIDY_BIN_ARGS}
+        COMMENT "running clang tidy"
+    )
+endif()

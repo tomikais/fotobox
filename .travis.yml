@@ -78,6 +78,46 @@ matrix:
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
 
+    - name: "Ubuntu Xenial clang 7"
+      os: linux
+      dist: xenial
+      language: cpp
+      compiler: clang
+      sudo: false
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            # https://apt.llvm.org
+            - llvm-toolchain-xenial-7
+          update: true
+          packages:
+            - clang-7
+      script:
+      - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_C_COMPILER="clang-7.0" -DCMAKE_CXX_COMPILER="clang++-7.0" -DCMAKE_CXX_FLAGS="-Werror -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
+      - make
+
+    - name: "Ubuntu Xenial clang tidy 7"
+      os: linux
+      dist: xenial
+      language: cpp
+      compiler: clang
+      sudo: false
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            # https://apt.llvm.org
+            - llvm-toolchain-xenial-7
+          update: true
+          packages:
+            - clang-7
+            - clang-tidy-7.0
+      script:
+      - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_C_COMPILER="clang-7.0" -DCMAKE_CXX_COMPILER="clang++-7.0" -DENABLE_CLANG_TIDY=ON
+      - make
+      - make tidy
+
     - name: "macOS Doxygen"
       os: osx
       osx_image: xcode10.2
