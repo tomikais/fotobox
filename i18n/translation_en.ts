@@ -15,18 +15,18 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="234"/>
+        <location filename="../src/fotobox.cpp" line="233"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="264"/>
+        <location filename="../src/fotobox.cpp" line="263"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="291"/>
+        <location filename="../src/fotobox.cpp" line="290"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
