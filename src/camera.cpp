@@ -30,6 +30,8 @@ bool Camera::shootPhoto()
 {
   //File name for the current
   m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
+  //clazy
+  QDateTime::currentDateTime().toUTC();
 
   //Program name and arguments
   auto command = m_cameraMode + QStringLiteral(" ") + m_argLine.arg(QStringLiteral("\"") + m_currentPhoto + QStringLiteral("\""));
