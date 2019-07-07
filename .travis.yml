@@ -154,7 +154,7 @@ matrix:
           packages:
             - qt5-default
             - qttools5-dev-tools
-            - libfuse
+            - libfuse2
       before_script:
         - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.5/Clazy-x86_64-1.5-llvm7.AppImage
         - chmod +x clazy.AppImage
