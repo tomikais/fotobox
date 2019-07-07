@@ -27,12 +27,12 @@ public:
   * \brief Camera constructor
   * \param parent QObject
   */
-  explicit Camera(QObject *parent = NULL);
+  explicit Camera(QObject *parent = nullptr);
 
   /*!
   * \brief Camera destructor
   */
-  ~Camera() = default;
+  ~Camera() override = default;
 
   /*!
   * \brief Camera default copy constructor
