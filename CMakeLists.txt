@@ -155,7 +155,7 @@ if(ENABLE_CLANG_TIDY)
     # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
     list(APPEND RUN_CLANG_TIDY_BIN_ARGS
         -clang-tidy-binary ${CLANG_TIDY_BIN}
-        -header-filter='src'
+        -header-filter='.*src.*(?!.*_autogen)'
         # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments / llvm-header-guard
         -checks=--*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-include-order,llvm-namespace-comment,llvm-twine-local,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
         -extra-arg='-Wno-everything'
