@@ -155,7 +155,7 @@ if(ENABLE_CLANG_TIDY)
     # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
     list(APPEND RUN_CLANG_TIDY_BIN_ARGS
         -clang-tidy-binary ${CLANG_TIDY_BIN}
-        -header-filter='^_autogen'
+        -header-filter='.*'
         # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments / llvm-header-guard
         -checks=--*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-include-order,llvm-namespace-comment,llvm-twine-local,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
         -extra-arg='-Wno-everything'
@@ -170,23 +170,27 @@ endif()
 
 # clang clazy
 if(ENABLE_CLANG_CLAZY)
-    find_program(CLANG_CLAZY_BIN clazy.AppImage PATH ${CMAKE_CURRENT_SOURCE_DIR})
+    find_program(CLANG_CLAZY_BIN clazy.AppImage PATH ${CMAKE_CURRENT_SOURCE_DIR} NO_DEFAULT_PATH)
 
-    if(RUN_CLANG_CLAZY_BIN STREQUAL "RUN_CLANG_CLAZY_BIN-NOTFOUND")
+    if(CLANG_CLAZY_BIN STREQUAL "CLANG_CLAZY_BIN-NOTFOUND")
         message(FATAL_ERROR "unable to locate 'clazy.AppImage'")
     endif()
 
     # https://github.com/KDE/clazy#clazy-standalone-and-json-database-support
-    list(APPEND RUN_CLANG_CLAZY_BIN_ARGS
+    list(APPEND CLANG_CLAZY_BIN_ARGS
         --standalone
         -header-filter='.*'
         -checks='level0,level1,level2'
         -extra-arg='-Wno-everything'
+        -ignore-dirs='_autogen'
+        -only-qt
+        -p='compile_commands.js'
+        src/*.cpp
     )
 
     add_custom_target(
         clazy
-        COMMAND ${RUN_CLANG_CLAZY_BIN} ${RUN_CLANG_CLAZY_BIN_ARGS}
+        COMMAND ${CLANG_CLAZY_BIN} ${CLANG_CLAZY_BIN_ARGS}
         COMMENT "running clang clazy"
     )
 endif()
