@@ -87,8 +87,8 @@ void Preferences::connectUi()
   connect(m_ui->spbInputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setInputPin);
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
   connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
-  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
-  connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(const QString &)>(&QComboBox::currentIndexChanged), this, &Preferences::applicationAvailable);
+  connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
+  connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, this, &Preferences::applicationAvailable);
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [&]() {
       //QComboBox has changed, show stored data to QLineEdit
       m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());

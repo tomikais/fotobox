@@ -97,6 +97,9 @@ matrix:
       env:
         - CC=clang-7
         - CXX=clang++-7
+      before_script:
+        - cmake --version
+        - clang++-7 --version
       script:
         # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" + -Wno-padded
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused -Wno-padded"
@@ -123,6 +126,10 @@ matrix:
         - CC=clang-7
         - CXX=clang++-7
         - CLANG_TIDY=clang-tidy-7
+      before_script:
+        - cmake --version
+        - clang++-7 --version
+        - clang-tidy-7 --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
         - make -j2
