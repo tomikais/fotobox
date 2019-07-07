@@ -144,6 +144,27 @@ matrix:
             echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
           fi
 
+    - name: "Ubuntu Xenial CMake Debug clang clazy 1.5"
+      os: linux
+      dist: xenial
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - qt5-default
+            - qttools5-dev-tools
+            - libfuse
+      before_script:
+        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.5/Clazy-x86_64-1.5-llvm7.AppImage
+        - chmod +x clazy.AppImage
+        - ./clazy.AppImage --version
+        - ./clazy.AppImage --standalone -version
+      script:
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
+        - make -j2
+        - make clazy
+
     - name: "macOS Doxygen"
       os: osx
       osx_image: xcode10.2
