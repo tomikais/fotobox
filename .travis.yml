@@ -101,9 +101,18 @@ matrix:
         - cmake --version
         - clang++-7 --version
       script:
-        # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" rules and added '-Wno-padded -Werror'
-        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wno-padded -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
-        - make
+        # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" rules and added '-Wno-padded'
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wno-padded -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
+        - make 2>&1 | tee output.txt
+        - |
+          if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
+            echo "clang tidy failed:"
+            echo ""
+            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            exit 1;
+          else
+            echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
+          fi
 
     - name: "Ubuntu Xenial CMake Debug clang tidy 7"
       os: linux
