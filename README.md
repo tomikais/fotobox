@@ -47,7 +47,7 @@ firmware: `sudo rpi-update`
 
 ### Qt
 
-`sudo apt-get install qt5-default qttools5-dev-tools qtdeclarative5-dev qtcreator qt5-doc ccache`  
+`sudo apt-get install qt5-default qttools5-dev-tools qttools5-dev qtdeclarative5-dev qtcreator qt5-doc ccache`  
 set GCC compiler path in Qt Creator:
 
 * gcc C: `/usr/bin/gcc`

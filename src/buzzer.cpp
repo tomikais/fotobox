@@ -39,7 +39,7 @@ void Buzzer::queryPin()
     }
 
   //buzzer was pressed
-  emit triggered();
+  Q_EMIT triggered();
 }
 #else
 Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr) {/* stub */};
