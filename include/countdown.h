@@ -90,9 +90,8 @@ public:
 Q_SIGNALS:
   /*!
   * \brief Update countdown
-  * \param timeLeft current \sa m_timeLeft value
   */
-  void update(unsigned int timeLeft);
+  void update(unsigned int);
 
   /*!
   * \brief Countdown elapsed
