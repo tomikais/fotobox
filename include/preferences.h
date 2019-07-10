@@ -5,8 +5,8 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef FOTOBOX_PREFERENCES_H
-#define FOTOBOX_PREFERENCES_H
+#ifndef PREFERENCES_H
+#define PREFERENCES_H
 
 #include "countdown.h"
 
@@ -127,4 +127,4 @@ private:
 
 };
 
-#endif // FOTOBOX_PREFERENCES_H
+#endif // PREFERENCES_H

@@ -5,8 +5,8 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef FOTOBOX_BUZZER_H
-#define FOTOBOX_BUZZER_H
+#ifndef BUZZER_H
+#define BUZZER_H
 
 //detect wiringPi framework
 #if defined (__arm__) && __has_include(<wiringPi.h>)
@@ -84,4 +84,4 @@ private:
 
 };
 
-#endif // FOTOBOX_BUZZER_H
+#endif // BUZZER_H

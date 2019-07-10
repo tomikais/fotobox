@@ -5,8 +5,8 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef FOTOBOX_PREFERENCEPROVIDER_H
-#define FOTOBOX_PREFERENCEPROVIDER_H
+#ifndef PREFERENCEPROVIDER_H
+#define PREFERENCEPROVIDER_H
 
 #include <QObject>
 
@@ -339,4 +339,4 @@ Q_SIGNALS:
 
 };
 
-#endif // FOTOBOX_PREFERENCEPROVIDER_H
+#endif // PREFERENCEPROVIDER_H

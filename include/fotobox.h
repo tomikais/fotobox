@@ -5,8 +5,8 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef FOTOBOX_FOTOBOX_H
-#define FOTOBOX_FOTOBOX_H
+#ifndef FOTOBOX_H
+#define FOTOBOX_H
 
 #include "buzzer.h"
 #include "camera.h"
@@ -197,4 +197,4 @@ Q_SIGNALS:
 
 };
 
-#endif // FOTOBOX_FOTOBOX_H
+#endif // FOTOBOX_H
