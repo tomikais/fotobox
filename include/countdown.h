@@ -91,7 +91,7 @@ Q_SIGNALS:
   /*!
   * \brief Update countdown
   */
-  void update(uint);
+  void update(unsigned int /*_t1*/);
 
   /*!
   * \brief Countdown elapsed
