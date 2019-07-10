@@ -5,10 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef FOTOBOX_CAMERA_H
+#define FOTOBOX_CAMERA_H
 
-#pragma once
 #include <QObject>
 #include <QProcess>
 
@@ -88,4 +87,4 @@ private:
 
 };
 
-#endif // CAMERA_H
+#endif // FOTOBOX_CAMERA_H

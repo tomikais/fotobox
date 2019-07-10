@@ -5,10 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef PREFERENCES_H
-#define PREFERENCES_H
+#ifndef FOTOBOX_PREFERENCES_H
+#define FOTOBOX_PREFERENCES_H
 
-#pragma once
 #include "countdown.h"
 
 #include <QDialog>
@@ -128,4 +127,4 @@ private:
 
 };
 
-#endif // PREFERENCES_H
+#endif // FOTOBOX_PREFERENCES_H

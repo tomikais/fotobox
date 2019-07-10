@@ -5,10 +5,9 @@
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
  */
-#ifndef COUNTDOWN_H
-#define COUNTDOWN_H
+#ifndef FOTOBOX_COUNTDOWN_H
+#define FOTOBOX_COUNTDOWN_H
 
-#pragma once
 #include <QObject>
 #include <QTimer>
 
@@ -127,4 +126,4 @@ private:
 
 };
 
-#endif // COUNTDOWN_H
+#endif // FOTOBOX_COUNTDOWN_H
