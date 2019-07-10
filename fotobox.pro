@@ -34,22 +34,22 @@ QT            += widgets
 
 CONFIG        += c++11
 
-INCLUDEPATH   += src
+INCLUDEPATH   += include
 HEADERS        = \
-                 src/buzzer.h \
-                 src/camera.h \
-                 src/countdown.h \
-                 src/fotobox.h \
-                 src/preferenceprovider.h \
-                 src/preferences.h
+                 include/buzzer.h \
+                 include/camera.h \
+                 include/countdown.h \
+                 include/fotobox.h \
+                 include/preferenceprovider.h \
+                 include/preferences.h
 
-SOURCES        = src/main.cpp \
-                 src/buzzer.cpp \
-                 src/camera.cpp \
-                 src/countdown.cpp \
-                 src/fotobox.cpp \
-                 src/preferenceprovider.cpp \
-                 src/preferences.cpp
+SOURCES        = source/main.cpp \
+                 source/buzzer.cpp \
+                 source/camera.cpp \
+                 source/countdown.cpp \
+                 source/fotobox.cpp \
+                 source/preferenceprovider.cpp \
+                 source/preferences.cpp
 
 FORMS          = forms/fotobox.ui \
                  forms/preferences.ui
@@ -89,7 +89,7 @@ linux {
 
 # WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
 mac {
-  OBJECTIVE_SOURCES += src/fotoboxmac.mm
+  OBJECTIVE_SOURCES += source/fotoboxmac.mm
   LIBS              += -framework Foundation \
                        -framework AppKit
 }

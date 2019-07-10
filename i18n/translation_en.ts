@@ -4,29 +4,29 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../src/fotobox.cpp" line="32"/>
+        <location filename="../source/fotobox.cpp" line="32"/>
         <source>FotoBox %1 (Copyright %2 Thomas Kais)</source>
         <extracomment>%1 application version e.g. v1.2.3 and %3 is current year e.g. 2019</extracomment>
         <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="175"/>
+        <location filename="../source/fotobox.cpp" line="175"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="233"/>
+        <location filename="../source/fotobox.cpp" line="233"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="263"/>
+        <location filename="../source/fotobox.cpp" line="263"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
-        <location filename="../src/fotobox.cpp" line="290"/>
+        <location filename="../source/fotobox.cpp" line="290"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -52,40 +52,40 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../src/preferences.cpp" line="60"/>
+        <location filename="../source/preferences.cpp" line="60"/>
         <source>launching FotoBox in %1 seconds</source>
         <extracomment>%1 countdown (number)</extracomment>
         <translation>launching FotoBox in %1 seconds</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="142"/>
+        <location filename="../source/preferences.cpp" line="142"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox preferences</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="208"/>
+        <location filename="../source/preferences.cpp" line="208"/>
         <source>choose directory</source>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="322"/>
+        <location filename="../source/preferences.cpp" line="322"/>
         <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
         <translation>&apos;%1&apos; is missing: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="344"/>
+        <location filename="../source/preferences.cpp" line="344"/>
         <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (connecting and enabling the camera)&lt;/a&gt;</source>
         <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
         <translation>&apos;%1&apos; is missing: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (connecting and enabling the camera)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="332"/>
+        <location filename="../source/preferences.cpp" line="332"/>
         <source>*** no camera detected ***</source>
         <translation>*** no camera detected ***</translation>
     </message>
     <message>
-        <location filename="../src/preferences.cpp" line="355"/>
+        <location filename="../source/preferences.cpp" line="355"/>
         <source>&apos;%1&apos; is missing!</source>
         <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
         <translation>&apos;%1&apos; is missing!</translation>
