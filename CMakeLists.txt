@@ -47,14 +47,23 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/forms)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(SRC
-    ${PROJECT_SOURCE_DIR}/src/main.cpp
-    ${PROJECT_SOURCE_DIR}/src/buzzer.cpp
-    ${PROJECT_SOURCE_DIR}/src/camera.cpp
-    ${PROJECT_SOURCE_DIR}/src/countdown.cpp
-    ${PROJECT_SOURCE_DIR}/src/fotobox.cpp
-    ${PROJECT_SOURCE_DIR}/src/preferenceprovider.cpp
-    ${PROJECT_SOURCE_DIR}/src/preferences.cpp
+include_directories(${PROJECT_SOURCE_DIR}/include)
+set(HEADERS
+    ${PROJECT_SOURCE_DIR}/include/buzzer.h
+    ${PROJECT_SOURCE_DIR}/include/camera.h
+    ${PROJECT_SOURCE_DIR}/include/countdown.h
+    ${PROJECT_SOURCE_DIR}/include/fotobox.h
+    ${PROJECT_SOURCE_DIR}/include/preferenceprovider.h
+    ${PROJECT_SOURCE_DIR}/include/preferences.h
+    )
+set(SOURCES
+    ${PROJECT_SOURCE_DIR}/source/main.cpp
+    ${PROJECT_SOURCE_DIR}/source/buzzer.cpp
+    ${PROJECT_SOURCE_DIR}/source/camera.cpp
+    ${PROJECT_SOURCE_DIR}/source/countdown.cpp
+    ${PROJECT_SOURCE_DIR}/source/fotobox.cpp
+    ${PROJECT_SOURCE_DIR}/source/preferenceprovider.cpp
+    ${PROJECT_SOURCE_DIR}/source/preferences.cpp
     )
 set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
@@ -86,12 +95,13 @@ qt5_add_translation(QM_FILES ${TS_FILES})
 
 # WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
 if(UNIX AND APPLE)
-  set(SRC_MAC ${PROJECT_SOURCE_DIR}/src/fotoboxmac.mm)
+  set(SOURCES_MAC ${PROJECT_SOURCE_DIR}/source/fotoboxmac.mm)
 endif()
 
 add_executable(${CMAKE_PROJECT_NAME}
-    ${SRC}
-    ${SRC_MAC}
+    ${HEADERS}
+    ${SOURCES}
+    ${SOURCES_MAC}
     ${FORMS}
     ${RESOURCES}
     ${QM_FILES}
@@ -155,9 +165,9 @@ if(ENABLE_CLANG_TIDY)
     # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
     list(APPEND RUN_CLANG_TIDY_BIN_ARGS
         -clang-tidy-binary ${CLANG_TIDY_BIN}
-        -header-filter='src'
-        # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments / llvm-header-guard
-        -checks=--*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-include-order,llvm-namespace-comment,llvm-twine-local,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
+        -header-filter='source'
+        # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments
+        -checks=-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
         -extra-arg='-Wno-everything'
     )
 
@@ -179,13 +189,13 @@ if(ENABLE_CLANG_CLAZY)
     # https://github.com/KDE/clazy#clazy-standalone-and-json-database-support
     list(APPEND CLANG_CLAZY_BIN_ARGS
         --standalone
-        -header-filter='src'
+        -header-filter='source'
         -checks='level0,level1,level2'
         -extra-arg='-Wno-everything'
         -ignore-dirs='_autogen'
         -only-qt
         -p='compile_commands.js'
-        src/*.cpp
+        source/*.cpp
     )
 
     add_custom_target(
