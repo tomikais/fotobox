@@ -6,7 +6,7 @@
 #------------------------------------------------------------
 
 # http://doc.qt.io/qt-5/cmake-manual.html
-cmake_minimum_required(VERSION 3.9.0)
+cmake_minimum_required(VERSION 3.9.0 FATAL_ERROR)
 
 project(FotoBox)
 
