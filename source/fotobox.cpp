@@ -151,30 +151,25 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
   //prevent triggering method too often
   if (!event->isAutoRepeat()) {
       //start FotoBox
-      for (const auto &key : m_triggerKey) {
-          if (event->key() == key) {
-              Q_EMIT start();
-              return;
-            }
+      if (std::any_of(m_triggerKey.cbegin(), m_triggerKey.cend(), [&] (const Qt::Key i_key) {return event->key() == i_key;})) {
+          Q_EMIT start();
+          return;
         }
 
       //preferences dialog
-      for (const auto &key : m_preferenceKey) {
-          if (event->key() == key) {
-              preferenceDialog();
-              return;
-            }
+      if (std::any_of(m_preferenceKey.cbegin(), m_preferenceKey.cend(), [&] (const Qt::Key i_key) {return event->key() == i_key;})
+          ) {
+          preferenceDialog();
+          return;
         }
 
       //quit application
-      for (const auto &key : m_quitKey) {
-          if (event->key() == key) {
-              if (event->modifiers() == Qt::ShiftModifier) {
-                  QCoreApplication::quit();
-                }
-              m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift key while press Escape key."), STATUSBAR_MSG_TIMEOUT);
-              return;
+      if (std::any_of(m_quitKey.cbegin(), m_quitKey.cend(), [&] (const Qt::Key i_key) {return event->key() == i_key;})) {
+          if (event->modifiers() == Qt::ShiftModifier) {
+              QCoreApplication::quit();
             }
+          m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift key while press Escape key."), STATUSBAR_MSG_TIMEOUT);
+          return;
         }
     }
 }

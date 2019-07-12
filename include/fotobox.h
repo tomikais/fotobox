@@ -170,7 +170,7 @@ private:
   static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
 
   /*! keyboard shortcut to start FotoBox */
-  std::vector<Qt::Key> m_triggerKey { Qt::Key_N,
+  const std::vector<Qt::Key> m_triggerKey { Qt::Key_N,
         Qt::Key_Return, Qt::Key_Enter,
         Qt::Key_PageDown, Qt::Key_PageUp,
         Qt::Key_Left, Qt::Key_Right,
@@ -178,10 +178,10 @@ private:
         Qt::Key_Space, Qt::Key_Backspace };
 
   /*! keyboard shortcut to go back to preference dialog */
-  std::vector<Qt::Key> m_preferenceKey { Qt::Key_P, Qt::Key_S, Qt::Key_E };
+  const std::vector<Qt::Key> m_preferenceKey { Qt::Key_P, Qt::Key_S, Qt::Key_E };
 
   /*! keyboard shortcut to quit the application */
-  std::vector<Qt::Key> m_quitKey { Qt::Key_Escape, Qt::Key_Q };
+  const std::vector<Qt::Key> m_quitKey { Qt::Key_Escape, Qt::Key_Q };
 
 
 Q_SIGNALS:
