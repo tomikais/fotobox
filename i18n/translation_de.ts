@@ -10,23 +10,23 @@
         <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="175"/>
+        <location filename="../source/fotobox.cpp" line="171"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation>Um die Anwendung zu beenden, halten Sie die Umschalttaste gedrückt, während Sie die Escape-Taste drücken.</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="233"/>
+        <location filename="../source/fotobox.cpp" line="228"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="263"/>
+        <location filename="../source/fotobox.cpp" line="258"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Kann das Foto nicht bewegen nach: %1</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="290"/>
+        <location filename="../source/fotobox.cpp" line="285"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -52,43 +52,42 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="60"/>
+        <location filename="../source/preferences.cpp" line="54"/>
         <source>launching FotoBox in %1 seconds</source>
         <extracomment>%1 countdown (number)</extracomment>
         <translation>FotoBox wird gestartet in %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="142"/>
+        <location filename="../source/preferences.cpp" line="136"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="208"/>
+        <location filename="../source/preferences.cpp" line="202"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="322"/>
-        <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
-        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
-        <translation>&apos;%1&apos; nicht gefunden: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater&apos;&gt;Linux (gphoto2 Updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../source/preferences.cpp" line="344"/>
-        <source>&apos;%1&apos; is missing: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (connecting and enabling the camera)&lt;/a&gt;</source>
-        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
-        <translation>&apos;%1&apos; nicht gefunden: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/README.md&apos;&gt;Raspberry Pi (verbinden und aktivieren der Kamera)&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../source/preferences.cpp" line="332"/>
         <source>*** no camera detected ***</source>
         <translation>*** keine Kamera erkannt ***</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="355"/>
-        <source>&apos;%1&apos; is missing!</source>
-        <extracomment>%1 name of the application from QComboBox CameraMode</extracomment>
-        <translation>&apos;%1&apos; nicht gefunden!</translation>
+        <location filename="../source/preferences.cpp" line="309"/>
+        <location filename="../source/preferences.cpp" line="333"/>
+        <location filename="../source/preferences.cpp" line="339"/>
+        <source>&apos;%1&apos; is missing%2</source>
+        <translation>&apos;%1&apos; nicht gefunden%2</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="309"/>
+        <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
+        <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="333"/>
+        <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
+        <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>
 </context>
 <context>

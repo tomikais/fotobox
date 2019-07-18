@@ -17,12 +17,6 @@
 #include <QProcess>
 #include <QScreen>
 
-#if !defined (Q_OS_WIN)
-#include <sysexits.h>
-#else
-#define EX_USAGE 64 /* Windows: command line usage error */
-#endif
-
 
 Preferences::Preferences(QWidget *parent) : QDialog(parent),
   m_ui(new Ui::PreferencesDialog),
@@ -88,7 +82,7 @@ void Preferences::connectUi()
   connect(m_ui->spbOutputPin, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
   connect(m_ui->spbQueryInterval, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
   connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
-  connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, this, &Preferences::applicationAvailable);
+  connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, this, &Preferences::verifyApplication);
   connect(m_ui->cmbCameraMode, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [&]() {
       //QComboBox has changed, show stored data to QLineEdit
       m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
@@ -304,59 +298,58 @@ void Preferences::restoreDefaultPreferences()
 }
 
 
-void Preferences::applicationAvailable(const QString& i_name)
+void Preferences::verifyApplication(const QString& i_name)
 {
+  //reset style and content
   m_ui->lblCameraModeInfo->setStyleSheet(QLatin1String(""));
-  if (i_name == QLatin1String("gphoto2")) {
-      auto process = new QProcess(this);
-      //specific 'gphoto2' check: auto-detect: get detected cameras
-#if defined (Q_OS_WIN)
-      //try use Windows 10 Linux Subsystem to call gphoto2
-      process->start(QLatin1String("bash.exe -c '") + i_name + QLatin1String(" --auto-detect --version '"));
-#else
-      process->start(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") });
-#endif
-      if (process->waitForFinished() && process->exitCode() != EXIT_SUCCESS) {
-          m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          //: %1 name of the application from QComboBox CameraMode
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://github.com/gonzalo/gphoto2-updater'>Linux (gphoto2 updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>").arg(i_name));
-        } else {
-          auto output = process->readAllStandardOutput();
-          //gphoto version
-          auto version = output.left(output.indexOf('\n'));
-          //get camera model
-          QString model = QString::fromLatin1(output.right(output.size() - output.lastIndexOf('-') - 2));
-          model = model.left(model.indexOf(QLatin1String("usb"), Qt::CaseInsensitive));
-          if (model.isEmpty()) {
-              m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-              model = tr("*** no camera detected ***");
-            }
-          m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
-        }
-      process->deleteLater();
-      return;
-    }
-  if (i_name == QLatin1String("raspistill")) {
-      if (QProcess::execute(i_name, { QStringLiteral("--help") }) != EX_USAGE) {
-          //specific 'raspistill' show verbose message
-          m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          //: %1 name of the application from QComboBox CameraMode
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing: <a href='https://www.raspberrypi.org/documentation/usage/camera/README.md'>Raspberry Pi (connecting and enabling the camera)</a>").arg(i_name));
-        } else {
-          m_ui->lblCameraModeInfo->clear();
-        }
-      return;
-    }
-  if (!i_name.isEmpty()) {
-      if (QProcess::execute(i_name) != EXIT_SUCCESS) {
-          //other applications
-          m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-          //: %1 name of the application from QComboBox CameraMode
-          m_ui->lblCameraModeInfo->setText(tr("'%1' is missing!").arg(i_name));
-        } else {
-          m_ui->lblCameraModeInfo->clear();
-        }
-      return;
-    }
   m_ui->lblCameraModeInfo->clear();
+
+  //gphoto2
+  if (i_name == QLatin1String("gphoto2")) {
+      auto message = tr("'%1' is missing%2").arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+      if (applicationAvailable(i_name, message)) {
+          auto process = new QProcess(this);
+          process->start(i_name, { QStringLiteral("--auto-detect"), QStringLiteral("--version") });
+          if (process->waitForFinished() && process->exitCode() == EXIT_SUCCESS) {
+              auto output = process->readAllStandardOutput();
+              //gphoto version
+              auto version = output.left(output.indexOf('\n'));
+              //get camera model
+              QString model = QString::fromLatin1(output.right(output.size() - output.lastIndexOf('-') - 2));
+              model = model.left(model.indexOf(QLatin1String("usb"), Qt::CaseInsensitive));
+              if (model.isEmpty()) {
+                  m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
+                  model = tr("*** no camera detected ***");
+                }
+              m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
+            }
+          process->deleteLater();
+        }
+      return;
+    }
+
+  //Raspberry Pi Camera Module
+  if (i_name == QLatin1String("raspistill")) {
+      auto message = tr("'%1' is missing%2").arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>Raspberry Pi Camera Module - enabling the camera</a>"));
+      applicationAvailable(i_name, message);
+      return;
+    }
+
+  //Other Applications
+  auto message = tr("'%1' is missing%2").arg(i_name);
+  applicationAvailable(i_name, message);
+}
+
+
+bool Preferences::applicationAvailable(const QString& i_name, const QString& i_message)
+{
+  //If the process cannot be started, -2 is returned. If the process crashes, -1 is returned.
+  if (QProcess::execute(i_name) < QProcess::NormalExit) {
+      //set error message
+      m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
+      m_ui->lblCameraModeInfo->setText(i_message);
+      return false;
+    }
+  //application is available
+  return true;
 }

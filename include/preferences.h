@@ -87,10 +87,11 @@ private Q_SLOTS:
   void showColor(const QString& i_colorName);
 
   /*!
-  * \brief check camera application availability and provide help
-  * \param i_name QString name of the application
+  * \brief check camera application availability and provide help if needed
+  * \details gphoto2: set version and camera model
+  * \param i_name QString name of the application to check
   */
-  void applicationAvailable(const QString& i_name);
+  void verifyApplication(const QString& i_name);
 
 
 private:
@@ -114,6 +115,14 @@ private:
   * \details stopping auto accept dialog \sa autoAcceptDialog()
   */
   void mouseMoveEvent(QMouseEvent *event) override;
+
+  /*!
+  * \brief check if application is installed and available
+  * \param i_name QString name of the application to check
+  * \param i_message QString error message to display in QLabel
+  * \return bool true: application found / false: not found
+  */
+  bool applicationAvailable(const QString& i_name, const QString& i_message);
 
 
   /*! User Interface */

@@ -55,7 +55,7 @@ public:
 
   /*!
   * \brief shoot a photo with gphoto2
-  * \return true: processed finished / false:error
+  * \return true: processed finished / false: error
   */
   bool shootPhoto();
 
