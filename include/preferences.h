@@ -120,6 +120,13 @@ private:
      */
     bool applicationAvailable(const QString &i_name, const QString &i_message);
 
+    /*!
+     * \brief read gphoto2 / libgphoto2 version and camera model
+     * \param i_name QString name of the application to check
+     * \return QString return information
+     */
+    QString gphotoInfo(const QString &i_name);
+
     /*! User Interface */
     Ui::PreferencesDialog *m_ui;
 

@@ -286,10 +286,6 @@ void Preferences::restoreDefaultPreferences()
 
 void Preferences::verifyApplication(const QString &i_name)
 {
-    //reset style and content
-    m_ui->lblCameraModeInfo->setStyleSheet(QLatin1String(""));
-    m_ui->lblCameraModeInfo->clear();
-
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
         auto message = tr("'%1' is missing%2")
@@ -297,22 +293,7 @@ void Preferences::verifyApplication(const QString &i_name)
                                 tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 "
                                    "updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
-            auto process = new QProcess(this);
-            process->start(i_name, {QStringLiteral("--auto-detect"), QStringLiteral("--version")});
-            if (process->waitForFinished() && process->exitCode() == EXIT_SUCCESS) {
-                auto output = process->readAllStandardOutput();
-                //gphoto version
-                auto version = output.left(output.indexOf('\n'));
-                //get camera model
-                QString model = QString::fromLatin1(output.right(output.size() - output.lastIndexOf('-') - 2));
-                model = model.left(model.indexOf(QLatin1String("usb"), Qt::CaseInsensitive));
-                if (model.isEmpty()) {
-                    m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
-                    model = tr("*** no camera detected ***");
-                }
-                m_ui->lblCameraModeInfo->setText(version + QStringLiteral(" / ") + model.trimmed());
-            }
-            process->deleteLater();
+            m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
         }
         return;
     }
@@ -340,8 +321,49 @@ bool Preferences::applicationAvailable(const QString &i_name, const QString &i_m
         //set error message
         m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
         m_ui->lblCameraModeInfo->setText(i_message);
+        m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), QBrush(Qt::red), Qt::ForegroundRole);
         return false;
     }
-    //application is available
+    //application is available reset style and content
+    m_ui->lblCameraModeInfo->setStyleSheet(QLatin1String(""));
+    m_ui->lblCameraModeInfo->clear();
+    m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), QBrush(Qt::black), Qt::ForegroundRole);
     return true;
+}
+
+QString Preferences::gphotoInfo(const QString &i_name)
+{
+    QString result;
+
+    //call 'gphoto2 --version' and get output
+    QProcess process(this);
+    process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
+    process.waitForFinished();
+    auto output = process.readAllStandardOutput();
+
+    //^gphoto2\s{2,}(?<gphoto2>\d+\.\d+\.\d+).*\n^libgphoto2\s{2,}(?<libgphoto2>\d+\.\d+\.\d+)
+    QString pattern(QStringLiteral("^gphoto2\\s{2,}(?<gphoto2>\\d+\\.\\d+\\.\\d+).*\\n^libgphoto2\\s{2,}(?<libgphoto2>\\d+\\.\\d+\\.\\d+)"));
+    //use regex to get version string
+    QRegularExpression regex(pattern, QRegularExpression::MultilineOption);
+    auto match = regex.match(QString::fromLatin1(output));
+    QString gphoto2(i_name);
+    QString libgphoto2(QStringLiteral("libgphoto2"));
+    if (match.hasMatch()) {
+        gphoto2 += QStringLiteral(" v") + match.captured(gphoto2);
+        libgphoto2 += QStringLiteral(" v") + match.captured(libgphoto2);
+        result = gphoto2 + QStringLiteral(" / ") + libgphoto2;
+
+        //get camera model
+        pattern = QStringLiteral("^Model:\\s(.*$)");
+        regex.setPattern(pattern);
+        match = regex.match(QString::fromLatin1(output));
+        result += QStringLiteral("\n");
+        if (match.hasMatch()) {
+            result += tr("camera model: %1").arg(match.captured(1));
+        } else {
+            result += tr("camera model: %1").arg(tr("NOT DETECTED"));
+        }
+    }
+
+    return result;
 }

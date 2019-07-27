@@ -35,7 +35,7 @@ bool Camera::shootPhoto()
 
 #if defined(Q_OS_WIN)
     //try use Windows 10 Linux Subsystem to call gphoto2
-    command = QString("bash.exe -c '%1'").arg(command);
+    command = QString(QStringLiteral("bash.exe -c '%1'")).arg(command);
 #endif
 
     //Start programm with given arguments
