@@ -14,17 +14,17 @@
 
 void FotoBox::closeFullscreenWindowOnMac()
 {
-  //WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
-  auto* view = reinterpret_cast<NSView*>(winId());
-  if (view == nil) {
-      return;
+    //WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
+    auto *view = reinterpret_cast<NSView *>(winId());
+    if (view == nil) {
+        return;
     }
 
-  auto* window = view.window;
-  if (window == nil) {
-      return;
+    auto *window = view.window;
+    if (window == nil) {
+        return;
     }
 
-  //close the window again, using the native MacOS API
-  [window close];
+    //close the window again, using the native MacOS API
+    [window close];
 }

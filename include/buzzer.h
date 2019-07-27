@@ -14,74 +14,68 @@
 #define BUZZER_AVAILABLE
 #endif
 
-#include <QObject>
 #include <atomic>
-
+#include <QObject>
 
 /*!
  * \brief This class handles the buzzer
  */
 class Buzzer : public QObject
 {
-  Q_OBJECT
-
+    Q_OBJECT
 
 public:
-  /*!
-  * \brief Buzzer constructor
-  * \param parent QObject
-  */
-  explicit Buzzer(QObject *parent = nullptr);
+    /*!
+     * \brief Buzzer constructor
+     * \param parent QObject
+     */
+    explicit Buzzer(QObject *parent = nullptr);
 
-  /*!
-  * \brief Buzzer destructor
-  */
-  ~Buzzer() override = default;
+    /*!
+     * \brief Buzzer destructor
+     */
+    ~Buzzer() override = default;
 
-  /*!
-  * \brief Buzzer copy constructor
-  */
-  Buzzer(const Buzzer&) = delete;
+    /*!
+     * \brief Buzzer copy constructor
+     */
+    Buzzer(const Buzzer &) = delete;
 
-  /*!
-  * \brief Buzzer delete copy assignment
-  */
-  Buzzer& operator=(const Buzzer&) = delete;
+    /*!
+     * \brief Buzzer delete copy assignment
+     */
+    Buzzer &operator=(const Buzzer &) = delete;
 
-  /*!
-  * \brief Buzzer default move constructor
-  */
-  Buzzer(Buzzer&& other) = delete;
+    /*!
+     * \brief Buzzer default move constructor
+     */
+    Buzzer(Buzzer &&other) = delete;
 
-  /*!
-  * \brief Buzzer default move assignment
-  */
-  Buzzer& operator=(Buzzer&& other) = delete;
+    /*!
+     * \brief Buzzer default move assignment
+     */
+    Buzzer &operator=(Buzzer &&other) = delete;
 
-  /*!
-  * \brief Stop executing \sa queryPin()
-  */
-  void stop();
-
+    /*!
+     * \brief Stop executing \sa queryPin()
+     */
+    void stop();
 
 public Q_SLOTS:
-  /*!
-  * \brief Query the Raspberry Pi pin
-  */
-  void queryPin();
-
+    /*!
+     * \brief Query the Raspberry Pi pin
+     */
+    void queryPin();
 
 Q_SIGNALS:
-  /*!
-  * \brief Buzzer was pressed
-  */
-  void triggered();
-
+    /*!
+     * \brief Buzzer was pressed
+     */
+    void triggered();
 
 private:
-  /*! atomic bool to stop /sa queryPin() */
-  std::atomic<bool> m_stop {false};
-
+    /*! atomic bool to stop /sa queryPin() */
+    std::atomic<bool> m_stop{false};
 };
 
 #endif // BUZZER_H
