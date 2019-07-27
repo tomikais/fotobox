@@ -14,8 +14,9 @@
 #define BUZZER_AVAILABLE
 #endif
 
-#include <atomic>
 #include <QObject>
+
+#include <atomic>
 
 /*!
  * \brief This class handles the buzzer

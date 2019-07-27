@@ -293,6 +293,7 @@ void Preferences::verifyApplication(const QString &i_name)
                                 tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 "
                                    "updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
+            //add info about gphoto2
             m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
         }
         return;
@@ -317,7 +318,10 @@ void Preferences::verifyApplication(const QString &i_name)
 bool Preferences::applicationAvailable(const QString &i_name, const QString &i_message)
 {
     //If the process cannot be started, -2 is returned. If the process crashes, -1 is returned.
-    if (QProcess::execute(i_name) < QProcess::NormalExit) {
+    QProcess process;
+    process.start(i_name, QIODevice::NotOpen);
+    process.waitForFinished();
+    if (process.exitStatus() < QProcess::NormalExit) {
         //set error message
         m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
         m_ui->lblCameraModeInfo->setText(i_message);
@@ -353,8 +357,9 @@ QString Preferences::gphotoInfo(const QString &i_name)
         libgphoto2 += QStringLiteral(" v") + match.captured(libgphoto2);
         result = gphoto2 + QStringLiteral(" / ") + libgphoto2;
 
+        //^[Mm]odel:\s(.*$)
+        pattern = QStringLiteral("^[Mm]odel:\\s(.*$)");
         //get camera model
-        pattern = QStringLiteral("^Model:\\s(.*$)");
         regex.setPattern(pattern);
         match = regex.match(QString::fromLatin1(output));
         result += QStringLiteral("\n");
