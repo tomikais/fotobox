@@ -312,7 +312,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Other Applications
-    auto message = tr("'%1' is missing%2").arg(i_name, QStringLiteral(""));
+    auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
     applicationAvailable(i_name, message);
 }
 
