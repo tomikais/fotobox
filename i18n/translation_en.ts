@@ -15,18 +15,18 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="218"/>
+        <location filename="../source/fotobox.cpp" line="216"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="248"/>
+        <location filename="../source/fotobox.cpp" line="246"/>
         <source>Couldn&apos;t move the photo to: %1</source>
         <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
         <translation>Couldn&apos;t move the photo to: %1</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="273"/>
+        <location filename="../source/fotobox.cpp" line="271"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -68,30 +68,30 @@
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="375"/>
-        <location filename="../source/preferences.cpp" line="383"/>
+        <location filename="../source/preferences.cpp" line="370"/>
+        <location filename="../source/preferences.cpp" line="378"/>
         <source>camera model: %1</source>
         <translation>camera model: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="383"/>
+        <location filename="../source/preferences.cpp" line="378"/>
         <source>NOT DETECTED</source>
         <translation>NOT DETECTED</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="297"/>
-        <location filename="../source/preferences.cpp" line="310"/>
-        <location filename="../source/preferences.cpp" line="320"/>
+        <location filename="../source/preferences.cpp" line="295"/>
+        <location filename="../source/preferences.cpp" line="307"/>
+        <location filename="../source/preferences.cpp" line="315"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; is missing%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="299"/>
+        <location filename="../source/preferences.cpp" line="296"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="312"/>
+        <location filename="../source/preferences.cpp" line="308"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</translation>
     </message>

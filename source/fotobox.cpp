@@ -160,9 +160,7 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
             if (event->modifiers() == Qt::ShiftModifier) {
                 QCoreApplication::quit();
             }
-            m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift "
-                                            "key while press Escape key."),
-                                         STATUSBAR_MSG_TIMEOUT);
+            m_ui->statusBar->showMessage(tr("To quit the application, please hold down the Shift key while press Escape key."), STATUSBAR_MSG_TIMEOUT);
             return;
         }
     }

@@ -282,9 +282,7 @@ void Preferences::restoreDefaultPreferences()
 
     //Camera
     m_ui->cmbCameraMode->clear();
-    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"),
-                                 QLatin1String("--capture-image-and-download --keep --filename %1 --set-config "
-                                               "/main/settings/capturetarget=1 --force-overwrite"));
+    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
     m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
     m_ui->spbTimout->setValue(30);
     m_ui->chbGrayscale->setChecked(false);
@@ -295,9 +293,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
         auto message = tr("'%1' is missing%2")
-                           .arg(i_name,
-                                tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 "
-                                   "updater)</a>/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+                           .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
+                                           "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
             //add info about gphoto2
             m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
@@ -308,16 +305,14 @@ void Preferences::verifyApplication(const QString &i_name)
     //Raspberry Pi Camera Module
     if (i_name == QLatin1String("raspistill")) {
         auto message = tr("'%1' is missing%2")
-                           .arg(i_name,
-                                tr(": <a "
-                                   "href='https://www.raspberrypi.org/documentation/usage/camera/"
-                                   "'>Raspberry Pi Camera Module - enabling the camera</a>"));
+                           .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
+                                           "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
         return;
     }
 
     //Other Applications
-    auto message = tr("'%1' is missing%2").arg(i_name);
+    auto message = tr("'%1' is missing%2").arg(i_name, QStringLiteral(""));
     applicationAvailable(i_name, message);
 }
 
@@ -373,7 +368,7 @@ QString Preferences::gphotoInfo(const QString &i_name)
         if (match.hasMatch()) {
             const auto matches = match.lastCapturedIndex();
             result += tr("camera model: %1").arg(match.captured(1));
-            //more then one camera detected
+            //more then one camera detected ('0' full match, '1' first match, '2' second match,...)
             if (matches > 2) {
                 for (int i = 2; i <= matches; ++i) {
                     result += QStringLiteral(" / ") + match.captured(i);
