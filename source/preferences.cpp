@@ -54,6 +54,9 @@ Preferences::Preferences(QWidget *parent)
         setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
     });
 
+    //set reload icon
+    m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+
     //function only available Qt 5.5 or newer
 #if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
     m_ui->chbGrayscale->setEnabled(false);
@@ -80,10 +83,13 @@ void Preferences::connectUi()
     connect(m_ui->spbOutputPin, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setOutputPin);
     connect(m_ui->spbQueryInterval, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setQueryInterval);
     connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, &PreferenceProvider::instance(), &PreferenceProvider::setCameraMode);
-    connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, this, &Preferences::verifyApplication);
     connect(m_ui->cmbCameraMode, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [&]() {
         //QComboBox has changed, show stored data to QLineEdit
         m_ui->txtArgumentLine->setText(m_ui->cmbCameraMode->currentData().toString());
+    });
+    connect(m_ui->cmbCameraMode, &QComboBox::currentTextChanged, this, &Preferences::verifyApplication);
+    connect(m_ui->btnCameraModeReload, &QAbstractButton::clicked, this, [&]() {
+        verifyApplication(m_ui->cmbCameraMode->currentText());
     });
     connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setArgumentLine);
     connect(m_ui->txtArgumentLine, &QLineEdit::textChanged, this, [&](const QString &i_value) {
@@ -321,7 +327,8 @@ bool Preferences::applicationAvailable(const QString &i_name, const QString &i_m
     QProcess process;
     process.start(i_name, QIODevice::NotOpen);
     process.waitForFinished();
-    if (process.exitStatus() < QProcess::NormalExit) {
+    const auto EXIT_CODE_OUT_OF_RANGE = 255;
+    if (process.exitCode() == EXIT_CODE_OUT_OF_RANGE) {
         //set error message
         m_ui->lblCameraModeInfo->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
         m_ui->lblCameraModeInfo->setText(i_message);
@@ -339,17 +346,17 @@ QString Preferences::gphotoInfo(const QString &i_name)
 {
     QString result;
 
-    //call 'gphoto2 --version' and get output
+    //call 'gphoto2 --version --summary' and get output
     QProcess process(this);
     process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
     process.waitForFinished();
-    auto output = process.readAllStandardOutput();
+    auto output = QString::fromLatin1(process.readAllStandardOutput());
 
     //^gphoto2\s{2,}(?<gphoto2>\d+\.\d+\.\d+).*\n^libgphoto2\s{2,}(?<libgphoto2>\d+\.\d+\.\d+)
     QString pattern(QStringLiteral("^gphoto2\\s{2,}(?<gphoto2>\\d+\\.\\d+\\.\\d+).*\\n^libgphoto2\\s{2,}(?<libgphoto2>\\d+\\.\\d+\\.\\d+)"));
     //use regex to get version string
     QRegularExpression regex(pattern, QRegularExpression::MultilineOption);
-    auto match = regex.match(QString::fromLatin1(output));
+    auto match = regex.match(output);
     QString gphoto2(i_name);
     QString libgphoto2(QStringLiteral("libgphoto2"));
     if (match.hasMatch()) {
@@ -361,10 +368,17 @@ QString Preferences::gphotoInfo(const QString &i_name)
         pattern = QStringLiteral("^[Mm]odel:\\s(.*$)");
         //get camera model
         regex.setPattern(pattern);
-        match = regex.match(QString::fromLatin1(output));
+        match = regex.match(output);
         result += QStringLiteral("\n");
         if (match.hasMatch()) {
+            const auto matches = match.lastCapturedIndex();
             result += tr("camera model: %1").arg(match.captured(1));
+            //more then one camera detected
+            if (matches > 2) {
+                for (int i = 2; i <= matches; ++i) {
+                    result += QStringLiteral(" / ") + match.captured(i);
+                }
+            }
         } else {
             result += tr("camera model: %1").arg(tr("NOT DETECTED"));
         }
