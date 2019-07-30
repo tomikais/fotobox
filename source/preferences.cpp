@@ -132,8 +132,9 @@ void Preferences::mouseMoveEvent(QMouseEvent *event)
         m_ui->scrollArea->setMouseTracking(false);
         m_ui->scrollAreaWidgetContents->setMouseTracking(false);
         m_ui->tabWidget->setMouseTracking(false);
-        m_ui->tabGenal->setMouseTracking(false);
+        m_ui->tabGeneral->setMouseTracking(false);
         m_ui->tabExpert->setMouseTracking(false);
+        m_ui->buttonBox->setMouseTracking(false);
         setWindowTitle(tr("FotoBox preferences"));
     }
 
@@ -282,7 +283,7 @@ void Preferences::restoreDefaultPreferences()
 
     //Camera
     m_ui->cmbCameraMode->clear();
-    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
+    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --force-overwrite --filename %1"));
     m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
     m_ui->spbTimout->setValue(30);
     m_ui->chbGrayscale->setChecked(false);
