@@ -18,7 +18,7 @@
 #include <QScreen>
 
 Preferences::Preferences(QWidget *parent)
-    : QDialog(parent)
+    : QDialog(parent, Qt::Window)
     , m_ui(new Ui::PreferencesDialog)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this)
     , m_countdown(this, 10)
