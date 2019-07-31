@@ -29,7 +29,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 TARGET         = FotoBox
 TEMPLATE       = app
 
-# By default, QT contains core and gui
+# By default, Qt contains core and gui
 QT            += widgets
 
 CONFIG        += c++11
