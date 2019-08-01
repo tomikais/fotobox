@@ -81,6 +81,10 @@ linux {
   # Speed-Up compiling time with ccache (apt-get install ccache)
   QMAKE_CXX = ccache $$QMAKE_CXX
 
+  # WORKAROUND: double click on application wasn't working, so disable "Position-independent code" to fix it
+  # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
+  QMAKE_LFLAGS += -no-pie
+
   # Raspberry Pi wiringPi framework
   contains(QMAKE_HOST.arch, arm.*) {
       LIBS += -lwiringPi
