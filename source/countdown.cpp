@@ -14,7 +14,7 @@ Countdown::Countdown(QObject *parent, const unsigned int i_seconds)
     , m_timeLeft(i_seconds)
 {
     //set update intervall to one second
-    m_timer.setInterval(std::chrono::seconds(1));
+    m_timer.setInterval(ONE_SECOND);
 
     //Every second it is checked if the countdown is elapsed
     connect(&m_timer, &QTimer::timeout, this, &Countdown::updateTimeLeft);

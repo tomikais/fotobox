@@ -114,6 +114,9 @@ private:
 
     /*! status of the countdown */
     bool m_isActive{false};
+
+    /*! one second = 1000 ms */
+    static constexpr int ONE_SECOND = 1000;
 };
 
 #endif // COUNTDOWN_H
