@@ -24,9 +24,9 @@ COPY . .
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')
-CMD qmake --version && \
-    gcc --version && \
+CMD gcc --version && \
+    qmake --version && \
     qmake -recursive && \
     make -j2 && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi_stretch.tar.gz ./FotoBox
+    tar -cvzf ./artifact/FotoBox_RasPi_Stretch.tar.gz ./FotoBox

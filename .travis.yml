@@ -14,7 +14,6 @@ matrix:
   include:
     - name: "macOS"
       os: osx
-      osx_image: xcode10.2
       compiler: clang
       language: cpp
       before_install:
@@ -45,7 +44,7 @@ matrix:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-    - name: "Raspbian Jessie"
+    - name: "Raspbian Buster"
       os: linux
       dist: xenial
       language: ruby
@@ -53,7 +52,7 @@ matrix:
         - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotobox --file resources/DockerfileJessie .
+        - docker build --tag buildfotobox --file resources/DockerfileBuster .
       script:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
@@ -73,6 +72,7 @@ matrix:
       before_script:
         - cmake --version
         - gcc --version
+        - qmake --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
@@ -212,8 +212,8 @@ deploy:
   api_key: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.dmg
-    - FotoBox_RasPi_jessie.tar.gz
-    - FotoBox_RasPi_stretch.tar.gz
+    - FotoBox_RasPi_Stretch.tar.gz
+    - FotoBox_RasPi_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
   skip_cleanup: true
   on:

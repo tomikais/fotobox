@@ -20,7 +20,8 @@ endif()
 # By default, QT contains core and gui
 find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
 if(Qt5Core_FOUND)
-    if(Qt5Core_VERSION VERSION_LESS 5.3.0)
+    # Ubuntu Xenial Qt v5.5.1
+    if(Qt5Core_VERSION VERSION_LESS 5.5.0)
         message(WARNING "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
     endif()
 endif()
@@ -83,8 +84,8 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
-    ${PROJECT_SOURCE_DIR}/resources/DockerfileJessie
     ${PROJECT_SOURCE_DIR}/resources/DockerfileStretch
+    ${PROJECT_SOURCE_DIR}/resources/DockerfileBuster
     ${PROJECT_SOURCE_DIR}/resources/Doxyfile
     ${PROJECT_SOURCE_DIR}/resources/Info.plist
     )

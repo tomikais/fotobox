@@ -56,11 +56,6 @@ Preferences::Preferences(QWidget *parent)
 
     //set reload icon
     m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
-
-    //function only available Qt 5.5 or newer
-#if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
-    m_ui->chbGrayscale->setEnabled(false);
-#endif
 }
 
 void Preferences::connectUi()
