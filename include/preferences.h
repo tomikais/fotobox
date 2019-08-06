@@ -92,6 +92,12 @@ private Q_SLOTS:
 
 private:
     /*!
+     * \brief set the window position
+     * \details if the height of the Preference dialog is greater than the available screen height, start maximizing otherwise center the dialog
+     */
+    void windowPosition();
+
+    /*!
      * \brief Signal & Slot connect
      */
     void connectUi();

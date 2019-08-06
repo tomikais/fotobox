@@ -26,8 +26,8 @@ Preferences::Preferences(QWidget *parent)
     //setup UI
     m_ui->setupUi(this);
 
-    //move to center
-    setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QGuiApplication::primaryScreen()->availableGeometry()));
+    //set window position
+    windowPosition();
 
     //delete everything on close
     setAttribute(Qt::WA_DeleteOnClose);
@@ -56,6 +56,18 @@ Preferences::Preferences(QWidget *parent)
 
     //set reload icon
     m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+}
+
+void Preferences::windowPosition()
+{
+    auto availableGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    if (frameGeometry().height() > availableGeometry.height()) {
+        //start maximized to be able to reach the dialog buttons
+        showMaximized();
+    } else {
+        //enough space, center dialog
+        setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), availableGeometry));
+    }
 }
 
 void Preferences::connectUi()
