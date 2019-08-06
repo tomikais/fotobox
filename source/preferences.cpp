@@ -113,6 +113,7 @@ void Preferences::connectUi()
         //identify restore button and restore defaults
         if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
             restoreDefaultPreferences();
+            m_settings.sync();
         }
     });
 }
