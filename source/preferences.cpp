@@ -108,9 +108,9 @@ void Preferences::connectUi()
     });
     connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, [&]() {
         //show help dialog for command line parameter
-        auto dialog = new QDialog(this, Qt::Tool);
-        auto ui = new Ui::CommandLineOptionsDialog;
-        ui->setupUi(dialog);
+        auto dialog = new QDialog(this, Qt::ToolTip);
+        Ui::CommandLineOptionsDialog ui;
+        ui.setupUi(dialog);
         dialog->exec();
     });
 
