@@ -15,7 +15,7 @@
     or  
     __not recommended__: use latest available gphoto2 provided from Raspbian: `sudo apt-get install gphoto2`
     * [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/)
-4. Download latest "__FotoBox__" application [here](https://gitlab.com/tomikais/fotobox/tags) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian)
+4. Download latest __FotoBox__ application [here](https://github.com/tomikais/fotobox/releases) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian)
 5. Start the application and configure it accordingly.
 
 ## optional steps
