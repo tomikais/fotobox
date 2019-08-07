@@ -9,9 +9,8 @@
 
 #include "preferenceprovider.h"
 #include "preferences.h"
-
-#include "ui_preferences.h"
 #include "ui_commandlineoptions.h"
+#include "ui_preferences.h"
 
 #include <QColorDialog>
 #include <QDesktopWidget>
