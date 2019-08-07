@@ -80,46 +80,46 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="56"/>
+        <location filename="../source/preferences.cpp" line="55"/>
         <source>launching FotoBox in %1 seconds</source>
         <extracomment>%1 countdown (number)</extracomment>
         <translation>FotoBox wird gestartet in %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="157"/>
+        <location filename="../source/preferences.cpp" line="156"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="220"/>
+        <location filename="../source/preferences.cpp" line="219"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="390"/>
-        <location filename="../source/preferences.cpp" line="398"/>
+        <location filename="../source/preferences.cpp" line="389"/>
+        <location filename="../source/preferences.cpp" line="397"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="398"/>
+        <location filename="../source/preferences.cpp" line="397"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="315"/>
-        <location filename="../source/preferences.cpp" line="327"/>
-        <location filename="../source/preferences.cpp" line="335"/>
+        <location filename="../source/preferences.cpp" line="314"/>
+        <location filename="../source/preferences.cpp" line="326"/>
+        <location filename="../source/preferences.cpp" line="334"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="316"/>
+        <location filename="../source/preferences.cpp" line="315"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="328"/>
+        <location filename="../source/preferences.cpp" line="327"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>
