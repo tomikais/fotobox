@@ -53,7 +53,8 @@ SOURCES        = source/main.cpp \
                  source/preferences.cpp
 
 FORMS          = forms/fotobox.ui \
-                 forms/preferences.ui
+                 forms/preferences.ui \
+                 forms/commandlineoptions.ui
 
 RESOURCES     += i18n/qresource.qrc
 TRANSLATIONS  += i18n/translation_de.ts \

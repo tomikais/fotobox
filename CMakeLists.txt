@@ -69,6 +69,7 @@ set(SOURCES
 set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/fotobox.ui
     ${PROJECT_SOURCE_DIR}/forms/preferences.ui
+    ${PROJECT_SOURCE_DIR}/forms/commandlineoptions.ui
     )
 set(TS_FILES
     ${PROJECT_SOURCE_DIR}/i18n/translation_de.ts

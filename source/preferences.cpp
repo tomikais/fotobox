@@ -9,7 +9,9 @@
 
 #include "preferenceprovider.h"
 #include "preferences.h"
+
 #include "ui_preferences.h"
+#include "ui_commandlineoptions.h"
 
 #include <QColorDialog>
 #include <QDesktopWidget>
@@ -54,8 +56,9 @@ Preferences::Preferences(QWidget *parent)
         setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
     });
 
-    //set reload icon
+    //set icons for QToolButtons
     m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    m_ui->btnArgumentLineHelp->setIcon(style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
 }
 
 void Preferences::windowPosition()
@@ -103,6 +106,14 @@ void Preferences::connectUi()
         //save changed text in QComboBox model
         m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
+    connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, [&]() {
+        //show help dialog for command line parameter
+        auto dialog = new QDialog(this, Qt::Tool);
+        auto ui = new Ui::CommandLineOptionsDialog;
+        ui->setupUi(dialog);
+        dialog->exec();
+    });
+
     connect(m_ui->spbTimout, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
     connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
 
