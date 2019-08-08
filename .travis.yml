@@ -106,12 +106,10 @@ matrix:
         - make 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang passed!\033[0m";
           fi
 
     - name: "Ubuntu Xenial CMake Debug clang tidy 7"
@@ -145,12 +143,10 @@ matrix:
         - make tidy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
     - name: "Ubuntu Xenial CMake Debug clang clazy 1.5"
@@ -175,12 +171,10 @@ matrix:
         - make clazy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 clazy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang clazy passed!\033[0m";
           fi
 
     - name: "macOS Doxygen"

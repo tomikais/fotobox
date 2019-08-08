@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(QStringLiteral("1.3.4"));
 
     //splash screen FotoBox logo
-    QPixmap pixmap(":/resources/logo");
+    QPixmap pixmap(QStringLiteral(":/resources/logo"));
     QSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
     splash.show();
 
