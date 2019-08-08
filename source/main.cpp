@@ -8,6 +8,7 @@
 #include "preferences.h"
 
 #include <QApplication>
+#include <QBitmap>
 #include <QLibraryInfo>
 #include <QSplashScreen>
 #include <QTranslator>
@@ -28,6 +29,8 @@ int main(int argc, char *argv[])
     //splash screen FotoBox logo
     QPixmap pixmap(QStringLiteral(":/resources/logo"));
     QSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
+    //Linux: fix issue with transparent png
+    splash.setMask(pixmap.mask());
     splash.show();
 
     QTranslator qtTranslator, appTranslator;
