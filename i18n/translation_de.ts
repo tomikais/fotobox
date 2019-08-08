@@ -4,27 +4,27 @@
 <context>
     <name>CommandLineOptionsDialog</name>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="39"/>
+        <location filename="../forms/commandlineoptions.ui" line="38"/>
         <source>&lt;a href=&quot;http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html&quot;&gt;gPhoto2 command-line options&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;http://www.gphoto.org/doc/manual/ref-gphoto2-cli.html&quot;&gt;gPhoto2 Befehlszeilenoptionen&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="54"/>
-        <source>Canon Camera: save picture to SD card</source>
-        <translation>Canon Kamera: Bild auch auf SD-Karte speichern</translation>
+        <location filename="../forms/commandlineoptions.ui" line="48"/>
+        <source>Canon Camera - save picture to SD card:</source>
+        <translation>Canon Kamera - Bild auch auf SD-Karte speichern:</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="91"/>
+        <location filename="../forms/commandlineoptions.ui" line="92"/>
         <source>&lt;a href=&quot;https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/camera.md#raspistill&quot;&gt;raspistill command-line options&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/camera.md#raspistill&quot;&gt;raspistill Befehlszeilenoptionen&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="106"/>
-        <source>vertical &amp; horizontal image flip</source>
-        <translation>Bild vertikaler &amp; horizontaler drehen</translation>
+        <location filename="../forms/commandlineoptions.ui" line="102"/>
+        <source>vertical &amp; horizontal image flip:</source>
+        <translation>Bild vertikaler &amp; horizontaler drehen:</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="144"/>
+        <location filename="../forms/commandlineoptions.ui" line="148"/>
         <source>Okay</source>
         <translation>Okay</translation>
     </message>
@@ -86,40 +86,40 @@
         <translation>FotoBox wird gestartet in %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="156"/>
+        <location filename="../source/preferences.cpp" line="149"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="219"/>
+        <location filename="../source/preferences.cpp" line="225"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="389"/>
-        <location filename="../source/preferences.cpp" line="397"/>
+        <location filename="../source/preferences.cpp" line="395"/>
+        <location filename="../source/preferences.cpp" line="403"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="397"/>
+        <location filename="../source/preferences.cpp" line="403"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="314"/>
-        <location filename="../source/preferences.cpp" line="326"/>
-        <location filename="../source/preferences.cpp" line="334"/>
+        <location filename="../source/preferences.cpp" line="320"/>
+        <location filename="../source/preferences.cpp" line="332"/>
+        <location filename="../source/preferences.cpp" line="340"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="315"/>
+        <location filename="../source/preferences.cpp" line="321"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="327"/>
+        <location filename="../source/preferences.cpp" line="333"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>

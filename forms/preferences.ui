@@ -515,6 +515,7 @@
   <tabstop>spbOutputPin</tabstop>
   <tabstop>spbQueryInterval</tabstop>
   <tabstop>txtArgumentLine</tabstop>
+  <tabstop>btnArgumentLineHelp</tabstop>
   <tabstop>spbTimout</tabstop>
  </tabstops>
  <resources/>

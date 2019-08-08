@@ -18,8 +18,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>299</width>
-    <height>223</height>
+    <width>370</width>
+    <height>215</height>
    </rect>
   </property>
   <property name="modal">
@@ -30,7 +30,6 @@
     <widget class="QLabel" name="lblGphoto2">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -45,20 +44,23 @@
    </item>
    <item>
     <widget class="QLabel" name="lblCanonSave">
-     <property name="font">
-      <font>
-       <italic>true</italic>
-      </font>
-     </property>
      <property name="text">
-      <string>Canon Camera: save picture to SD card</string>
+      <string>Canon Camera - save picture to SD card:</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="txtCanonSave">
+     <property name="font">
+      <font>
+       <family>Courier</family>
+      </font>
+     </property>
      <property name="cursor">
       <cursorShape>IBeamCursor</cursorShape>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -82,7 +84,6 @@
     <widget class="QLabel" name="lblRaspistill">
      <property name="font">
       <font>
-       <pointsize>14</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -97,20 +98,23 @@
    </item>
    <item>
     <widget class="QLabel" name="lblFlip">
-     <property name="font">
-      <font>
-       <italic>true</italic>
-      </font>
-     </property>
      <property name="text">
-      <string>vertical &amp; horizontal image flip</string>
+      <string>vertical &amp; horizontal image flip:</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="txtFlip">
+     <property name="font">
+      <font>
+       <family>Courier</family>
+      </font>
+     </property>
      <property name="cursor">
       <cursorShape>IBeamCursor</cursorShape>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -163,6 +167,8 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>txtCanonSave</tabstop>
+  <tabstop>txtFlip</tabstop>
   <tabstop>btnOkay</tabstop>
  </tabstops>
  <resources/>

@@ -105,14 +105,7 @@ void Preferences::connectUi()
         //save changed text in QComboBox model
         m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
-    connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, [&]() {
-        //show help dialog for command line parameter
-        auto dialog = new QDialog(this, Qt::ToolTip);
-        Ui::CommandLineOptionsDialog ui;
-        ui.setupUi(dialog);
-        dialog->exec();
-    });
-
+    connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, &Preferences::commandLineOptionsDialog);
     connect(m_ui->spbTimout, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
     connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
 
@@ -120,7 +113,7 @@ void Preferences::connectUi()
     connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
     connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this, [&](QAbstractButton *button) {
-        //identify restore button and restore defaults
+        //identify restore button, restore defaults and save it
         if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
             restoreDefaultPreferences();
             m_settings.sync();
@@ -211,6 +204,19 @@ void Preferences::colorDialog()
             m_ui->txtShowColorBG->setText(dialog.selectedColor().name());
         }
     }
+}
+
+void Preferences::commandLineOptionsDialog()
+{
+    //'Qt::Tool' act like a window 'Qt::ToolTip' always on top
+    auto dialog = new QDialog(this, Qt::SplashScreen);
+    Ui::CommandLineOptionsDialog ui;
+
+    //setup UI
+    ui.setupUi(dialog);
+
+    //blocking until the user closes it
+    dialog->exec();
 }
 
 void Preferences::chooseDirectory()

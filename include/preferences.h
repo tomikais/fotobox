@@ -68,6 +68,12 @@ private Q_SLOTS:
     void colorDialog();
 
     /*!
+     * \brief Show help dialog for gphoto2/raspistill command line options
+     * \details official documentation and usefull examples
+     */
+    void commandLineOptionsDialog();
+
+    /*!
      * \brief Open a File Dialog and set path in UI.
      */
     void chooseDirectory();
