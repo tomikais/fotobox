@@ -256,14 +256,11 @@ void FotoBox::loadPhoto(const QString &i_filePath)
         //resize picture to label size
         QSize size(m_ui->lblPhoto->width(), m_ui->lblPhoto->height());
 
-        //function only available Qt 5.5 or newer
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
         //show photo in grayscale (monochrome photography)
         if (PreferenceProvider::instance().grayscale()) {
-            auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
+            const auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
             m_photo.convertFromImage(grey);
         }
-#endif
 
         m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         m_ui->lblPhoto->setPixmap(m_photo);
@@ -282,7 +279,7 @@ void FotoBox::drawText(const QString &i_text)
 
     //calculate best font size
     QFont font = painter.font();
-    auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
+    const auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
     font.setPointSizeF(font.pointSizeF() * size);
     painter.setFont(font);
 

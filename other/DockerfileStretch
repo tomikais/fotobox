@@ -8,19 +8,25 @@
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://www.balena.io/docs/reference/base-images/base-images-ref/
 # https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
-FROM balenalib/raspberry-pi2-debian:jessie-build
+FROM balenalib/raspberry-pi2-debian:stretch-build
 
 # install frameworks and build tools
 RUN sudo apt-get update -qq && sudo apt-get install -qq \
-  wiringpi \
-  qt5-default \
-  qttools5-dev-tools \
-  build-essential \
-  ccache
+    wiringpi \
+    qt5-default \
+    qttools5-dev-tools \
+    build-essential \
+    ccache
 
 
 # copy repository to container
 COPY . .
 
-# show qmake/gcc version / generate project / build FotoBox / compress artifact and copy to host (mounted directory '--volume')
-CMD qmake -v && gcc -v && qmake -r && make -j2 && tar -cvzf ./artifact/FotoBox_RasPi_jessie.tar.gz ./FotoBox
+# qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
+# copy to host (mounted directory '--volume')
+CMD gcc --version && \
+    qmake --version && \
+    qmake -recursive && \
+    make -j2 && \
+    chmod +x FotoBox && \
+    tar -cvzf ./artifact/FotoBox_RasPi_Stretch.tar.gz ./FotoBox

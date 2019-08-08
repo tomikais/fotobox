@@ -38,6 +38,14 @@
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>756</width>
+        <height>486</height>
+       </rect>
+      </property>
       <property name="mouseTracking">
        <bool>true</bool>
       </property>
@@ -50,7 +58,7 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="tabGenal">
+         <widget class="QWidget" name="tabGeneral">
           <property name="mouseTracking">
            <bool>true</bool>
           </property>
@@ -59,7 +67,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayoutTabGeneral">
            <item>
-            <layout class="QGridLayout" name="gridLayoutTabGeneral">
+            <layout class="QGridLayout" name="gridLayoutTabGeneral" columnstretch="0,1,2,2,1">
              <item row="7" column="0" colspan="5">
               <widget class="QLabel" name="lblCameraInfo">
                <property name="text">
@@ -116,6 +124,9 @@
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                </property>
                <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="openExternalLinks">
                 <bool>true</bool>
                </property>
               </widget>
@@ -280,6 +291,19 @@
              </item>
             </layout>
            </item>
+           <item>
+            <spacer name="verticalSpacerTabGeneral">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tabExpert">
@@ -291,11 +315,24 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayoutTabExpert">
            <item>
-            <layout class="QGridLayout" name="gridLayoutTabExpert">
-             <item row="6" column="1">
-              <widget class="QSpinBox" name="spbTimout">
-               <property name="suffix">
-                <string> seconds</string>
+            <layout class="QGridLayout" name="gridLayoutTabExpert" columnstretch="0,1,2,1">
+             <item row="4" column="0">
+              <widget class="QLabel" name="lblCameraExpert">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Camera</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="spbOutputPin">
+               <property name="maximum">
+                <number>40</number>
                </property>
               </widget>
              </item>
@@ -309,28 +346,8 @@
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
-              <widget class="QLabel" name="lblTimeout">
-               <property name="text">
-                <string>timeout value</string>
-               </property>
-               <property name="buddy">
-                <cstring>spbTimout</cstring>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2" rowspan="3" colspan="2">
-              <widget class="QLabel" name="lbl_pinInfo">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-              </widget>
+             <item row="5" column="3">
+              <widget class="QToolButton" name="btnArgumentLineHelp"/>
              </item>
              <item row="0" column="0">
               <widget class="QLabel" name="lblBuzzer">
@@ -352,26 +369,10 @@
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="lblCameraExpert">
-               <property name="font">
-                <font>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Camera</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lblQueryInterval">
-               <property name="text">
-                <string>query interval</string>
-               </property>
-               <property name="buddy">
-                <cstring>spbQueryInterval</cstring>
+             <item row="5" column="1" colspan="2">
+              <widget class="QLineEdit" name="txtArgumentLine">
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -398,17 +399,10 @@
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="spbOutputPin">
-               <property name="maximum">
-                <number>40</number>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1" colspan="3">
-              <widget class="QLineEdit" name="txtArgumentLine">
-               <property name="clearButtonEnabled">
-                <bool>true</bool>
+             <item row="6" column="1">
+              <widget class="QSpinBox" name="spbTimout">
+               <property name="suffix">
+                <string> seconds</string>
                </property>
               </widget>
              </item>
@@ -419,6 +413,42 @@
                </property>
                <property name="buddy">
                 <cstring>spbOutputPin</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="lblTimeout">
+               <property name="text">
+                <string>timeout value</string>
+               </property>
+               <property name="buddy">
+                <cstring>spbTimout</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lblQueryInterval">
+               <property name="text">
+                <string>query interval</string>
+               </property>
+               <property name="buddy">
+                <cstring>spbQueryInterval</cstring>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" rowspan="3" colspan="2">
+              <widget class="QLabel" name="lbl_pinInfo">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="openExternalLinks">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -485,6 +515,7 @@
   <tabstop>spbOutputPin</tabstop>
   <tabstop>spbQueryInterval</tabstop>
   <tabstop>txtArgumentLine</tabstop>
+  <tabstop>btnArgumentLineHelp</tabstop>
   <tabstop>spbTimout</tabstop>
  </tabstops>
  <resources/>

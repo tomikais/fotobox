@@ -10,7 +10,8 @@
 if (lessThan(QT_MAJOR_VERSION, 5)) {
   error("Qt 4 isn't supported (required Qt 5)")
 } else {
-  if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 3)) {
+  # Ubuntu Xenial Qt v5.5.1
+  if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 5)) {
     warning("Your Qt 5 version '"$$QT_MAJOR_VERSION"."$$QT_MINOR_VERSION"' is might not be compatible anymore.")
   }
 }
@@ -29,7 +30,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 TARGET         = FotoBox
 TEMPLATE       = app
 
-# By default, QT contains core and gui
+# By default, Qt contains core and gui
 QT            += widgets
 
 CONFIG        += c++11
@@ -52,11 +53,12 @@ SOURCES        = source/main.cpp \
                  source/preferences.cpp
 
 FORMS          = forms/fotobox.ui \
-                 forms/preferences.ui
+                 forms/preferences.ui \
+                 forms/commandlineoptions.ui
 
-RESOURCES     += i18n/qresource.qrc
-TRANSLATIONS  += i18n/translation_de.ts \
-                 i18n/translation_en.ts
+RESOURCES     += resources/qresource.qrc
+TRANSLATIONS  += resources/translation_de.ts \
+                 resources/translation_en.ts
 # run lrelease to generate the QM files and to embed them in the application resources
 qtPrepareTool(LRELEASE, lrelease)
 for(tsfile, TRANSLATIONS) {
@@ -72,14 +74,20 @@ OTHER_FILES    = .gitignore \
                  CMakeLists.txt \
                  COPYING \
                  README.md \
-                 resources/DockerfileJessie \
-                 resources/DockerfileStretch \
-                 resources/Doxyfile \
-                 resources/Info.plist
+                 other/DockerfileStretch \
+                 other/DockerfileBuster \
+                 other/Doxyfile \
+                 other/Info.plist \
+                 other/raspbian_install.sh \
+                 other/RaspPi_2B_default_GPIO.jpg
 
 linux {
   # Speed-Up compiling time with ccache (apt-get install ccache)
   QMAKE_CXX = ccache $$QMAKE_CXX
+
+  # WORKAROUND: double click on application wasn't working, so disable "Position-independent code" to fix it
+  # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
+  QMAKE_LFLAGS += -no-pie
 
   # Raspberry Pi wiringPi framework
   contains(QMAKE_HOST.arch, arm.*) {
@@ -103,7 +111,7 @@ mac {
     if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12)) {
       # https://developer.apple.com/documentation/appkit/nsappearancecustomization/choosing_a_specific_appearance_for_your_app
       # use Info.plist with NSRequiresAquaSystemAppearance=true to disable Dark Mode
-      QMAKE_INFO_PLIST = resources/Info.plist
+      QMAKE_INFO_PLIST = other/Info.plist
     }
   }
 }

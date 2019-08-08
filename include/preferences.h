@@ -68,6 +68,12 @@ private Q_SLOTS:
     void colorDialog();
 
     /*!
+     * \brief Show help dialog for gphoto2/raspistill command line options
+     * \details official documentation and usefull examples
+     */
+    void commandLineOptionsDialog();
+
+    /*!
      * \brief Open a File Dialog and set path in UI.
      */
     void chooseDirectory();
@@ -91,6 +97,12 @@ private Q_SLOTS:
     void verifyApplication(const QString &i_name);
 
 private:
+    /*!
+     * \brief set the window position
+     * \details if the height of the Preference dialog is greater than the available screen height, start maximizing otherwise center the dialog
+     */
+    void windowPosition();
+
     /*!
      * \brief Signal & Slot connect
      */

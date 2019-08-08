@@ -14,7 +14,6 @@ matrix:
   include:
     - name: "macOS"
       os: osx
-      osx_image: xcode10.2
       compiler: clang
       language: cpp
       before_install:
@@ -40,12 +39,12 @@ matrix:
         - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotobox --file resources/DockerfileStretch .
+        - docker build --tag buildfotobox --file other/DockerfileStretch .
       script:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-    - name: "Raspbian Jessie"
+    - name: "Raspbian Buster"
       os: linux
       dist: xenial
       language: ruby
@@ -53,7 +52,7 @@ matrix:
         - docker
       before_install:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-        - docker build --tag buildfotobox --file resources/DockerfileJessie .
+        - docker build --tag buildfotobox --file other/DockerfileBuster .
       script:
         #execute 'CMD' command (Dockerfile)
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
@@ -73,6 +72,7 @@ matrix:
       before_script:
         - cmake --version
         - gcc --version
+        - qmake --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
@@ -106,12 +106,10 @@ matrix:
         - make 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang passed!\033[0m";
           fi
 
     - name: "Ubuntu Xenial CMake Debug clang tidy 7"
@@ -145,12 +143,10 @@ matrix:
         - make tidy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 tidy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
     - name: "Ubuntu Xenial CMake Debug clang clazy 1.5"
@@ -175,12 +171,10 @@ matrix:
         - make clazy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo "clang tidy failed:"
-            echo ""
-            grep -v "_autogen" output.txt | grep --color -E '^|warning: |error: '
+            echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";
             exit 1;
           else
-            echo -e "\033[1;32m\xE2\x9C\x93 clazy passed!\033[0m";
+            echo -e "\033[1;32m\xE2\x9C\x93 clang clazy passed!\033[0m";
           fi
 
     - name: "macOS Doxygen"
@@ -193,7 +187,7 @@ matrix:
       before_script:
         - doxygen -v
       script:
-        - doxygen resources/Doxyfile
+        - doxygen other/Doxyfile
       deploy:
         provider: pages
         skip_cleanup: true
@@ -212,8 +206,8 @@ deploy:
   api_key: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.dmg
-    - FotoBox_RasPi_jessie.tar.gz
-    - FotoBox_RasPi_stretch.tar.gz
+    - FotoBox_RasPi_Stretch.tar.gz
+    - FotoBox_RasPi_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
   skip_cleanup: true
   on:

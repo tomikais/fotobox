@@ -9,6 +9,7 @@
 
 #include "preferenceprovider.h"
 #include "preferences.h"
+#include "ui_commandlineoptions.h"
 #include "ui_preferences.h"
 
 #include <QColorDialog>
@@ -18,7 +19,7 @@
 #include <QScreen>
 
 Preferences::Preferences(QWidget *parent)
-    : QDialog(parent)
+    : QDialog(parent, Qt::Window)
     , m_ui(new Ui::PreferencesDialog)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this)
     , m_countdown(this, 10)
@@ -26,8 +27,8 @@ Preferences::Preferences(QWidget *parent)
     //setup UI
     m_ui->setupUi(this);
 
-    //move to center
-    setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), QGuiApplication::primaryScreen()->availableGeometry()));
+    //set window position
+    windowPosition();
 
     //delete everything on close
     setAttribute(Qt::WA_DeleteOnClose);
@@ -54,13 +55,21 @@ Preferences::Preferences(QWidget *parent)
         setWindowTitle(tr("launching FotoBox in %1 seconds").arg(i_timeLeft));
     });
 
-    //set reload icon
+    //set icons for QToolButtons
     m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    m_ui->btnArgumentLineHelp->setIcon(style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
+}
 
-    //function only available Qt 5.5 or newer
-#if (QT_VERSION < QT_VERSION_CHECK(5, 5, 0))
-    m_ui->chbGrayscale->setEnabled(false);
-#endif
+void Preferences::windowPosition()
+{
+    const auto availableGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    if (frameGeometry().height() > availableGeometry.height()) {
+        //start maximized to be able to reach the dialog buttons
+        showMaximized();
+    } else {
+        //enough space, center dialog
+        setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), availableGeometry));
+    }
 }
 
 void Preferences::connectUi()
@@ -96,6 +105,7 @@ void Preferences::connectUi()
         //save changed text in QComboBox model
         m_ui->cmbCameraMode->setItemData(m_ui->cmbCameraMode->currentIndex(), i_value);
     });
+    connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, &Preferences::commandLineOptionsDialog);
     connect(m_ui->spbTimout, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
     connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
 
@@ -103,9 +113,10 @@ void Preferences::connectUi()
     connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
     connect(m_ui->buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     connect(m_ui->buttonBox, &QDialogButtonBox::clicked, this, [&](QAbstractButton *button) {
-        //identify restore button and restore defaults
+        //identify restore button, restore defaults and save it
         if (button == m_ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)) {
             restoreDefaultPreferences();
+            m_settings.sync();
         }
     });
 }
@@ -132,8 +143,9 @@ void Preferences::mouseMoveEvent(QMouseEvent *event)
         m_ui->scrollArea->setMouseTracking(false);
         m_ui->scrollAreaWidgetContents->setMouseTracking(false);
         m_ui->tabWidget->setMouseTracking(false);
-        m_ui->tabGenal->setMouseTracking(false);
+        m_ui->tabGeneral->setMouseTracking(false);
         m_ui->tabExpert->setMouseTracking(false);
+        m_ui->buttonBox->setMouseTracking(false);
         setWindowTitle(tr("FotoBox preferences"));
     }
 
@@ -160,8 +172,8 @@ void Preferences::loadPreferences()
 
     m_settings.beginGroup(QStringLiteral("Camera"));
     //restore QComboBox model
-    auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data")).toStringList();
-    auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text")).toStringList();
+    const auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data")).toStringList();
+    const auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text")).toStringList();
     if (!data.empty()) {
         m_ui->cmbCameraMode->clear();
         for (int i = 0; i < data.count(); ++i) {
@@ -182,7 +194,7 @@ void Preferences::colorDialog()
 
     if (dialog.exec() == QDialog::Accepted) {
         //show the color which the user has selected
-        auto *button = qobject_cast<QPushButton *>(sender());
+        const auto *button = qobject_cast<QPushButton *>(sender());
         if (button == m_ui->btnChooseColorCD) {
             //font countdown
             m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
@@ -194,6 +206,19 @@ void Preferences::colorDialog()
     }
 }
 
+void Preferences::commandLineOptionsDialog()
+{
+    //'Qt::Tool' act like a window 'Qt::ToolTip' always on top
+    auto dialog = new QDialog(this, Qt::SplashScreen);
+    Ui::CommandLineOptionsDialog ui;
+
+    //setup UI
+    ui.setupUi(dialog);
+
+    //blocking until the user closes it
+    dialog->exec();
+}
+
 void Preferences::chooseDirectory()
 {
     //File Dialog to choose photo folder
@@ -203,7 +228,7 @@ void Preferences::chooseDirectory()
 
     //only set it if user don't abort dialog
     if (dialog.exec() == QDialog::Accepted) {
-        auto path = dialog.directory().absolutePath();
+        const auto path = dialog.directory().absolutePath();
         m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
     }
 }
@@ -245,7 +270,7 @@ void Preferences::savePreferences()
     m_settings.beginGroup(QStringLiteral("Camera"));
     //Save QComboBox model
     QStringList itemText, itemData;
-    auto size = m_ui->cmbCameraMode->count();
+    const auto size = m_ui->cmbCameraMode->count();
     itemText.reserve(size);
     itemData.reserve(size);
     for (int i = 0; i < size; ++i) {
@@ -282,7 +307,7 @@ void Preferences::restoreDefaultPreferences()
 
     //Camera
     m_ui->cmbCameraMode->clear();
-    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --filename %1 --set-config /main/settings/capturetarget=1 --force-overwrite"));
+    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --force-overwrite --filename %1"));
     m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
     m_ui->spbTimout->setValue(30);
     m_ui->chbGrayscale->setChecked(false);
@@ -292,7 +317,7 @@ void Preferences::verifyApplication(const QString &i_name)
 {
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
-        auto message = tr("'%1' is missing%2")
+        const auto message = tr("'%1' is missing%2")
                            .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
                                            "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
@@ -304,7 +329,7 @@ void Preferences::verifyApplication(const QString &i_name)
 
     //Raspberry Pi Camera Module
     if (i_name == QLatin1String("raspistill")) {
-        auto message = tr("'%1' is missing%2")
+        const auto message = tr("'%1' is missing%2")
                            .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
                                            "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
@@ -312,7 +337,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Other Applications
-    auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
+    const auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
     applicationAvailable(i_name, message);
 }
 
@@ -345,7 +370,7 @@ QString Preferences::gphotoInfo(const QString &i_name)
     QProcess process(this);
     process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
     process.waitForFinished();
-    auto output = QString::fromLatin1(process.readAllStandardOutput());
+    const auto output = QString::fromLatin1(process.readAllStandardOutput());
 
     //^gphoto2\s{2,}(?<gphoto2>\d+\.\d+\.\d+).*\n^libgphoto2\s{2,}(?<libgphoto2>\d+\.\d+\.\d+)
     QString pattern(QStringLiteral("^gphoto2\\s{2,}(?<gphoto2>\\d+\\.\\d+\\.\\d+).*\\n^libgphoto2\\s{2,}(?<libgphoto2>\\d+\\.\\d+\\.\\d+)"));
