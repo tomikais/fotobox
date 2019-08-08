@@ -72,11 +72,11 @@ set(FORMS
     ${PROJECT_SOURCE_DIR}/forms/commandlineoptions.ui
     )
 set(TS_FILES
-    ${PROJECT_SOURCE_DIR}/i18n/translation_de.ts
-    ${PROJECT_SOURCE_DIR}/i18n/translation_en.ts
+    ${PROJECT_SOURCE_DIR}/resources/translation_de.ts
+    ${PROJECT_SOURCE_DIR}/resources/translation_en.ts
     )
 set(RESOURCES
-    ${PROJECT_SOURCE_DIR}/i18n/qresource.qrc
+    ${PROJECT_SOURCE_DIR}/resources/qresource.qrc
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/.gitignore
@@ -85,14 +85,16 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
-    ${PROJECT_SOURCE_DIR}/resources/DockerfileStretch
-    ${PROJECT_SOURCE_DIR}/resources/DockerfileBuster
-    ${PROJECT_SOURCE_DIR}/resources/Doxyfile
-    ${PROJECT_SOURCE_DIR}/resources/Info.plist
+    ${PROJECT_SOURCE_DIR}/other/DockerfileStretch
+    ${PROJECT_SOURCE_DIR}/other/DockerfileBuster
+    ${PROJECT_SOURCE_DIR}/other/Doxyfile
+    ${PROJECT_SOURCE_DIR}/other/Info.plist
+    ${PROJECT_SOURCE_DIR}/other/raspbian_install.sh
+    ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
     )
 
 # Translation: build qm files in source directory
-set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/i18n)
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/resources)
 qt5_add_translation(QM_FILES ${TS_FILES})
 
 # WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
@@ -146,7 +148,7 @@ if(UNIX AND APPLE)
     if(Qt5Core_VERSION VERSION_LESS 5.12.0)
       # https://developer.apple.com/documentation/appkit/nsappearancecustomization/choosing_a_specific_appearance_for_your_app
       # use Info.plist with NSRequiresAquaSystemAppearance=true to disable Dark Mode
-      set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/resources/Info.plist)
+      set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES MACOSX_BUNDLE TRUE MACOSX_BUNDLE_INFO_PLIST ${PROJECT_SOURCE_DIR}/other/Info.plist)
     endif()
   endif()
 endif()

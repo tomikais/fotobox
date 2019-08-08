@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file alias="translation_en">translation_en.qm</file>
+        <file alias="translation_de">translation_de.qm</file>
+        <file alias="logo">logo.png</file>
+    </qresource>
+</RCC>

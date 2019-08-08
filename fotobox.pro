@@ -56,9 +56,9 @@ FORMS          = forms/fotobox.ui \
                  forms/preferences.ui \
                  forms/commandlineoptions.ui
 
-RESOURCES     += i18n/qresource.qrc
-TRANSLATIONS  += i18n/translation_de.ts \
-                 i18n/translation_en.ts
+RESOURCES     += resources/qresource.qrc
+TRANSLATIONS  += resources/translation_de.ts \
+                 resources/translation_en.ts
 # run lrelease to generate the QM files and to embed them in the application resources
 qtPrepareTool(LRELEASE, lrelease)
 for(tsfile, TRANSLATIONS) {
@@ -74,10 +74,12 @@ OTHER_FILES    = .gitignore \
                  CMakeLists.txt \
                  COPYING \
                  README.md \
-                 resources/DockerfileStretch \
-                 resources/DockerfileBuster \
-                 resources/Doxyfile \
-                 resources/Info.plist
+                 other/DockerfileStretch \
+                 other/DockerfileBuster \
+                 other/Doxyfile \
+                 other/Info.plist \
+                 other/raspbian_install.sh \
+                 other/RaspPi_2B_default_GPIO.jpg
 
 linux {
   # Speed-Up compiling time with ccache (apt-get install ccache)
@@ -109,7 +111,7 @@ mac {
     if (equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12)) {
       # https://developer.apple.com/documentation/appkit/nsappearancecustomization/choosing_a_specific_appearance_for_your_app
       # use Info.plist with NSRequiresAquaSystemAppearance=true to disable Dark Mode
-      QMAKE_INFO_PLIST = resources/Info.plist
+      QMAKE_INFO_PLIST = other/Info.plist
     }
   }
 }

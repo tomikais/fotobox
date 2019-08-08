@@ -23,7 +23,7 @@
 * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
 * _Autostart_: open file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
 * _Using a button_: It's possible to connect a button to the Raspberry Pi GPIO ([WiringPi](http://wiringpi.com)) pins to trigger the FotoBox. You can configure [dedicated pins](http://wiringpi.com/pins/) in the applicatuion or use the programm default ones:  
-![Raspberry Pi 2 Model B default GPIO used by FotoBox](resources/RaspPi_2B_default_GPIO.jpg)
+![Raspberry Pi 2 Model B default GPIO used by FotoBox](other/RaspPi_2B_default_GPIO.jpg)
 
 ## keyboard shortcuts
 
