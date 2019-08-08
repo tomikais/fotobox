@@ -18,8 +18,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>215</height>
+    <width>374</width>
+    <height>262</height>
    </rect>
   </property>
   <property name="modal">
@@ -45,7 +45,7 @@
    <item>
     <widget class="QLabel" name="lblCanonSave">
      <property name="text">
-      <string>Canon Camera - save picture to SD card:</string>
+      <string>Canon - save picture to SD card:</string>
      </property>
     </widget>
    </item>
@@ -67,6 +67,37 @@
      </property>
      <property name="text">
       <string notr="true">--set-config /main/settings/capturetarget=1</string>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lblCanonChangeSettings">
+     <property name="text">
+      <string>Canon - allows to change settings on the camera:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="txtCanonChangeSettings">
+     <property name="font">
+      <font>
+       <family>Courier</family>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>IBeamCursor</cursorShape>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="text">
+      <string notr="true">--set-config capture=on</string>
      </property>
      <property name="textInteractionFlags">
       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -168,6 +199,7 @@
  </widget>
  <tabstops>
   <tabstop>txtCanonSave</tabstop>
+  <tabstop>txtCanonChangeSettings</tabstop>
   <tabstop>txtFlip</tabstop>
   <tabstop>btnOkay</tabstop>
  </tabstops>

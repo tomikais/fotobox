@@ -10,21 +10,26 @@
     </message>
     <message>
         <location filename="../forms/commandlineoptions.ui" line="48"/>
-        <source>Canon Camera - save picture to SD card:</source>
-        <translation>Canon Kamera - Bild auch auf SD-Karte speichern:</translation>
+        <source>Canon - save picture to SD card:</source>
+        <translation>Canon - Bild auch auf SD-Karte speichern:</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="92"/>
+        <location filename="../forms/commandlineoptions.ui" line="79"/>
+        <source>Canon - allows to change settings on the camera:</source>
+        <translation>Canon - ermöglicht Einstellungen auf der Kamera zu ändern:</translation>
+    </message>
+    <message>
+        <location filename="../forms/commandlineoptions.ui" line="123"/>
         <source>&lt;a href=&quot;https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/camera.md#raspistill&quot;&gt;raspistill command-line options&lt;/a&gt;</source>
         <translation>&lt;a href=&quot;https://github.com/raspberrypi/documentation/blob/master/raspbian/applications/camera.md#raspistill&quot;&gt;raspistill Befehlszeilenoptionen&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="102"/>
+        <location filename="../forms/commandlineoptions.ui" line="133"/>
         <source>vertical &amp; horizontal image flip:</source>
         <translation>Bild vertikaler &amp; horizontaler drehen:</translation>
     </message>
     <message>
-        <location filename="../forms/commandlineoptions.ui" line="148"/>
+        <location filename="../forms/commandlineoptions.ui" line="179"/>
         <source>Okay</source>
         <translation>Okay</translation>
     </message>
