@@ -18,7 +18,7 @@
 4. Download latest __FotoBox__ application [here](https://github.com/tomikais/fotobox/releases) according to your [Raspbian version](https://en.wikipedia.org/wiki/Raspbian)
 5. Start the application and configure it accordingly.
 
-## optional steps
+### optional steps
 
 * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After that you can launch the *Screensaver* application and select *disable screen saver* from the drop down.
 * _Autostart_: open file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
@@ -33,10 +33,19 @@
 | `P`, `S`, `E`                                                    | preference dialog |
 | `Shift` + `Escape`, `Q`                                          | quit application  |
 
-## FotoBox community
+## Frequently Asked Questions
 
-* [german Raspberry Pi Forum](https://forum-raspberrypi.de/forum/thread/39672-fotobox-projekt-fuer-den-raspberry-pi-c-qt-wiringpi-gphoto2/)
-* [official Raspberry Pi Forum](https://www.raspberrypi.org/forums/viewtopic.php?t=218279)
+**Q:** I have misconfigured FotoBox and now it's not working properly anymore?  
+**A:** Start FotoBox application and press "Restore Defaults" button to load the default settings.
+
+**Q:** Is my DSLR camera supported by FotoBox?  
+**A:** Visit Webseite [libgphoto2  supported cameras](http://www.gphoto.org/proj/libgphoto2/support.php) to check if your camera model is listet and supports _Image Capture_. Use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version and make sure the OS default one has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`  
+
+**Q:** Where can I report FotoBox software bugs?  
+**A:** [GitLab issue tracker](https://gitlab.com/tomikais/fotobox/issues)
+
+**Q:** Where can I get FotoBox support?  
+**A:** [German Raspberry Pi Forum](https://forum-raspberrypi.de/forum/thread/39672-fotobox-projekt-fuer-den-raspberry-pi-c-qt-wiringpi-gphoto2/) or [official Raspberry Pi Forum](https://www.raspberrypi.org/forums/viewtopic.php?t=218279)
 
 ---
 
