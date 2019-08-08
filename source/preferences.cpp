@@ -62,7 +62,7 @@ Preferences::Preferences(QWidget *parent)
 
 void Preferences::windowPosition()
 {
-    auto availableGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    const auto availableGeometry = QGuiApplication::primaryScreen()->availableGeometry();
     if (frameGeometry().height() > availableGeometry.height()) {
         //start maximized to be able to reach the dialog buttons
         showMaximized();
@@ -172,8 +172,8 @@ void Preferences::loadPreferences()
 
     m_settings.beginGroup(QStringLiteral("Camera"));
     //restore QComboBox model
-    auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data")).toStringList();
-    auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text")).toStringList();
+    const auto data = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Data")).toStringList();
+    const auto text = m_settings.value(m_ui->cmbCameraMode->objectName() + QStringLiteral("Text")).toStringList();
     if (!data.empty()) {
         m_ui->cmbCameraMode->clear();
         for (int i = 0; i < data.count(); ++i) {
@@ -194,7 +194,7 @@ void Preferences::colorDialog()
 
     if (dialog.exec() == QDialog::Accepted) {
         //show the color which the user has selected
-        auto *button = qobject_cast<QPushButton *>(sender());
+        const auto *button = qobject_cast<QPushButton *>(sender());
         if (button == m_ui->btnChooseColorCD) {
             //font countdown
             m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
@@ -228,7 +228,7 @@ void Preferences::chooseDirectory()
 
     //only set it if user don't abort dialog
     if (dialog.exec() == QDialog::Accepted) {
-        auto path = dialog.directory().absolutePath();
+        const auto path = dialog.directory().absolutePath();
         m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
     }
 }
@@ -270,7 +270,7 @@ void Preferences::savePreferences()
     m_settings.beginGroup(QStringLiteral("Camera"));
     //Save QComboBox model
     QStringList itemText, itemData;
-    auto size = m_ui->cmbCameraMode->count();
+    const auto size = m_ui->cmbCameraMode->count();
     itemText.reserve(size);
     itemData.reserve(size);
     for (int i = 0; i < size; ++i) {
@@ -317,7 +317,7 @@ void Preferences::verifyApplication(const QString &i_name)
 {
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
-        auto message = tr("'%1' is missing%2")
+        const auto message = tr("'%1' is missing%2")
                            .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
                                            "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
@@ -329,7 +329,7 @@ void Preferences::verifyApplication(const QString &i_name)
 
     //Raspberry Pi Camera Module
     if (i_name == QLatin1String("raspistill")) {
-        auto message = tr("'%1' is missing%2")
+        const auto message = tr("'%1' is missing%2")
                            .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
                                            "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
@@ -337,7 +337,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Other Applications
-    auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
+    const auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
     applicationAvailable(i_name, message);
 }
 
@@ -370,7 +370,7 @@ QString Preferences::gphotoInfo(const QString &i_name)
     QProcess process(this);
     process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
     process.waitForFinished();
-    auto output = QString::fromLatin1(process.readAllStandardOutput());
+    const auto output = QString::fromLatin1(process.readAllStandardOutput());
 
     //^gphoto2\s{2,}(?<gphoto2>\d+\.\d+\.\d+).*\n^libgphoto2\s{2,}(?<libgphoto2>\d+\.\d+\.\d+)
     QString pattern(QStringLiteral("^gphoto2\\s{2,}(?<gphoto2>\\d+\\.\\d+\\.\\d+).*\\n^libgphoto2\\s{2,}(?<libgphoto2>\\d+\\.\\d+\\.\\d+)"));

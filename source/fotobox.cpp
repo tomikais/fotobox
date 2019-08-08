@@ -258,7 +258,7 @@ void FotoBox::loadPhoto(const QString &i_filePath)
 
         //show photo in grayscale (monochrome photography)
         if (PreferenceProvider::instance().grayscale()) {
-            auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
+            const auto grey = m_photo.toImage().convertToFormat(QImage::Format_Grayscale8);
             m_photo.convertFromImage(grey);
         }
 
@@ -279,7 +279,7 @@ void FotoBox::drawText(const QString &i_text)
 
     //calculate best font size
     QFont font = painter.font();
-    auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
+    const auto size = calculateFontSize(m_photo.rect().width(), painter.fontMetrics().boundingRect(i_text).width());
     font.setPointSizeF(font.pointSizeF() * size);
     painter.setFont(font);
 

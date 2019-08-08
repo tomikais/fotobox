@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     //splash screen FotoBox logo
     QPixmap pixmap(QStringLiteral(":/resources/logo"));
-    QSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint);
+    QSplashScreen splash(pixmap, Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
     splash.show();
 
     QTranslator qtTranslator, appTranslator;
