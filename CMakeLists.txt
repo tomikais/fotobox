@@ -80,7 +80,6 @@ set(RESOURCES
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/.gitignore
-    ${PROJECT_SOURCE_DIR}/.gitmodules
     ${PROJECT_SOURCE_DIR}/.travis.yml
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING

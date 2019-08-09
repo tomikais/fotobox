@@ -69,7 +69,6 @@ for(tsfile, TRANSLATIONS) {
 }
 
 OTHER_FILES    = .gitignore \
-                 .gitmodules \
                  .travis.yml \
                  CMakeLists.txt \
                  COPYING \
