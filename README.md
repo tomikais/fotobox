@@ -49,6 +49,14 @@ Paste the commands in a terminal prompt.
 **Q:** Is my DSLR camera supported by FotoBox?  
 **A:** Visit website [libgphoto2 supported cameras](http://www.gphoto.org/proj/libgphoto2/support.php) to check if your camera model is listed and supports _Image Capture_. Use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version and make sure the OS default one has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
 
+**Q:** My DSLR camera model is supported by libgphoto2 but don't work with FotoBox. How can I fix it?  
+**A:** Test if gphoto2 has access to your camera. Execute this command `gphoto2 --capture-image-and-download` in  terminal to test it. If the error message _'gphoto2 could not claim the usb device'_ appears, try this fix:
+> 1. get the C code from: http://marc.info/?l=linux-usb&m=121459435621262&q=p3
+> 2. save it to a file named `usbreset.c`
+> 3. execute `cc usbreset.c -o usbreset` to compile it
+> 4. execute `lsusb` to get the Bus/Device ID of your camera, i.e. _'Bus __001__ Device __008__'_
+> 5. execute `sudo ./usbreset /dev/bus/usb/001/008` each time before running FotoBox
+
 **Q:** Where can I report FotoBox software bugs or suggest new features?  
 **A:** [GitLab issue tracker](https://gitlab.com/tomikais/fotobox/issues)
 
