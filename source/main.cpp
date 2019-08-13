@@ -1,6 +1,6 @@
 /* main.cpp
  *
- * Copyright (c) 2019 Thomas Kais
+ * Copyright (c) 2017 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
     QApplication::setApplicationName(QStringLiteral("FotoBox"));
-    QApplication::setApplicationVersion(QStringLiteral("1.3.4"));
+    QApplication::setApplicationVersion(QStringLiteral("1.3.5"));
 
     //splash screen FotoBox logo
     QPixmap pixmap(QStringLiteral(":/resources/logo"));

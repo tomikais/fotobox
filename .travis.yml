@@ -21,15 +21,15 @@ matrix:
       install:
         #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
         - brew install qt
-      before_script:
         - brew link --force qt
-        - qmake -v
+      before_script:
+        - qmake --version
       script:
-        - qmake -r
+        - qmake -recursive
         - make -j2
       before_deploy:
         - macdeployqt FotoBox.app -dmg -verbose=2
-        - mv -v ./FotoBox.dmg ./FotoBox_macOS.dmg
+        - mv --verbose ./FotoBox.dmg ./FotoBox_macOS.dmg
 
     - name: "Raspbian Stretch"
       os: linux
@@ -38,10 +38,13 @@ matrix:
       services:
         - docker
       before_install:
+        #enable an execution of different multi-architecture containers by QEMU
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      install:
+        #build FotoBox container
         - docker build --tag buildfotobox --file other/DockerfileStretch .
       script:
-        #execute 'CMD' command (Dockerfile)
+        #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
     - name: "Raspbian Buster"
@@ -51,10 +54,13 @@ matrix:
       services:
         - docker
       before_install:
+        #enable an execution of different multi-architecture containers by QEMU
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      install:
+        #build FotoBox container
         - docker build --tag buildfotobox --file other/DockerfileBuster .
       script:
-        #execute 'CMD' command (Dockerfile)
+        #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
     - name: "Ubuntu Xenial CMake gcc"
@@ -185,7 +191,7 @@ matrix:
       install:
         - brew install doxygen graphviz
       before_script:
-        - doxygen -v
+        - doxygen --version
       script:
         - doxygen other/Doxyfile
       deploy:
@@ -193,13 +199,14 @@ matrix:
         skip_cleanup: true
         local_dir: html
         github_token: $GH_REPO_TOKEN
-        keep-history: true
+        keep-history: false
+        committer_from_gh: true
         on:
           branch: develop
 
 notifications:
-  email: tomikais@t-online.de
-  slack: foto-box:QXDcNQc86kOdnsSHinv0sqd6
+  email: $E_MAIL
+  slack: $SLACK_TOKEN
 
 deploy:
   provider: releases

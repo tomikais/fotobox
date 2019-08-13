@@ -38,9 +38,9 @@
     <name>FotoBox</name>
     <message>
         <location filename="../source/fotobox.cpp" line="32"/>
-        <source>FotoBox %1 (Copyright %2 Thomas Kais)</source>
-        <extracomment>%1 application version e.g. v1.2.3 and %3 is current year e.g. 2019</extracomment>
-        <translation>FotoBox %1 (Copyright %2 Thomas Kais)</translation>
+        <source>FotoBox %1 (Copyright 2017 Thomas Kais)</source>
+        <extracomment>%1 application version e.g. v1.2.3</extracomment>
+        <translation>FotoBox %1 (Copyright 2017 Thomas Kais)</translation>
     </message>
     <message>
         <location filename="../source/fotobox.cpp" line="163"/>
