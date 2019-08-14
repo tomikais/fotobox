@@ -1,6 +1,6 @@
 /* fotobox.h
  *
- * Copyright (c) 2017 Thomas Kais
+ * Copyright (c) 2016 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.

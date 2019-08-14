@@ -1,6 +1,6 @@
 /* fotobox.cpp
  *
- * Copyright (c) 2017 Thomas Kais
+ * Copyright (c) 2016 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
@@ -29,7 +29,7 @@ FotoBox::FotoBox(QWidget *parent)
     m_ui->setupUi(this);
 
     //: %1 application version e.g. v1.2.3
-    setWindowTitle(tr("FotoBox %1 (Copyright 2017 Thomas Kais)").arg(QApplication::applicationVersion()));
+    setWindowTitle(tr("FotoBox %1 (Copyright 2016 Thomas Kais)").arg(QApplication::applicationVersion()));
 
     //set Background Color
     setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));

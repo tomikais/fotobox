@@ -1,6 +1,6 @@
 /* main.cpp
  *
- * Copyright (c) 2017 Thomas Kais
+ * Copyright (c) 2016 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
@@ -22,9 +22,6 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
-    QApplication::setApplicationName(QStringLiteral("FotoBox"));
-    QApplication::setApplicationVersion(QStringLiteral("1.3.5"));
 
     //splash screen FotoBox logo
     QPixmap pixmap(QStringLiteral(":/resources/logo"));
@@ -32,6 +29,11 @@ int main(int argc, char *argv[])
     //Linux: fix issue with transparent png
     splash.setMask(pixmap.mask());
     splash.show();
+
+    //set application information
+    QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
+    QApplication::setApplicationName(QStringLiteral("FotoBox"));
+    QApplication::setApplicationVersion(QStringLiteral("1.3.5"));
 
     QTranslator qtTranslator, appTranslator;
     //Qt Translation
