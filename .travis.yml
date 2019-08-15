@@ -83,7 +83,7 @@ matrix:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
       before_deploy:
-        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz ./FotoBox
+        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf raspbian_install.sh
 
     - name: "Ubuntu Xenial CMake Debug clang diagnostic 7"
       os: linux
