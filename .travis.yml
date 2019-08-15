@@ -200,13 +200,12 @@ matrix:
         local_dir: html
         github_token: $GH_REPO_TOKEN
         keep-history: false
-        committer_from_gh: true
         on:
           branch: develop
 
 notifications:
   email: $E_MAIL
-  slack: $SLACK_TOKEN
+  slack: foto-box:$SLACK_TOKEN
 
 deploy:
   provider: releases
