@@ -51,7 +51,8 @@ Paste the commands in a terminal prompt.
 
 **Q:** My DSLR camera model is supported by libgphoto2 but don't work with FotoBox. How can I fix it?  
 **A:** Test if gphoto2 has access to your camera. Execute this command `gphoto2 --capture-image-and-download` in  terminal to test it. If the error message _'gphoto2 could not claim the usb device'_ appears, try this fix:
-> 1. get the C code from: http://marc.info/?l=linux-usb&m=121459435621262&q=p3
+
+> 1. get the C code [here](http://marc.info/?l=linux-usb&m=121459435621262&q=p3)
 > 2. save it to a file named `usbreset.c`
 > 3. execute `cc usbreset.c -o usbreset` to compile it
 > 4. execute `lsusb` to get the Bus/Device ID of your camera, i.e. _'Bus __001__ Device __008__'_
