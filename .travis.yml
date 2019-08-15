@@ -204,8 +204,7 @@ matrix:
           branch: develop
 
 notifications:
-  email: $E_MAIL
-  slack: foto-box:$SLACK_TOKEN
+  slack: foto-box:QXDcNQc86kOdnsSHinv0sqd6
 
 deploy:
   provider: releases
