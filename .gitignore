@@ -13,6 +13,9 @@
 [Ff]oto[Bb]ox.[Ee][Xx][Ee]
 [Ff]oto[Bb]ox
 
+# Qt translation files
+*.qm
+
 # Microsoft Visual Studio Solution / Project
 *.sln
 *.vcxproj
