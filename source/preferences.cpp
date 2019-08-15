@@ -13,6 +13,7 @@
 #include "ui_preferences.h"
 
 #include <QColorDialog>
+#include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QFileDialog>
 #include <QProcess>
@@ -118,6 +119,10 @@ void Preferences::connectUi()
             restoreDefaultPreferences();
             m_settings.sync();
         }
+    });
+    connect(m_ui->buttonBox, &QDialogButtonBox::helpRequested, this, [&]() {
+        //request OS to open the URL
+        QDesktopServices::openUrl( { QStringLiteral("https://gitlab.com/tomikais/fotobox/blob/master/README.md") } );
     });
 }
 
