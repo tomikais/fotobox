@@ -320,6 +320,11 @@ void Preferences::restoreDefaultPreferences()
 
 void Preferences::verifyApplication(const QString &i_name)
 {
+    //stop here when clearing the camera mode QComboBox
+    if (i_name.isEmpty()) {
+        return;
+    }
+
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
         const auto message = tr("'%1' is missing%2")
