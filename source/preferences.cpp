@@ -371,8 +371,11 @@ QString Preferences::gphotoInfo(const QString &i_name)
 {
     QString result;
 
-    //call 'gphoto2 --version --summary' and get output
+    //call 'gphoto2 --version --summary' and get output in english
     QProcess process(this);
+    auto env = QProcessEnvironment::systemEnvironment();
+    env.insert(QStringLiteral("LC_ALL"), QStringLiteral("C"));
+    process.setProcessEnvironment(env);
     process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
     process.waitForFinished();
     const auto output = QString::fromLatin1(process.readAllStandardOutput());
