@@ -16,6 +16,7 @@
 #include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QProcess>
 #include <QScreen>
 
@@ -77,6 +78,7 @@ void Preferences::connectUi()
 {
     //connect UI to preferences
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
+    connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, this, &Preferences::verifyPath);
     connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
     connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
     connect(m_ui->spbCountdown, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
@@ -234,8 +236,43 @@ void Preferences::chooseDirectory()
     //only set it if user don't abort dialog
     if (dialog.exec() == QDialog::Accepted) {
         const auto path = dialog.directory().absolutePath();
+        if (!verifyPath(path)) {
+            //recursion
+            chooseDirectory();
+            return;
+        }
+        //set path will again call verifyPath() see Signal&Slot connection
         m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
     }
+}
+
+bool Preferences::verifyPath(const QString &i_path)
+{
+    QFileInfo path(i_path);
+
+    //check if path exists
+    if (!path.exists()) {
+        //create dir
+        QDir dir(i_path);
+        if (!dir.mkpath(QStringLiteral("."))) {
+            QMessageBox::warning(this, tr("photo folder") , tr("The directory doesn't exist and also couldn't be created."));
+            return false;
+        }
+    }
+
+    //check if a directory
+    if (!path.isDir()) {
+        QMessageBox::warning(this, tr("photo folder") , tr("Please select a directory and not a file."));
+        return false;
+    }
+
+    //check if readale and writable
+    if (!path.isReadable() || !path.isWritable()) {
+        QMessageBox::warning(this, tr("photo folder") , tr("Write and read rights are required. Please check the permission of the directory."));
+        return false;
+    }
+
+    return true;
 }
 
 void Preferences::showColor(const QString &i_colorName)
@@ -294,7 +331,7 @@ void Preferences::savePreferences()
 void Preferences::restoreDefaultPreferences()
 {
     //FotoBox
-    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
+    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)));
     m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
     m_ui->spbCountdown->setValue(3);
     m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
@@ -328,8 +365,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
         const auto message = tr("'%1' is missing%2")
-                           .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
-                                           "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+                                 .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
+                                                 "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
             //add info about gphoto2
             m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
@@ -340,8 +377,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //Raspberry Pi Camera Module
     if (i_name == QLatin1String("raspistill")) {
         const auto message = tr("'%1' is missing%2")
-                           .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
-                                           "Raspberry Pi Camera Module - enabling the camera</a>"));
+                                 .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
+                                                 "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
         return;
     }

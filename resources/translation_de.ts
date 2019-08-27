@@ -85,46 +85,68 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="55"/>
+        <location filename="../source/preferences.cpp" line="57"/>
         <source>launching FotoBox in %1 seconds</source>
         <extracomment>%1 countdown (number)</extracomment>
         <translation>FotoBox wird gestartet in %1 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="149"/>
+        <location filename="../source/preferences.cpp" line="156"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="225"/>
+        <location filename="../source/preferences.cpp" line="232"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="395"/>
-        <location filename="../source/preferences.cpp" line="403"/>
+        <location filename="../source/preferences.cpp" line="258"/>
+        <location filename="../source/preferences.cpp" line="265"/>
+        <location filename="../source/preferences.cpp" line="271"/>
+        <source>photo folder</source>
+        <translation>Bilder Ordner</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="258"/>
+        <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
+        <translation>Das Verzeichnis existiert nicht und konnte auch nicht angelegt werden.</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="265"/>
+        <source>Please select a directory and not a file.</source>
+        <translation>Bitte wählen Sie ein Verzeichnis und keine Datei aus.</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="271"/>
+        <source>Write and read rights are required. Please check the permission of the directory.</source>
+        <translation>Schreib- und Leserechte sind erforderlich. Bitte überprüfen Sie die Zugriffsrechte des Verzeichnisses.</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="445"/>
+        <location filename="../source/preferences.cpp" line="453"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="403"/>
+        <location filename="../source/preferences.cpp" line="453"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="320"/>
-        <location filename="../source/preferences.cpp" line="332"/>
-        <location filename="../source/preferences.cpp" line="340"/>
+        <location filename="../source/preferences.cpp" line="367"/>
+        <location filename="../source/preferences.cpp" line="379"/>
+        <location filename="../source/preferences.cpp" line="387"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="321"/>
+        <location filename="../source/preferences.cpp" line="368"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="333"/>
+        <location filename="../source/preferences.cpp" line="380"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>

@@ -74,7 +74,7 @@ private Q_SLOTS:
     void commandLineOptionsDialog();
 
     /*!
-     * \brief Open a File Dialog and set path in UI.
+     * \brief Open a QFileDialog to choose the photo directory
      */
     void chooseDirectory();
 
@@ -95,6 +95,13 @@ private Q_SLOTS:
      * \param i_name QString name of the application to check
      */
     void verifyApplication(const QString &i_name);
+
+    /*!
+     * \brief check if the path is useable
+     * \param i_path QString directory which stores the photos
+     * \return true: path is okay false: something wrong, show warning
+     */
+    bool verifyPath(const QString &i_path);
 
 private:
     /*!
