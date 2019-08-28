@@ -47,12 +47,6 @@ if [[ ! "$TMP_DIR" || ! -d "$TMP_DIR" ]]; then
 fi
 # deletes the temp directory
 function cleanup {
-    echo
-    echo "-------------------"
-    echo "Removing temp files"
-    echo "-------------------"
-    echo
-
     rm --force --recursive "$TMP_DIR"
 }
 # register the cleanup function to be called on the EXIT signal
