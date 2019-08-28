@@ -49,8 +49,11 @@ Paste the commands in a terminal prompt.
 **Q:** Is my DSLR camera supported by FotoBox?  
 **A:** Visit website [libgphoto2 supported cameras](http://www.gphoto.org/proj/libgphoto2/support.php) to check if your camera model is listed and supports _Image Capture_. Use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version and make sure the OS default one has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
 
+**Q:** Can I use the FotoBox on Linux without X Window System (e.g. using Linux framebuffer on Raspbian Lite)?  
+**A:** Yes, that is possible because of [Qt for Embedded Linux](https://doc.qt.io/qt-5/embedded-linux.html). For Example to use Linux framebuffer execute `./FotoBox -platform linuxfb:fb=/dev/fb0` or set environment variable `QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0`
+
 **Q:** My DSLR camera model is supported by libgphoto2 but don't work with FotoBox. How can I fix it?  
-**A:** Test if gphoto2 has access to your camera. Execute this command `gphoto2 --capture-image-and-download` in  terminal to test it. If the error message _'gphoto2 could not claim the usb device'_ appears, try this fix:
+**A:** Test if gphoto2 has access to your camera. Execute this command `gphoto2 --capture-image-and-download` in terminal to test it. If the error message _'gphoto2 could not claim the usb device'_ appears, try this fix:
 
 > 1. get the C code [here](http://marc.info/?l=linux-usb&m=121459435621262&q=p3)
 > 2. save it to a file named `usbreset.c`
@@ -72,10 +75,10 @@ Follow the normal installation instructions and additionally install the develop
 
 ### Linux (Debian, Raspbian, Ubuntu)
 
-* install Linux development tools: `sudo apt-get install build-essential ccache`
+* install Linux development tools: `sudo apt-get install build-essential ccache wiringpi`
 * install Qt development tools: `sudo apt-get install qttools5-dev-tools qttools5-dev qtdeclarative5-dev qtcreator qt5-doc`
 * install git with tools: `sudo apt-get install git git-doc git-gui gitk`
-* _optional tools:_  `sudo apt-get install cmake doxygen doxygen-doc doxygen-gui graphviz`
+* _optional tools:_ `sudo apt-get install cmake doxygen doxygen-doc doxygen-gui graphviz`
 
 ### macOS
 
