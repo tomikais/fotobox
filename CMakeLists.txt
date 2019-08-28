@@ -88,7 +88,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
     ${PROJECT_SOURCE_DIR}/other/Info.plist
-    ${PROJECT_SOURCE_DIR}/other/raspbian_install.sh
+    ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
     ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
     )
 

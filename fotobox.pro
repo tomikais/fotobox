@@ -77,7 +77,7 @@ OTHER_FILES    = .gitignore \
                  other/DockerfileBuster \
                  other/Doxyfile \
                  other/Info.plist \
-                 other/raspbian_install.sh \
+                 other/install_dependencies.sh \
                  other/RaspPi_2B_default_GPIO.jpg
 
 linux {
