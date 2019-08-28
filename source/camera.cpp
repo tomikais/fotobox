@@ -16,8 +16,8 @@ Camera::Camera(QObject *parent)
     : QObject(parent)
     , m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue())
     , m_photoSuffix(PreferenceProvider::instance().photoName())
-    , m_cameraMode(PreferenceProvider::instance().cameraMode())
-    , m_argLine(PreferenceProvider::instance().argumentLine())
+    , m_cameraMode(PreferenceProvider::instance().cameraMode().append(' '))
+    , m_argLine(PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"%1\"")))
     , m_process(this)
 {
     //call this function to save memory, if you are not interested in the output of the process
@@ -34,7 +34,7 @@ bool Camera::shootPhoto()
     m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
 
     //program name and arguments
-    auto command = m_cameraMode + ' ' + m_argLine.arg('\"' + m_currentPhoto + '\"');
+    auto command = m_cameraMode + m_argLine.arg(m_currentPhoto);
 
 #if defined(Q_OS_WIN)
     //try use Windows 10 Linux Subsystem to call gphoto2
