@@ -3,7 +3,7 @@
  <author>Thomas Kais</author>
  <comment>
  #------------------------------------------------------------
- # Copyright (c) 2019 Thomas Kais
+ # Copyright (c) 2018 Thomas Kais
  #
  # This file is subject to the terms and conditions defined in
  # file 'COPYING', which is part of this source code package.
@@ -42,8 +42,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>756</width>
-        <height>486</height>
+        <width>762</width>
+        <height>503</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -494,7 +494,7 @@
       <bool>true</bool>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Close|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Help|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>

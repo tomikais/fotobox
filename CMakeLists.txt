@@ -1,5 +1,5 @@
 #------------------------------------------------------------
-# Copyright (c) 2019 Thomas Kais
+# Copyright (c) 2018 Thomas Kais
 #
 # This file is subject to the terms and conditions defined in
 # file 'COPYING', which is part of this source code package.
@@ -80,7 +80,6 @@ set(RESOURCES
     )
 set(OTHER
     ${PROJECT_SOURCE_DIR}/.gitignore
-    ${PROJECT_SOURCE_DIR}/.gitmodules
     ${PROJECT_SOURCE_DIR}/.travis.yml
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
@@ -89,7 +88,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
     ${PROJECT_SOURCE_DIR}/other/Info.plist
-    ${PROJECT_SOURCE_DIR}/other/raspbian_install.sh
+    ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
     ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
     )
 

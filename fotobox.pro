@@ -1,7 +1,7 @@
 #------------------------------------------------------------
 # Project created by QtCreator 2016-10-13T20:58:51
 #
-# Copyright (c) 2019 Thomas Kais
+# Copyright (c) 2016 Thomas Kais
 #
 # This file is subject to the terms and conditions defined in
 # file 'COPYING', which is part of this source code package.
@@ -69,7 +69,6 @@ for(tsfile, TRANSLATIONS) {
 }
 
 OTHER_FILES    = .gitignore \
-                 .gitmodules \
                  .travis.yml \
                  CMakeLists.txt \
                  COPYING \
@@ -78,7 +77,7 @@ OTHER_FILES    = .gitignore \
                  other/DockerfileBuster \
                  other/Doxyfile \
                  other/Info.plist \
-                 other/raspbian_install.sh \
+                 other/install_dependencies.sh \
                  other/RaspPi_2B_default_GPIO.jpg
 
 linux {

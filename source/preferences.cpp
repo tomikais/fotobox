@@ -1,6 +1,6 @@
 /* preferences.cpp
  *
- * Copyright (c) 2019 Thomas Kais
+ * Copyright (c) 2018 Thomas Kais
  *
  * This file is subject to the terms and conditions defined in
  * file 'COPYING', which is part of this source code package.
@@ -13,8 +13,10 @@
 #include "ui_preferences.h"
 
 #include <QColorDialog>
+#include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QFileDialog>
+#include <QMessageBox>
 #include <QProcess>
 #include <QScreen>
 
@@ -76,6 +78,7 @@ void Preferences::connectUi()
 {
     //connect UI to preferences
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
+    connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, this, &Preferences::verifyPath);
     connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
     connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
     connect(m_ui->spbCountdown, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
@@ -118,6 +121,10 @@ void Preferences::connectUi()
             restoreDefaultPreferences();
             m_settings.sync();
         }
+    });
+    connect(m_ui->buttonBox, &QDialogButtonBox::helpRequested, this, [&]() {
+        //request OS to open the URL
+        QDesktopServices::openUrl( { QStringLiteral("https://gitlab.com/tomikais/fotobox/blob/master/README.md") } );
     });
 }
 
@@ -222,15 +229,50 @@ void Preferences::commandLineOptionsDialog()
 void Preferences::chooseDirectory()
 {
     //File Dialog to choose photo folder
-    QFileDialog dialog(this, tr("choose directory"), QDir::homePath());
+    QFileDialog dialog(this, tr("choose directory"), m_ui->txtPhotoFolder->text());
     dialog.setFileMode(QFileDialog::Directory);
     dialog.setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     //only set it if user don't abort dialog
     if (dialog.exec() == QDialog::Accepted) {
         const auto path = dialog.directory().absolutePath();
+        if (!verifyPath(path)) {
+            //recursion
+            chooseDirectory();
+            return;
+        }
+        //set path will again call verifyPath() see Signal&Slot connection
         m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
     }
+}
+
+bool Preferences::verifyPath(const QString &i_path)
+{
+    QFileInfo path(i_path);
+
+    //check if path exists
+    if (!path.exists()) {
+        //create dir
+        QDir dir(i_path);
+        if (!dir.mkpath(QStringLiteral("."))) {
+            QMessageBox::warning(this, tr("photo folder") , tr("The directory doesn't exist and also couldn't be created."));
+            return false;
+        }
+    }
+
+    //check if a directory
+    if (!path.isDir()) {
+        QMessageBox::warning(this, tr("photo folder") , tr("Please select a directory and not a file."));
+        return false;
+    }
+
+    //check if readale and writable
+    if (!path.isReadable() || !path.isWritable()) {
+        QMessageBox::warning(this, tr("photo folder") , tr("Write and read rights are required. Please check the permission of the directory."));
+        return false;
+    }
+
+    return true;
 }
 
 void Preferences::showColor(const QString &i_colorName)
@@ -289,7 +331,7 @@ void Preferences::savePreferences()
 void Preferences::restoreDefaultPreferences()
 {
     //FotoBox
-    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QCoreApplication::applicationDirPath()));
+    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)));
     m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
     m_ui->spbCountdown->setValue(3);
     m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
@@ -315,11 +357,16 @@ void Preferences::restoreDefaultPreferences()
 
 void Preferences::verifyApplication(const QString &i_name)
 {
+    //stop here when clearing the camera mode QComboBox
+    if (i_name.isEmpty()) {
+        return;
+    }
+
     //gphoto2
     if (i_name == QLatin1String("gphoto2")) {
         const auto message = tr("'%1' is missing%2")
-                           .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
-                                           "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+                                 .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
+                                                 "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
             //add info about gphoto2
             m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
@@ -330,8 +377,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //Raspberry Pi Camera Module
     if (i_name == QLatin1String("raspistill")) {
         const auto message = tr("'%1' is missing%2")
-                           .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
-                                           "Raspberry Pi Camera Module - enabling the camera</a>"));
+                                 .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
+                                                 "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
         return;
     }
@@ -366,8 +413,11 @@ QString Preferences::gphotoInfo(const QString &i_name)
 {
     QString result;
 
-    //call 'gphoto2 --version --summary' and get output
+    //call 'gphoto2 --version --summary' and get output in english
     QProcess process(this);
+    auto env = QProcessEnvironment::systemEnvironment();
+    env.insert(QStringLiteral("LC_ALL"), QStringLiteral("C"));
+    process.setProcessEnvironment(env);
     process.start(i_name, {QStringLiteral("--version"), QStringLiteral("--summary")});
     process.waitForFinished();
     const auto output = QString::fromLatin1(process.readAllStandardOutput());
