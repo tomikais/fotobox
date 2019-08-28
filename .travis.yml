@@ -28,8 +28,9 @@ matrix:
         - qmake -recursive
         - make -j2
       before_deploy:
-        - macdeployqt FotoBox.app -dmg -verbose=2
-        - mv --verbose ./FotoBox.dmg ./FotoBox$TRAVIS_TAG_macOS.dmg
+        - macdeployqt FotoBox.app -verbose=2
+        - cp ./other/README.pdf ./README.pdf
+        - zip --verbose --symlinks --recurse-paths -9 FotoBox$TRAVIS_TAG_macOS.zip FotoBox.app/ README.pdf
 
     - name: "Raspbian Stretch"
       os: linux
