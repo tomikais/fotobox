@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     //set application information
     QApplication::setOrganizationName(QStringLiteral("Thomas Kais"));
     QApplication::setApplicationName(QStringLiteral("FotoBox"));
-    QApplication::setApplicationVersion(QStringLiteral("1.3.5"));
+    QApplication::setApplicationVersion(QStringLiteral("1.4.0"));
 
     QTranslator qtTranslator, appTranslator;
     //Qt Translation

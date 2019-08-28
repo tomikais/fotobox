@@ -211,7 +211,7 @@ deploy:
   provider: releases
   api_key: $GH_REPO_TOKEN
   file:
-    - FotoBox_macOS.dmg
+    - FotoBox_macOS.zip
     - FotoBox_RasPi_Stretch.tar.gz
     - FotoBox_RasPi_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
