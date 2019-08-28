@@ -117,12 +117,6 @@ private:
     void loadPhoto(const QString &i_filePath);
 
     /*!
-     * \brief move photo to folder set in preferences
-     * \return new file location of the photo
-     */
-    const QString movePhoto();
-
-    /*!
      * \brief Draw text on the QPixmap \sa m_photo
      * \param i_text text to write
      */
@@ -153,9 +147,6 @@ private:
 
     /*! store / load the photo */
     QPixmap m_photo;
-
-    /*! working directory */
-    const QString m_workingDir;
 
     /*! photo directory */
     const QString m_photoDir;

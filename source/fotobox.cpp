@@ -22,7 +22,6 @@ FotoBox::FotoBox(QWidget *parent)
     , m_countdown(this)
     , m_workerThread(this)
     , m_camera(this)
-    , m_workingDir(QDir::currentPath() + QDir::separator())
     , m_photoDir(PreferenceProvider::instance().photoFolder() + QDir::separator())
 {
     //setup GUI
@@ -210,13 +209,12 @@ void FotoBox::photo()
     //take a photo
     if (m_camera.shootPhoto()) {
         //load photo
-        const QString filePath = movePhoto();
-        loadPhoto(filePath);
+        loadPhoto(m_photoDir + m_camera.currentPhoto());
     } else {
         m_ui->statusBar->showMessage(tr("Error: Taking a photo isn't working correctly!"), STATUSBAR_MSG_TIMEOUT);
     }
 
-    //restart Buzzer and countdown
+    //restart countdown and Buzzer
     if (PreferenceProvider::instance().countdown() > 0) {
         m_countdown.reset();
     }
@@ -225,28 +223,6 @@ void FotoBox::photo()
         emit startBuzzer();
     }
 #endif
-}
-
-const QString FotoBox::movePhoto()
-{
-    //old location of the photo (working directory not application directory)
-    const QString oldName = m_workingDir + m_camera.currentPhoto();
-    //new location of the photo
-    const QString newName = m_photoDir + m_camera.currentPhoto();
-
-    //move photo only if working directory isn't same as preference folder
-    if (QDir(oldName) != QDir(newName)) {
-        //move photo
-        if (QFile::rename(oldName, newName)) {
-            //successfully moved the file/photo
-            return newName;
-        }
-        //error handling
-        //: %1 directory e.g. /home/pi/FotoBox/
-        m_ui->statusBar->showMessage(tr("Couldn't move the photo to: %1").arg(newName), STATUSBAR_MSG_TIMEOUT);
-    }
-
-    return oldName;
 }
 
 void FotoBox::loadPhoto(const QString &i_filePath)

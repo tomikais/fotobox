@@ -229,7 +229,7 @@ void Preferences::commandLineOptionsDialog()
 void Preferences::chooseDirectory()
 {
     //File Dialog to choose photo folder
-    QFileDialog dialog(this, tr("choose directory"), QDir::homePath());
+    QFileDialog dialog(this, tr("choose directory"), m_ui->txtPhotoFolder->text());
     dialog.setFileMode(QFileDialog::Directory);
     dialog.setOptions(QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 

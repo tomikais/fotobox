@@ -37,29 +37,23 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../source/fotobox.cpp" line="32"/>
+        <location filename="../source/fotobox.cpp" line="31"/>
         <source>FotoBox %1 (Copyright 2016 Thomas Kais)</source>
         <extracomment>%1 application version e.g. v1.2.3</extracomment>
         <translation>FotoBox %1 (Copyright 2016 Thomas Kais)</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="163"/>
+        <location filename="../source/fotobox.cpp" line="162"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="216"/>
+        <location filename="../source/fotobox.cpp" line="214"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="246"/>
-        <source>Couldn&apos;t move the photo to: %1</source>
-        <extracomment>%1 directory e.g. /home/pi/FotoBox/</extracomment>
-        <translation>Couldn&apos;t move the photo to: %1</translation>
-    </message>
-    <message>
-        <location filename="../source/fotobox.cpp" line="268"/>
+        <location filename="../source/fotobox.cpp" line="244"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
