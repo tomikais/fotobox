@@ -10,18 +10,17 @@ FotoBox is a free open source multi platform application, that offers you the po
 
 ## Linux installation
 
-Paste the commands in a terminal prompt.
+Download latest [FotoBox version](https://github.com/tomikais/fotobox/releases) according to your operating system. Extract all files and execute `sudo ./install_dependencies.sh` in a terminal to install all needed dependencies automatically ___or___ follow these manual steps:
 
 1. update your operating system: `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
 2. download and install [Qt](https://www.qt.io): `sudo apt-get install qt5-default`
 3. install [gPhoto2](http://gphoto.org) when you are using a DSLR camera
     * __recommended way__: use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version, make sure the default installed has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
     * use latest available gphoto2 provided from operating system: `sudo apt-get install gphoto2`
-4. download latest __FotoBox__ version [here](https://github.com/tomikais/fotobox/releases) (according to your operating system)
 
 ### optional steps
 
-* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with lates Raspbian version (Buster). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial.
+* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with lates Raspbian version (Buster). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the official [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial. If you are using Raspbian Lite (minimal image without desktop), you need to install wiringPi additionally: `sudo apt-get install wiringpi`
 * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After reboot you can launch the *'Screensaver'* application and select *'disable screen saver'* from the drop down.
 * _Autostart_: open autostart file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
 * _Using a button_: It's possible to connect a hardware button to the Raspberry Pi GPIO ([WiringPi](http://wiringpi.com)) pins to trigger the FotoBox. You can configure [dedicated pins](http://wiringpi.com/pins/) in the application or use the default ones:  
@@ -31,7 +30,7 @@ Paste the commands in a terminal prompt.
 
 1. follow the short instruction to install [Homebrew - The missing package manager for macOS](https://brew.sh/)
 2. use Homebrew to install gphoto2. Paste that in a macOS Terminal prompt: `brew install gphoto2`
-3. download latest __FotoBox__ version [here](https://github.com/tomikais/fotobox/releases)
+3. download latest [FotoBox version](https://github.com/tomikais/fotobox/releases)
 
 ## keyboard shortcuts
 
