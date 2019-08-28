@@ -47,8 +47,6 @@ matrix:
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
-      before_deploy:
-        - mv --verbose ./FotoBox_RasPi_Stretch.tar.gz ./FotoBox_RasPi_Stretch.tar.gz
 
     - name: "Raspbian Buster"
       os: linux
@@ -65,8 +63,6 @@ matrix:
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
-      before_deploy:
-        - mv --verbose ./FotoBox_RasPi_Buster.tar.gz ./FotoBox_RasPi_Buster.tar.gz
 
     - name: "Ubuntu Xenial CMake gcc"
       os: linux
