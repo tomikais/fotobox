@@ -29,5 +29,5 @@ CMD gcc --version && \
     qmake -recursive && \
     make -j2 && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf raspbian_install.sh
+    tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
