@@ -30,7 +30,7 @@ matrix:
       before_deploy:
         - macdeployqt FotoBox.app -verbose=2
         - cp ./other/README.pdf ./README.pdf
-        - zip --verbose --symlinks --recurse-paths -9 FotoBox$TRAVIS_TAG_macOS.zip FotoBox.app/ README.pdf
+        - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
 
     - name: "Raspbian Stretch"
       os: linux
@@ -48,7 +48,7 @@ matrix:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
       before_deploy:
-        - mv --verbose ./FotoBox_RasPi_Stretch.tar.gz ./FotoBox$TRAVIS_TAG_RasPi_Stretch.tar.gz
+        - mv --verbose ./FotoBox_RasPi_Stretch.tar.gz ./FotoBox_RasPi_Stretch.tar.gz
 
     - name: "Raspbian Buster"
       os: linux
@@ -66,7 +66,7 @@ matrix:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
       before_deploy:
-        - mv --verbose ./FotoBox_RasPi_Buster.tar.gz ./FotoBox$TRAVIS_TAG_RasPi_Buster.tar.gz
+        - mv --verbose ./FotoBox_RasPi_Buster.tar.gz ./FotoBox_RasPi_Buster.tar.gz
 
     - name: "Ubuntu Xenial CMake gcc"
       os: linux
@@ -88,7 +88,7 @@ matrix:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
       before_deploy:
-        - tar -cvzf ./FotoBox$TRAVIS_TAG_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
     - name: "Ubuntu Xenial CMake Debug clang diagnostic 7"
       os: linux
@@ -215,10 +215,10 @@ deploy:
   provider: releases
   api_key: $GH_REPO_TOKEN
   file:
-    - FotoBox$TRAVIS_TAG_macOS.dmg
-    - FotoBox$TRAVIS_TAG_RasPi_Stretch.tar.gz
-    - FotoBox$TRAVIS_TAG_RasPi_Buster.tar.gz
-    - FotoBox$TRAVIS_TAG_Ubuntu_Xenial.tar.gz
+    - FotoBox_macOS.dmg
+    - FotoBox_RasPi_Stretch.tar.gz
+    - FotoBox_RasPi_Buster.tar.gz
+    - FotoBox_Ubuntu_Xenial.tar.gz
   skip_cleanup: true
   on:
     tags: true
