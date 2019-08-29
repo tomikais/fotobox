@@ -18,7 +18,7 @@ if(APPLE AND EXISTS /usr/local/opt/qt5)
 endif()
 
 # By default, QT contains core and gui
-find_package(Qt5 COMPONENTS Widgets LinguistTools REQUIRED)
+find_package(Qt5 COMPONENTS Widgets PrintSupport LinguistTools REQUIRED)
 if(Qt5Core_FOUND)
     # Ubuntu Xenial Qt v5.5.1
     if(Qt5Core_VERSION VERSION_LESS 5.5.0)
