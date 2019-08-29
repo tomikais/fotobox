@@ -58,7 +58,7 @@ public:
     bool shootPhoto();
 
     /*!
-     * \brief return member \sa m_currentPhoto
+     * \brief return member \see m_currentPhoto
      * \return filepath current photo
      */
     QString currentPhoto() const;

@@ -127,7 +127,7 @@ private:
 
     /*!
      * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse move events for the widget
-     * \details stopping auto accept dialog \sa autoAcceptDialog()
+     * \details stopping auto accept dialog \see autoAcceptDialog()
      */
     void mouseMoveEvent(QMouseEvent *event) override;
 

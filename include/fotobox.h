@@ -90,7 +90,7 @@ private:
 
     /*!
      * \brief This event handler, for event event, can be reimplemented in a subclass to receive mouse release events for the widget.
-     * \details no buttons on UI and left click \sa emit start()
+     * \details no buttons on UI and left click \see emit start()
      * \param event QMouseEvent
      */
     void mouseReleaseEvent(QMouseEvent *event) override;
@@ -117,7 +117,7 @@ private:
     void loadPhoto(const QString &i_filePath);
 
     /*!
-     * \brief Draw text on the QPixmap \sa m_photo
+     * \brief Draw text on the QPixmap \see m_photo
      * \param i_text text to write
      */
     void drawText(const QString &i_text);

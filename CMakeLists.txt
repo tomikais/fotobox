@@ -112,7 +112,7 @@ add_executable(${CMAKE_PROJECT_NAME}
     )
 
 # Libraries
-target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets)
+target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
 if(UNIX AND NOT APPLE)
     # Speed-Up compiling time with ccache (apt-get install ccache)
     find_program(CCACHE_PROGRAM ccache)

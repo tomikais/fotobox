@@ -42,8 +42,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>762</width>
-        <height>503</height>
+        <width>756</width>
+        <height>486</height>
        </rect>
       </property>
       <property name="mouseTracking">
@@ -456,6 +456,67 @@
            </item>
            <item>
             <spacer name="verticalSpacerTabExpert">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabPrint">
+          <attribute name="title">
+           <string>Print</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayoutTabPrint">
+           <item>
+            <layout class="QGridLayout" name="gridLayoutTabPrint">
+             <item row="2" column="0">
+              <widget class="QLabel" name="lblPrinterName">
+               <property name="text">
+                <string>choose printer</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QComboBox" name="cmbPrinterName"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lblPrintSetup">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Print Setup</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lblPrint">
+               <property name="text">
+                <string>print photos</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QCheckBox" name="chbPrint">
+               <property name="text">
+                <string>(enable/disable)</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacerTabPrint">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>

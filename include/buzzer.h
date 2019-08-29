@@ -58,7 +58,7 @@ public:
     Buzzer &operator=(Buzzer &&other) = delete;
 
     /*!
-     * \brief Stop executing \sa queryPin()
+     * \brief Stop executing \see queryPin()
      */
     void stop();
 
@@ -75,7 +75,7 @@ Q_SIGNALS:
     void triggered();
 
 private:
-    /*! atomic bool to stop /sa queryPin() */
+    /*! atomic bool to stop \see queryPin() */
     std::atomic<bool> m_stop{false};
 };
 

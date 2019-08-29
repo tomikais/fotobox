@@ -31,7 +31,7 @@ TARGET         = FotoBox
 TEMPLATE       = app
 
 # By default, Qt contains core and gui
-QT            += widgets
+QT            += widgets printsupport
 
 CONFIG        += c++11
 

@@ -17,6 +17,7 @@
 #include <QDesktopWidget>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QPrinterInfo>
 #include <QProcess>
 #include <QScreen>
 
@@ -35,12 +36,11 @@ Preferences::Preferences(QWidget *parent)
     //delete everything on close
     setAttribute(Qt::WA_DeleteOnClose);
 
+    //DON'T CHANGE ORDER!
     //Signal & Slot
     connectUi();
-
     //restore default values
     restoreDefaultPreferences();
-
     //load settings from ini file
     loadPreferences();
 
@@ -111,6 +111,8 @@ void Preferences::connectUi()
     connect(m_ui->btnArgumentLineHelp, &QAbstractButton::clicked, this, &Preferences::commandLineOptionsDialog);
     connect(m_ui->spbTimout, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setTimeoutValue);
     connect(m_ui->chbGrayscale, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setGrayscale);
+    connect(m_ui->chbPrint, &QAbstractButton::toggled, &PreferenceProvider::instance(), &PreferenceProvider::setPrint);
+    connect(m_ui->cmbPrinterName, &QComboBox::currentTextChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPrinterName);
 
     //connect buttons
     connect(m_ui->buttonBox, &QDialogButtonBox::accepted, this, &Preferences::startFotoBox);
@@ -191,6 +193,16 @@ void Preferences::loadPreferences()
 
     m_ui->spbTimout->setValue(m_settings.value(m_ui->spbTimout->objectName(), m_ui->spbTimout->value()).toInt());
     m_ui->chbGrayscale->setChecked(m_settings.value(m_ui->chbGrayscale->objectName(), m_ui->chbGrayscale->isChecked()).toBool());
+    m_settings.endGroup();
+
+    m_settings.beginGroup(QStringLiteral("PrintSetup"));
+    m_ui->chbPrint->setChecked(m_settings.value(m_ui->chbPrint->objectName(), m_ui->chbPrint->isChecked()).toBool());
+    const auto &printerName = m_settings.value(m_ui->cmbPrinterName->objectName(), m_ui->cmbPrinterName->currentText()).toString();
+    const auto printer = m_ui->cmbPrinterName->findText(printerName);
+    if (printer >= 0) {
+        //printer still available so set it
+        m_ui->cmbPrinterName->setCurrentIndex(printer);
+    }
     m_settings.endGroup();
 }
 
@@ -310,7 +322,7 @@ void Preferences::savePreferences()
     m_settings.endGroup();
 
     m_settings.beginGroup(QStringLiteral("Camera"));
-    //Save QComboBox model
+    //save QComboBox model
     QStringList itemText, itemData;
     const auto size = m_ui->cmbCameraMode->count();
     itemText.reserve(size);
@@ -326,6 +338,11 @@ void Preferences::savePreferences()
     m_settings.setValue(m_ui->spbTimout->objectName(), PreferenceProvider::instance().timeoutValue());
     m_settings.setValue(m_ui->chbGrayscale->objectName(), PreferenceProvider::instance().grayscale());
     m_settings.endGroup();
+
+    m_settings.beginGroup(QStringLiteral("PrintSetup"));
+    m_settings.setValue(m_ui->chbPrint->objectName(), PreferenceProvider::instance().print());
+    m_settings.setValue(m_ui->cmbPrinterName->objectName(), PreferenceProvider::instance().printerName());
+    m_settings.endGroup();
 }
 
 void Preferences::restoreDefaultPreferences()
@@ -335,11 +352,7 @@ void Preferences::restoreDefaultPreferences()
     m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
     m_ui->spbCountdown->setValue(3);
     m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
-#if !defined(Q_OS_UNIX)
-    m_ui->chbButtons->setChecked(false);
-#else
     m_ui->chbButtons->setChecked(true);
-#endif
     m_ui->txtShowColorBG->setText(QStringLiteral("#000000"));
 
     //Buzzer
@@ -353,6 +366,13 @@ void Preferences::restoreDefaultPreferences()
     m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
     m_ui->spbTimout->setValue(30);
     m_ui->chbGrayscale->setChecked(false);
+
+    //Print Setup
+    //get all printers and preselect default printer
+    m_ui->cmbPrinterName->addItems(QPrinterInfo::availablePrinterNames());
+    auto defaultPrinter = m_ui->cmbPrinterName->findText(QPrinterInfo::defaultPrinterName());
+    m_ui->cmbPrinterName->setCurrentIndex(defaultPrinter);
+    m_ui->chbPrint->setChecked(true);
 }
 
 void Preferences::verifyApplication(const QString &i_name)

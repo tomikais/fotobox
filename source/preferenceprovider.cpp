@@ -215,3 +215,33 @@ void PreferenceProvider::setShowButtons(const bool i_value)
     m_showButtons = i_value;
     Q_EMIT showButtonsChanged(m_showButtons);
 }
+
+bool PreferenceProvider::print() const
+{
+    return m_print;
+}
+
+void PreferenceProvider::setPrint(const bool i_value)
+{
+    if (m_print == i_value) {
+        return;
+    }
+
+    m_print = i_value;
+    Q_EMIT printChanged(m_print);
+}
+
+QString PreferenceProvider::printerName() const
+{
+    return m_printerName;
+}
+
+void PreferenceProvider::setPrinterName(const QString& i_value)
+{
+    if (m_printerName == i_value) {
+        return;
+    }
+
+    m_printerName = i_value;
+    Q_EMIT printerNameChanged(m_printerName);
+}

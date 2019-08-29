@@ -85,62 +85,62 @@
         <translation>launching FotoBox in %1 seconds</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="156"/>
+        <location filename="../source/preferences.cpp" line="158"/>
         <source>FotoBox preferences</source>
         <translation>FotoBox preferences</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="232"/>
+        <location filename="../source/preferences.cpp" line="244"/>
         <source>choose directory</source>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="258"/>
-        <location filename="../source/preferences.cpp" line="265"/>
-        <location filename="../source/preferences.cpp" line="271"/>
+        <location filename="../source/preferences.cpp" line="270"/>
+        <location filename="../source/preferences.cpp" line="277"/>
+        <location filename="../source/preferences.cpp" line="283"/>
         <source>photo folder</source>
         <translation>photo folder</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="258"/>
+        <location filename="../source/preferences.cpp" line="270"/>
         <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
         <translation>The directory doesn&apos;t exist and also couldn&apos;t be created.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="265"/>
+        <location filename="../source/preferences.cpp" line="277"/>
         <source>Please select a directory and not a file.</source>
         <translation>Please select a directory and not a file.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="271"/>
+        <location filename="../source/preferences.cpp" line="283"/>
         <source>Write and read rights are required. Please check the permission of the directory.</source>
         <translation>Write and read rights are required. Please check the permission of the directory.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="445"/>
-        <location filename="../source/preferences.cpp" line="453"/>
+        <location filename="../source/preferences.cpp" line="465"/>
+        <location filename="../source/preferences.cpp" line="473"/>
         <source>camera model: %1</source>
         <translation>camera model: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="453"/>
+        <location filename="../source/preferences.cpp" line="473"/>
         <source>NOT DETECTED</source>
         <translation>NOT DETECTED</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="367"/>
-        <location filename="../source/preferences.cpp" line="379"/>
         <location filename="../source/preferences.cpp" line="387"/>
+        <location filename="../source/preferences.cpp" line="399"/>
+        <location filename="../source/preferences.cpp" line="407"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; is missing%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="368"/>
+        <location filename="../source/preferences.cpp" line="388"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="380"/>
+        <location filename="../source/preferences.cpp" line="400"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</translation>
     </message>
@@ -170,6 +170,7 @@
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="183"/>
+        <location filename="../forms/preferences.ui" line="512"/>
         <source>(enable/disable)</source>
         <translation>(enable/disable)</translation>
     </message>
@@ -192,6 +193,26 @@
         <location filename="../forms/preferences.ui" line="432"/>
         <source>query interval</source>
         <translation>query interval</translation>
+    </message>
+    <message>
+        <location filename="../forms/preferences.ui" line="474"/>
+        <source>Print</source>
+        <translation>Print</translation>
+    </message>
+    <message>
+        <location filename="../forms/preferences.ui" line="482"/>
+        <source>choose printer</source>
+        <translation>choose printer</translation>
+    </message>
+    <message>
+        <location filename="../forms/preferences.ui" line="498"/>
+        <source>Print Setup</source>
+        <translation>Print Setup</translation>
+    </message>
+    <message>
+        <location filename="../forms/preferences.ui" line="505"/>
+        <source>print photos</source>
+        <translation>print photos</translation>
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="94"/>

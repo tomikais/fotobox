@@ -68,6 +68,12 @@ private:
     /*! buttons are displayed on the UI */
     bool m_showButtons = false;
 
+    /*! turn print on or off */
+    bool m_print = false;
+
+    /*! printer name */
+    QString m_printerName;
+
 public:
     //Qt Property System
     Q_PROPERTY(QString photoFolder READ photoFolder WRITE setPhotoFolder NOTIFY photoFolderChanged)
@@ -83,6 +89,8 @@ public:
     Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
     Q_PROPERTY(bool grayscale READ grayscale WRITE setGrayscale NOTIFY grayscaleChanged)
     Q_PROPERTY(bool showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
+    Q_PROPERTY(bool print READ print WRITE setPrint NOTIFY printChanged)
+    Q_PROPERTY(QString printerName READ printerName WRITE setPrinterName NOTIFY printerNameChanged)
 
     /*!
      * \brief PreferenceProvider delete copy constructor (Singleton)
@@ -112,81 +120,93 @@ public:
 
     /*!
      * \brief photo output directory
-     * \return QString m_photoFolder
+     * \return QString \see m_photoFolder
      */
     QString photoFolder() const;
 
     /*!
      * \brief photo name template
-     * \return QString m_photoName
+     * \return QString \see m_photoName
      */
     QString photoName() const;
 
     /*!
      * \brief font color of the countdown
-     * \return QString m_countdownColor
+     * \return QString \see m_countdownColor
      */
     QString countdownColor() const;
 
     /*!
      * \brief background color of the FotoBox UI
-     * \return QString m_backgroundColor
+     * \return QString \see m_backgroundColor
      */
     QString backgroundColor() const;
 
     /*!
      * \brief the camera framework to be used
-     * \return QString m_cameraMode
+     * \return QString \see m_cameraMode
      */
     QString cameraMode() const;
 
     /*!
      * \brief camera framework arguments
-     * \return QString m_argumentLine
+     * \return QString \see m_argumentLine
      */
     QString argumentLine() const;
 
     /*!
      * \brief countdown until photo is taken
-     * \return int m_countdown
+     * \return int \see m_countdown
      */
     int countdown() const;
 
     /*!
      * \brief wiringPi GPIO input pin
-     * \return int m_inputPin
+     * \return int \see m_inputPin
      */
     int inputPin() const;
 
     /*!
      * \brief wiringPi GPIO output pin
-     * \return int m_outputPin
+     * \return int \see m_outputPin
      */
     int outputPin() const;
 
     /*!
      * \brief how often the pin should be queried
-     * \return int m_queryInterval
+     * \return int \see m_queryInterval
      */
     int queryInterval() const;
 
     /*!
      * \brief timeout value for the camera framework
-     * \return int m_timeoutValue
+     * \return int \see m_timeoutValue
      */
     int timeoutValue() const;
 
     /*!
      * \brief show photo in grayscale (monochrome photography)
-     * \return bool m_grayscale
+     * \return bool \see m_grayscale
      */
     bool grayscale() const;
 
     /*!
      * \brief buttons are displayed on the UI
-     * \return bool m_showButtons
+     * \return bool \see m_showButtons
      */
     bool showButtons() const;
+
+    /*!
+     * \brief print on or off
+     * \return bool \see m_print
+     */
+    bool print() const;
+
+    /*!
+     * \brief printer name
+     * \return QString \see m_printerName
+     */
+    QString printerName() const;
 
 public Q_SLOTS:
     /*!
@@ -267,6 +287,18 @@ public Q_SLOTS:
      */
     void setShowButtons(bool i_value);
 
+    /*!
+     * \brief set print on or off
+     * \param i_value bool
+     */
+    void setPrint(bool i_value);
+
+    /*!
+     * \brief set printer name
+     * \param i_value QString&
+     */
+    void setPrinterName(const QString &i_value);
+
 Q_SIGNALS:
     /*!
      * \brief signal: photo output directory has changed
@@ -332,6 +364,16 @@ Q_SIGNALS:
      * \brief signal: whether buttons are displayed on the UI has changed
      */
     void showButtonsChanged(bool);
+
+    /*!
+     * \brief signal: print has changed
+     */
+    void printChanged(bool);
+
+    /*!
+     * \brief signal: printer name has changed
+     */
+    void printerNameChanged(QString);
 };
 
 #endif // PREFERENCEPROVIDER_H
