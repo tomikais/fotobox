@@ -238,8 +238,10 @@ void FotoBox::loadPhoto(const QString &i_filePath)
             m_photo.convertFromImage(grey);
         }
 
+        //scale photo and show it immediately
         m_photo = m_photo.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         m_ui->lblPhoto->setPixmap(m_photo);
+        m_ui->lblPhoto->repaint();
     } else {
         m_ui->statusBar->showMessage(tr("Couldn't load the photo."), STATUSBAR_MSG_TIMEOUT);
     }
