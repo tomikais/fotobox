@@ -37,12 +37,6 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../source/fotobox.cpp" line="31"/>
-        <source>FotoBox %1 (Copyright 2016 Thomas Kais)</source>
-        <extracomment>%1 application version e.g. v1.2.3</extracomment>
-        <translation>FotoBox %1 (Copyright 2016 Thomas Kais)</translation>
-    </message>
-    <message>
         <location filename="../source/fotobox.cpp" line="162"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation></translation>
@@ -53,7 +47,7 @@
         <translation>Error: Taking a photo isn&apos;t working correctly!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="244"/>
+        <location filename="../source/fotobox.cpp" line="246"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Couldn&apos;t load the photo.</translation>
     </message>
@@ -80,14 +74,14 @@
     <name>Preferences</name>
     <message>
         <location filename="../source/preferences.cpp" line="57"/>
-        <source>launching FotoBox in %1 seconds</source>
-        <extracomment>%1 countdown (number)</extracomment>
-        <translation>launching FotoBox in %1 seconds</translation>
+        <source>launching FotoBox v%1 in %2 seconds</source>
+        <extracomment>%2 countdown (number)</extracomment>
+        <translation>launching FotoBox v%1 in %2 seconds</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="158"/>
-        <source>FotoBox preferences</source>
-        <translation>FotoBox preferences</translation>
+        <source>preferences</source>
+        <translation>preferences</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="244"/>
@@ -117,30 +111,30 @@
         <translation>Write and read rights are required. Please check the permission of the directory.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="465"/>
-        <location filename="../source/preferences.cpp" line="473"/>
+        <location filename="../source/preferences.cpp" line="466"/>
+        <location filename="../source/preferences.cpp" line="474"/>
         <source>camera model: %1</source>
         <translation>camera model: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="473"/>
+        <location filename="../source/preferences.cpp" line="474"/>
         <source>NOT DETECTED</source>
         <translation>NOT DETECTED</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="387"/>
-        <location filename="../source/preferences.cpp" line="399"/>
-        <location filename="../source/preferences.cpp" line="407"/>
+        <location filename="../source/preferences.cpp" line="388"/>
+        <location filename="../source/preferences.cpp" line="400"/>
+        <location filename="../source/preferences.cpp" line="408"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; is missing%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="388"/>
+        <location filename="../source/preferences.cpp" line="389"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="400"/>
+        <location filename="../source/preferences.cpp" line="401"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</translation>
     </message>

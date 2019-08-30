@@ -37,12 +37,6 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../source/fotobox.cpp" line="31"/>
-        <source>FotoBox %1 (Copyright 2016 Thomas Kais)</source>
-        <extracomment>%1 application version e.g. v1.2.3</extracomment>
-        <translation>FotoBox %1 (Copyright 2016 Thomas Kais)</translation>
-    </message>
-    <message>
         <location filename="../source/fotobox.cpp" line="162"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation>Um die Anwendung zu beenden, halten Sie die Umschalttaste gedrückt, während Sie die Escape-Taste drücken.</translation>
@@ -53,7 +47,7 @@
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="244"/>
+        <location filename="../source/fotobox.cpp" line="246"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -80,14 +74,14 @@
     <name>Preferences</name>
     <message>
         <location filename="../source/preferences.cpp" line="57"/>
-        <source>launching FotoBox in %1 seconds</source>
-        <extracomment>%1 countdown (number)</extracomment>
-        <translation>FotoBox wird gestartet in %1 Sekunden</translation>
+        <source>launching FotoBox v%1 in %2 seconds</source>
+        <extracomment>%2 countdown (number)</extracomment>
+        <translation>FotoBox v%1 wird gestartet in %2 Sekunden</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="158"/>
-        <source>FotoBox preferences</source>
-        <translation>FotoBox Einstellungen</translation>
+        <source>preferences</source>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="244"/>
@@ -117,30 +111,30 @@
         <translation>Schreib- und Leserechte sind erforderlich. Bitte überprüfen Sie die Zugriffsrechte des Verzeichnisses.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="465"/>
-        <location filename="../source/preferences.cpp" line="473"/>
+        <location filename="../source/preferences.cpp" line="466"/>
+        <location filename="../source/preferences.cpp" line="474"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="473"/>
+        <location filename="../source/preferences.cpp" line="474"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="387"/>
-        <location filename="../source/preferences.cpp" line="399"/>
-        <location filename="../source/preferences.cpp" line="407"/>
+        <location filename="../source/preferences.cpp" line="388"/>
+        <location filename="../source/preferences.cpp" line="400"/>
+        <location filename="../source/preferences.cpp" line="408"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="388"/>
+        <location filename="../source/preferences.cpp" line="389"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="400"/>
+        <location filename="../source/preferences.cpp" line="401"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>
