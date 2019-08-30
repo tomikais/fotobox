@@ -369,6 +369,7 @@ void Preferences::restoreDefaultPreferences()
 
     //Print Setup
     //get all printers and preselect default printer
+    m_ui->cmbPrinterName->clear();
     m_ui->cmbPrinterName->addItems(QPrinterInfo::availablePrinterNames());
     auto defaultPrinter = m_ui->cmbPrinterName->findText(QPrinterInfo::defaultPrinterName());
     m_ui->cmbPrinterName->setCurrentIndex(defaultPrinter);
