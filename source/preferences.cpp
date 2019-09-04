@@ -30,6 +30,9 @@ Preferences::Preferences(QWidget *parent)
     //setup UI
     m_ui->setupUi(this);
 
+    //set icons for QToolButtons
+    setButtonIcons();
+
     //set window position
     windowPosition();
 
@@ -56,10 +59,6 @@ Preferences::Preferences(QWidget *parent)
         //: %2 countdown (number)
         setWindowTitle(tr("launching FotoBox v%1 in %2 seconds").arg(QApplication::applicationVersion()).arg(i_timeLeft));
     });
-
-    //set icons for QToolButtons
-    m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
-    m_ui->btnArgumentLineHelp->setIcon(style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
 }
 
 void Preferences::windowPosition()
@@ -80,6 +79,7 @@ void Preferences::connectUi()
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, this, &Preferences::verifyPath);
     connect(m_ui->btnChooseDirectory, &QPushButton::clicked, this, &Preferences::chooseDirectory);
+    connect(m_ui->btnClearDirectoryContent, &QPushButton::clicked, this, &Preferences::clearDirectoryContent);
     connect(m_ui->txtPhotoName, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoName);
     connect(m_ui->spbCountdown, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), &PreferenceProvider::instance(), &PreferenceProvider::setCountdown);
     connect(m_ui->btnChooseColorCD, &QPushButton::clicked, this, &Preferences::colorDialog);
@@ -128,6 +128,15 @@ void Preferences::connectUi()
         //request OS to open the URL
         QDesktopServices::openUrl( { QStringLiteral("https://gitlab.com/tomikais/fotobox/blob/master/README.md") } );
     });
+}
+
+void Preferences::setButtonIcons()
+{
+    //picture of all Qt standard icons: https://joekuan.files.wordpress.com/2015/09/screen3.png
+    m_ui->btnChooseDirectory->setIcon(style()->standardIcon(QStyle::SP_DirOpenIcon));
+    m_ui->btnClearDirectoryContent->setIcon(style()->standardIcon(QStyle::SP_DialogDiscardButton));
+    m_ui->btnCameraModeReload->setIcon(style()->standardIcon(QStyle::SP_BrowserReload));
+    m_ui->btnArgumentLineHelp->setIcon(style()->standardIcon(QStyle::SP_TitleBarContextHelpButton));
 }
 
 void Preferences::startFotoBox()
@@ -255,6 +264,37 @@ void Preferences::chooseDirectory()
         }
         //set path will again call verifyPath() see Signal&Slot connection
         m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(path));
+    }
+}
+
+void Preferences::clearDirectoryContent()
+{
+    //get photo folder from preferences
+    const QString photoFolder(PreferenceProvider::instance().PreferenceProvider::photoFolder());
+
+    //ask user
+    const auto &text = tr("Clear all JPEGs in the photo folder?") + QStringLiteral("\n\"") + photoFolder + '\"';
+    const auto &result = QMessageBox::warning(this, tr("Clear directory content"), text, QMessageBox::Yes | QMessageBox::No);
+
+    if (result == QMessageBox::Yes) {
+        //photo folder
+        QDir dir(photoFolder);
+
+        //JPEG file extension https://en.wikipedia.org/wiki/JPEG
+        dir.setNameFilters({ QStringLiteral("*.jpg"), QStringLiteral("*.jpeg"), QStringLiteral("*.jpe"), QStringLiteral("*.jif"), QStringLiteral("*.jfif"), QStringLiteral("*.jfi") });
+
+        for(const auto &dirItem : dir.entryList(QDir::NoDotAndDotDot | QDir::AllDirs))
+        {
+            //delete all subfolders
+            QDir subDir(dir.absoluteFilePath(dirItem));
+            subDir.removeRecursively();
+        }
+
+        for(const auto &dirItem : dir.entryList(QDir::NoDotAndDotDot | QDir::Files))
+        {
+            //remove all files
+            dir.remove(dirItem);
+        }
     }
 }
 

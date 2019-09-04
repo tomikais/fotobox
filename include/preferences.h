@@ -58,7 +58,7 @@ public:
 
 private Q_SLOTS:
     /*!
-     * \brief start the FotoBox
+     * \brief Start the FotoBox
      */
     void startFotoBox();
 
@@ -79,25 +79,30 @@ private Q_SLOTS:
     void chooseDirectory();
 
     /*!
+     * \brief Clear directory content of the photo directory.
+     */
+    void clearDirectoryContent();
+
+    /*!
      * \brief Restore default preferences.
      */
     void restoreDefaultPreferences();
 
     /*!
-     * \brief show the given color in QLineEdit
+     * \brief Show the given color in QLineEdit
      * \param i_colorName QString hex name of the color
      */
     void showColor(const QString &i_colorName);
 
     /*!
-     * \brief check camera application availability and provide help if needed
+     * \brief Check camera application availability and provide help if needed
      * \details gphoto2: set version and camera model
      * \param i_name QString name of the application to check
      */
     void verifyApplication(const QString &i_name);
 
     /*!
-     * \brief check if the path is useable
+     * \brief Check if the path is useable
      * \param i_path QString directory which stores the photos
      * \return true: path is okay false: something wrong, show warning
      */
@@ -105,7 +110,7 @@ private Q_SLOTS:
 
 private:
     /*!
-     * \brief set the window position
+     * \brief Set the window position
      * \details if the height of the Preference dialog is greater than the available screen height, start maximizing otherwise center the dialog
      */
     void windowPosition();
@@ -116,9 +121,14 @@ private:
     void connectUi();
 
     /*!
-     * \brief load application settings from INI file
+     * \brief Load application settings from INI file
      */
     void loadPreferences();
+
+    /*!
+     * \brief Set icons for all QToolButtons
+     */
+    void setButtonIcons();
 
     /*!
      * \brief Save the preferences to QSettings
@@ -132,7 +142,7 @@ private:
     void mouseMoveEvent(QMouseEvent *event) override;
 
     /*!
-     * \brief check if application is installed and available
+     * \brief Check if application is installed and available
      * \param i_name QString name of the application to check
      * \param i_message QString error message to display in QLabel
      * \return bool true: application found / false: not found
@@ -140,7 +150,7 @@ private:
     bool applicationAvailable(const QString &i_name, const QString &i_message);
 
     /*!
-     * \brief read gphoto2 / libgphoto2 version and camera model
+     * \brief Read gphoto2 / libgphoto2 version and camera model
      * \param i_name QString name of the application to check
      * \return QString return information
      */
