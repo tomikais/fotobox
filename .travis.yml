@@ -86,7 +86,7 @@ matrix:
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
-    - name: "Ubuntu Xenial CMake Debug clang diagnostic 7"
+    - name: "Ubuntu Xenial CMake Debug clang diagnostic 8"
       os: linux
       dist: xenial
       sudo: false
@@ -95,18 +95,18 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
             # https://apt.llvm.org
-            - llvm-toolchain-xenial-7
+            - llvm-toolchain-xenial-8
           update: true
           packages:
             - qt5-default
             - qttools5-dev-tools
-            - clang-7
+            - clang-8
       env:
-        - CC=clang-7
-        - CXX=clang++-7
+        - CC=clang-8
+        - CXX=clang++-8
       before_script:
         - cmake --version
-        - clang++-7 --version
+        - clang++-8 --version
       script:
         # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" rules and added '-Wno-padded'
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wno-padded -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
@@ -119,7 +119,7 @@ matrix:
             echo -e "\033[1;32m\xE2\x9C\x93 clang passed!\033[0m";
           fi
 
-    - name: "Ubuntu Xenial CMake Debug clang tidy 7"
+    - name: "Ubuntu Xenial CMake Debug clang tidy 8"
       os: linux
       dist: xenial
       sudo: false
@@ -128,22 +128,22 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
             # https://apt.llvm.org
-            - llvm-toolchain-xenial-7
+            - llvm-toolchain-xenial-8
           update: true
           packages:
             - qt5-default
             - qttools5-dev-tools
-            - llvm-7
-            - clang-7
-            - clang-tidy-7
+            - llvm-8
+            - clang-8
+            - clang-tidy-8
       env:
-        - CC=clang-7
-        - CXX=clang++-7
-        - CLANG_TIDY=clang-tidy-7
+        - CC=clang-8
+        - CXX=clang++-8
+        - CLANG_TIDY=clang-tidy-8
       before_script:
         - cmake --version
-        - clang++-7 --version
-        - clang-tidy-7 --version
+        - clang++-8 --version
+        - clang-tidy-8 --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
         - make -j2
@@ -168,7 +168,7 @@ matrix:
             - qttools5-dev-tools
             - libfuse2
       before_script:
-        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.5/Clazy-x86_64-1.5-llvm7.AppImage
+        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.5/Clazy-x86_64-1.5.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version

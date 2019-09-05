@@ -154,23 +154,23 @@ endif()
 
 # clang tidy
 if(ENABLE_CLANG_TIDY)
-    find_program(CLANG_TIDY_BIN clang-tidy-7)
-    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-7.py)
+    find_program(CLANG_TIDY_BIN clang-tidy-8)
+    find_program(RUN_CLANG_TIDY_BIN run-clang-tidy-8.py)
 
     if(CLANG_TIDY_BIN STREQUAL "CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate 'clang-tidy-7'")
+        message(FATAL_ERROR "unable to locate 'clang-tidy-8'")
     endif()
 
     if(RUN_CLANG_TIDY_BIN STREQUAL "RUN_CLANG_TIDY_BIN-NOTFOUND")
-        message(FATAL_ERROR "unable to locate 'run-clang-tidy-7.py'")
+        message(FATAL_ERROR "unable to locate 'run-clang-tidy-8.py'")
     endif()
 
-    # https://releases.llvm.org/7.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
+    # https://releases.llvm.org/8.0.0/tools/clang/tools/extra/docs/clang-tidy/index.html
     list(APPEND RUN_CLANG_TIDY_BIN_ARGS
         -clang-tidy-binary ${CLANG_TIDY_BIN}
         -header-filter='/fotobox/include/'
         # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments
-        -checks=-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-goto,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,readability-*
+        -checks=-*,abseil-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-*,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-usage,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-non-private-member-variables-in-classes,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,portability-*,readability-*,zircon-*
         -extra-arg='-Wno-everything'
     )
 
