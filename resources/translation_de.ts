@@ -73,12 +73,6 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="60"/>
-        <source>launching FotoBox v%1 in %2 seconds</source>
-        <extracomment>%2 countdown (number)</extracomment>
-        <translation>FotoBox v%1 wird gestartet in %2 Sekunden</translation>
-    </message>
-    <message>
         <location filename="../source/preferences.cpp" line="167"/>
         <source>preferences</source>
         <translation>Einstellungen</translation>
@@ -132,6 +126,12 @@
         <location filename="../source/preferences.cpp" line="448"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="60"/>
+        <source>launching %1 v%2 in %3 seconds</source>
+        <extracomment>%1 FotoBox %2 application version %3 countdown (number)</extracomment>
+        <translation>%1 v%2 wird gestartet in %3 Sekunden</translation>
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="276"/>

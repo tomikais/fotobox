@@ -56,8 +56,8 @@ Preferences::Preferences(QWidget *parent)
 
     //update window title
     connect(&m_countdown, &Countdown::update, this, [&](unsigned int i_timeLeft) {
-        //: %2 countdown (number)
-        setWindowTitle(tr("launching FotoBox v%1 in %2 seconds").arg(QApplication::applicationVersion()).arg(i_timeLeft));
+        //: %1 FotoBox %2 application version %3 countdown (number)
+        setWindowTitle(tr("launching %1 v%2 in %3 seconds").arg(QApplication::applicationName(), QApplication::applicationVersion()).arg(i_timeLeft));
     });
 }
 
@@ -164,7 +164,7 @@ void Preferences::mouseMoveEvent(QMouseEvent *event)
         m_ui->tabGeneral->setMouseTracking(false);
         m_ui->tabExpert->setMouseTracking(false);
         m_ui->buttonBox->setMouseTracking(false);
-        setWindowTitle(QStringLiteral("FotoBox v%1 (Copyright 2016 %2) - ").arg(QApplication::applicationVersion(), QApplication::organizationName()) + tr("preferences"));
+        setWindowTitle(QStringLiteral("%1 v%2 (Copyright 2016 %3) - ").arg(QApplication::applicationName(), QApplication::applicationVersion(), QApplication::organizationName()) + tr("preferences"));
     }
 
     //call base class method
@@ -388,7 +388,7 @@ void Preferences::savePreferences()
 void Preferences::restoreDefaultPreferences()
 {
     //FotoBox
-    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)));
+    m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)) + QDir::separator() + QApplication::applicationName());
     m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
     m_ui->spbCountdown->setValue(3);
     m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));

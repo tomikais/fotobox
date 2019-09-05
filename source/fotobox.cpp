@@ -27,8 +27,8 @@ FotoBox::FotoBox(QWidget *parent)
     //setup GUI
     m_ui->setupUi(this);
 
-    //: %1 application version e.g. v1.2.3
-    setWindowTitle(QStringLiteral("FotoBox v%1 (Copyright 2016 %2)").arg(QApplication::applicationVersion(), QApplication::organizationName()));
+    //e.g. 'FotoBox v1.2.3 (Copyright 2016 Thomas Kais)'
+    setWindowTitle(QStringLiteral("%1 v%2 (Copyright 2016 %3)").arg(QApplication::applicationName(), QApplication::applicationVersion(), QApplication::organizationName()));
 
     //set Background Color
     setStyleSheet(QStringLiteral("#FotoBoxDialog { background-color:%1; }").arg(PreferenceProvider::instance().backgroundColor()));
