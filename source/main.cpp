@@ -35,7 +35,8 @@ int main(int argc, char *argv[])
     QApplication::setApplicationName(QStringLiteral("FotoBox"));
     QApplication::setApplicationVersion(QStringLiteral("1.4.0"));
 
-    QTranslator qtTranslator, appTranslator;
+    QTranslator qtTranslator;
+    QTranslator appTranslator;
     //Qt Translation
     if (qtTranslator.load(QLocale(), QStringLiteral("qt"), QStringLiteral("_"), QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
         QApplication::installTranslator(&qtTranslator);

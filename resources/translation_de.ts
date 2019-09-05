@@ -73,57 +73,57 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="167"/>
+        <location filename="../source/preferences.cpp" line="187"/>
         <source>preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="253"/>
+        <location filename="../source/preferences.cpp" line="270"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="277"/>
+        <location filename="../source/preferences.cpp" line="294"/>
         <source>WARNING: clear directory content</source>
         <translation>ACHTUNG: Verzeichnisinhalt löschen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="304"/>
-        <location filename="../source/preferences.cpp" line="311"/>
-        <location filename="../source/preferences.cpp" line="317"/>
+        <location filename="../source/preferences.cpp" line="321"/>
+        <location filename="../source/preferences.cpp" line="328"/>
+        <location filename="../source/preferences.cpp" line="334"/>
         <source>photo folder</source>
         <translation>Bilder Ordner</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="304"/>
+        <location filename="../source/preferences.cpp" line="321"/>
         <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
         <translation>Das Verzeichnis existiert nicht und konnte auch nicht angelegt werden.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="311"/>
+        <location filename="../source/preferences.cpp" line="328"/>
         <source>Please select a directory and not a file.</source>
         <translation>Bitte wählen Sie ein Verzeichnis und keine Datei aus.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="317"/>
+        <location filename="../source/preferences.cpp" line="334"/>
         <source>Write and read rights are required. Please check the permission of the directory.</source>
         <translation>Schreib- und Leserechte sind erforderlich. Bitte überprüfen Sie die Zugriffsrechte des Verzeichnisses.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="500"/>
-        <location filename="../source/preferences.cpp" line="508"/>
+        <location filename="../source/preferences.cpp" line="518"/>
+        <location filename="../source/preferences.cpp" line="526"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="508"/>
+        <location filename="../source/preferences.cpp" line="526"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="422"/>
-        <location filename="../source/preferences.cpp" line="434"/>
-        <location filename="../source/preferences.cpp" line="442"/>
+        <location filename="../source/preferences.cpp" line="440"/>
+        <location filename="../source/preferences.cpp" line="452"/>
+        <location filename="../source/preferences.cpp" line="460"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
@@ -134,17 +134,17 @@
         <translation>%1 v%2 wird gestartet in %3 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="276"/>
+        <location filename="../source/preferences.cpp" line="293"/>
         <source>Clear all JPEGs in the photo folder (leave subfolders untouched)?</source>
         <translation>Alle JPEGs im Bilder Ordner löschen (Unterordner unberührt lassen)?</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="423"/>
+        <location filename="../source/preferences.cpp" line="441"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="435"/>
+        <location filename="../source/preferences.cpp" line="453"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>

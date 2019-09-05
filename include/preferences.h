@@ -116,6 +116,11 @@ private:
     void windowPosition();
 
     /*!
+     * \brief Stop countdown, stop mouse tracking and set normal window title name.
+     */
+    void stopCountdownMode();
+
+    /*!
      * \brief Signal & Slot connect
      */
     void connectUi();

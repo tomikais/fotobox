@@ -75,6 +75,13 @@ void Preferences::windowPosition()
 
 void Preferences::connectUi()
 {
+    //stop countdown if the application isn't visible and selected to be in front.
+    connect(qobject_cast<QApplication*>(QCoreApplication::instance()), &QGuiApplication::applicationStateChanged, this, [&](const Qt::ApplicationState state) {
+        if (state != Qt::ApplicationActive) {
+            stopCountdownMode();
+        }
+    });
+
     //connect UI to preferences
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, &PreferenceProvider::instance(), &PreferenceProvider::setPhotoFolder);
     connect(m_ui->txtPhotoFolder, &QLineEdit::textChanged, this, &Preferences::verifyPath);
@@ -142,8 +149,8 @@ void Preferences::setButtonIcons()
 void Preferences::startFotoBox()
 {
     //save settings to ini file
-    savePreferences();
     m_countdown.stop();
+    savePreferences();
 
     //Start FotoBox;
     auto dialog = new FotoBox;
@@ -155,8 +162,19 @@ void Preferences::startFotoBox()
 
 void Preferences::mouseMoveEvent(QMouseEvent *event)
 {
+    stopCountdownMode();
+
+    //call base class method
+    QWidget::mouseMoveEvent(event);
+}
+
+void Preferences::stopCountdownMode()
+{
     if (m_countdown.isActive()) {
+        //stop countdown
         m_countdown.stop();
+
+        //disable mouse tracking (not needed anymore)
         setMouseTracking(false);
         m_ui->scrollArea->setMouseTracking(false);
         m_ui->scrollAreaWidgetContents->setMouseTracking(false);
@@ -164,11 +182,10 @@ void Preferences::mouseMoveEvent(QMouseEvent *event)
         m_ui->tabGeneral->setMouseTracking(false);
         m_ui->tabExpert->setMouseTracking(false);
         m_ui->buttonBox->setMouseTracking(false);
+
+        //set normal window title
         setWindowTitle(QStringLiteral("%1 v%2 (Copyright 2016 %3) - ").arg(QApplication::applicationName(), QApplication::applicationVersion(), QApplication::organizationName()) + tr("preferences"));
     }
-
-    //call base class method
-    QWidget::mouseMoveEvent(event);
 }
 
 void Preferences::loadPreferences()
@@ -357,7 +374,8 @@ void Preferences::savePreferences()
 
     m_settings.beginGroup(QStringLiteral("Camera"));
     //save QComboBox model
-    QStringList itemText, itemData;
+    QStringList itemText;
+    QStringList itemData;
     const auto size = m_ui->cmbCameraMode->count();
     itemText.reserve(size);
     itemData.reserve(size);
