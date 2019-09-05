@@ -89,11 +89,6 @@
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="276"/>
-        <source>Clear all JPEGs in the photo folder?</source>
-        <translation>Alle JPEGs im Bilder Ordner löschen?</translation>
-    </message>
-    <message>
         <location filename="../source/preferences.cpp" line="277"/>
         <source>Clear directory content</source>
         <translation>Verzeichnisinhalt löschen</translation>
@@ -139,6 +134,11 @@
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
+        <location filename="../source/preferences.cpp" line="276"/>
+        <source>Clear all JPEGs directly in the photo folder and delete all subfolders?</source>
+        <translation>Alle JPEGs direkt im Bilder Ordner und alle Unterordner löschen?</translation>
+    </message>
+    <message>
         <location filename="../source/preferences.cpp" line="429"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
@@ -152,12 +152,12 @@
 <context>
     <name>PreferencesDialog</name>
     <message>
-        <location filename="../forms/preferences.ui" line="405"/>
+        <location filename="../forms/preferences.ui" line="411"/>
         <source>input PIN</source>
         <translation>Input PIN</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="174"/>
+        <location filename="../forms/preferences.ui" line="160"/>
         <source>background color</source>
         <translation>Hintergrund Farbe</translation>
     </message>
@@ -167,19 +167,19 @@
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="200"/>
-        <location filename="../forms/preferences.ui" line="468"/>
+        <location filename="../forms/preferences.ui" line="186"/>
+        <location filename="../forms/preferences.ui" line="474"/>
         <source> seconds</source>
         <translation> sekunden</translation>
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="87"/>
-        <location filename="../forms/preferences.ui" line="351"/>
+        <location filename="../forms/preferences.ui" line="357"/>
         <source>(enable/disable)</source>
         <translation>(einschalten/ausschalten)</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="229"/>
+        <location filename="../forms/preferences.ui" line="215"/>
         <source>show photo</source>
         <translation>Zeige Bild</translation>
     </message>
@@ -189,63 +189,63 @@
         <translation>in Schwarzweiß</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="377"/>
+        <location filename="../forms/preferences.ui" line="283"/>
+        <location filename="../forms/preferences.ui" line="293"/>
+        <source>Chose Color</source>
+        <translation>Wähle Farbe</translation>
+    </message>
+    <message>
+        <location filename="../forms/preferences.ui" line="383"/>
         <source>Expert</source>
         <translation>Fortgeschritten</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="495"/>
+        <location filename="../forms/preferences.ui" line="501"/>
         <source>query interval</source>
         <translation>Abfrageintervall</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="313"/>
+        <location filename="../forms/preferences.ui" line="319"/>
         <source>Print</source>
         <translation>Drucken</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="107"/>
-        <location filename="../forms/preferences.ui" line="167"/>
-        <source>Color</source>
-        <translation>Farbe</translation>
-    </message>
-    <message>
-        <location filename="../forms/preferences.ui" line="321"/>
+        <location filename="../forms/preferences.ui" line="327"/>
         <source>choose printer</source>
         <translation>Drucker auswählen</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="337"/>
+        <location filename="../forms/preferences.ui" line="343"/>
         <source>Print Setup</source>
         <translation>Druckereinrichtung</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="344"/>
+        <location filename="../forms/preferences.ui" line="350"/>
         <source>print photos</source>
         <translation>Fotos drucken</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="134"/>
+        <location filename="../forms/preferences.ui" line="127"/>
         <source>countdown</source>
         <translation>Countdown</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="242"/>
+        <location filename="../forms/preferences.ui" line="228"/>
         <source>photo folder</source>
         <translation>Bilder Ordner</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="157"/>
+        <location filename="../forms/preferences.ui" line="150"/>
         <source>photo name</source>
         <translation>Bilder Name</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="114"/>
+        <location filename="../forms/preferences.ui" line="107"/>
         <source>buttons</source>
         <translation>Buttons</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="505"/>
+        <location filename="../forms/preferences.ui" line="511"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 bis 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 , ersetzen 27 für 21 auf einer Platine Rev. 2): Diese können jederzeit sicher verwendet werden und können mit oder ohne Eingang eingestellt werden oder ohne die internen Pull-Up- oder Pull-Down-Widerstände aktiviert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -255,43 +255,43 @@
         <translation>FotoBox</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="485"/>
+        <location filename="../forms/preferences.ui" line="491"/>
         <source>timeout value</source>
         <translation>Timeout-Wert</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="193"/>
-        <location filename="../forms/preferences.ui" line="391"/>
+        <location filename="../forms/preferences.ui" line="179"/>
+        <location filename="../forms/preferences.ui" line="397"/>
         <source>Camera</source>
         <translation>Kamera</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="475"/>
+        <location filename="../forms/preferences.ui" line="481"/>
         <source>output PIN</source>
         <translation>Output PIN</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="124"/>
+        <location filename="../forms/preferences.ui" line="117"/>
         <source>camera mode</source>
         <translation>Kamera Modus</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="458"/>
+        <location filename="../forms/preferences.ui" line="464"/>
         <source> milliseconds</source>
         <translation> Millisekunden</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="424"/>
+        <location filename="../forms/preferences.ui" line="430"/>
         <source>Buzzer</source>
         <translation>Buzzer</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="445"/>
+        <location filename="../forms/preferences.ui" line="451"/>
         <source>argument line</source>
         <translation>Kommandozeile</translation>
     </message>
     <message>
-        <location filename="../forms/preferences.ui" line="271"/>
+        <location filename="../forms/preferences.ui" line="257"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you have a &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR camera&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; mode. If you want to use the &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt;, choose &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Wenn du eine &lt;span style=&quot; font-style:italic;&quot;&gt;DSLR Kamera hast&lt;/span&gt;, wähle den &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;gphoto2&lt;/span&gt;&amp;quot; Modus. Wenn du das &lt;span style=&quot; font-style:italic;&quot;&gt;Raspberry Pi Camera Module&lt;/span&gt; verwendest, wähle den &amp;quot;&lt;span style=&quot; font-weight:600;&quot;&gt;raspistill&lt;/span&gt;&amp;quot; Modus.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>

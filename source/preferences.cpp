@@ -222,7 +222,7 @@ void Preferences::colorDialog()
 
     if (dialog.exec() == QDialog::Accepted) {
         //show the color which the user has selected
-        const auto *button = qobject_cast<QPushButton *>(sender());
+        const auto *button = qobject_cast<QToolButton *>(sender());
         if (button == m_ui->btnChooseColorCD) {
             //font countdown
             m_ui->txtShowColorCD->setText(dialog.selectedColor().name());
@@ -273,7 +273,7 @@ void Preferences::clearDirectoryContent()
     const QString photoFolder(PreferenceProvider::instance().PreferenceProvider::photoFolder());
 
     //ask user
-    const auto &text = tr("Clear all JPEGs in the photo folder?") + QStringLiteral("\n\"") + photoFolder + '\"';
+    const auto &text = tr("Clear all JPEGs directly in the photo folder and delete all subfolders?") + QStringLiteral("\n\"") + photoFolder + '\"';
     const auto &result = QMessageBox::warning(this, tr("Clear directory content"), text, QMessageBox::Yes | QMessageBox::No);
 
     if (result == QMessageBox::Yes) {
@@ -283,14 +283,14 @@ void Preferences::clearDirectoryContent()
         //JPEG file extension https://en.wikipedia.org/wiki/JPEG
         dir.setNameFilters({ QStringLiteral("*.jpg"), QStringLiteral("*.jpeg"), QStringLiteral("*.jpe"), QStringLiteral("*.jif"), QStringLiteral("*.jfif"), QStringLiteral("*.jfi") });
 
-        for(const auto &dirItem : dir.entryList(QDir::NoDotAndDotDot | QDir::AllDirs))
+        Q_FOREACH(const auto &dirItem, dir.entryList(QDir::NoDotAndDotDot | QDir::AllDirs))
         {
             //delete all subfolders
             QDir subDir(dir.absoluteFilePath(dirItem));
             subDir.removeRecursively();
         }
 
-        for(const auto &dirItem : dir.entryList(QDir::NoDotAndDotDot | QDir::Files))
+        Q_FOREACH(const auto &dirItem, dir.entryList(QDir::NoDotAndDotDot | QDir::Files))
         {
             //remove all files
             dir.remove(dirItem);
