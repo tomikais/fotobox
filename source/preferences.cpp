@@ -273,8 +273,8 @@ void Preferences::clearDirectoryContent()
     const QString photoFolder(PreferenceProvider::instance().PreferenceProvider::photoFolder());
 
     //ask user
-    const auto &text = tr("Clear all JPEGs directly in the photo folder and delete all subfolders?") + QStringLiteral("\n\"") + photoFolder + '\"';
-    const auto &result = QMessageBox::warning(this, tr("Clear directory content"), text, QMessageBox::Yes | QMessageBox::No);
+    const auto &text = tr("Clear all JPEGs in the photo folder (leave subfolders untouched)?") + QStringLiteral("\n\"") + photoFolder + '\"';
+    const auto &result = QMessageBox::warning(this, tr("WARNING: clear directory content"), text, QMessageBox::Yes | QMessageBox::No);
 
     if (result == QMessageBox::Yes) {
         //photo folder
@@ -283,14 +283,8 @@ void Preferences::clearDirectoryContent()
         //JPEG file extension https://en.wikipedia.org/wiki/JPEG
         dir.setNameFilters({ QStringLiteral("*.jpg"), QStringLiteral("*.jpeg"), QStringLiteral("*.jpe"), QStringLiteral("*.jif"), QStringLiteral("*.jfif"), QStringLiteral("*.jfi") });
 
-        Q_FOREACH(const auto &dirItem, dir.entryList(QDir::NoDotAndDotDot | QDir::AllDirs))
-        {
-            //delete all subfolders
-            QDir subDir(dir.absoluteFilePath(dirItem));
-            subDir.removeRecursively();
-        }
-
-        Q_FOREACH(const auto &dirItem, dir.entryList(QDir::NoDotAndDotDot | QDir::Files))
+        const auto &entryList = dir.entryList(QDir::NoDotAndDotDot | QDir::Files);
+        for(const auto &dirItem : entryList)
         {
             //remove all files
             dir.remove(dirItem);

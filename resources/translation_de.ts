@@ -84,46 +84,46 @@
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="277"/>
-        <source>Clear directory content</source>
-        <translation>Verzeichnisinhalt löschen</translation>
+        <source>WARNING: clear directory content</source>
+        <translation>ACHTUNG: Verzeichnisinhalt löschen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="310"/>
+        <location filename="../source/preferences.cpp" line="304"/>
+        <location filename="../source/preferences.cpp" line="311"/>
         <location filename="../source/preferences.cpp" line="317"/>
-        <location filename="../source/preferences.cpp" line="323"/>
         <source>photo folder</source>
         <translation>Bilder Ordner</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="310"/>
+        <location filename="../source/preferences.cpp" line="304"/>
         <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
         <translation>Das Verzeichnis existiert nicht und konnte auch nicht angelegt werden.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="317"/>
+        <location filename="../source/preferences.cpp" line="311"/>
         <source>Please select a directory and not a file.</source>
         <translation>Bitte wählen Sie ein Verzeichnis und keine Datei aus.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="323"/>
+        <location filename="../source/preferences.cpp" line="317"/>
         <source>Write and read rights are required. Please check the permission of the directory.</source>
         <translation>Schreib- und Leserechte sind erforderlich. Bitte überprüfen Sie die Zugriffsrechte des Verzeichnisses.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="506"/>
-        <location filename="../source/preferences.cpp" line="514"/>
+        <location filename="../source/preferences.cpp" line="500"/>
+        <location filename="../source/preferences.cpp" line="508"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="514"/>
+        <location filename="../source/preferences.cpp" line="508"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="428"/>
-        <location filename="../source/preferences.cpp" line="440"/>
-        <location filename="../source/preferences.cpp" line="448"/>
+        <location filename="../source/preferences.cpp" line="422"/>
+        <location filename="../source/preferences.cpp" line="434"/>
+        <location filename="../source/preferences.cpp" line="442"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
@@ -135,16 +135,16 @@
     </message>
     <message>
         <location filename="../source/preferences.cpp" line="276"/>
-        <source>Clear all JPEGs directly in the photo folder and delete all subfolders?</source>
-        <translation>Alle JPEGs direkt im Bilder Ordner und alle Unterordner löschen?</translation>
+        <source>Clear all JPEGs in the photo folder (leave subfolders untouched)?</source>
+        <translation>Alle JPEGs im Bilder Ordner löschen (Unterordner unberührt lassen)?</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="429"/>
+        <location filename="../source/preferences.cpp" line="423"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="441"/>
+        <location filename="../source/preferences.cpp" line="435"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>
