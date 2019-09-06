@@ -25,7 +25,7 @@ Preferences::Preferences(QWidget *parent)
     : QDialog(parent, Qt::Window)
     , m_ui(new Ui::PreferencesDialog)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this)
-    , m_countdown(this, 10)
+    , m_countdown(this, COUNTDOWN_START_VALUE)
 {
     //setup UI
     m_ui->setupUi(this);
@@ -402,21 +402,21 @@ void Preferences::restoreDefaultPreferences()
     //FotoBox
     m_ui->txtPhotoFolder->setText(QDir::toNativeSeparators(QStandardPaths::writableLocation(QStandardPaths::PicturesLocation)) + QDir::separator() + QApplication::applicationName());
     m_ui->txtPhotoName->setText(QStringLiteral("eventname.jpg"));
-    m_ui->spbCountdown->setValue(3);
+    m_ui->spbCountdown->setValue(DEFAULT_COUNTDOWN_START_VALUE);
     m_ui->txtShowColorCD->setText(QStringLiteral("#ff0000"));
     m_ui->chbButtons->setChecked(true);
     m_ui->txtShowColorBG->setText(QStringLiteral("#000000"));
 
     //Buzzer
-    m_ui->spbInputPin->setValue(5);
-    m_ui->spbOutputPin->setValue(0);
-    m_ui->spbQueryInterval->setValue(10);
+    m_ui->spbInputPin->setValue(DEFAULT_INPUT_PIN);
+    m_ui->spbOutputPin->setValue(DEFAULT_OUTPUT_PIN);
+    m_ui->spbQueryInterval->setValue(DEFAULT_QUERY_INTERVAL);
 
     //Camera
     m_ui->cmbCameraMode->clear();
     m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --force-overwrite --filename %1"));
     m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
-    m_ui->spbTimout->setValue(30);
+    m_ui->spbTimout->setValue(DEFAULT_TIMEOUT);
     m_ui->chbGrayscale->setChecked(false);
 
     //Print Setup

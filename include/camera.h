@@ -64,6 +64,9 @@ public:
     QString currentPhoto() const;
 
 private:
+    /*! used to convert msec to sec */
+    static constexpr int TO_SECONDS = 1000;
+
     /*! time out value */
     const int m_timeoutValue;
 

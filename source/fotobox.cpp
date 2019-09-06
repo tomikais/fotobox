@@ -269,8 +269,8 @@ void FotoBox::drawText(const QString &i_text)
 
 double FotoBox::calculateFontSize(const double i_width, const double i_widthFont)
 {
-    double factor = i_width / i_widthFont;
-    if ((factor < 1) || (factor > 1.25)) {
+    auto factor = i_width / i_widthFont;
+    if ((factor < 1) || (factor > COMPARE)) {
         return factor;
     }
     return 0.0;

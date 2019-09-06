@@ -161,6 +161,24 @@ private:
      */
     QString gphotoInfo(const QString &i_name);
 
+    /*! Countdown start value (10 seconds) */
+    static constexpr int COUNTDOWN_START_VALUE = 10;
+
+    /*! Default countdown start value (3 seconds) */
+    static constexpr int DEFAULT_COUNTDOWN_START_VALUE = 3;
+
+    /*! Default input PIN */
+    static constexpr int DEFAULT_INPUT_PIN = 5;
+
+    /*! Default output PIN */
+    static constexpr int DEFAULT_OUTPUT_PIN = 0;
+
+    /*! Default query interval */
+    static constexpr int DEFAULT_QUERY_INTERVAL = 10;
+
+    /*! Default time out (QProcess timed out) */
+    static constexpr int DEFAULT_TIMEOUT = 30;
+
     /*! User Interface */
     Ui::PreferencesDialog *m_ui;
 

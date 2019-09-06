@@ -14,7 +14,7 @@
 
 Camera::Camera(QObject *parent)
     : QObject(parent)
-    , m_timeoutValue(1000 * PreferenceProvider::instance().timeoutValue())
+    , m_timeoutValue(TO_SECONDS * PreferenceProvider::instance().timeoutValue())
     , m_photoSuffix(PreferenceProvider::instance().photoName())
     , m_cameraMode(PreferenceProvider::instance().cameraMode().append(' '))
     , m_argLine(PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"%1\"")))

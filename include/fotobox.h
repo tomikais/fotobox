@@ -130,6 +130,12 @@ private:
      */
     double calculateFontSize(double i_width, double i_widthFont);
 
+    /*! status bar timout value */
+    static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
+
+    /*! 1.25 */
+    static constexpr double COMPARE = 1.25;
+
     /*! User Interface */
     Ui::FotoBoxDialog *m_ui;
 
@@ -150,9 +156,6 @@ private:
 
     /*! photo directory */
     const QString m_photoDir;
-
-    /*! status bar timout value */
-    static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;
 
     /*! keyboard shortcut to start FotoBox */
     const std::vector<Qt::Key>
