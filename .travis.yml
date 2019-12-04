@@ -156,7 +156,7 @@ matrix:
             echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
-    - name: "Ubuntu Xenial CMake Debug clang clazy 1.5"
+    - name: "Ubuntu Xenial CMake Debug clang clazy 1.6"
       os: linux
       dist: xenial
       sudo: false
@@ -168,7 +168,7 @@ matrix:
             - qttools5-dev-tools
             - libfuse2
       before_script:
-        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.5/Clazy-x86_64-1.5.AppImage
+        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version
