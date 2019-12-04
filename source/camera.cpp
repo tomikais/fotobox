@@ -9,7 +9,6 @@
 
 #include "preferenceprovider.h"
 
-#include <QCoreApplication>
 #include <QDateTime>
 
 Camera::Camera(QObject *parent)

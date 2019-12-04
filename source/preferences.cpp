@@ -14,7 +14,6 @@
 
 #include <QColorDialog>
 #include <QDesktopServices>
-#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QPrinterInfo>
