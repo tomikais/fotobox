@@ -135,6 +135,8 @@ FotoBox::~FotoBox()
     //terminate and delete Buzzer thread
     m_workerThread.quit();
     m_workerThread.wait();
+
+    delete m_ui;
 }
 
 

@@ -60,6 +60,11 @@ Preferences::Preferences(QWidget *parent)
     });
 }
 
+Preferences::~Preferences()
+{
+    delete m_ui;
+}
+
 void Preferences::windowPosition()
 {
     const auto availableGeometry = QGuiApplication::primaryScreen()->availableGeometry();

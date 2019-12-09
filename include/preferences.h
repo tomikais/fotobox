@@ -32,9 +32,9 @@ public:
     explicit Preferences(QWidget *parent = nullptr);
 
     /*!
-     * \brief Preferences default destructor
+     * \brief Preferences destructor
      */
-    ~Preferences() override = default;
+    ~Preferences() override;
 
     /*!
      * \brief Preferences default copy constructor
