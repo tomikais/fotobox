@@ -193,7 +193,7 @@ if(ENABLE_CLANG_CLAZY)
     list(APPEND CLANG_CLAZY_BIN_ARGS
         --standalone
         -header-filter='/fotobox/include/'
-        -checks='level0,level1,level2'
+        -checks='*'
         -extra-arg='-Wno-everything'
         -ignore-dirs='_autogen'
         -only-qt
