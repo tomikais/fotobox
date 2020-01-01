@@ -87,4 +87,4 @@ Follow the normal installation instructions and additionally install the develop
 
 ### get source code
 
-GitLab source code: `git clone --recursive git@gitlab.com:tomikais/fotobox.git` or `https://gitlab.com/tomikais/fotobox.git`
+GitLab source code: `git clone git@gitlab.com:tomikais/fotobox.git` or `https://gitlab.com/tomikais/fotobox.git`
