@@ -13,9 +13,6 @@
 [Ff]oto[Bb]ox.[Ee][Xx][Ee]
 [Ff]oto[Bb]ox
 
-# Qt translation files
-*.qm
-
 # Microsoft Visual Studio Solution / Project
 *.sln
 *.vcxproj
@@ -24,6 +21,7 @@
 # CMake
 mocs_*.cpp
 *_autogen/
+*.ninja
 
 # Doxygen standard output directories
 html/
@@ -69,6 +67,7 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+[Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -166,9 +165,6 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# JustCode is a .NET coding add-in
-.JustCode
-
 # TeamCity is a build add-in
 _TeamCity*
 
@@ -178,6 +174,9 @@ _TeamCity*
 # AxoCover is a Code Coverage Tool
 .axoCover/*
 !.axoCover/settings.json
+
+# Coverlet is a free, cross platform Code Coverage Tool
+coverage*[.json, .xml, .info]
 
 # Visual Studio code coverage results
 *.coverage
@@ -388,19 +387,23 @@ healthchecksdb
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
+# Ionide (cross platform F# VS Code tools) working folder
+.ionide/
+
 
 #######################################################################################################
 
 
 ## Ignore Visual Studio Code folder
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/VisualStudioCode.gitignore
 
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.code-workspace
 
 
 #######################################################################################################
@@ -408,7 +411,7 @@ MigrationBackup/
 
 ## Ignore Qt temporary files, build results...
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Qt.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Qt.gitignore
 
 # C++ objects and libs
 *.slo
@@ -418,6 +421,7 @@ MigrationBackup/
 *.la
 *.lai
 *.so
+*.so.*
 *.dll
 *.dylib
 
@@ -440,6 +444,8 @@ ui_*.h
 *.jsc
 Makefile*
 *build-*
+*.qm
+*.prl
 
 # Qt unit tests
 target_wrapper.*
@@ -466,7 +472,7 @@ compile_commands.json
 
 ## Ignore Linux files
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Global/Linux.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/Linux.gitignore
 
 *~
 
@@ -488,7 +494,7 @@ compile_commands.json
 
 ## Ignore macOS files
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/macOS.gitignore
 
 # General
 .DS_Store
@@ -519,12 +525,13 @@ Temporary Items
 .apdisk
 
 
+
 #######################################################################################################
 
 
 ## Ignore Windows files
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/Windows.gitignore
 
 # Windows thumbnail cache files
 Thumbs.db
@@ -557,7 +564,7 @@ $RECYCLE.BIN/
 
 ## Ignore Tortoise Git files
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/Global/TortoiseGit.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/TortoiseGit.gitignore
 
 # Project-level settings
 /.tgitconfig
@@ -568,7 +575,7 @@ $RECYCLE.BIN/
 
 ## Ignore CMake generated files and folders
 ##
-## Get latest from https://github.com/github/gitignore/blob/master/CMake.gitignore
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/CMake.gitignore
 
 CMakeLists.txt.user
 CMakeCache.txt
@@ -581,3 +588,13 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+
+
+#######################################################################################################
+
+
+## Ignore Ninja generated files and folders
+##
+## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/Ninja.gitignore
+.ninja_deps
+.ninja_log
