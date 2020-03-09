@@ -121,6 +121,10 @@ if(UNIX AND NOT APPLE)
         set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
     endif()
 
+    # WORKAROUND: double click on application wasn't working, so disable "Position-independent code" to fix it
+    # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -no-pie")
+
     # Raspberry Pi wiringPi framework
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
     find_package(WiringPi)
