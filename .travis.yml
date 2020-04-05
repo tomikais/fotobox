@@ -189,8 +189,6 @@ matrix:
       osx_image: xcode11.3
       before_install:
         - brew update
-        # fix doxygen installation (Error: The `brew link` step did not complete successfully)
-        - brew unlink python@2
       install:
         - brew install doxygen graphviz
       before_script:
