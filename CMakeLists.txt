@@ -6,7 +6,7 @@
 #------------------------------------------------------------
 
 # http://doc.qt.io/qt-5/cmake-manual.html
-cmake_minimum_required(VERSION 3.9.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10.0 FATAL_ERROR)
 
 project(FotoBox)
 
@@ -26,17 +26,6 @@ if(Qt5Core_FOUND)
     endif()
 endif()
 
-# The following define makes your compiler emit warnings if you use
-# any Qt feature that has been marked deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
-add_definitions(-DQT_DEPRECATED_WARNINGS)
-
-# You can also make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-add_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -48,7 +37,6 @@ set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/forms)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include_directories(${PROJECT_SOURCE_DIR}/include)
 set(HEADERS
     ${PROJECT_SOURCE_DIR}/include/buzzer.h
     ${PROJECT_SOURCE_DIR}/include/camera.h
@@ -84,6 +72,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
+    ${PROJECT_SOURCE_DIR}/cmake/FindWiringPi.cmake
     ${PROJECT_SOURCE_DIR}/other/DockerfileStretch
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
@@ -98,27 +87,39 @@ qt5_add_translation(QM_FILES ${TS_FILES})
 
 # WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
 if(UNIX AND APPLE)
-  set(SOURCES_MAC ${PROJECT_SOURCE_DIR}/source/fotoboxmac.mm)
+  set(SOURCES ${SOURCES} ${PROJECT_SOURCE_DIR}/source/fotoboxmac.mm)
 endif()
 
+# make executable
 add_executable(${CMAKE_PROJECT_NAME}
     ${HEADERS}
     ${SOURCES}
-    ${SOURCES_MAC}
     ${FORMS}
     ${RESOURCES}
     ${QM_FILES}
     ${OTHER}
     )
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-# Libraries
+# The following define makes your compiler emit warnings if you use
+# any Qt feature that has been marked deprecated (the exact warnings
+# depend on your compiler). Please consult the documentation of the
+# deprecated API in order to know how to port your code away from it.
+target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC -DQT_DEPRECATED_WARNINGS)
+
+# You can also make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+# You can also select to disable deprecated APIs only up to a certain version of Qt.
+target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC -DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
+
+# QT Libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+
 if(UNIX AND NOT APPLE)
     # Speed-Up compiling time with ccache (apt-get install ccache)
     find_program(CCACHE_PROGRAM ccache)
     if(CCACHE_PROGRAM)
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK "${CCACHE_PROGRAM}")
+        set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
     endif()
 
     # WORKAROUND: double click on application wasn't working, so disable "Position-independent code" to fix it
@@ -155,6 +156,9 @@ if(UNIX AND APPLE)
     endif()
   endif()
 endif()
+
+
+
 
 # clang tidy
 if(ENABLE_CLANG_TIDY)

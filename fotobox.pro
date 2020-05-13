@@ -73,6 +73,7 @@ OTHER_FILES    = .gitignore \
                  CMakeLists.txt \
                  COPYING \
                  README.md \
+                 cmake/FindWiringPi.cmake \
                  other/DockerfileStretch \
                  other/DockerfileBuster \
                  other/Doxyfile \
