@@ -218,7 +218,8 @@ jobs:
       script:
         - doxygen other/Doxyfile
       deploy:
-        provider: pages
+        edge: true
+        provider: pages:git
         cleanup: false
         local_dir: html
         token: $GH_REPO_TOKEN
@@ -231,6 +232,7 @@ notifications:
     secure: cm0Bd6mKSZtfhnrci88VueM1h7iK7nBaHRCwSlAKzNzRNTbIVR14wKgcqo6jfqf0hTiB4rnGB3jYxWlcCcoJ51xTF+WlI76IZPcdx/aXb15PwzOB8wNBjisIDhLQjQHzRhuAvueDHlsFNRcYmJyg0t+FZazzDXQMqf3oVmJrUw6/rGFJUxBiFE/B4AS6UmdmvKUv9P3hJMM+nSbHDn8uKl4MhiRTz0bkkQVERJ2TC2WIgQet33afTysFTxpVj+TxLynIFpAm+4GnXfRkd/eDNV70w2gEHtLvGGi2OWLIDbL0aBst4RqdAW1FSppnWv5sIfLIpwuN1Fpxi5LQ7XmMx8gEWxlWGNR3dT5CdGzw/IyyYj5/6pAuTjWC9I2/4PYG4bxFknhlaMsw5LyUlf4m1ybUBTds72xu+s5mnxjjpSCnWOaS+/MBBs8BJNXzcGC1YbovbNlw0OdKdtgKcR16sA+Zc40nOa52EbAV1wt0m+1bm6AHghC03jvqKVp84mJvJ+xBKVc1FoErFYZ9EtFmGbtz9QhBeIjB1uV1WwaNewOlJmYOMWLPdoPY2krHxGXQ2Ta2yRon3+2jlutJsSBboYBu1JXVoxtzh2eTnqfgnYKTWZV6EIiLLWiguFRgQWDwtyvwan9v9+xG8Sg95v/haU8ljdu/Qks3a6BYmxQgglI=
 
 deploy:
+  edge: true
   provider: releases
   token: $GH_REPO_TOKEN
   file:
