@@ -76,6 +76,7 @@ OTHER_FILES    = .gitignore \
                  cmake/FindWiringPi.cmake \
                  other/DockerfileStretch \
                  other/DockerfileBuster \
+                 other/DockerfileBullseye \
                  other/Doxyfile \
                  other/Info.plist \
                  other/install_dependencies.sh \
