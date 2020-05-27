@@ -14,8 +14,6 @@ jobs:
   allow_failures:
     env:
       - CAN_FAIL=true
-
-matrix:
   include:
     - name: "macOS"
       os: osx
@@ -91,7 +89,6 @@ matrix:
       dist: xenial
       language: cpp
       compiler: gcc
-      sudo: false
       addons:
         apt:
           update: true
@@ -108,31 +105,29 @@ matrix:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
     - name: "Ubuntu Bionic Beaver CMake gcc"
-        os: linux
-        dist: bionic
-        language: cpp
-        compiler: gcc
-        sudo: false
-        addons:
-          apt:
-            update: true
-            packages:
-              - qt5-default
-              - qttools5-dev
-        before_script:
-          - cmake --version
-          - gcc --version
-          - qmake --version
-        script:
-          - cmake CMakeLists.txt -G "Unix Makefiles"
-          - make -j$(nproc)
-        before_deploy:
-          - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+      os: linux
+      dist: bionic
+      language: cpp
+      compiler: gcc
+      addons:
+        apt:
+          update: true
+          packages:
+            - qt5-default
+            - qttools5-dev
+      before_script:
+        - cmake --version
+        - gcc --version
+        - qmake --version
+      script:
+        - cmake CMakeLists.txt -G "Unix Makefiles"
+        - make -j$(nproc)
+      before_deploy:
+        - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
     - name: "Ubuntu Bionic Beaver CMake Debug clang 8 diagnostic flags"
       os: linux
       dist: bionic
-      sudo: false
       addons:
         apt:
           update: true
@@ -155,7 +150,6 @@ matrix:
     - name: "Ubuntu Bionic Beaver CMake Debug clang tidy 8"
       os: linux
       dist: bionic
-      sudo: false
       addons:
         apt:
           update: true
@@ -188,7 +182,6 @@ matrix:
     - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.6"
       os: linux
       dist: bionic
-      sudo: false
       addons:
         apt:
           update: true
@@ -226,25 +219,26 @@ matrix:
         - doxygen other/Doxyfile
       deploy:
         provider: pages
-        skip_cleanup: true
+        cleanup: false
         local_dir: html
-        github_token: $GH_REPO_TOKEN
-        keep-history: false
+        token: $GH_REPO_TOKEN
+        keep_history: false
         on:
           branch: develop
 
 notifications:
-  slack: foto-box:QXDcNQc86kOdnsSHinv0sqd6
+  slack:
+    secure: cm0Bd6mKSZtfhnrci88VueM1h7iK7nBaHRCwSlAKzNzRNTbIVR14wKgcqo6jfqf0hTiB4rnGB3jYxWlcCcoJ51xTF+WlI76IZPcdx/aXb15PwzOB8wNBjisIDhLQjQHzRhuAvueDHlsFNRcYmJyg0t+FZazzDXQMqf3oVmJrUw6/rGFJUxBiFE/B4AS6UmdmvKUv9P3hJMM+nSbHDn8uKl4MhiRTz0bkkQVERJ2TC2WIgQet33afTysFTxpVj+TxLynIFpAm+4GnXfRkd/eDNV70w2gEHtLvGGi2OWLIDbL0aBst4RqdAW1FSppnWv5sIfLIpwuN1Fpxi5LQ7XmMx8gEWxlWGNR3dT5CdGzw/IyyYj5/6pAuTjWC9I2/4PYG4bxFknhlaMsw5LyUlf4m1ybUBTds72xu+s5mnxjjpSCnWOaS+/MBBs8BJNXzcGC1YbovbNlw0OdKdtgKcR16sA+Zc40nOa52EbAV1wt0m+1bm6AHghC03jvqKVp84mJvJ+xBKVc1FoErFYZ9EtFmGbtz9QhBeIjB1uV1WwaNewOlJmYOMWLPdoPY2krHxGXQ2Ta2yRon3+2jlutJsSBboYBu1JXVoxtzh2eTnqfgnYKTWZV6EIiLLWiguFRgQWDwtyvwan9v9+xG8Sg95v/haU8ljdu/Qks3a6BYmxQgglI=
 
 deploy:
   provider: releases
-  api_key: $GH_REPO_TOKEN
+  token: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.zip
     - FotoBox_RasPi_Stretch.tar.gz
     - FotoBox_RasPi_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
     - FotoBox_Ubuntu_Bionic.tar.gz
-  skip_cleanup: true
+  cleanup: false
   on:
     tags: true
