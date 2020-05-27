@@ -10,6 +10,11 @@ branches:
   except:
     - gh-pages
 
+jobs:
+  allow_failures:
+    env:
+      - CAN_FAIL=true
+
 matrix:
   include:
     - name: "macOS"
@@ -26,7 +31,7 @@ matrix:
         - qmake --version
       script:
         - qmake
-        - make -j2
+        - make -j$(nproc)
       before_deploy:
         - macdeployqt FotoBox.app -verbose=2
         - cp ./other/README.pdf ./README.pdf
@@ -65,6 +70,7 @@ matrix:
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
     - name: "Raspbian Bullseye (unreleased)"
+      env: CAN_FAIL=true
       os: linux
       dist: bionic
       language: ruby
@@ -79,28 +85,6 @@ matrix:
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
-
-    - name: "Ubuntu Bionic Beaver CMake gcc"
-      os: linux
-      dist: bionic
-      language: cpp
-      compiler: gcc
-      sudo: false
-      addons:
-        apt:
-          update: true
-          packages:
-            - qt5-default
-            - qttools5-dev
-      before_script:
-        - cmake --version
-        - gcc --version
-        - qmake --version
-      script:
-        - cmake CMakeLists.txt -G "Unix Makefiles"
-        - make -j2
-      before_deploy:
-        - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
     - name: "Ubuntu Xenial QMake gcc"
       os: linux
@@ -119,24 +103,42 @@ matrix:
         - qmake --version
       script:
         - qmake
-        - make -j2
+        - make -j$(nproc)
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
-    - name: "Ubuntu Xenial CMake Debug clang diagnostic flags 8"
+    - name: "Ubuntu Bionic Beaver CMake gcc"
+        os: linux
+        dist: bionic
+        language: cpp
+        compiler: gcc
+        sudo: false
+        addons:
+          apt:
+            update: true
+            packages:
+              - qt5-default
+              - qttools5-dev
+        before_script:
+          - cmake --version
+          - gcc --version
+          - qmake --version
+        script:
+          - cmake CMakeLists.txt -G "Unix Makefiles"
+          - make -j$(nproc)
+        before_deploy:
+          - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+
+    - name: "Ubuntu Bionic Beaver CMake Debug clang 8 diagnostic flags"
       os: linux
-      dist: xenial
+      dist: bionic
       sudo: false
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            # https://apt.llvm.org
-            - llvm-toolchain-xenial-8
           update: true
           packages:
             - qt5-default
-            - qttools5-dev-tools
+            - qttools5-dev
             - clang-8
       env:
         - CC=clang-8
@@ -145,25 +147,21 @@ matrix:
         - cmake --version
         - clang++-8 --version
       script:
-        # -Werror -> Turn warnings into errors
+        # '-Werror' -> Turn warnings into errors
         # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra -Wpedantic"
-        - make
+        - make -j$(nproc)
 
-    - name: "Ubuntu Xenial CMake Debug clang tidy 8"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang tidy 8"
       os: linux
-      dist: xenial
+      dist: bionic
       sudo: false
       addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            # https://apt.llvm.org
-            - llvm-toolchain-xenial-8
           update: true
           packages:
             - qt5-default
-            - qttools5-dev-tools
+            - qttools5-dev
             - llvm-8
             - clang-8
             - clang-tidy-8
@@ -177,8 +175,8 @@ matrix:
         - clang-tidy-8 --version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
-        - make -j2
-        - make tidy 2>&1 | tee output.txt
+        - make -j$(nproc)
+        - make -j$(nproc) tidy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
             echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
@@ -187,26 +185,26 @@ matrix:
             echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
-    - name: "Ubuntu Xenial CMake Debug clang clazy 1.6"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.6"
       os: linux
-      dist: xenial
+      dist: bionic
       sudo: false
       addons:
         apt:
           update: true
           packages:
             - qt5-default
-            - qttools5-dev-tools
+            - qttools5-dev
             - libfuse2
       before_script:
-        - wget -O clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
+        - wget --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version
       script:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
-        - make -j2
-        - make clazy 2>&1 | tee output.txt
+        - make -j$(nproc)
+        - make -j$(nproc) clazy 2>&1 | tee output.txt
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
             echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";
