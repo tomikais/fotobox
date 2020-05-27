@@ -41,7 +41,7 @@ bool Camera::shootPhoto()
 #endif
 
     //start programm with given arguments
-    m_process.start(command, {});
+    m_process.start(command, {}, {});
     m_process.waitForFinished(m_timeoutValue);
 
     //check time out and process exit code
