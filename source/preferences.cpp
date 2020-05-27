@@ -469,7 +469,7 @@ bool Preferences::applicationAvailable(const QString &i_name, const QString &i_m
 {
     //If the process cannot be started, -2 is returned. If the process crashes, -1 is returned.
     QProcess process;
-    process.start(i_name, QIODevice::NotOpen);
+    process.start(i_name, {}, QIODevice::NotOpen);
     process.waitForFinished();
     const auto EXIT_CODE_OUT_OF_RANGE = 255;
     if (process.exitCode() == EXIT_CODE_OUT_OF_RANGE) {
