@@ -61,6 +61,7 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+[Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
@@ -98,6 +99,9 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
 
 # StyleCop
 StyleCopReport.xml
@@ -390,6 +394,9 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
+
 
 #######################################################################################################
 
@@ -404,6 +411,9 @@ MigrationBackup/
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+# Local History for Visual Studio Code
+.history/
 
 
 #######################################################################################################
@@ -466,6 +476,8 @@ compile_commands.json
 # QtCreator local machine specific files for imported projects
 *creator.user*
 
+*_qmlcache.qrc
+
 
 #######################################################################################################
 
@@ -523,7 +535,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
 
 
 #######################################################################################################
@@ -596,5 +607,6 @@ _deps
 ## Ignore Ninja generated files and folders
 ##
 ## Get latest from https://raw.githubusercontent.com/github/gitignore/master/Global/Ninja.gitignore
+
 .ninja_deps
 .ninja_log
