@@ -27,6 +27,6 @@ COPY . .
 CMD gcc --version && \
     qmake --version && \
     qmake && \
-    make -j2 && \
+    make -j$(nproc) && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
