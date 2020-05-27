@@ -34,7 +34,7 @@ matrix:
 
     - name: "Raspbian Stretch"
       os: linux
-      dist: xenial
+      dist: bionic
       language: ruby
       services:
         - docker
@@ -50,7 +50,7 @@ matrix:
 
     - name: "Raspbian Buster"
       os: linux
-      dist: xenial
+      dist: bionic
       language: ruby
       services:
         - docker
@@ -60,6 +60,22 @@ matrix:
       install:
         #build FotoBox container
         - docker build --tag buildfotobox --file other/DockerfileBuster .
+      script:
+        #execute 'CMD' command (Dockerfile) to build
+        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+
+    - name: "Raspbian Bullseye (unreleased)"
+      os: linux
+      dist: bionic
+      language: ruby
+      services:
+        - docker
+      before_install:
+        #enable an execution of different multi-architecture containers by QEMU
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      install:
+        #build FotoBox container
+        - docker build --tag buildfotobox --file other/DockerfileBullseye .
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
