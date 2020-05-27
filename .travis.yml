@@ -75,7 +75,7 @@ matrix:
           update: true
           packages:
             - qt5-default
-            - qttools5-dev-tools
+            - qttools5-dev
       before_script:
         - cmake --version
         - gcc --version
