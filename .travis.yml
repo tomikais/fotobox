@@ -25,7 +25,7 @@ matrix:
       before_script:
         - qmake --version
       script:
-        - qmake -recursive
+        - qmake
         - make -j2
       before_deploy:
         - macdeployqt FotoBox.app -verbose=2
@@ -64,9 +64,9 @@ matrix:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
 
-    - name: "Ubuntu Xenial CMake gcc"
+    - name: "Ubuntu Bionic Beaver CMake gcc"
       os: linux
-      dist: xenial
+      dist: bionic
       language: cpp
       compiler: gcc
       sudo: false
@@ -84,9 +84,30 @@ matrix:
         - cmake CMakeLists.txt -G "Unix Makefiles"
         - make -j2
       before_deploy:
+        - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+
+    - name: "Ubuntu Xenial QMake gcc"
+      os: linux
+      dist: xenial
+      language: cpp
+      compiler: gcc
+      sudo: false
+      addons:
+        apt:
+          update: true
+          packages:
+            - qt5-default
+            - qttools5-dev-tools
+      before_script:
+        - gcc --version
+        - qmake --version
+      script:
+        - qmake
+        - make -j2
+      before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
-    - name: "Ubuntu Xenial CMake Debug clang diagnostic 8"
+    - name: "Ubuntu Xenial CMake Debug clang diagnostic flags 8"
       os: linux
       dist: xenial
       sudo: false
@@ -108,16 +129,10 @@ matrix:
         - cmake --version
         - clang++-8 --version
       script:
-        # QtCreator -> Analyze -> clang -> Rule: "Clang ... almost everything" rules and added '-Wno-padded'
-        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Wno-padded -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-unused-macros -Wno-newline-eof -Wno-exit-time-destructors -Wno-global-constructors -Wno-gnu-zero-variadic-macro-arguments -Wno-documentation -Wno-shadow -Wno-switch-enum -Wno-missing-prototypes -Wno-used-but-marked-unused"
-        - make 2>&1 | tee output.txt
-        - |
-          if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
-            echo -e "\033[1;31m\xE2\x9C\x93 clang failed!\033[0m";
-            exit 1;
-          else
-            echo -e "\033[1;32m\xE2\x9C\x93 clang passed!\033[0m";
-          fi
+        # -Werror -> Turn warnings into errors
+        # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
+        - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra -Wpedantic"
+        - make
 
     - name: "Ubuntu Xenial CMake Debug clang tidy 8"
       os: linux
@@ -186,7 +201,7 @@ matrix:
 
     - name: "macOS Doxygen"
       os: osx
-      osx_image: xcode11.3
+      osx_image: xcode11.5
       before_install:
         - brew update
       install:
@@ -215,6 +230,7 @@ deploy:
     - FotoBox_RasPi_Stretch.tar.gz
     - FotoBox_RasPi_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
+    - FotoBox_Ubuntu_Bionic.tar.gz
   skip_cleanup: true
   on:
     tags: true
