@@ -178,7 +178,7 @@ if(ENABLE_CLANG_TIDY)
         -clang-tidy-binary ${CLANG_TIDY_BIN}
         -header-filter='/fotobox/include/'
         # removed checks: cppcoreguidelines-owning-memory / fuchsia-default-arguments
-        -checks=-*,abseil-*,android-*,boost-*,bugprone-*,cert-*,clang-analyzer-*,cppcoreguidelines-avoid-*,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-usage,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-non-private-member-variables-in-classes,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,portability-*,readability-*,zircon-*
+        -checks=-*,abseil-*,android-*,boost-*,bugprone-*,cert-*,clang-*,cppcoreguidelines-avoid-*,cppcoreguidelines-c-copy-assignment-signature,cppcoreguidelines-interfaces-global-init,cppcoreguidelines-macro-usage,cppcoreguidelines-narrowing-conversions,cppcoreguidelines-no-malloc,cppcoreguidelines-non-private-member-variables-in-classes,cppcoreguidelines-pro-*,cppcoreguidelines-slicing,cppcoreguidelines-special-member-functions,fuchsia-header-anon-namespaces,fuchsia-multiple-inheritance,fuchsia-overloaded-operator,fuchsia-restrict-system-includes,fuchsia-statically-constructed-objects,fuchsia-trailing-return,fuchsia-virtual-inheritance,google-*,hicpp-*,llvm-*,misc-*,modernize-*,mpi-*,objc-*,performance-*,portability-*,readability-*,zircon-*
         -extra-arg='-Wno-everything'
     )
 
