@@ -10,14 +10,13 @@
 #include "preferenceprovider.h"
 
 #include <QDateTime>
-#include <QRegularExpression>
 
 Camera::Camera(QObject *parent)
     : QObject(parent)
     , m_timeoutValue(TO_SECONDS * PreferenceProvider::instance().timeoutValue())
     , m_photoSuffix(PreferenceProvider::instance().photoName())
     , m_cameraMode(PreferenceProvider::instance().cameraMode())
-    , m_argLine(PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"%1\"")))
+    , m_argList(PreferenceProvider::instance().argumentLine().split(QChar(' ')))
     , m_process(this)
 {
     //call this function to save memory, if you are not interested in the output of the process
@@ -32,12 +31,9 @@ bool Camera::shootPhoto()
 {
     //file name of photo
     m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
-
-    //split QString into a QStringList by arguments
-    // \s+(?=([^"]*"[^"]*")*[^"]*$) -> split on space but not inside quotes
-    auto arguments = m_argLine.arg(m_currentPhoto).split(QRegularExpression(QStringLiteral("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
-    //remove quotes because they aren't needed anymore
-    arguments.replaceInStrings(QChar('"'), QStringLiteral(""));
+    //add filename to argument
+    auto arguments = m_argList;
+    arguments = arguments.replaceInStrings(QStringLiteral("%1"), m_currentPhoto);
 
     //start programm with given arguments
     m_process.start(m_cameraMode, arguments, {});

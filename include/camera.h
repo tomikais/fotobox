@@ -79,8 +79,8 @@ private:
     /*! camera mode */
     const QString m_cameraMode;
 
-    /*! argument line */
-    const QString m_argLine;
+    /*! list of command line arguments */
+    const QStringList m_argList;
 
     /*! executing commands */
     QProcess m_process;
