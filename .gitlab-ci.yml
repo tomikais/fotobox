@@ -1,4 +1,6 @@
-image: "ruby:2.5"
+image: docker:git
+services:
+- docker:dind
 
 raspbian:stretch:
   stage: build
