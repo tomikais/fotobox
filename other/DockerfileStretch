@@ -11,7 +11,7 @@
 FROM balenalib/raspberry-pi2-debian:stretch-build
 
 # install frameworks and build tools
-RUN sudo apt-get update -qq && sudo apt-get install -qq \
+RUN install_packages \
     wiringpi \
     qt5-default \
     qttools5-dev-tools \
