@@ -11,7 +11,7 @@ raspbian:stretch:
     - docker build --tag buildfotobox --file other/DockerfileStretch .
   script:
     #execute 'CMD' command (Dockerfile) to build
-    - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+    - docker run --volume $(pwd):/artifact buildfotobox
 
 raspbian:buster:
   stage: build
@@ -22,4 +22,4 @@ raspbian:buster:
     - docker build --tag buildfotobox --file other/DockerfileStretch .
   script:
     #execute 'CMD' command (Dockerfile) to build
-    - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+    - docker run --volume $(pwd):/artifact buildfotobox

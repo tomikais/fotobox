@@ -49,7 +49,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileStretch .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+        - docker run --volume $(pwd):/artifact buildfotobox
 
     - name: "Raspbian Buster"
       os: linux
@@ -65,7 +65,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBuster .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+        - docker run --volume $(pwd):/artifact buildfotobox
 
     - name: "Raspbian Bullseye (unreleased)"
       env: CAN_FAIL=true
@@ -82,7 +82,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBullseye .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+        - docker run --volume $(pwd):/artifact buildfotobox
 
     - name: "Ubuntu Xenial QMake gcc"
       os: linux
