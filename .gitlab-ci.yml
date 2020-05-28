@@ -1,0 +1,23 @@
+image: "ruby:2.5"
+
+raspbian:stretch:
+  stage: build
+  before_script:
+    #enable an execution of different multi-architecture containers by QEMU
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    #build FotoBox container
+    - docker build --tag buildfotobox --file other/DockerfileStretch .
+  script:
+    #execute 'CMD' command (Dockerfile) to build
+    - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
+
+raspbian:buster:
+  stage: build
+  before_script:
+    #enable an execution of different multi-architecture containers by QEMU
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    #build FotoBox container
+    - docker build --tag buildfotobox --file other/DockerfileStretch .
+  script:
+    #execute 'CMD' command (Dockerfile) to build
+    - docker run --volume $TRAVIS_BUILD_DIR:/artifact buildfotobox
