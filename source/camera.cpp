@@ -10,12 +10,13 @@
 #include "preferenceprovider.h"
 
 #include <QDateTime>
+#include <QRegularExpression>
 
 Camera::Camera(QObject *parent)
     : QObject(parent)
     , m_timeoutValue(TO_SECONDS * PreferenceProvider::instance().timeoutValue())
     , m_photoSuffix(PreferenceProvider::instance().photoName())
-    , m_cameraMode(PreferenceProvider::instance().cameraMode().append(' '))
+    , m_cameraMode(PreferenceProvider::instance().cameraMode())
     , m_argLine(PreferenceProvider::instance().argumentLine().arg(QStringLiteral("\"%1\"")))
     , m_process(this)
 {
@@ -29,19 +30,17 @@ Camera::Camera(QObject *parent)
 
 bool Camera::shootPhoto()
 {
-    //file name for the current
+    //file name of photo
     m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
 
-    //program name and arguments
-    auto command = m_cameraMode + m_argLine.arg(m_currentPhoto);
-
-#if defined(Q_OS_WIN)
-    //try use Windows 10 Linux Subsystem to call gphoto2
-    command = QString(QStringLiteral("bash.exe -c '%1'")).arg(command);
-#endif
+    //split QString into a QStringList by arguments
+    // \s+(?=([^"]*"[^"]*")*[^"]*$) -> split on space but not inside quotes
+    auto arguments = m_argLine.arg(m_currentPhoto).split(QRegularExpression(QStringLiteral("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)")));
+    //remove quotes because they aren't needed anymore
+    arguments.replaceInStrings(QChar('"'), QStringLiteral(""));
 
     //start programm with given arguments
-    m_process.start(command, {}, {});
+    m_process.start(m_cameraMode, arguments, {});
     m_process.waitForFinished(m_timeoutValue);
 
     //check time out and process exit code

@@ -1,4 +1,4 @@
-# FotoBox for Raspberry Pi, Linux and macOS [![Travis CI:build status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox) [![Slack:FotoBox](https://img.shields.io/badge/slack-FotoBox-blue.svg?logo=slack)](https://foto-box.slack.com/messages/CL3JQ1VJ8/)
+# FotoBox for Raspberry Pi, Linux and macOS [![Travis CI:build status](https://travis-ci.org/tomikais/fotobox.svg?branch=develop)](https://travis-ci.org/tomikais/fotobox) [![Slack:FotoBox](https://img.shields.io/badge/slack-FotoBox-blue.svg?logo=slack)](https://foto-box.slack.com)
 
 FotoBox is a free open source multi platform application, that offers you the possibility to operate a photo booth (photobooth).
 
