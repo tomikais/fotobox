@@ -43,7 +43,7 @@ Raspbian:Buster:
     - docker:dind
   before_script:
     - docker info
-    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
     # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
@@ -67,7 +67,7 @@ Raspbian:Bullseye:
     - docker:dind
   before_script:
     - docker info
-    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
     # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
@@ -91,8 +91,7 @@ Ubuntu:Xenial:QMake:
   image: ubuntu:xenial
   before_script:
     - apt-get update -qq
-    - |
-      apt-get install -qq
+    - apt-get install -qq
         build-essential
         ccache
         qt5-default
@@ -108,3 +107,27 @@ Ubuntu:Xenial:QMake:
     name: "$CI_JOB_NAME"
     paths:
       - FotoBox_Ubuntu_Xenial.tar.gz
+
+Ubuntu:Bionic:CMake:
+  stage: build
+  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
+  image: ubuntu:bionic
+  before_script:
+    - apt-get update -qq
+    - apt-get install -qq
+        build-essential
+        ccache
+        qt5-default
+        qttools5-dev
+    - cmake --version
+    - gcc --version
+    - qmake --version
+  script:
+    - cmake CMakeLists.txt -G "Unix Makefiles"
+    - make -j$(nproc)
+  after_script:
+    - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+  artifacts:
+    name: "$CI_JOB_NAME"
+    paths:
+      - FotoBox_Ubuntu_Bionic.tar.gz
