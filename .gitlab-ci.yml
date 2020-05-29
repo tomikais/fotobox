@@ -89,7 +89,6 @@ Raspbian:Bullseye:
 
 Ubuntu:Xenial:QMake:
   stage: build
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:xenial
   before_script:
     - apt-get update -qq
@@ -112,7 +111,6 @@ Ubuntu:Xenial:QMake:
 
 Ubuntu:Bionic:CMake:
   stage: build
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:bionic
   before_script:
     - apt-get update -qq
@@ -138,8 +136,11 @@ Ubuntu:Bionic:CMake:
 
 Ubuntu:Focal:CMake:
   stage: build
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:focal
+  variables:
+    # tzdata prompt for input https://www.reddit.com/r/devops/comments/g781rs/ubuntu_2004_may_be_causing_issues_in_docker/
+    TZ: "Europe/Berlin"
+    DEBIAN_FRONTEND: "noninteractive"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
@@ -166,7 +167,6 @@ Ubuntu:Focal:CMake:
 
 Clang:
   stage: analyze
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:focal
   variables:
     CC: "clang-8"
@@ -194,7 +194,6 @@ Clang:
 
 ClangTidy:
   stage: analyze
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:focal
   variables:
     CC: "clang-8"
@@ -231,7 +230,6 @@ ClangTidy:
 
 Clazy:
   stage: analyze
-  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:focal
   before_script:
     - apt-get update -qq
