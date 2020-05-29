@@ -1,3 +1,10 @@
+#------------------------------------------------------------
+# Copyright (c) 2020 Thomas Kais
+#
+# This file is subject to the terms and conditions defined in
+# file 'COPYING', which is part of this source code package.
+#------------------------------------------------------------
+
 stages:
   - build
   - analyze
@@ -90,7 +97,7 @@ Ubuntu:Xenial:QMake:
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        build-essential
+        gcc
         ccache
         qt5-default
         qttools5-dev-tools
@@ -112,7 +119,7 @@ Ubuntu:Bionic:CMake:
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        build-essential
+        gcc
         ccache
         cmake
         qt5-default
@@ -141,7 +148,7 @@ Ubuntu:Focal:CMake:
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        build-essential
+        gcc
         ccache
         cmake
         qt5-default
@@ -172,10 +179,10 @@ Clang:
   before_script:
     - apt-get update -qq
     - apt-get install -qq
+        clang-8
         cmake
         qt5-default
         qttools5-dev
-        clang-8
     - cmake --version
     - clang++-8 --version
   script:
@@ -183,6 +190,8 @@ Clang:
     # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
     - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra -Wpedantic"
     - make -j$(nproc) 2>&1 | tee output.txt
+  after_script:
+    - cat output.txt
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     expose_as: "Clang"
@@ -201,12 +210,12 @@ ClangTidy:
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        cmake
-        qt5-default
-        qttools5-dev
         clang-8
         llvm-8
         clang-tidy-8
+        cmake
+        qt5-default
+        qttools5-dev
     - cmake --version
     - clang++-8 --version
   script:
@@ -214,6 +223,7 @@ ClangTidy:
     - make -j$(nproc)
     - make -j$(nproc) tidy 2>&1 | tee output.txt
   after_script:
+    - cat output.txt
     - |
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
@@ -232,9 +242,13 @@ Clazy:
   stage: analyze
   image: ubuntu:bionic
   dependencies: []
+  variables:
+    CC: "clang-8"
+    CXX: "clang++-8"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
+        clang-8
         cmake
         qt5-default
         qttools5-dev
@@ -249,6 +263,7 @@ Clazy:
     - make -j$(nproc)
     - make -j$(nproc) clazy 2>&1 | tee output.txt
   after_script:
+    - cat output.txt
     - |
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";

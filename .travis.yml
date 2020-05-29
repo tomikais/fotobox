@@ -221,7 +221,7 @@ jobs:
         - doxygen other/Doxyfile
       deploy:
         edge: true
-        provider: pages:git
+        provider: pages
         cleanup: false
         local_dir: html
         token: $GH_REPO_TOKEN
