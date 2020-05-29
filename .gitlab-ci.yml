@@ -3,11 +3,11 @@ stages:
   - analyze
 
 variables:
-  #TLS enabled https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+  # TLS enabled https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
   DOCKER_TLS_CERTDIR: "/certs"
-  #Git Shallow cloning https://docs.gitlab.com/ee/ci/large_repositories/#shallow-cloning
-  GIT_DEPTH: 10
-  #Git strategy https://docs.gitlab.com/ee/ci/large_repositories/#git-strategy
+  # Git Shallow cloning https://docs.gitlab.com/ee/ci/large_repositories/#shallow-cloning
+  #GIT_DEPTH: 10
+  # Git strategy https://docs.gitlab.com/ee/ci/large_repositories/#git-strategy
   GIT_STRATEGY: clone
 
 
@@ -15,51 +15,93 @@ Raspbian:Stretch:
   stage: build
   image: docker:git
   services:
-    #Docker in Docker (dind)
+    # Docker in Docker (dind)
     - docker:dind
   before_script:
     - docker info
-    #enable an execution of different multi-architecture containers by QEMU
+    # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
-    #build FotoBox container
-    - docker build --tag buildfotobox --file other/DockerfileStretch .
+    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest --file other/DockerfileStretch .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
   after_script:
-    #execute 'CMD' command (Dockerfile) to build
-    - docker run --volume $(pwd):/artifact buildfotobox
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE:latest
+  artifacts:
+    name: "$CI_JOB_NAME"
+    path:
+      - FotoBox_RasPi_Stretch.tar.gz
 
 Raspbian:Buster:
   stage: build
   image: docker:git
   services:
-    #Docker in Docker (dind)
+    # Docker in Docker (dind)
     - docker:dind
   before_script:
     - docker info
-    #enable an execution of different multi-architecture containers by QEMU
+    # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
-    #build FotoBox container
-    - docker build --tag buildfotobox --file other/DockerfileBuster .
+    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest --file other/DockerfileBuster .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
   after_script:
-    #execute 'CMD' command (Dockerfile) to build
     - docker run --volume $(pwd):/artifact buildfotobox
+  artifacts:
+    name: "$CI_JOB_NAME"
+    path:
+      - FotoBox_RasPi_Buster.tar.gz
 
 Raspbian:Bullseye:
   stage: build
   image: docker:git
   services:
-    #Docker in Docker (dind)
+    # Docker in Docker (dind)
     - docker:dind
   before_script:
     - docker info
-    #enable an execution of different multi-architecture containers by QEMU
+    # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
-    #build FotoBox container
-    - docker build --tag buildfotobox --file other/DockerfileBullseye .
+    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest --file other/DockerfileBullseye .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
   after_script:
-    #execute 'CMD' command (Dockerfile) to build
     - docker run --volume $(pwd):/artifact buildfotobox
-  #unreleased
+  # It's allowed to fail because currently unreleased OS
   allow_failure: true
+  artifacts:
+    name: "$CI_JOB_NAME"
+    path:
+      - FotoBox_RasPi_Bullseye.tar.gz
+
+Ubuntu:Xenial:QMake:
+  stage: build
+  # Official Ubuntu Image https://hub.docker.com/_/ubuntu
+  image: ubuntu:xenial
+  before_script:
+    - sudo apt-get update -qq
+    - |
+      sudo apt-get install -qq
+        build-essential
+        ccache
+        qt5-default
+        qttools5-dev-tools
+    - gcc --version
+    - qmake --version
+  script:
+    - qmake
+    - make -j$(nproc)
+  after_script:
+    - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+  artifacts:
+    name: "$CI_JOB_NAME"
+    path:
+      - FotoBox_Ubuntu_Xenial.tar.gz
