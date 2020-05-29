@@ -1,25 +1,65 @@
-image: docker:git
-services:
-- docker:dind
+stages:
+  - build
+  - analyze
 
-raspbian:stretch:
+variables:
+  #TLS enabled https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
+  DOCKER_TLS_CERTDIR: "/certs"
+  #Git Shallow cloning https://docs.gitlab.com/ee/ci/large_repositories/#shallow-cloning
+  GIT_DEPTH: 10
+  #Git strategy https://docs.gitlab.com/ee/ci/large_repositories/#git-strategy
+  GIT_STRATEGY: clone
+
+
+Raspbian:Stretch:
   stage: build
+  image: docker:git
+  services:
+    #Docker in Docker (dind)
+    - docker:dind
   before_script:
+    - docker info
     #enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  script:
     #build FotoBox container
     - docker build --tag buildfotobox --file other/DockerfileStretch .
-  script:
+  after_script:
     #execute 'CMD' command (Dockerfile) to build
     - docker run --volume $(pwd):/artifact buildfotobox
 
-raspbian:buster:
+Raspbian:Buster:
   stage: build
+  image: docker:git
+  services:
+    #Docker in Docker (dind)
+    - docker:dind
   before_script:
+    - docker info
     #enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-    #build FotoBox container
-    - docker build --tag buildfotobox --file other/DockerfileStretch .
   script:
+    #build FotoBox container
+    - docker build --tag buildfotobox --file other/DockerfileBuster .
+  after_script:
     #execute 'CMD' command (Dockerfile) to build
     - docker run --volume $(pwd):/artifact buildfotobox
+
+Raspbian:Bullseye:
+  stage: build
+  image: docker:git
+  services:
+    #Docker in Docker (dind)
+    - docker:dind
+  before_script:
+    - docker info
+    #enable an execution of different multi-architecture containers by QEMU
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  script:
+    #build FotoBox container
+    - docker build --tag buildfotobox --file other/DockerfileBullseye .
+  after_script:
+    #execute 'CMD' command (Dockerfile) to build
+    - docker run --volume $(pwd):/artifact buildfotobox
+  #unreleased
+  allow_failure: true
