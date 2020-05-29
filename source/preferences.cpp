@@ -26,6 +26,9 @@ Preferences::Preferences(QWidget *parent)
     , m_settings(QSettings::IniFormat, QSettings::UserScope, QCoreApplication::applicationName(), QCoreApplication::applicationName(), this)
     , m_countdown(this, COUNTDOWN_START_VALUE)
 {
+QString test("dsad");
+QString te;
+te = "dasd";
     //setup UI
     m_ui->setupUi(this);
 
