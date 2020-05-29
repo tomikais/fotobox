@@ -31,7 +31,7 @@ Raspbian:Stretch:
     - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE:latest
   artifacts:
     name: "$CI_JOB_NAME"
-    path:
+    paths:
       - FotoBox_RasPi_Stretch.tar.gz
 
 Raspbian:Buster:
@@ -54,7 +54,7 @@ Raspbian:Buster:
     - docker run --volume $(pwd):/artifact buildfotobox
   artifacts:
     name: "$CI_JOB_NAME"
-    path:
+    paths:
       - FotoBox_RasPi_Buster.tar.gz
 
 Raspbian:Bullseye:
@@ -79,7 +79,7 @@ Raspbian:Bullseye:
   allow_failure: true
   artifacts:
     name: "$CI_JOB_NAME"
-    path:
+    paths:
       - FotoBox_RasPi_Bullseye.tar.gz
 
 Ubuntu:Xenial:QMake:
@@ -103,5 +103,5 @@ Ubuntu:Xenial:QMake:
     - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
   artifacts:
     name: "$CI_JOB_NAME"
-    path:
+    paths:
       - FotoBox_Ubuntu_Xenial.tar.gz
