@@ -191,7 +191,7 @@ jobs:
             - qttools5-dev
             - libfuse2
       before_script:
-        - wget --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
+        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version

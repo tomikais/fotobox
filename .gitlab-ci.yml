@@ -191,7 +191,7 @@ Clang:
     - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra -Wpedantic"
     - make -j$(nproc) 2>&1 | tee output.txt
   after_script:
-    - cat output.txt
+    - less output.txt
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     expose_as: "Clang"
@@ -223,8 +223,8 @@ ClangTidy:
     - make -j$(nproc)
     - make -j$(nproc) tidy 2>&1 | tee output.txt
   after_script:
-    - cat output.txt
-    - |
+    - less output.txt
+    - >
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
         exit 1;
@@ -254,7 +254,7 @@ Clazy:
         qttools5-dev
         wget
         libfuse2
-    - wget --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
+    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
     - chmod +x clazy.AppImage
     - ./clazy.AppImage --version
     - ./clazy.AppImage --standalone -version
@@ -263,8 +263,8 @@ Clazy:
     - make -j$(nproc)
     - make -j$(nproc) clazy 2>&1 | tee output.txt
   after_script:
-    - cat output.txt
-    - |
+    - less output.txt
+    - >
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";
         exit 1;
