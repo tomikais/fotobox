@@ -29,6 +29,7 @@ Preferences::Preferences(QWidget *parent)
 QString test("dsad");
 QString te;
 te = "dasd";
+int* t = NULL;
     //setup UI
     m_ui->setupUi(this);
 
