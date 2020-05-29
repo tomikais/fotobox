@@ -145,7 +145,7 @@ jobs:
         # '-Werror' -> Turn warnings into errors
         # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror -Wall -Wextra -Wpedantic"
-        - make -j$(nproc)
+        - make -j$(nproc) 2>&1 | tee output.txt
 
     - name: "Ubuntu Bionic Beaver CMake Debug clang tidy 8"
       os: linux
@@ -171,6 +171,7 @@ jobs:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
         - make -j$(nproc)
         - make -j$(nproc) tidy 2>&1 | tee output.txt
+      before_deploy:
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
             echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
@@ -198,6 +199,7 @@ jobs:
         - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
         - make -j$(nproc)
         - make -j$(nproc) clazy 2>&1 | tee output.txt
+      before_deploy:
         - |
           if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
             echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";

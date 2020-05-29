@@ -213,6 +213,7 @@ ClangTidy:
     - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
     - make -j$(nproc)
     - make -j$(nproc) tidy 2>&1 | tee output.txt
+  after_script:
     - |
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang tidy failed!\033[0m";
@@ -238,7 +239,7 @@ Clazy:
         qt5-default
         qttools5-dev
         wget
-        libfuse
+        libfuse2
     - wget --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
     - chmod +x clazy.AppImage
     - ./clazy.AppImage --version
@@ -247,6 +248,7 @@ Clazy:
     - cmake CMakeLists.txt -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
     - make -j$(nproc)
     - make -j$(nproc) clazy 2>&1 | tee output.txt
+  after_script:
     - |
       if [[ -n $(grep -v "_autogen" output.txt | grep "warning: ") ]] || [[ -n $(grep -v "_autogen" output.txt | grep "error: ") ]]; then
         echo -e "\033[1;31m\xE2\x9C\x93 clang clazy failed!\033[0m";
