@@ -94,11 +94,15 @@ Raspbian:Bullseye:
 Ubuntu:Xenial:QMake:
   stage: build
   image: ubuntu:xenial
+  variables:
+    CC: "gcc"
+    CXX: "gcc"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
         gcc
         ccache
+        make
         qt5-default
         qttools5-dev-tools
     - gcc --version
@@ -116,11 +120,15 @@ Ubuntu:Xenial:QMake:
 Ubuntu:Bionic:CMake:
   stage: build
   image: ubuntu:bionic
+  variables:
+    CC: "gcc"
+    CXX: "gcc"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
         gcc
         ccache
+        make
         cmake
         qt5-default
         qttools5-dev
@@ -142,6 +150,9 @@ Ubuntu:Focal:CMake:
   stage: build
   image: ubuntu:focal
   variables:
+    CC: "gcc"
+    CXX: "gcc"
+  variables:
     # tzdata prompt for input https://www.reddit.com/r/devops/comments/g781rs/ubuntu_2004_may_be_causing_issues_in_docker/
     TZ: "Europe/Berlin"
     DEBIAN_FRONTEND: "noninteractive"
@@ -150,6 +161,7 @@ Ubuntu:Focal:CMake:
     - apt-get install -qq
         gcc
         ccache
+        make
         cmake
         qt5-default
         qttools5-dev
