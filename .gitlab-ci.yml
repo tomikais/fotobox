@@ -19,6 +19,7 @@ Raspbian:Stretch:
     - docker:dind
   before_script:
     - docker info
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
     # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
@@ -42,6 +43,7 @@ Raspbian:Buster:
     - docker:dind
   before_script:
     - docker info
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
     # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
@@ -65,6 +67,7 @@ Raspbian:Bullseye:
     - docker:dind
   before_script:
     - docker info
+    - docker login --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD $CI_REGISTRY
     # Enable an execution of different multi-architecture containers by QEMU
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
@@ -87,9 +90,9 @@ Ubuntu:Xenial:QMake:
   # Official Ubuntu Image https://hub.docker.com/_/ubuntu
   image: ubuntu:xenial
   before_script:
-    - sudo apt-get update -qq
+    - apt-get update -qq
     - |
-      sudo apt-get install -qq
+      apt-get install -qq
         build-essential
         ccache
         qt5-default
