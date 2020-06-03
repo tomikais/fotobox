@@ -12,10 +12,10 @@ FROM balenalib/raspberry-pi2-debian:buster-build
 
 # install frameworks and build tools
 RUN install_packages \
-    ccache \
-    qt5-default \
-    qttools5-dev-tools \
-    wiringpi
+      ccache \
+      qt5-default \
+      qttools5-dev-tools \
+      wiringpi
 
 # copy repository to container
 COPY . .
