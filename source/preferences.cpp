@@ -19,6 +19,7 @@
 #include <QPrinterInfo>
 #include <QProcess>
 #include <QScreen>
+#include <QStandardPaths>
 
 Preferences::Preferences(QWidget *parent)
     : QDialog(parent, Qt::Window)
