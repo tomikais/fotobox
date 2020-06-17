@@ -13,6 +13,11 @@ variables:
   # Git strategy https://docs.gitlab.com/ee/ci/large_repositories/#git-strategy
   GIT_STRATEGY: clone
 
+# https://gitlab.com/help/ci/yaml/README.md#workflowrules-templates
+workflow:
+  rules:
+    - when: always
+
 
 Raspbian:Stretch:
   image: docker:git
