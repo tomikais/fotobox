@@ -159,7 +159,6 @@ Ubuntu:Focal:CMake:
 
 Clang:
   image: ubuntu:bionic
-  dependencies: []
   variables:
     CC: "clang-8"
     CXX: "clang++-8"
@@ -193,7 +192,6 @@ Clang:
 
 ClangTidy:
   image: ubuntu:bionic
-  dependencies: []
   variables:
     CC: "clang-8"
     CXX: "clang++-8"
@@ -229,7 +227,6 @@ ClangTidy:
 
 Clazy:
   image: ubuntu:bionic
-  dependencies: []
   variables:
     CC: "clang-8"
     CXX: "clang++-8"
@@ -263,3 +260,31 @@ Clazy:
     when: on_failure
     paths:
       - output.txt
+
+
+# https://gitlab.com/pages/doxygen/-/blob/master/.gitlab-ci.yml
+Doxygen:Test:
+  image: alpine
+  except:
+    - develop
+  before_script:
+    - apk update
+    - apk add doxygen graphviz ttf-freefont
+    - doxygen --version
+  script:
+    - doxygen other/Doxyfile
+
+Doxygen:Publish:
+  image: alpine
+  only:
+    - develop
+  before_script:
+    - apk update
+    - apk add doxygen graphviz ttf-freefont
+    - doxygen --version
+  script:
+    - doxygen other/Doxyfile
+    - mv html/ public/
+  artifacts:
+    paths:
+      - public
