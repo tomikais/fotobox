@@ -158,6 +158,11 @@ if(UNIX AND APPLE)
   endif()
 endif()
 
+# disable console window under Windows
+if(WIN32)
+  set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE true)
+endif()
+
 
 
 
