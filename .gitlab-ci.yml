@@ -268,7 +268,7 @@ Clazy:
 
 
 # https://gitlab.com/pages/doxygen/-/blob/master/.gitlab-ci.yml
-Doxygen:Test:
+Doxygen:
   image: alpine
   except:
     - develop
@@ -279,7 +279,7 @@ Doxygen:Test:
   script:
     - doxygen other/Doxyfile
 
-Doxygen:Publish:
+pages:
   image: alpine
   only:
     - develop
