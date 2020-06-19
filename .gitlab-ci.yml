@@ -123,8 +123,8 @@ Ubuntu:Bionic:CMake:
     - gcc --version
     - qmake --version
   script:
-    - cmake . -G "Unix Makefiles"
-    - cmake . --build
+    - cmake -G "Unix Makefiles" .
+    - cmake --build .
   after_script:
     - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
   artifacts:
@@ -152,8 +152,8 @@ Ubuntu:Focal:CMake:
     - gcc --version
     - qmake --version
   script:
-    - cmake . -G "Ninja"
-    - cmake . --build
+    - cmake -G "Ninja" .
+    - cmake --build .
   after_script:
     - tar -cvzf ./FotoBox_Ubuntu_Focal.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
   artifacts:

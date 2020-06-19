@@ -121,8 +121,8 @@ jobs:
         - gcc --version
         - qmake --version
       script:
-        - cmake . -G "Ninja"
-        - cmake . --build
+        - cmake -G "Ninja" .
+        - cmake --build .
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
