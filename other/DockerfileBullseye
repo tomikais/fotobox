@@ -1,5 +1,5 @@
 #------------------------------------------------------------
-# Copyright (c) 2018 Thomas Kais
+# Copyright (c) 2020 Thomas Kais
 #
 # This file is subject to the terms and conditions defined in
 # file 'COPYING', which is part of this source code package.
@@ -13,10 +13,11 @@ FROM balenalib/raspberry-pi2-debian:bullseye-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
+      cmake \
       qt5-default \
       qttools5-dev-tools && \
-    wget https://project-downloads.drogon.net/wiringpi-latest.deb && \
-    dpkg -i wiringpi-latest.deb
+      wget https://project-downloads.drogon.net/wiringpi-latest.deb && \
+      dpkg -i wiringpi-latest.deb
 
 # copy repository to container
 COPY . .
@@ -24,8 +25,8 @@ COPY . .
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
-    qmake --version && \
-    qmake && \
+    cmake --version && \
+    cmake CMakeLists.txt -G "Unix Makefiles" && \
     make -j$(nproc) && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh

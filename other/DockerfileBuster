@@ -13,6 +13,7 @@ FROM balenalib/raspberry-pi2-debian:buster-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
+      cmake \
       qt5-default \
       qttools5-dev-tools \
       wiringpi
@@ -23,8 +24,8 @@ COPY . .
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
-    qmake --version && \
-    qmake && \
+    cmake --version && \
+    cmake CMakeLists.txt -G "Unix Makefiles" && \
     make -j$(nproc) && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh

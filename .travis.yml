@@ -35,7 +35,7 @@ jobs:
         - cp ./other/README.pdf ./README.pdf
         - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
 
-    - name: "Raspbian Stretch"
+    - name: "Raspbian Stretch QMake gcc"
       os: linux
       dist: bionic
       language: ruby
@@ -51,7 +51,7 @@ jobs:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/artifact buildfotobox
 
-    - name: "Raspbian Buster"
+    - name: "Raspbian Buster CMake gcc"
       os: linux
       dist: bionic
       language: ruby
@@ -67,7 +67,7 @@ jobs:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/artifact buildfotobox
 
-    - name: "Raspbian Bullseye (unreleased)"
+    - name: "Raspbian Bullseye (unreleased) CMake gcc"
       env: CAN_FAIL=true
       os: linux
       dist: bionic
