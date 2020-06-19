@@ -14,6 +14,7 @@ FROM balenalib/raspberry-pi2-debian:bullseye-build
 RUN install_packages \
       ccache \
       cmake \
+      ninja-build \
       qt5-default \
       qttools5-dev-tools && \
       wget https://project-downloads.drogon.net/wiringpi-latest.deb && \
@@ -26,7 +27,7 @@ COPY . .
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
     cmake --version && \
-    cmake CMakeLists.txt -G "Unix Makefiles" && \
-    make -j$(nproc) && \
+    cmake . -G "Ninja" && \
+    cmake . --build && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
