@@ -27,7 +27,7 @@ COPY . .
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
     cmake --version && \
-    cmake . -G "Ninja" && \
-    cmake . --build && \
+    ( cmake . -G "Ninja" ) && \
+    ( cmake . --build ) && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
