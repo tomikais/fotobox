@@ -22,7 +22,7 @@ find_package(Qt5 COMPONENTS Widgets PrintSupport LinguistTools REQUIRED)
 if(Qt5Core_FOUND)
     # Ubuntu Xenial Qt v5.5.1
     if(Qt5Core_VERSION VERSION_LESS 5.5.0)
-        message(WARNING "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
+        message(DEPRECATION "Your Qt 5 version '${Qt5Core_VERSION}' is might not be compatible anymore.")
     endif()
 endif()
 
@@ -100,18 +100,18 @@ add_executable(${CMAKE_PROJECT_NAME}
     ${QM_FILES}
     ${OTHER}
     )
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
-target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC -DQT_DEPRECATED_WARNINGS)
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE -DQT_DEPRECATED_WARNINGS)
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
-target_compile_definitions(${CMAKE_PROJECT_NAME} PUBLIC -DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE -DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
 
 # QT Libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
@@ -131,9 +131,10 @@ if(UNIX AND NOT APPLE)
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
     find_package(WiringPi)
     if(WiringPi_FOUND)
-        target_include_directories(${WiringPi_INCLUDE_DIR})
+        message(STATUS "WiringPI is used")
+        target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${WiringPi_INCLUDE_DIR})
         target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${WiringPi_LIBRARY_REL})
-        target_link_libraries(${CMAKE_PROJECT_NAME} debug     ${WiringPi_LIBRARY_DEB})
+        target_link_libraries(${CMAKE_PROJECT_NAME} debug ${WiringPi_LIBRARY_DEB})
     endif()
 endif()
 
