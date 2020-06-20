@@ -27,7 +27,7 @@ CMD gcc --version && \
     cmake --version && \
     mkdir build && \
     cd build/ && \
-    cmake -G "Ninja" ../ && \
+    cmake -G "Unix Makefiles" ../ && \
     cmake --build . && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ../other/ README.pdf install_dependencies.sh
