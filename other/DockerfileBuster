@@ -15,6 +15,7 @@ RUN install_packages \
       ccache \
       cmake \
       qt5-default \
+      qttools5-dev \
       qttools5-dev-tools \
       wiringpi
 
