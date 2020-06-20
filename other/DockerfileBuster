@@ -19,15 +19,15 @@ RUN install_packages \
       wiringpi
 
 # copy repository to container
-COPY . .
+VOLUME ["/fotobox"]
+WORKDIR /fotobox
+COPY . /fotobox
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
     cmake --version && \
-    mkdir build && \
-    cd build/ && \
-    cmake -G "Unix Makefiles" ../CMakeLists.txt && \
-    cmake --build ¢{pwd} && \
+    cmake -G "Unix Makefiles" . && \
+    cmake --build . && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ../other/ README.pdf install_dependencies.sh
+    tar -cvzf ./artifact/FotoBox_RasPi_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
