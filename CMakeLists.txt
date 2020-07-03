@@ -10,7 +10,6 @@ cmake_minimum_required(VERSION 3.10.0 FATAL_ERROR)
 
 project(FotoBox
         DESCRIPTION "FotoBox is a free open source multi platform application, that offers you the possibility to operate a photo booth (photobooth)."
-        HOMEPAGE_URL "https://gitlab.com/tomikais/fotobox"
         LANGUAGES CXX
         )
 
