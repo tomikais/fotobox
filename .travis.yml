@@ -126,7 +126,7 @@ jobs:
       before_deploy:
         - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
 
-    - name: "Ubuntu Bionic Beaver CMake Debug clang 8 diagnostic flags"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang 10 diagnostic flags"
       os: linux
       dist: bionic
       addons:
@@ -135,13 +135,13 @@ jobs:
           packages:
             - qt5-default
             - qttools5-dev
-            - clang-8
+            - clang-10
       env:
-        - CC=clang-8
-        - CXX=clang++-8
+        - CC=clang-10
+        - CXX=clang++-10
       before_script:
         - cmake --version
-        - clang++-8 --version
+        - clang++-10 --version
       script:
         # '-Werror' -> Turn warnings into errors
         # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
@@ -155,7 +155,7 @@ jobs:
             echo -e "\033[1;32m\xE2\x9C\x93 clang diagnostic flags passed!\033[0m";
           fi
 
-    - name: "Ubuntu Bionic Beaver CMake Debug clang tidy 8"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang tidy 10"
       os: linux
       dist: bionic
       addons:
@@ -164,17 +164,17 @@ jobs:
           packages:
             - qt5-default
             - qttools5-dev
-            - llvm-8
-            - clang-8
-            - clang-tidy-8
+            - llvm-10
+            - clang-10
+            - clang-tidy-10
       env:
-        - CC=clang-8
-        - CXX=clang++-8
-        - CLANG_TIDY=clang-tidy-8
+        - CC=clang-10
+        - CXX=clang++-10
+        - CLANG_TIDY=clang-tidy-10
       before_script:
         - cmake --version
-        - clang++-8 --version
-        - clang-tidy-8 --version
+        - clang++-10 --version
+        - clang-tidy-10 --version
       script:
         - cmake . -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
         - make -j$(nproc)
@@ -187,7 +187,7 @@ jobs:
             echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
-    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.6"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.7"
       os: linux
       dist: bionic
       addons:
@@ -198,7 +198,7 @@ jobs:
             - qttools5-dev
             - libfuse2
       before_script:
-        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
+        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.7/Clazy-x86_64-1.7.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version

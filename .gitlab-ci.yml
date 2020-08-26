@@ -166,17 +166,17 @@ Ubuntu:Focal:CMake:
 Clang:
   image: ubuntu:bionic
   variables:
-    CC: "clang-8"
-    CXX: "clang++-8"
+    CC: "clang-10"
+    CXX: "clang++-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        clang-8
+        clang-10
         cmake
         qt5-default
         qttools5-dev
     - cmake --version
-    - clang++-8 --version
+    - clang++-10 --version
   script:
     # '-Werror' -> Turn warnings into errors
     # https://releases.llvm.org/8.0.0/tools/clang/docs/DiagnosticsReference.html
@@ -199,20 +199,20 @@ Clang:
 ClangTidy:
   image: ubuntu:bionic
   variables:
-    CC: "clang-8"
-    CXX: "clang++-8"
-    CLANG_TIDY: "clang-tidy-8"
+    CC: "clang-10"
+    CXX: "clang++-10"
+    CLANG_TIDY: "clang-tidy-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        clang-8
-        llvm-8
-        clang-tidy-8
+        clang-10
+        llvm-10
+        clang-tidy-10
         cmake
         qt5-default
         qttools5-dev
     - cmake --version
-    - clang++-8 --version
+    - clang++-10 --version
   script:
     - cmake . -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_TIDY=ON
     - make -j$(nproc)
@@ -234,18 +234,18 @@ ClangTidy:
 Clazy:
   image: ubuntu:bionic
   variables:
-    CC: "clang-8"
-    CXX: "clang++-8"
+    CC: "clang-10"
+    CXX: "clang++-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        clang-8
+        clang-10
         cmake
         qt5-default
         qttools5-dev
         wget
         libfuse2
-    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
+    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.7/Clazy-x86_64-1.7.AppImage
     - chmod +x clazy.AppImage
     - ./clazy.AppImage --version
     - ./clazy.AppImage --standalone -version
