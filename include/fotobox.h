@@ -128,7 +128,7 @@ private:
      * \param i_widthFont double
      * \return best fitting fontsize
      */
-    double calculateFontSize(double i_width, double i_widthFont);
+    double static calculateFontSize(double i_width, double i_widthFont);
 
     /*! status bar timout value */
     static constexpr int STATUSBAR_MSG_TIMEOUT = 8000;

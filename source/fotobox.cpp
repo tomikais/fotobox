@@ -181,7 +181,7 @@ void FotoBox::mouseReleaseEvent(QMouseEvent *event)
 void FotoBox::preferenceDialog()
 {
     //Preferences dialog
-    auto dialog = new Preferences;
+    auto *dialog = new Preferences;
 
     //restore mouse cursor
     QApplication::restoreOverrideCursor();

@@ -158,7 +158,7 @@ void Preferences::startFotoBox()
     savePreferences();
 
     //Start FotoBox;
-    auto dialog = new FotoBox;
+    auto *dialog = new FotoBox;
 
     //close dialog and start fotobox
     reject();
@@ -259,7 +259,7 @@ void Preferences::colorDialog()
 void Preferences::commandLineOptionsDialog()
 {
     //'Qt::Tool' act like a window 'Qt::ToolTip' always on top
-    auto dialog = new QDialog(this, Qt::SplashScreen);
+    auto *dialog = new QDialog(this, Qt::SplashScreen);
     Ui::CommandLineOptionsDialog ui;
 
     //setup UI
