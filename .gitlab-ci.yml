@@ -233,19 +233,15 @@ ClangTidy:
 
 Clazy:
   image: ubuntu:bionic
-  variables:
-    CC: "clang-10"
-    CXX: "clang++-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
-        clang-10
         cmake
         qt5-default
         qttools5-dev
         wget
         libfuse2
-    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.7/Clazy-x86_64-1.7.AppImage
+    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
     - chmod +x clazy.AppImage
     - ./clazy.AppImage --version
     - ./clazy.AppImage --standalone -version

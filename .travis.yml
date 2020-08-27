@@ -187,7 +187,7 @@ jobs:
             echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
-    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.7"
+    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.6"
       os: linux
       dist: bionic
       addons:
@@ -198,7 +198,7 @@ jobs:
             - qttools5-dev
             - libfuse2
       before_script:
-        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.7/Clazy-x86_64-1.7.AppImage
+        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
         - chmod +x clazy.AppImage
         - ./clazy.AppImage --version
         - ./clazy.AppImage --standalone -version
