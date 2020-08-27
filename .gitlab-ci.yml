@@ -233,9 +233,13 @@ ClangTidy:
 
 Clazy:
   image: ubuntu:bionic
+  variables:
+    CC: "clang-10"
+    CXX: "clang++-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
+        clang-10
         cmake
         qt5-default
         qttools5-dev
