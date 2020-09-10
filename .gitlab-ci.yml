@@ -19,7 +19,7 @@ workflow:
     - when: always
 
 
-Raspbian:Stretch:
+RaspberryPiOS32:Stretch:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -32,16 +32,16 @@ Raspbian:Stretch:
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
     - docker pull $CI_REGISTRY_IMAGE/stretch:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/stretch:latest --tag $CI_REGISTRY_IMAGE/stretch:latest --file other/DockerfileStretch .
+    - docker build --cache-from $CI_REGISTRY_IMAGE/stretch:latest --tag $CI_REGISTRY_IMAGE/stretch:latest --file other/DockerfileStretch32bit .
     - docker push $CI_REGISTRY_IMAGE/stretch:latest
   after_script:
     - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/stretch:latest
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
-      - FotoBox_RasPi_Stretch.tar.gz
+      - FotoBox_RasPi32_Stretch.tar.gz
 
-Raspbian:Buster:
+RaspberryPiOS32:Buster:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -54,16 +54,38 @@ Raspbian:Buster:
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
     - docker pull $CI_REGISTRY_IMAGE/buster:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/buster:latest --tag $CI_REGISTRY_IMAGE/buster:latest --file other/DockerfileBuster .
+    - docker build --cache-from $CI_REGISTRY_IMAGE/buster:latest --tag $CI_REGISTRY_IMAGE/buster:latest --file other/DockerfileBuster32bit .
     - docker push $CI_REGISTRY_IMAGE/buster:latest
   after_script:
     - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster:latest
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
-      - FotoBox_RasPi_Buster.tar.gz
+      - FotoBox_RasPi32_Buster.tar.gz
 
-Raspbian:Bullseye:
+RaspberryPiOS64:Buster:
+  image: docker:git
+  services:
+    # Docker in Docker (dind)
+    - docker:dind
+  before_script:
+    - docker info
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
+    # Enable an execution of different multi-architecture containers by QEMU
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  script:
+    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
+    - docker pull $CI_REGISTRY_IMAGE/buster:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/buster:latest --tag $CI_REGISTRY_IMAGE/buster:latest --file other/DockerfileBuster64bit .
+    - docker push $CI_REGISTRY_IMAGE/buster:latest
+  after_script:
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster:latest
+  artifacts:
+    name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - FotoBox_RasPi64_Buster.tar.gz
+
+RaspberryPiOS32:Bullseye:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -76,7 +98,7 @@ Raspbian:Bullseye:
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
     - docker pull $CI_REGISTRY_IMAGE/bullseye:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/bullseye:latest --tag $CI_REGISTRY_IMAGE/bullseye:latest --file other/DockerfileBullseye .
+    - docker build --cache-from $CI_REGISTRY_IMAGE/bullseye:latest --tag $CI_REGISTRY_IMAGE/bullseye:latest --file other/DockerfileBullseye32bit .
     - docker push $CI_REGISTRY_IMAGE/bullseye:latest
   after_script:
     - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/bullseye:latest
@@ -85,7 +107,7 @@ Raspbian:Bullseye:
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
-      - FotoBox_RasPi_Bullseye.tar.gz
+      - FotoBox_RasPi32_Bullseye.tar.gz
 
 
 Ubuntu:Xenial:QMake:

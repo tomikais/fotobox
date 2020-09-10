@@ -35,7 +35,7 @@ jobs:
         - cp ./other/README.pdf ./README.pdf
         - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
 
-    - name: "Raspbian Stretch QMake gcc"
+    - name: "Raspberry Pi OS Stretch 32bit QMake gcc"
       os: linux
       dist: bionic
       language: ruby
@@ -46,12 +46,12 @@ jobs:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
       install:
         #build FotoBox container
-        - docker build --tag buildfotobox --file other/DockerfileStretch .
+        - docker build --tag buildfotobox --file other/DockerfileStretch32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/artifact buildfotobox
 
-    - name: "Raspbian Buster CMake gcc"
+    - name: "Raspberry Pi OS Buster 32bit CMake gcc"
       os: linux
       dist: bionic
       language: ruby
@@ -62,12 +62,28 @@ jobs:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
       install:
         #build FotoBox container
-        - docker build --tag buildfotobox --file other/DockerfileBuster .
+        - docker build --tag buildfotobox --file other/DockerfileBuster32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/artifact buildfotobox
 
-    - name: "Raspbian Bullseye (unreleased) CMake gcc"
+    - name: "Raspberry Pi OS Buster 64bit CMake gcc"
+      os: linux
+      dist: bionic
+      language: ruby
+      services:
+        - docker
+      before_install:
+        #enable an execution of different multi-architecture containers by QEMU
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      install:
+        #build FotoBox container
+        - docker build --tag buildfotobox --file other/DockerfileBuster64bit .
+      script:
+        #execute 'CMD' command (Dockerfile) to build
+        - docker run --volume $(pwd):/artifact buildfotobox
+
+    - name: "Raspberry Pi OS Bullseye 32bit (unreleased) CMake gcc"
       env: CAN_FAIL=true
       os: linux
       dist: bionic
@@ -79,7 +95,7 @@ jobs:
         - docker run --rm --privileged multiarch/qemu-user-static:register --reset
       install:
         #build FotoBox container
-        - docker build --tag buildfotobox --file other/DockerfileBullseye .
+        - docker build --tag buildfotobox --file other/DockerfileBullseye32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/artifact buildfotobox
@@ -245,8 +261,9 @@ deploy:
   token: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.zip
-    - FotoBox_RasPi_Stretch.tar.gz
-    - FotoBox_RasPi_Buster.tar.gz
+    - FotoBox_RasPi32_Stretch.tar.gz
+    - FotoBox_RasPi32_Buster.tar.gz
+    - FotoBox_RasPi64_Buster.tar.gz
     - FotoBox_Ubuntu_Xenial.tar.gz
     - FotoBox_Ubuntu_Bionic.tar.gz
   cleanup: false

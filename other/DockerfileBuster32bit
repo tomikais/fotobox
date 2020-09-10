@@ -8,23 +8,27 @@
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://www.balena.io/docs/reference/base-images/base-images-ref/
 # https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
-FROM balenalib/raspberry-pi2-debian:stretch-build
+FROM balenalib/raspberry-pi2-debian:buster-build
 
 # install frameworks and build tools
 RUN install_packages \
       ccache \
+      cmake \
       qt5-default \
+      qttools5-dev \
       qttools5-dev-tools \
       wiringpi
 
 # copy repository to container
-COPY . .
+VOLUME ["/fotobox"]
+WORKDIR /fotobox
+COPY . /fotobox
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
-    qmake --version && \
-    qmake && \
-    make -j$(nproc) && \
+    cmake --version && \
+    cmake -G "Unix Makefiles" . && \
+    cmake --build . && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi_Stretch.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ../artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
