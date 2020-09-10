@@ -11,7 +11,6 @@
 //detect wiringPi framework
 #if defined (__arm__) && __has_include(<wiringPi.h>)
 //wiringPi detected
-#pragma once
 #pragma message("On ARM platform and wiringPi header found.")
 #define BUZZER_AVAILABLE
 #endif
