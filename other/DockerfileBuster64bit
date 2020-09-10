@@ -16,8 +16,7 @@ RUN install_packages \
       cmake \
       qt5-default \
       qttools5-dev \
-      qttools5-dev-tools \
-      wiringpi
+      qttools5-dev-tools
 
 # copy repository to container
 VOLUME ["/fotobox"]

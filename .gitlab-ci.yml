@@ -19,7 +19,7 @@ workflow:
     - when: always
 
 
-RaspberryPiOS32:Stretch:
+RasPiOS32:Stretch:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -41,7 +41,7 @@ RaspberryPiOS32:Stretch:
     paths:
       - FotoBox_RasPi32_Stretch.tar.gz
 
-RaspberryPiOS32:Buster:
+RasPiOS32:Buster:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -63,7 +63,7 @@ RaspberryPiOS32:Buster:
     paths:
       - FotoBox_RasPi32_Buster.tar.gz
 
-RaspberryPiOS64:Buster:
+RasPiOS64:Buster:
   image: docker:git
   services:
     # Docker in Docker (dind)
@@ -85,7 +85,7 @@ RaspberryPiOS64:Buster:
     paths:
       - FotoBox_RasPi64_Buster.tar.gz
 
-RaspberryPiOS32:Bullseye:
+RasPiOS32:Bullseye:
   image: docker:git
   services:
     # Docker in Docker (dind)

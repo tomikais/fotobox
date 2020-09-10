@@ -74,9 +74,10 @@ OTHER_FILES    = .gitignore \
                  COPYING \
                  README.md \
                  cmake/FindWiringPi.cmake \
-                 other/DockerfileStretch \
-                 other/DockerfileBuster \
-                 other/DockerfileBullseye \
+                 other/DockerfileStretch32bit \
+                 other/DockerfileBuster32bit \
+                 other/DockerfileBuster64bit \
+                 other/DockerfileBullseye32bit \
                  other/Doxyfile \
                  other/Info.plist \
                  other/install_dependencies.sh \

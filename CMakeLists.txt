@@ -76,9 +76,10 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
     ${PROJECT_SOURCE_DIR}/cmake/FindWiringPi.cmake
-    ${PROJECT_SOURCE_DIR}/other/DockerfileStretch
-    ${PROJECT_SOURCE_DIR}/other/DockerfileBuster
-    ${PROJECT_SOURCE_DIR}/other/DockerfileBullseye
+    ${PROJECT_SOURCE_DIR}/other/DockerfileStretch32bit
+    ${PROJECT_SOURCE_DIR}/other/DockerfileBuster32bit
+    ${PROJECT_SOURCE_DIR}/other/DockerfileBuster64bit
+    ${PROJECT_SOURCE_DIR}/other/DockerfileBullseye32bit
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
     ${PROJECT_SOURCE_DIR}/other/Info.plist
     ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
