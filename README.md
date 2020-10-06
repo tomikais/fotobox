@@ -51,6 +51,9 @@ Download latest [FotoBox version](https://github.com/tomikais/fotobox/releases) 
 **Q:** Can I use the FotoBox on Linux without X Window System (e.g. using Linux framebuffer on Raspbian Lite)?  
 **A:** Yes, that is possible because of [Qt for Embedded Linux](https://doc.qt.io/qt-5/embedded-linux.html). For Example to use Linux framebuffer execute `./FotoBox -platform linuxfb:fb=/dev/fb0` or set environment variable `QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0`
 
+**Q:** It shows me the following error message `qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.` (Qt 6 issue)  
+**A:** Please install the following packages by executing `sudo apt-get install libxcb-xinerama0 libgl1-mesa-dev libvulkan-dev libxcb-xinput-dev libxcb-xinerama0-dev`
+
 **Q:** My DSLR camera model is supported by libgphoto2 but don't work with FotoBox. How can I fix it?  
 **A:** Test if gphoto2 has access to your camera. Execute this command `gphoto2 --capture-image-and-download` in terminal to test it. If the error message '_gphoto2 could not claim the usb device_' appears, try this fix:
 
