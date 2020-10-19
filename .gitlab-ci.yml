@@ -31,11 +31,11 @@ RasPiOS32:Stretch:
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
-    - docker pull $CI_REGISTRY_IMAGE/stretch:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/stretch:latest --tag $CI_REGISTRY_IMAGE/stretch:latest --file other/DockerfileStretch32bit .
-    - docker push $CI_REGISTRY_IMAGE/stretch:latest
+    - docker pull $CI_REGISTRY_IMAGE/stretch32:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/stretch32:latest --tag $CI_REGISTRY_IMAGE/stretch32:latest --file other/DockerfileStretch32bit .
+    - docker push $CI_REGISTRY_IMAGE/stretch32:latest
   after_script:
-    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/stretch:latest
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/stretch32:latest
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
@@ -53,11 +53,11 @@ RasPiOS32:Buster:
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
-    - docker pull $CI_REGISTRY_IMAGE/buster:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/buster:latest --tag $CI_REGISTRY_IMAGE/buster:latest --file other/DockerfileBuster32bit .
-    - docker push $CI_REGISTRY_IMAGE/buster:latest
+    - docker pull $CI_REGISTRY_IMAGE/buster32:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/buster32:latest --tag $CI_REGISTRY_IMAGE/buster32:latest --file other/DockerfileBuster32bit .
+    - docker push $CI_REGISTRY_IMAGE/buster32:latest
   after_script:
-    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster:latest
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster32:latest
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
@@ -75,11 +75,11 @@ RasPiOS64:Buster:
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
-    - docker pull $CI_REGISTRY_IMAGE/buster:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/buster:latest --tag $CI_REGISTRY_IMAGE/buster:latest --file other/DockerfileBuster64bit .
-    - docker push $CI_REGISTRY_IMAGE/buster:latest
+    - docker pull $CI_REGISTRY_IMAGE/buster64:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/buster64:latest --tag $CI_REGISTRY_IMAGE/buster64:latest --file other/DockerfileBuster64bit .
+    - docker push $CI_REGISTRY_IMAGE/buster64:latest
   after_script:
-    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster:latest
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/buster64:latest
   artifacts:
     name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
     paths:
@@ -97,11 +97,11 @@ RasPiOS32:Bullseye:
     - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   script:
     # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
-    - docker pull $CI_REGISTRY_IMAGE/bullseye:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/bullseye:latest --tag $CI_REGISTRY_IMAGE/bullseye:latest --file other/DockerfileBullseye32bit .
-    - docker push $CI_REGISTRY_IMAGE/bullseye:latest
+    - docker pull $CI_REGISTRY_IMAGE/bullseye32:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/bullseye32:latest --tag $CI_REGISTRY_IMAGE/bullseye32:latest --file other/DockerfileBullseye32bit .
+    - docker push $CI_REGISTRY_IMAGE/bullseye32:latest
   after_script:
-    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/bullseye:latest
+    - docker run --volume $(pwd):/artifact $CI_REGISTRY_IMAGE/bullseye32:latest
   # It's allowed to fail because currently unreleased OS
   allow_failure: true
   artifacts:
