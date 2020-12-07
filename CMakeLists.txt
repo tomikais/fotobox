@@ -135,7 +135,7 @@ endif()
 # Speed-Up compiling time with ccache
 find_program(CCACHE_PROGRAM ccache)
 if(CCACHE_PROGRAM)
-    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
 endif()
 
 if(UNIX AND NOT APPLE)
