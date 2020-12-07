@@ -20,8 +20,12 @@ if(APPLE AND EXISTS /usr/local/opt/qt5)
     list(APPEND CMAKE_PREFIX_PATH "/usr/local/opt/qt5")
 endif()
 
-# By default, QT contains core and gui
-find_package(Qt5 COMPONENTS Widgets PrintSupport LinguistTools REQUIRED)
+# Qt5/6 (by default, QT contains core and gui)
+find_package(Qt6 COMPONENTS Widgets PrintSupport LinguistTools)
+if(NOT Qt6_FOUND)
+    find_package(Qt5 COMPONENTS Widgets PrintSupport LinguistTools REQUIRED)
+endif()
+
 if(Qt5Core_FOUND)
     # Ubuntu Xenial Qt v5.5.1
     if(Qt5Core_VERSION VERSION_LESS 5.5.0)
@@ -88,7 +92,11 @@ set(OTHER
 
 # Translation: build qm files in source directory
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/resources)
-qt5_add_translation(QM_FILES ${TS_FILES})
+if(NOT Qt6_FOUND)
+    qt5_add_translation(QM_FILES ${TS_FILES})
+else()
+    qt_add_translation(QM_FILES ${TS_FILES})
+endif()
 
 # WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
 if(UNIX AND APPLE)
@@ -118,7 +126,11 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE -DQT_DEPRECATED_WARNING
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE -DQT_DISABLE_DEPRECATED_BEFORE=0x060000)    # disables all the APIs deprecated before Qt 6.0.0
 
 # QT Libraries
-target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+if(NOT Qt6_FOUND)
+    target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
+else()
+    target_link_libraries(${CMAKE_PROJECT_NAME} Qt::Widgets Qt::PrintSupport)
+endif()
 
 # Speed-Up compiling time with ccache
 find_program(CCACHE_PROGRAM ccache)
