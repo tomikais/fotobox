@@ -120,13 +120,13 @@ target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE -DQT_DISABLE_DEPRECATED
 # QT Libraries
 target_link_libraries(${CMAKE_PROJECT_NAME} Qt5::Widgets Qt5::PrintSupport)
 
-if(UNIX AND NOT APPLE)
-    # Speed-Up compiling time with ccache (apt-get install ccache)
-    find_program(CCACHE_PROGRAM ccache)
-    if(CCACHE_PROGRAM)
-        set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
-    endif()
+# Speed-Up compiling time with ccache
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+endif()
 
+if(UNIX AND NOT APPLE)
     # WORKAROUND: double click on application wasn't working, so disable "Position-independent code" to fix it
     # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -no-pie")

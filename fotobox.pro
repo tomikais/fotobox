@@ -117,3 +117,11 @@ mac {
     }
   }
 }
+
+win32 {
+  # Speed-Up compiling time with ccache https://github.com/ccache/ccache/releases
+  CCACHE_VERSION = $$system("ccache.exe --version")
+  !isEmpty(CCACHE_VERSION) {
+    QMAKE_CXX = ccache.exe $$QMAKE_CXX
+  }
+}
