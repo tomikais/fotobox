@@ -91,7 +91,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/other/Info.plist
     ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
     ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
-    ${PROJECT_SOURCE_DIR}/README.pdf
+    ${PROJECT_SOURCE_DIR}/other/README.pdf
     )
 
 # Translation: build qm files in source directory
