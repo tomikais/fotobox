@@ -22,9 +22,8 @@ RUN install_packages \
       ./build
 
 # copy repository to container
-VOLUME ["/fotobox"]
 WORKDIR /fotobox
-COPY . /fotobox
+COPY . .
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
 # copy to host (mounted directory '--volume')

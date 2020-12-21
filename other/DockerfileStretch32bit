@@ -18,6 +18,7 @@ RUN install_packages \
       wiringpi
 
 # copy repository to container
+WORKDIR /fotobox
 COPY . .
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
