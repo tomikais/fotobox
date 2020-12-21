@@ -22,7 +22,7 @@ RUN install_packages \
       ./build
 
 # copy repository to container
-WORKDIR /fotobox
+WORKDIR /build
 COPY . .
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
@@ -32,4 +32,4 @@ CMD gcc --version && \
     cmake -G "Unix Makefiles" . && \
     cmake --build . && \
     chmod +x FotoBox && \
-    tar -cvzf ../artifact/FotoBox_RasPi64_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ./FotoBox_RasPi64_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh

@@ -74,11 +74,14 @@ set(RESOURCES
     ${PROJECT_SOURCE_DIR}/resources/qresource.qrc
     )
 set(OTHER
+    ${PROJECT_SOURCE_DIR}/.dockerignore
     ${PROJECT_SOURCE_DIR}/.gitignore
+    ${PROJECT_SOURCE_DIR}/.gitlab-ci.yml
     ${PROJECT_SOURCE_DIR}/.travis.yml
     ${PROJECT_SOURCE_DIR}/fotobox.pro
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
+    ${PROJECT_SOURCE_DIR}/THANKS
     ${PROJECT_SOURCE_DIR}/cmake/FindWiringPi.cmake
     ${PROJECT_SOURCE_DIR}/other/DockerfileStretch32bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster32bit
@@ -88,6 +91,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/other/Info.plist
     ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
     ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
+    ${PROJECT_SOURCE_DIR}/README.pdf
     )
 
 # Translation: build qm files in source directory

@@ -19,7 +19,7 @@ RUN install_packages \
       dpkg -i wiringpi-latest.deb
 
 # copy repository to container
-WORKDIR /fotobox
+WORKDIR /build
 COPY . .
 
 # qmake/gcc version / generate project / build FotoBox / compress artifact / execution rights
@@ -29,4 +29,4 @@ CMD gcc --version && \
     qmake && \
     make -j$(nproc) && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi32_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ./FotoBox_RasPi32_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh

@@ -49,7 +49,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileStretch32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/artifact buildfotobox
+        - docker run --volume $(pwd):/build buildfotobox
 
     - name: "Raspberry Pi OS Buster 32bit CMake gcc"
       os: linux
@@ -65,7 +65,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBuster32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/artifact buildfotobox
+        - docker run --volume $(pwd):/build buildfotobox
 
     - name: "Raspberry Pi OS Buster 64bit CMake gcc"
       os: linux
@@ -81,7 +81,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBuster64bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/artifact buildfotobox
+        - docker run --volume $(pwd):/build buildfotobox
 
     - name: "Raspberry Pi OS Bullseye 32bit (unreleased) CMake gcc"
       env: CAN_FAIL=true
@@ -98,7 +98,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBullseye32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/artifact buildfotobox
+        - docker run --volume $(pwd):/build buildfotobox
 
     - name: "Ubuntu Xenial QMake gcc"
       os: linux

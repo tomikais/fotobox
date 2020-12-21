@@ -68,11 +68,14 @@ for(tsfile, TRANSLATIONS) {
   system($$command)|error("Failed to run: $$command")
 }
 
-OTHER_FILES    = .gitignore \
+OTHER_FILES    = .dockerignore \
+                 .gitignore \
+                 .gitlab-ci.yml \
                  .travis.yml \
                  CMakeLists.txt \
                  COPYING \
                  README.md \
+                 THANKS \
                  cmake/FindWiringPi.cmake \
                  other/DockerfileStretch32bit \
                  other/DockerfileBuster32bit \
@@ -81,7 +84,8 @@ OTHER_FILES    = .gitignore \
                  other/Doxyfile \
                  other/Info.plist \
                  other/install_dependencies.sh \
-                 other/RaspPi_2B_default_GPIO.jpg
+                 other/RaspPi_2B_default_GPIO.jpg \
+                 other/README.pdf
 
 linux {
   # Speed-Up compiling time with ccache (apt-get install ccache)
