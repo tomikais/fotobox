@@ -21,6 +21,8 @@ workflow:
 
 RasPiOS32:Stretch:
   image: docker:git
+  variables:
+    DOCKER_BUILDKIT: 1
   services:
     # Docker in Docker (dind)
     - docker:dind
@@ -43,6 +45,8 @@ RasPiOS32:Stretch:
 
 RasPiOS32:Buster:
   image: docker:git
+  variables:
+    DOCKER_BUILDKIT: 1
   services:
     # Docker in Docker (dind)
     - docker:dind
@@ -65,6 +69,8 @@ RasPiOS32:Buster:
 
 RasPiOS64:Buster:
   image: docker:git
+  variables:
+    DOCKER_BUILDKIT: 1
   services:
     # Docker in Docker (dind)
     - docker:dind
@@ -87,6 +93,8 @@ RasPiOS64:Buster:
 
 RasPiOS32:Bullseye:
   image: docker:git
+  variables:
+    DOCKER_BUILDKIT: 1
   services:
     # Docker in Docker (dind)
     - docker:dind
