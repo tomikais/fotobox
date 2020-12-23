@@ -39,8 +39,6 @@ jobs:
       os: linux
       dist: bionic
       language: ruby
-      env:
-        - DOCKER_BUILDKIT=1
       services:
         - docker
       before_install:
@@ -57,8 +55,6 @@ jobs:
       os: linux
       dist: bionic
       language: ruby
-      env:
-        - DOCKER_BUILDKIT=1
       services:
         - docker
       before_install:
@@ -75,8 +71,6 @@ jobs:
       os: linux
       dist: bionic
       language: ruby
-      env:
-        - DOCKER_BUILDKIT=1
       services:
         - docker
       before_install:
@@ -94,8 +88,6 @@ jobs:
       os: linux
       dist: bionic
       language: ruby
-      env:
-        - DOCKER_BUILDKIT=1
       services:
         - docker
       before_install:
