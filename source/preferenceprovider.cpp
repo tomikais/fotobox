@@ -8,7 +8,7 @@
 #include "preferenceprovider.h"
 
 
-PreferenceProvider& PreferenceProvider::instance()
+auto PreferenceProvider::instance() -> PreferenceProvider&
 {
     //thread safe static initializer
     static PreferenceProvider instance;
@@ -21,7 +21,7 @@ PreferenceProvider::PreferenceProvider(QObject* /*parent*/) : QObject(nullptr)
 }
 
 //Qt Porperty
-QString PreferenceProvider::photoFolder() const
+auto PreferenceProvider::photoFolder() const -> QString
 {
     return m_photoFolder;
 }
@@ -36,7 +36,7 @@ void PreferenceProvider::setPhotoFolder(const QString& i_value)
     Q_EMIT photoFolderChanged(m_photoFolder);
 }
 
-QString PreferenceProvider::photoName() const
+auto PreferenceProvider::photoName() const -> QString
 {
     return m_photoName;
 }
@@ -51,7 +51,7 @@ void PreferenceProvider::setPhotoName(const QString& i_value)
     Q_EMIT photoNameChanged(m_photoName);
 }
 
-int PreferenceProvider::countdown() const
+auto PreferenceProvider::countdown() const -> int
 {
     return m_countdown;
 }
@@ -66,7 +66,7 @@ void PreferenceProvider::setCountdown(const int i_value)
     Q_EMIT countdownChanged(m_countdown);
 }
 
-QString PreferenceProvider::countdownColor() const
+auto PreferenceProvider::countdownColor() const -> QString
 {
     return m_countdownColor;
 }
@@ -81,7 +81,7 @@ void PreferenceProvider::setCountdownColor(const QString& i_value)
     Q_EMIT countdownColorChanged(m_countdownColor);
 }
 
-QString PreferenceProvider::backgroundColor() const
+auto PreferenceProvider::backgroundColor() const -> QString
 {
     return m_backgroundColor;
 }
@@ -96,7 +96,7 @@ void PreferenceProvider::setBackgroundColor(const QString& i_value)
     Q_EMIT backgroundColorChanged(m_backgroundColor);
 }
 
-QString PreferenceProvider::cameraMode() const
+auto PreferenceProvider::cameraMode() const -> QString
 {
     return m_cameraMode;
 }
@@ -111,7 +111,7 @@ void PreferenceProvider::setCameraMode(const QString& i_value)
     Q_EMIT cameraModeChanged(m_cameraMode);
 }
 
-QString PreferenceProvider::argumentLine() const
+auto PreferenceProvider::argumentLine() const -> QString
 {
     return m_argumentLine;
 }
@@ -126,7 +126,7 @@ void PreferenceProvider::setArgumentLine(const QString& i_value)
     Q_EMIT argumentLineChanged(m_argumentLine);
 }
 
-int PreferenceProvider::inputPin() const
+auto PreferenceProvider::inputPin() const -> int
 {
     return m_inputPin;
 }
@@ -141,7 +141,7 @@ void PreferenceProvider::setInputPin(const int i_value)
     Q_EMIT inputPinChanged(m_inputPin);
 }
 
-int PreferenceProvider::outputPin() const
+auto PreferenceProvider::outputPin() const -> int
 {
     return m_outputPin;
 }
@@ -156,7 +156,7 @@ void PreferenceProvider::setOutputPin(const int i_value)
     Q_EMIT outputPinChanged(m_outputPin);
 }
 
-int PreferenceProvider::queryInterval() const
+auto PreferenceProvider::queryInterval() const -> int
 {
     return m_queryInterval;
 }
@@ -171,7 +171,7 @@ void PreferenceProvider::setQueryInterval(const int i_value)
     Q_EMIT queryIntervalChanged(m_queryInterval);
 }
 
-int PreferenceProvider::timeoutValue() const
+auto PreferenceProvider::timeoutValue() const -> int
 {
     return m_timeoutValue;
 }
@@ -186,7 +186,7 @@ void PreferenceProvider::setTimeoutValue(const int i_value)
     Q_EMIT timeoutValueChanged(m_timeoutValue);
 }
 
-bool PreferenceProvider::grayscale() const
+auto PreferenceProvider::grayscale() const -> bool
 {
     return m_grayscale;
 }
@@ -201,7 +201,7 @@ void PreferenceProvider::setGrayscale(bool i_value)
     Q_EMIT grayscaleChanged(m_grayscale);
 }
 
-bool PreferenceProvider::showButtons() const
+auto PreferenceProvider::showButtons() const -> bool
 {
     return m_showButtons;
 }
@@ -216,7 +216,7 @@ void PreferenceProvider::setShowButtons(const bool i_value)
     Q_EMIT showButtonsChanged(m_showButtons);
 }
 
-bool PreferenceProvider::print() const
+auto PreferenceProvider::print() const -> bool
 {
     return m_print;
 }
@@ -231,7 +231,7 @@ void PreferenceProvider::setPrint(const bool i_value)
     Q_EMIT printChanged(m_print);
 }
 
-QString PreferenceProvider::printerName() const
+auto PreferenceProvider::printerName() const -> QString
 {
     return m_printerName;
 }

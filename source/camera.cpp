@@ -27,7 +27,7 @@ Camera::Camera(QObject *parent)
     m_process.setWorkingDirectory(PreferenceProvider::instance().photoFolder());
 }
 
-bool Camera::shootPhoto()
+auto Camera::shootPhoto() -> bool
 {
     //file name of photo
     m_currentPhoto = QDateTime::currentDateTime().toString(QStringLiteral("yyyyMMdd_HH-mm-ss_")) + m_photoSuffix;
@@ -43,7 +43,7 @@ bool Camera::shootPhoto()
     return (m_process.exitCode() == EXIT_SUCCESS);
 }
 
-QString Camera::currentPhoto() const
+auto Camera::currentPhoto() const -> QString
 {
     return m_currentPhoto;
 }

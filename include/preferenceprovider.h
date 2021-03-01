@@ -122,25 +122,25 @@ public:
      * \brief photo output directory
      * \return QString \see m_photoFolder
      */
-    QString photoFolder() const;
+    auto photoFolder() const -> QString;
 
     /*!
      * \brief photo name template
      * \return QString \see m_photoName
      */
-    QString photoName() const;
+    auto photoName() const -> QString;
 
     /*!
      * \brief font color of the countdown
      * \return QString \see m_countdownColor
      */
-    QString countdownColor() const;
+    auto countdownColor() const -> QString;
 
     /*!
      * \brief background color of the FotoBox UI
      * \return QString \see m_backgroundColor
      */
-    QString backgroundColor() const;
+    auto backgroundColor() const -> QString;
 
     /*!
      * \brief the camera framework to be used
@@ -152,61 +152,61 @@ public:
      * \brief camera framework arguments
      * \return QString \see m_argumentLine
      */
-    QString argumentLine() const;
+    auto argumentLine() const -> QString;
 
     /*!
      * \brief countdown until photo is taken
      * \return int \see m_countdown
      */
-    int countdown() const;
+    auto countdown() const -> int;
 
     /*!
      * \brief wiringPi GPIO input pin
      * \return int \see m_inputPin
      */
-    int inputPin() const;
+    auto inputPin() const -> int;
 
     /*!
      * \brief wiringPi GPIO output pin
      * \return int \see m_outputPin
      */
-    int outputPin() const;
+    auto outputPin() const -> int;
 
     /*!
      * \brief how often the pin should be queried
      * \return int \see m_queryInterval
      */
-    int queryInterval() const;
+    auto queryInterval() const -> int;
 
     /*!
      * \brief timeout value for the camera framework
      * \return int \see m_timeoutValue
      */
-    int timeoutValue() const;
+    auto timeoutValue() const -> int;
 
     /*!
      * \brief show photo in grayscale (monochrome photography)
      * \return bool \see m_grayscale
      */
-    bool grayscale() const;
+    auto grayscale() const -> bool;
 
     /*!
      * \brief buttons are displayed on the UI
      * \return bool \see m_showButtons
      */
-    bool showButtons() const;
+    auto showButtons() const -> bool;
 
     /*!
      * \brief print on or off
      * \return bool \see m_print
      */
-    bool print() const;
+    auto print() const -> bool;
 
     /*!
      * \brief printer name
      * \return QString \see m_printerName
      */
-    QString printerName() const;
+    auto printerName() const -> QString;
 
 public Q_SLOTS:
     /*!

@@ -145,19 +145,19 @@ void FotoBox::keyPressEvent(QKeyEvent *event)
     //prevent triggering method too often
     if (!event->isAutoRepeat()) {
         //start FotoBox
-        if (std::any_of(m_triggerKey.cbegin(), m_triggerKey.cend(), [&](const Qt::Key i_key) { return event->key() == i_key; })) {
+        if (std::any_of(m_triggerKey.cbegin(), m_triggerKey.cend(), [&](const Qt::Key i_key) -> bool { return event->key() == i_key; })) {
             Q_EMIT start();
             return;
         }
 
         //preferences dialog
-        if (std::any_of(m_preferenceKey.cbegin(), m_preferenceKey.cend(), [&](const Qt::Key i_key) { return event->key() == i_key; })) {
+        if (std::any_of(m_preferenceKey.cbegin(), m_preferenceKey.cend(), [&](const Qt::Key i_key) -> bool { return event->key() == i_key; })) {
             preferenceDialog();
             return;
         }
 
         //quit application
-        if (std::any_of(m_quitKey.cbegin(), m_quitKey.cend(), [&](const Qt::Key i_key) { return event->key() == i_key; })) {
+        if (std::any_of(m_quitKey.cbegin(), m_quitKey.cend(), [&](const Qt::Key i_key) -> bool { return event->key() == i_key; })) {
             if (event->modifiers() == Qt::ShiftModifier) {
                 QCoreApplication::quit();
             }
@@ -269,7 +269,7 @@ void FotoBox::drawText(const QString &i_text)
     m_ui->lblPhoto->setPixmap(m_photo);
 }
 
-double FotoBox::calculateFontSize(const double i_width, const double i_widthFont)
+auto FotoBox::calculateFontSize(const double i_width, const double i_widthFont) -> double
 {
     auto factor = i_width / i_widthFont;
     if ((factor < 1) || (factor > COMPARE)) {

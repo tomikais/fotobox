@@ -55,13 +55,13 @@ public:
      * \brief shoot a photo with gphoto2
      * \return true: processed finished / false: error
      */
-    bool shootPhoto();
+    auto shootPhoto() -> bool;
 
     /*!
      * \brief return member \see m_currentPhoto
      * \return filepath current photo
      */
-    QString currentPhoto() const;
+    auto currentPhoto() const -> QString;
 
 private:
     /*! used to convert msec to sec */

@@ -47,12 +47,12 @@ void Countdown::setStartTime(const unsigned int i_seconds)
     reset();
 }
 
-bool Countdown::isActive() const
+auto Countdown::isActive() const -> bool
 {
     return m_isActive;
 }
 
-bool Countdown::start()
+auto Countdown::start() -> bool
 {
     //not running and start time set
     if (!m_isActive && m_startTime > 0) {
@@ -73,7 +73,7 @@ bool Countdown::start()
     return false;
 }
 
-bool Countdown::stop()
+auto Countdown::stop() -> bool
 {
     //stop timer
     m_timer.stop();
@@ -83,7 +83,7 @@ bool Countdown::stop()
     return !m_isActive;
 }
 
-bool Countdown::reset()
+auto Countdown::reset() -> bool
 {
     //stop countdown
     if (stop()) {

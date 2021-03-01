@@ -73,78 +73,78 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="191"/>
+        <location filename="../source/preferences.cpp" line="192"/>
         <source>preferences</source>
         <translation>preferences</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="274"/>
+        <location filename="../source/preferences.cpp" line="275"/>
         <source>choose directory</source>
         <translation>choose directory</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="298"/>
+        <location filename="../source/preferences.cpp" line="297"/>
         <source>WARNING: clear directory content</source>
         <translation>WARNING: clear directory content</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="325"/>
-        <location filename="../source/preferences.cpp" line="332"/>
-        <location filename="../source/preferences.cpp" line="338"/>
+        <location filename="../source/preferences.cpp" line="324"/>
+        <location filename="../source/preferences.cpp" line="331"/>
+        <location filename="../source/preferences.cpp" line="337"/>
         <source>photo folder</source>
         <translation>photo folder</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="325"/>
+        <location filename="../source/preferences.cpp" line="324"/>
         <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
         <translation>The directory doesn&apos;t exist and also couldn&apos;t be created.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="332"/>
+        <location filename="../source/preferences.cpp" line="331"/>
         <source>Please select a directory and not a file.</source>
         <translation>Please select a directory and not a file.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="338"/>
+        <location filename="../source/preferences.cpp" line="337"/>
         <source>Write and read rights are required. Please check the permission of the directory.</source>
         <translation>Write and read rights are required. Please check the permission of the directory.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="522"/>
-        <location filename="../source/preferences.cpp" line="530"/>
+        <location filename="../source/preferences.cpp" line="521"/>
+        <location filename="../source/preferences.cpp" line="529"/>
         <source>camera model: %1</source>
         <translation>camera model: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="530"/>
+        <location filename="../source/preferences.cpp" line="529"/>
         <source>NOT DETECTED</source>
         <translation>NOT DETECTED</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="444"/>
-        <location filename="../source/preferences.cpp" line="456"/>
-        <location filename="../source/preferences.cpp" line="464"/>
+        <location filename="../source/preferences.cpp" line="443"/>
+        <location filename="../source/preferences.cpp" line="455"/>
+        <location filename="../source/preferences.cpp" line="463"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; is missing%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="59"/>
+        <location filename="../source/preferences.cpp" line="60"/>
         <source>launching %1 v%2 in %3 seconds</source>
         <extracomment>%1 FotoBox %2 application version %3 countdown (number)</extracomment>
         <translation>launching %1 v%2 in %3 seconds</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="297"/>
+        <location filename="../source/preferences.cpp" line="296"/>
         <source>Clear all JPEGs in the photo folder (leave subfolders untouched)?</source>
         <translation>Clear all JPEGs in the photo folder (leave subfolders untouched)?</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="445"/>
+        <location filename="../source/preferences.cpp" line="444"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="457"/>
+        <location filename="../source/preferences.cpp" line="456"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</translation>
     </message>

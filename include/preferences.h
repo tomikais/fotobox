@@ -152,14 +152,14 @@ private:
      * \param i_message QString error message to display in QLabel
      * \return bool true: application found / false: not found
      */
-    bool applicationAvailable(const QString &i_name, const QString &i_message);
+    auto applicationAvailable(const QString &i_name, const QString &i_message) -> bool;
 
     /*!
      * \brief Read gphoto2 / libgphoto2 version and camera model
      * \param i_name QString name of the application to check
      * \return QString return information
      */
-    QString gphotoInfo(const QString &i_name);
+    auto gphotoInfo(const QString &i_name) -> QString;
 
     /*! Countdown start value (10 seconds) */
     static constexpr int COUNTDOWN_START_VALUE = 10;

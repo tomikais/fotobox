@@ -280,8 +280,6 @@ void Preferences::chooseDirectory()
     if (dialog.exec() == QDialog::Accepted) {
         const auto path = dialog.directory().absolutePath();
         if (!verifyPath(path)) {
-            //recursion
-            chooseDirectory();
             return;
         }
         //set path will again call verifyPath() see Signal&Slot connection
@@ -314,7 +312,7 @@ void Preferences::clearDirectoryContent()
     }
 }
 
-bool Preferences::verifyPath(const QString &i_path)
+auto Preferences::verifyPath(const QString &i_path) -> bool
 {
     QFileInfo path(i_path);
 
@@ -419,8 +417,8 @@ void Preferences::restoreDefaultPreferences()
 
     //Camera
     m_ui->cmbCameraMode->clear();
-    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), QLatin1String("--capture-image-and-download --keep --force-overwrite --filename %1"));
-    m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), QLatin1String("--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1"));
+    m_ui->cmbCameraMode->addItem(QStringLiteral("gphoto2"), "--capture-image-and-download --keep --force-overwrite --filename %1");
+    m_ui->cmbCameraMode->addItem(QStringLiteral("raspistill"), "--output %1 --width 1920 --height 1080 --quality 75 --nopreview --timeout 1");
     m_ui->spbTimout->setValue(DEFAULT_TIMEOUT);
     m_ui->chbGrayscale->setChecked(false);
 
@@ -441,7 +439,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //gphoto2
-    if (i_name == QLatin1String("gphoto2")) {
+    if (i_name == u"gphoto2") {
         const auto message = tr("'%1' is missing%2")
                                  .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
                                                  "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
@@ -453,7 +451,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Raspberry Pi Camera Module
-    if (i_name == QLatin1String("raspistill")) {
+    if (i_name == u"raspistill") {
         const auto message = tr("'%1' is missing%2")
                                  .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
                                                  "Raspberry Pi Camera Module - enabling the camera</a>"));
@@ -462,11 +460,11 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Other Applications
-    const auto message = tr("'%1' is missing%2").arg(i_name, QLatin1String(""));
+    const auto message = tr("'%1' is missing%2").arg(i_name, "");
     applicationAvailable(i_name, message);
 }
 
-bool Preferences::applicationAvailable(const QString &i_name, const QString &i_message)
+auto Preferences::applicationAvailable(const QString &i_name, const QString &i_message) -> bool
 {
     //If the process cannot be started, -2 is returned. If the process crashes, -1 is returned.
     QProcess process;
@@ -487,7 +485,7 @@ bool Preferences::applicationAvailable(const QString &i_name, const QString &i_m
     return true;
 }
 
-QString Preferences::gphotoInfo(const QString &i_name)
+auto Preferences::gphotoInfo(const QString &i_name) -> QString
 {
     QString result;
 

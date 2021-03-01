@@ -62,27 +62,27 @@ public:
      * \brief Show countdown status
      * \return bool getter \see m_isActive true: is active / false: not active
      */
-    bool isActive() const;
+    auto isActive() const -> bool;
 
     /*!
      * \brief Start countdown
      * \details only start if not running \see m_isActive and start value \see m_startValue is set
      * \return bool true: running / false: not running
      */
-    bool start();
+    auto start() -> bool;
 
     /*!
      * \brief Stop countdown and check \see m_timer has really stopped
      * \return bool true: is stopped / false: not stopped
      */
-    bool stop();
+    auto stop() -> bool;
 
     /*!
      * \brief Reset countdown (reset \see m_timeLeft value with \see m_startTime)
      * \details Will also \see stop() current countdown
      * \return bool true: is reseted / false: not reseted
      */
-    bool reset();
+    auto reset() -> bool;
 
 Q_SIGNALS:
     /*!
