@@ -439,7 +439,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //gphoto2
-    if (i_name == u"gphoto2") {
+    if (i_name == QStringLiteral("gphoto2")) {
         const auto message = tr("'%1' is missing%2")
                                  .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
                                                  "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
@@ -451,7 +451,7 @@ void Preferences::verifyApplication(const QString &i_name)
     }
 
     //Raspberry Pi Camera Module
-    if (i_name == u"raspistill") {
+    if (i_name == QStringLiteral("raspistill")) {
         const auto message = tr("'%1' is missing%2")
                                  .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
                                                  "Raspberry Pi Camera Module - enabling the camera</a>"));
