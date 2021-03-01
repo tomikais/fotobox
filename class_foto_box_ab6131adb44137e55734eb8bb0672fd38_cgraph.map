@@ -1,0 +1,11 @@
+<map id="FotoBox::countdown" name="FotoBox::countdown">
+<area shape="rect" id="node1" title="With or without countdown." alt="" coords="5,114,148,141"/>
+<area shape="rect" id="node2" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="613,5,747,47"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="226,114,337,141"/>
+<area shape="rect" id="node8" href="$class_countdown.html#a2c047ed2997b0d933b18ead33b3a6a5e" title="Set the countdown start time." alt="" coords="196,165,367,191"/>
+<area shape="rect" id="node9" href="$class_countdown.html#a42d413ab133c683032bbd188e16f6a51" title="Start countdown." alt="" coords="220,215,343,242"/>
+<area shape="rect" id="node4" href="$class_camera.html#a88aed424830b94ab70f84130e4be5f6c" title="return member" alt="" coords="415,63,565,90"/>
+<area shape="rect" id="node5" href="$class_foto_box.html#a78d1e793417f4ce20a26465271b383b1" title="try to load the photo to QPixmap" alt="" coords="421,114,559,141"/>
+<area shape="rect" id="node6" href="$class_countdown.html#ac9b658e9c4cf7896ce55b806e66f5e38" title="Reset countdown (reset." alt="" coords="427,215,553,242"/>
+<area shape="rect" id="node7" href="$class_camera.html#a497d9061dd108efc452f75b6b542d824" title="shoot a photo with gphoto2" alt="" coords="419,165,561,191"/>
+</map>

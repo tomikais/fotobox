@@ -1,0 +1,4 @@
+<map id="Countdown::setStartTime" name="Countdown::setStartTime">
+<area shape="rect" id="node1" title="Set the countdown start time." alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node2" href="$class_countdown.html#ac9b658e9c4cf7896ce55b806e66f5e38" title="Reset countdown (reset." alt="" coords="224,5,349,32"/>
+</map>

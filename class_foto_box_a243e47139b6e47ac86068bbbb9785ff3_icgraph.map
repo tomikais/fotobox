@@ -1,0 +1,4 @@
+<map id="FotoBox::buzzer" name="FotoBox::buzzer">
+<area shape="rect" id="node1" title="creates a new Buzzer object" alt="" coords="181,5,300,32"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,5,133,32"/>
+</map>

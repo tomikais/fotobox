@@ -1,0 +1,4 @@
+<map id="Preferences::chooseDirectory" name="Preferences::chooseDirectory">
+<area shape="rect" id="node1" title="Open a QFileDialog to choose the photo directory." alt="" coords="5,5,200,32"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a7afa980f5dd5b686e1c46fa971c2543f" title="Check if the path is useable." alt="" coords="248,5,407,32"/>
+</map>

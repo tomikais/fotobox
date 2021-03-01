@@ -1,0 +1,6 @@
+<map id="FotoBox::buttons" name="FotoBox::buttons">
+<area shape="rect" id="node1" title="With or without buttons." alt="" coords="5,42,128,69"/>
+<area shape="rect" id="node2" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="198,5,331,47"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a425dffd36aa5b68a110a42c4c3a20942" title="show preference dialog and close dialog" alt="" coords="176,71,353,98"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a222aa7e9a43bd9cb8dca55b806649b82" title="Is used as a workaround for macOS to close a fullscreen window." alt="" coords="401,64,572,105"/>
+</map>

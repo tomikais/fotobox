@@ -1,0 +1,17 @@
+<map id="PreferenceProvider::instance" name="PreferenceProvider::instance">
+<area shape="rect" id="node1" title="get instance (Meyers Singleton)" alt="" coords="908,269,1041,310"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a6ea2f49a55e9e59ec855578e7c9c8896" title="With or without buttons." alt="" coords="699,48,821,75"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="457,48,585,75"/>
+<area shape="rect" id="node4" href="$class_camera.html#ae3aa4afd7a3d9ddc2bf710bc74dc293e" title="Camera constructor." alt="" coords="699,251,821,278"/>
+<area shape="rect" id="node5" href="$class_preferences.html#a183e931ddd91f03ac2b9cf40f8d9f434" title="Clear directory content of the photo directory." alt="" coords="431,353,612,394"/>
+<area shape="rect" id="node6" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="224,363,383,390"/>
+<area shape="rect" id="node8" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="689,99,831,126"/>
+<area shape="rect" id="node9" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="466,124,577,151"/>
+<area shape="rect" id="node10" href="$class_foto_box.html#aa5ad9f8647ac290a5145ccaa2ad8cd62" title="Draw text on the QPixmap." alt="" coords="694,454,826,480"/>
+<area shape="rect" id="node11" href="$class_foto_box.html#a78d1e793417f4ce20a26465271b383b1" title="try to load the photo to QPixmap" alt="" coords="691,200,829,227"/>
+<area shape="rect" id="node12" href="$class_foto_box.html#a029f5b3b1a9c3594626dc68e8fb6b282" title="This event handler, for event event, can be reimplemented in a subclass to receive mouse release even..." alt="" coords="660,504,860,531"/>
+<area shape="rect" id="node13" href="$class_preferences.html#a70c6489f66db193c8645fed5d4b36ac6" title="Save the preferences to QSettings." alt="" coords="661,403,859,430"/>
+<area shape="rect" id="node15" href="$class_foto_box.html#adc055fdfdbbebbb60e0c71e4c6551301" title="FotoBox destructor." alt="" coords="692,555,828,582"/>
+<area shape="rect" id="node7" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,390,176,416"/>
+<area shape="rect" id="node14" href="$class_preferences.html#a4f0c2844c169369eacff4a6c004b2d7d" title="Start the FotoBox." alt="" coords="434,419,609,446"/>
+</map>

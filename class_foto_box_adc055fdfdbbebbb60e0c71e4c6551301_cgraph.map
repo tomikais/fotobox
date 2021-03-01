@@ -1,0 +1,5 @@
+<map id="FotoBox::~FotoBox" name="FotoBox::~FotoBox">
+<area shape="rect" id="node1" title="FotoBox destructor." alt="" coords="5,42,141,69"/>
+<area shape="rect" id="node2" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="189,5,323,47"/>
+<area shape="rect" id="node3" href="$class_buzzer.html#acbb32df95ae1af7d4ba9bb01dc9e3b20" title="Stop executing." alt="" coords="208,71,304,98"/>
+</map>

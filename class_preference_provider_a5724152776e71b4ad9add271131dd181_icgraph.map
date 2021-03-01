@@ -1,0 +1,6 @@
+<map id="PreferenceProvider::countdownColorChanged" name="PreferenceProvider::countdownColorChanged">
+<area shape="rect" id="node1" title="signal: font color of the countdown has changed" alt="" coords="624,5,800,47"/>
+<area shape="rect" id="node2" href="$class_preference_provider.html#ac9335b967576696b421ed3132f4ddea0" title="set font color of the countdown" alt="" coords="431,5,576,47"/>
+<area shape="rect" id="node3" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="224,13,383,39"/>
+<area shape="rect" id="node4" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,13,176,39"/>
+</map>

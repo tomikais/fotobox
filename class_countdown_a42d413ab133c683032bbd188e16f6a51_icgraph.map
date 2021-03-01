@@ -1,0 +1,7 @@
+<map id="Countdown::start" name="Countdown::start">
+<area shape="rect" id="node1" title="Start countdown." alt="" coords="400,81,523,108"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="195,56,338,83"/>
+<area shape="rect" id="node5" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="181,107,352,133"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="14,56,125,83"/>
+</map>

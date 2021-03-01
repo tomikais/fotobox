@@ -1,0 +1,5 @@
+<map id="Preferences::stopCountdownMode" name="Preferences::stopCountdownMode">
+<area shape="rect" id="node1" title="Stop countdown, stop mouse tracking and set normal window title name." alt="" coords="5,31,228,57"/>
+<area shape="rect" id="node2" href="$class_countdown.html#af682a75d0c6f682fd699d0cf42ba9088" title="Show countdown status." alt="" coords="276,5,419,32"/>
+<area shape="rect" id="node3" href="$class_countdown.html#ad7212649cb592a77bbf5ccdf82a5582c" title="Stop countdown and check." alt="" coords="287,56,408,83"/>
+</map>

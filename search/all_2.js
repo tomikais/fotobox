@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['calculatefontsize_10',['calculateFontSize',['../class_foto_box.html#a43e549fd9ded42ddf091920a7cab5d49',1,'FotoBox']]],
+  ['camera_11',['Camera',['../class_camera.html',1,'Camera'],['../class_camera.html#ae3aa4afd7a3d9ddc2bf710bc74dc293e',1,'Camera::Camera(QObject *parent=nullptr)'],['../class_camera.html#a48d9fa57d94d049227d29c45511ba190',1,'Camera::Camera(const Camera &amp;other)=delete'],['../class_camera.html#aa963c990afced8a8d5f6b9562958846e',1,'Camera::Camera(Camera &amp;&amp;other)=delete']]],
+  ['camera_2ecpp_12',['camera.cpp',['../camera_8cpp.html',1,'']]],
+  ['camera_2eh_13',['camera.h',['../camera_8h.html',1,'']]],
+  ['cameramode_14',['cameraMode',['../class_preference_provider.html#ae4baf4169e7705b5bb6614d6bab43697',1,'PreferenceProvider::cameraMode()'],['../class_preference_provider.html#ab6bbca6c7e8068dec57a22179f50e947',1,'PreferenceProvider::cameraMode() const']]],
+  ['cameramodechanged_15',['cameraModeChanged',['../class_preference_provider.html#ae17377015e11aa20d12f706dbb42ba6c',1,'PreferenceProvider']]],
+  ['choosedirectory_16',['chooseDirectory',['../class_preferences.html#a9502fa3d4df242273f10f836ec3fc86c',1,'Preferences']]],
+  ['cleardirectorycontent_17',['clearDirectoryContent',['../class_preferences.html#a183e931ddd91f03ac2b9cf40f8d9f434',1,'Preferences']]],
+  ['closefullscreenwindowonmac_18',['closeFullscreenWindowOnMac',['../class_foto_box.html#a222aa7e9a43bd9cb8dca55b806649b82',1,'FotoBox']]],
+  ['colordialog_19',['colorDialog',['../class_preferences.html#a75a9b09142771785f070cfdec79b7240',1,'Preferences']]],
+  ['commandlineoptionsdialog_20',['commandLineOptionsDialog',['../class_preferences.html#a5bd81120037390a1e90e79f88741f871',1,'Preferences']]],
+  ['compare_21',['COMPARE',['../class_foto_box.html#a1793ca4d0751a8927d3eae12b79e367f',1,'FotoBox']]],
+  ['connectui_22',['connectUi',['../class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d',1,'Preferences']]],
+  ['countdown_23',['Countdown',['../class_countdown.html',1,'']]],
+  ['countdown_24',['countdown',['../class_preference_provider.html#ad9be4c2f890242c6ee5f97e2956d1926',1,'PreferenceProvider::countdown()'],['../class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38',1,'FotoBox::countdown()'],['../class_preference_provider.html#ae9b28064888b9cd9205dd88ea3f289a5',1,'PreferenceProvider::countdown()']]],
+  ['countdown_25',['Countdown',['../class_countdown.html#a2fda5be41af21076407c3a85b13b1f89',1,'Countdown::Countdown(QObject *parent=nullptr, unsigned int i_seconds=0)'],['../class_countdown.html#a63b32d4925f0068826eddadad9b825dd',1,'Countdown::Countdown(const Countdown &amp;other)=delete'],['../class_countdown.html#aacc069d2dc11829e62caf289a7e9ea8a',1,'Countdown::Countdown(Countdown &amp;&amp;other)=delete']]],
+  ['countdown_2ecpp_26',['countdown.cpp',['../countdown_8cpp.html',1,'']]],
+  ['countdown_2eh_27',['countdown.h',['../countdown_8h.html',1,'']]],
+  ['countdown_5fstart_5fvalue_28',['COUNTDOWN_START_VALUE',['../class_preferences.html#aa138b884d6a5f13fee0bc735cd909dbf',1,'Preferences']]],
+  ['countdownchanged_29',['countdownChanged',['../class_preference_provider.html#ac814eec05a5c4839c411e3dad6019d3f',1,'PreferenceProvider']]],
+  ['countdowncolor_30',['countdownColor',['../class_preference_provider.html#a1705eced5c7a37ca1179b6de729b68f6',1,'PreferenceProvider::countdownColor()'],['../class_preference_provider.html#aafa6cf7a8fc8166c321cd78bca259787',1,'PreferenceProvider::countdownColor() const -&gt; QString']]],
+  ['countdowncolorchanged_31',['countdownColorChanged',['../class_preference_provider.html#a5724152776e71b4ad9add271131dd181',1,'PreferenceProvider']]],
+  ['currentphoto_32',['currentPhoto',['../class_camera.html#a88aed424830b94ab70f84130e4be5f6c',1,'Camera']]]
+];

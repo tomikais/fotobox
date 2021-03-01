@@ -1,0 +1,6 @@
+<map id="Preferences::gphotoInfo" name="Preferences::gphotoInfo">
+<area shape="rect" id="node1" title="Read gphoto2 / libgphoto2 version and camera model." alt="" coords="675,5,836,32"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a7b8d051df918f07c7f835088f68bd7b3" title="Check camera application availability and provide help if needed." alt="" coords="431,5,627,32"/>
+<area shape="rect" id="node3" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="224,5,383,32"/>
+<area shape="rect" id="node4" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,5,176,32"/>
+</map>

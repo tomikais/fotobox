@@ -1,0 +1,5 @@
+<map id="FotoBox::drawText" name="FotoBox::drawText">
+<area shape="rect" id="node1" title="Draw text on the QPixmap." alt="" coords="5,35,137,61"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a43e549fd9ded42ddf091920a7cab5d49" title="calculate &quot;maximum&quot; fitting font size" alt="" coords="185,5,368,32"/>
+<area shape="rect" id="node3" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="210,57,343,98"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Preferences::startFotoBox" name="Preferences::startFotoBox">
+<area shape="rect" id="node1" title="Start the FotoBox." alt="" coords="5,38,180,65"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a70c6489f66db193c8645fed5d4b36ac6" title="Save the preferences to QSettings." alt="" coords="228,13,427,39"/>
+<area shape="rect" id="node4" href="$class_countdown.html#ad7212649cb592a77bbf5ccdf82a5582c" title="Stop countdown and check." alt="" coords="267,63,388,90"/>
+<area shape="rect" id="node3" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="475,5,608,47"/>
+</map>

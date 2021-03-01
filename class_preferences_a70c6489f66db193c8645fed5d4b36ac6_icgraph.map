@@ -1,0 +1,6 @@
+<map id="Preferences::savePreferences" name="Preferences::savePreferences">
+<area shape="rect" id="node1" title="Save the preferences to QSettings." alt="" coords="653,31,852,57"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a4f0c2844c169369eacff4a6c004b2d7d" title="Start the FotoBox." alt="" coords="431,31,605,57"/>
+<area shape="rect" id="node3" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="224,5,383,32"/>
+<area shape="rect" id="node4" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,31,176,57"/>
+</map>

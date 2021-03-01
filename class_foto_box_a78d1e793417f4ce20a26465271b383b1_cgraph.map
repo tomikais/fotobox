@@ -1,0 +1,4 @@
+<map id="FotoBox::loadPhoto" name="FotoBox::loadPhoto">
+<area shape="rect" id="node1" title="try to load the photo to QPixmap" alt="" coords="5,13,143,39"/>
+<area shape="rect" id="node2" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="191,5,324,47"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Countdown::setStartTime" name="Countdown::setStartTime">
+<area shape="rect" id="node1" title="Set the countdown start time." alt="" coords="372,56,543,83"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="181,56,324,83"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,5,133,32"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="14,56,125,83"/>
+</map>

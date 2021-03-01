@@ -1,0 +1,17 @@
+<map id="FotoBox::FotoBox" name="FotoBox::FotoBox">
+<area shape="rect" id="node1" title="FotoBox constructor." alt="" coords="5,145,133,172"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a6ea2f49a55e9e59ec855578e7c9c8896" title="With or without buttons." alt="" coords="191,61,314,88"/>
+<area shape="rect" id="node3" href="$class_preference_provider.html#a786d1bce48ec60ae6d1809ad01bc5cdb" title="get instance (Meyers Singleton)" alt="" coords="816,163,949,205"/>
+<area shape="rect" id="node6" href="$class_foto_box.html#a243e47139b6e47ac86068bbbb9785ff3" title="creates a new Buzzer object" alt="" coords="193,171,312,197"/>
+<area shape="rect" id="node8" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="181,297,324,324"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a425dffd36aa5b68a110a42c4c3a20942" title="show preference dialog and close dialog" alt="" coords="372,61,549,88"/>
+<area shape="rect" id="node5" href="$class_foto_box.html#a222aa7e9a43bd9cb8dca55b806649b82" title="Is used as a workaround for macOS to close a fullscreen window." alt="" coords="597,54,768,95"/>
+<area shape="rect" id="node7" href="$class_buzzer.html#a36384028775a41314221ecc23de3cf67" title="Query the Raspberry Pi pin." alt="" coords="399,171,522,197"/>
+<area shape="rect" id="node9" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="405,297,516,324"/>
+<area shape="rect" id="node14" href="$class_countdown.html#a2c047ed2997b0d933b18ead33b3a6a5e" title="Set the countdown start time." alt="" coords="375,348,546,375"/>
+<area shape="rect" id="node15" href="$class_countdown.html#a42d413ab133c683032bbd188e16f6a51" title="Start countdown." alt="" coords="399,399,522,425"/>
+<area shape="rect" id="node10" href="$class_camera.html#a88aed424830b94ab70f84130e4be5f6c" title="return member" alt="" coords="607,272,758,299"/>
+<area shape="rect" id="node11" href="$class_foto_box.html#a78d1e793417f4ce20a26465271b383b1" title="try to load the photo to QPixmap" alt="" coords="614,323,751,349"/>
+<area shape="rect" id="node12" href="$class_countdown.html#ac9b658e9c4cf7896ce55b806e66f5e38" title="Reset countdown (reset." alt="" coords="620,424,745,451"/>
+<area shape="rect" id="node13" href="$class_camera.html#a497d9061dd108efc452f75b6b542d824" title="shoot a photo with gphoto2" alt="" coords="611,373,754,400"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Preferences::loadPreferences" name="Preferences::loadPreferences">
+<area shape="rect" id="node1" title="Load application settings from INI file." alt="" coords="224,5,419,32"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,5,176,32"/>
+</map>

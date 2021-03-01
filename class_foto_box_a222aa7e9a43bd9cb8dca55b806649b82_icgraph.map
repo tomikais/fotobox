@@ -1,0 +1,7 @@
+<map id="FotoBox::closeFullscreenWindowOnMac" name="FotoBox::closeFullscreenWindowOnMac">
+<area shape="rect" id="node1" title="Is used as a workaround for macOS to close a fullscreen window." alt="" coords="623,23,793,65"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a425dffd36aa5b68a110a42c4c3a20942" title="show preference dialog and close dialog" alt="" coords="397,31,575,57"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a6ea2f49a55e9e59ec855578e7c9c8896" title="With or without buttons." alt="" coords="204,5,327,32"/>
+<area shape="rect" id="node5" href="$class_foto_box.html#a3edde5650f847eb3efc84ef8e727298f" title="filter key press events" alt="" coords="181,56,349,83"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,5,133,32"/>
+</map>

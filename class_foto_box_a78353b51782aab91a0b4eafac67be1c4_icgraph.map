@@ -1,0 +1,5 @@
+<map id="FotoBox::photo" name="FotoBox::photo">
+<area shape="rect" id="node1" title="trigger camera to shot a photo and try to show it" alt="" coords="372,5,483,32"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="181,5,324,32"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,5,133,32"/>
+</map>

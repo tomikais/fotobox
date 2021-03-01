@@ -1,0 +1,4 @@
+<map id="FotoBox::preferenceDialog" name="FotoBox::preferenceDialog">
+<area shape="rect" id="node1" title="show preference dialog and close dialog" alt="" coords="5,13,183,39"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a222aa7e9a43bd9cb8dca55b806649b82" title="Is used as a workaround for macOS to close a fullscreen window." alt="" coords="231,5,401,47"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Countdown::isActive" name="Countdown::isActive">
+<area shape="rect" id="node1" title="Show countdown status." alt="" coords="748,31,891,57"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a1dcf663eabce314027a86d17d1d4867b" title="Stop countdown, stop mouse tracking and set normal window title name." alt="" coords="477,31,700,57"/>
+<area shape="rect" id="node3" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="247,5,406,32"/>
+<area shape="rect" id="node5" href="$class_preferences.html#aa50a76adea9578e5c101776ef2aaf0fa" title="This event handler, for event event, can be reimplemented in a subclass to receive mouse move events ..." alt="" coords="224,56,429,83"/>
+<area shape="rect" id="node4" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,5,176,32"/>
+</map>

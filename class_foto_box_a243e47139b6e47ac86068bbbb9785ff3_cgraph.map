@@ -1,0 +1,4 @@
+<map id="FotoBox::buzzer" name="FotoBox::buzzer">
+<area shape="rect" id="node1" title="creates a new Buzzer object" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node2" href="$class_buzzer.html#a36384028775a41314221ecc23de3cf67" title="Query the Raspberry Pi pin." alt="" coords="172,5,295,32"/>
+</map>

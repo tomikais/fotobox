@@ -1,0 +1,8 @@
+<map id="FotoBox" name="FotoBox">
+<area shape="rect" id="node1" title="The FotoBox class Main class to control UI and controll the process." alt="" coords="212,668,423,1361"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,330,75,407"/>
+<area shape="rect" id="node3" href="$class_countdown.html" title="The Countdown class." alt="" coords="99,132,306,605"/>
+<area shape="rect" id="node4" title=" " alt="" coords="398,5,469,83"/>
+<area shape="rect" id="node5" href="$class_camera.html" title="The Camera class Use gphoto2 to send commands to camera." alt="" coords="330,154,537,583"/>
+<area shape="rect" id="node6" href="$class_buzzer.html" title="This class handles the buzzer." alt="" coords="561,227,735,510"/>
+</map>

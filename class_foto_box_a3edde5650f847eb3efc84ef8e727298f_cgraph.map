@@ -1,0 +1,5 @@
+<map id="FotoBox::keyPressEvent" name="FotoBox::keyPressEvent">
+<area shape="rect" id="node1" title="filter key press events" alt="" coords="5,13,173,39"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a425dffd36aa5b68a110a42c4c3a20942" title="show preference dialog and close dialog" alt="" coords="221,13,399,39"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a222aa7e9a43bd9cb8dca55b806649b82" title="Is used as a workaround for macOS to close a fullscreen window." alt="" coords="447,5,617,47"/>
+</map>

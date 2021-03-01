@@ -1,0 +1,10 @@
+<map id="Countdown::stop" name="Countdown::stop">
+<area shape="rect" id="node1" title="Stop countdown and check." alt="" coords="748,81,869,108"/>
+<area shape="rect" id="node2" href="$class_preferences.html#a4f0c2844c169369eacff4a6c004b2d7d" title="Start the FotoBox." alt="" coords="501,31,676,57"/>
+<area shape="rect" id="node5" href="$class_preferences.html#a1dcf663eabce314027a86d17d1d4867b" title="Stop countdown, stop mouse tracking and set normal window title name." alt="" coords="477,81,700,108"/>
+<area shape="rect" id="node7" href="$class_countdown.html#a9098d9aba8a5e4841f93ca30414c78b0" title="Start the timer until there is no time left, means." alt="" coords="495,132,682,159"/>
+<area shape="rect" id="node3" href="$class_preferences.html#a36e52663dbf3006c5dcf04d89cfd672d" title="Signal &amp; Slot connect." alt="" coords="247,31,406,57"/>
+<area shape="rect" id="node4" href="$class_preferences.html#a137b56e8d51ff2712666f94263b2e34e" title="Preferences constructor." alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node6" href="$class_preferences.html#aa50a76adea9578e5c101776ef2aaf0fa" title="This event handler, for event event, can be reimplemented in a subclass to receive mouse move events ..." alt="" coords="224,81,429,108"/>
+<area shape="rect" id="node8" href="$class_countdown.html#a2fda5be41af21076407c3a85b13b1f89" title="Countdown constructor." alt="" coords="245,132,408,159"/>
+</map>

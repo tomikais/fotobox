@@ -1,0 +1,10 @@
+<map id="FotoBox::start" name="FotoBox::start">
+<area shape="rect" id="node1" title="signal: start FotoBox" alt="" coords="429,107,535,133"/>
+<area shape="rect" id="node2" href="$class_foto_box.html#a6ea2f49a55e9e59ec855578e7c9c8896" title="With or without buttons." alt="" coords="220,5,343,32"/>
+<area shape="rect" id="node4" href="$class_foto_box.html#a243e47139b6e47ac86068bbbb9785ff3" title="creates a new Buzzer object" alt="" coords="222,56,341,83"/>
+<area shape="rect" id="node5" href="$class_foto_box.html#ab6131adb44137e55734eb8bb0672fd38" title="With or without countdown." alt="" coords="210,107,353,133"/>
+<area shape="rect" id="node7" href="$class_foto_box.html#a3edde5650f847eb3efc84ef8e727298f" title="filter key press events" alt="" coords="197,157,365,184"/>
+<area shape="rect" id="node8" href="$class_foto_box.html#a029f5b3b1a9c3594626dc68e8fb6b282" title="This event handler, for event event, can be reimplemented in a subclass to receive mouse release even..." alt="" coords="181,208,381,235"/>
+<area shape="rect" id="node3" href="$class_foto_box.html#a7e0a5334bb6ff5f26443c422dae22d54" title="FotoBox constructor." alt="" coords="5,56,133,83"/>
+<area shape="rect" id="node6" href="$class_foto_box.html#a78353b51782aab91a0b4eafac67be1c4" title="trigger camera to shot a photo and try to show it" alt="" coords="14,107,125,133"/>
+</map>
