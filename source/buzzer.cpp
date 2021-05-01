@@ -68,10 +68,10 @@ void Buzzer::queryPin()
     Q_EMIT triggered();
 }
 #else
-Buzzer::~Buzzer(){};
-auto Buzzer::initialise()  -> bool{return false;};
-auto Buzzer::checkDeamon() -> bool{return false;};
-void Buzzer::queryPin(){/* stub */};
+Buzzer::~Buzzer(){}; // NOLINT
+auto Buzzer::initialise()  -> bool{return false;}; // NOLINT
+auto Buzzer::checkDeamon() -> bool{return false;}; // NOLINT
+void Buzzer::queryPin(){/* stub */}; // NOLINT
 #endif
 
 
