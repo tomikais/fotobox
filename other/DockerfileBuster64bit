@@ -16,10 +16,8 @@ RUN install_packages \
       cmake \
       qt5-default \
       qttools5-dev \
-      qttools5-dev-tools && \
-      git clone https://github.com/WiringPi/WiringPi.git && \
-      cd WiringPi && \
-      ./build
+      qttools5-dev-tools \
+      pigpio
 
 # copy repository to container
 WORKDIR /build

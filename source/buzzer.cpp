@@ -7,29 +7,56 @@
  */
 #include "buzzer.h"
 
-
 #if defined (BUZZER_AVAILABLE)
-#include <wiringPi.h>
+#include <QThread>
+#include <pigpiod_if2.h>
 #include "preferenceprovider.h"
 
-
-Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr)
+Buzzer::~Buzzer()
 {
-    //wiringPi http://wiringpi.com/reference/setup/
-    //function always returns zero 0, no need to check result!
-    wiringPiSetup();
+    //This function resets the used DMA channels, releases memory, and terminates any running threads.
+    pigpio_stop(m_pi);
+};
 
-    //set mode of the pin (INPUT, OUTPUT, PWM_OUTPUT)
-    pinMode(PreferenceProvider::instance().outputPin(), OUTPUT);
-    pinMode(PreferenceProvider::instance().inputPin(), INPUT);
+auto Buzzer::initialise() -> bool
+{
+    //Connect to the pigpio daemon
+    m_pi = pigpio_start(nullptr, nullptr);
+    if (m_pi < 0) {
+        //pigpio initialisation failed.
+        return false;
+    } else {
+        //pigpio initialised okay, now set mode of the pin
+        if (set_mode(m_pi, PreferenceProvider::instance().outputPin(), PI_OUTPUT) != 0) {
+            return false;
+        }
+        if (set_mode(m_pi, PreferenceProvider::instance().inputPin(), PI_INPUT) != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+auto Buzzer::checkDeamon() -> bool
+{
+    //nullptr -> 'localhost', nullptr -> '8888'
+    auto result = pigpio_start(nullptr, nullptr);
+    if (result < 0) {
+        //pigpio initialisation failed.
+        return false;
+    } else {
+        //deamon reachable -> disconnect
+        pigpio_stop(result);
+        return true;
+    }
 }
 
 void Buzzer::queryPin()
 {
     //query pin
-    while (digitalRead(PreferenceProvider::instance().inputPin()) != HIGH) {
+    while (gpio_read(m_pi, PreferenceProvider::instance().inputPin()) != PI_HIGH) {
         //wait before query pin again
-        delay(PreferenceProvider::instance().queryInterval());
+        QThread::msleep(PreferenceProvider::instance().queryInterval());
 
         //if stop is true, stop while loop and return to caller (don't emit triggered)
         if (m_stop) {
@@ -41,10 +68,15 @@ void Buzzer::queryPin()
     Q_EMIT triggered();
 }
 #else
-Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr) {/* stub */};
+Buzzer::~Buzzer(){};
+auto Buzzer::initialise()  -> bool{return false;};
+auto Buzzer::checkDeamon() -> bool{return false;};
 void Buzzer::queryPin(){/* stub */};
 #endif
 
+
+//don't set parent!
+Buzzer::Buzzer(QObject* /*parent*/) : QObject(nullptr) { }
 
 void Buzzer::stop()
 {

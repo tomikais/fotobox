@@ -37,17 +37,22 @@
 <context>
     <name>FotoBox</name>
     <message>
-        <location filename="../source/fotobox.cpp" line="164"/>
+        <location filename="../source/fotobox.cpp" line="84"/>
+        <source>Buzzer isn&apos;t working. Please check &apos;pigpio&apos; deamon.</source>
+        <translation>Buzzer funktioniert nicht. Bitte überprüfen Sie den &apos;pigpio&apos; Dienst.</translation>
+    </message>
+    <message>
+        <location filename="../source/fotobox.cpp" line="170"/>
         <source>To quit the application, please hold down the Shift key while press Escape key.</source>
         <translation>Um die Anwendung zu beenden, halten Sie die Umschalttaste gedrückt, während Sie die Escape-Taste drücken.</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="216"/>
+        <location filename="../source/fotobox.cpp" line="222"/>
         <source>Error: Taking a photo isn&apos;t working correctly!</source>
         <translation>Fehler: Aufnehmen des Fotos funktioniert nicht!</translation>
     </message>
     <message>
-        <location filename="../source/fotobox.cpp" line="248"/>
+        <location filename="../source/fotobox.cpp" line="254"/>
         <source>Couldn&apos;t load the photo.</source>
         <translation>Das Bild konnte nicht geladen werden.</translation>
     </message>
@@ -73,78 +78,88 @@
 <context>
     <name>Preferences</name>
     <message>
-        <location filename="../source/preferences.cpp" line="192"/>
+        <location filename="../source/preferences.cpp" line="206"/>
         <source>preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="275"/>
+        <location filename="../source/preferences.cpp" line="289"/>
         <source>choose directory</source>
         <translation>Verzeichnis auswählen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="297"/>
+        <location filename="../source/preferences.cpp" line="311"/>
         <source>WARNING: clear directory content</source>
         <translation>ACHTUNG: Verzeichnisinhalt löschen</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="324"/>
-        <location filename="../source/preferences.cpp" line="331"/>
-        <location filename="../source/preferences.cpp" line="337"/>
+        <location filename="../source/preferences.cpp" line="338"/>
+        <location filename="../source/preferences.cpp" line="345"/>
+        <location filename="../source/preferences.cpp" line="351"/>
         <source>photo folder</source>
         <translation>Bilder Ordner</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="324"/>
+        <location filename="../source/preferences.cpp" line="338"/>
         <source>The directory doesn&apos;t exist and also couldn&apos;t be created.</source>
         <translation>Das Verzeichnis existiert nicht und konnte auch nicht angelegt werden.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="331"/>
+        <location filename="../source/preferences.cpp" line="345"/>
         <source>Please select a directory and not a file.</source>
         <translation>Bitte wählen Sie ein Verzeichnis und keine Datei aus.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="337"/>
+        <location filename="../source/preferences.cpp" line="351"/>
         <source>Write and read rights are required. Please check the permission of the directory.</source>
         <translation>Schreib- und Leserechte sind erforderlich. Bitte überprüfen Sie die Zugriffsrechte des Verzeichnisses.</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="521"/>
-        <location filename="../source/preferences.cpp" line="529"/>
+        <location filename="../source/preferences.cpp" line="535"/>
+        <location filename="../source/preferences.cpp" line="543"/>
         <source>camera model: %1</source>
         <translation>Kameramodell: %1</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="529"/>
+        <location filename="../source/preferences.cpp" line="543"/>
         <source>NOT DETECTED</source>
         <translation>NICHT ERKANNT</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="443"/>
-        <location filename="../source/preferences.cpp" line="455"/>
-        <location filename="../source/preferences.cpp" line="463"/>
+        <location filename="../source/preferences.cpp" line="457"/>
+        <location filename="../source/preferences.cpp" line="469"/>
+        <location filename="../source/preferences.cpp" line="477"/>
         <source>&apos;%1&apos; is missing%2</source>
         <translation>&apos;%1&apos; nicht gefunden%2</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="60"/>
+        <location filename="../source/preferences.cpp" line="61"/>
         <source>launching %1 v%2 in %3 seconds</source>
         <extracomment>%1 FotoBox %2 application version %3 countdown (number)</extracomment>
         <translation>%1 v%2 wird gestartet in %3 Sekunden</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="296"/>
+        <location filename="../source/preferences.cpp" line="88"/>
+        <source>&apos;pigpio&apos; deamon is reachable</source>
+        <translation>&apos;pigpio&apos; Dienst ist erreichbar</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="91"/>
+        <source>&apos;pigpio&apos; deamon is unreachable</source>
+        <translation>&apos;pigpio&apos; Dienst ist nicht erreichbar</translation>
+    </message>
+    <message>
+        <location filename="../source/preferences.cpp" line="310"/>
         <source>Clear all JPEGs in the photo folder (leave subfolders untouched)?</source>
         <translation>Alle JPEGs im Bilder Ordner löschen (Unterordner unberührt lassen)?</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="444"/>
+        <location filename="../source/preferences.cpp" line="458"/>
         <source>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://github.com/gonzalo/gphoto2-updater/&apos;&gt;Linux (gphoto2 updater)&lt;/a&gt;/&lt;a href=&apos;https://brew.sh/&apos;&gt;macOS (Homebrew)&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../source/preferences.cpp" line="456"/>
+        <location filename="../source/preferences.cpp" line="470"/>
         <source>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Camera Module - enabling the camera&lt;/a&gt;</source>
         <translation>: &lt;a href=&apos;https://www.raspberrypi.org/documentation/usage/camera/&apos;&gt;Raspberry Pi Kamera Modul - aktivieren der Kamera&lt;/a&gt;</translation>
     </message>
@@ -205,6 +220,11 @@
         <translation>Abfrageintervall</translation>
     </message>
     <message>
+        <location filename="../forms/preferences.ui" line="505"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 1&lt;/span&gt;&lt;/a&gt; - Model B (original model)&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_2&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 2&lt;/span&gt;&lt;/a&gt; - Model A, B (revision 2)&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_3&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 3&lt;/span&gt;&lt;/a&gt; - Model A+, B+, Pi Zero, Pi2B, Pi3B&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#CM&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Compute Module&lt;/span&gt;&lt;/a&gt; - Compute Module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 1&lt;/span&gt;&lt;/a&gt; - Model B (original model)&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_2&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 2&lt;/span&gt;&lt;/a&gt; - Model A, B (revision 2)&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#Type_3&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Type 3&lt;/span&gt;&lt;/a&gt; - Model A+, B+, Pi Zero, Pi2B, Pi3B&lt;br/&gt;&lt;a href=&quot;http://abyz.me.uk/rpi/pigpio/index.html#CM&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Compute Module&lt;/span&gt;&lt;/a&gt; - Compute Module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <location filename="../forms/preferences.ui" line="313"/>
         <source>Print</source>
         <translation>Drucken</translation>
@@ -243,11 +263,6 @@
         <location filename="../forms/preferences.ui" line="107"/>
         <source>buttons</source>
         <translation>Buttons</translation>
-    </message>
-    <message>
-        <location filename="../forms/preferences.ui" line="505"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 through 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 respectively, substitute 27 for 21 on a Rev. 2 board): These are safe to use at any time and can be set to input or output with or without the internal pull-up or pull-down resistors enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;http://wiringpi.com/wp-content/uploads/2013/03/pins.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Pins 0 bis 6&lt;/span&gt;&lt;/a&gt; (BCM_GPIO 17, 18, 21, 22, 23, 24, 25 , ersetzen 27 für 21 auf einer Platine Rev. 2): Diese können jederzeit sicher verwendet werden und können mit oder ohne Eingang eingestellt werden oder ohne die internen Pull-Up- oder Pull-Down-Widerstände aktiviert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../forms/preferences.ui" line="100"/>

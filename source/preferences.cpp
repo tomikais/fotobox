@@ -7,6 +7,7 @@
  */
 #include "fotobox.h"
 
+#include "buzzer.h"
 #include "preferenceprovider.h"
 #include "preferences.h"
 #include "ui_commandlineoptions.h"
@@ -59,6 +60,9 @@ Preferences::Preferences(QWidget *parent)
         //: %1 FotoBox %2 application version %3 countdown (number)
         setWindowTitle(tr("launching %1 v%2 in %3 seconds").arg(QApplication::applicationName(), QApplication::applicationVersion()).arg(i_timeLeft));
     });
+
+    //check if pigpio deamon is reachable
+    pigpioDeamon();
 }
 
 Preferences::~Preferences()
@@ -75,6 +79,16 @@ void Preferences::windowPosition()
     } else {
         //enough space, center dialog
         setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), availableGeometry));
+    }
+}
+
+void Preferences::pigpioDeamon()
+{
+    if (Buzzer::checkDeamon()) {
+        m_ui->lblPigpioDeamon->setText(tr("'pigpio' deamon is reachable"));
+    } else {
+        m_ui->lblPigpioDeamon->setStyleSheet(QStringLiteral("QLabel { color : red; }"));
+        m_ui->lblPigpioDeamon->setText(tr("'pigpio' deamon is unreachable"));
     }
 }
 
@@ -441,8 +455,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //gphoto2
     if (i_name == QStringLiteral("gphoto2")) {
         const auto message = tr("'%1' is missing%2")
-                                 .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
-                                                 "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
+                .arg(i_name, tr(": <a href='https://github.com/gonzalo/gphoto2-updater/'>Linux (gphoto2 updater)</a>"
+                                "/<a href='https://brew.sh/'>macOS (Homebrew)</a>"));
         if (applicationAvailable(i_name, message)) {
             //add info about gphoto2
             m_ui->lblCameraModeInfo->setText(gphotoInfo(i_name));
@@ -453,8 +467,8 @@ void Preferences::verifyApplication(const QString &i_name)
     //Raspberry Pi Camera Module
     if (i_name == QStringLiteral("raspistill")) {
         const auto message = tr("'%1' is missing%2")
-                                 .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
-                                                 "Raspberry Pi Camera Module - enabling the camera</a>"));
+                .arg(i_name, tr(": <a href='https://www.raspberrypi.org/documentation/usage/camera/'>"
+                                "Raspberry Pi Camera Module - enabling the camera</a>"));
         applicationAvailable(i_name, message);
         return;
     }

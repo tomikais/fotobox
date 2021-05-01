@@ -82,7 +82,7 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/COPYING
     ${PROJECT_SOURCE_DIR}/README.md
     ${PROJECT_SOURCE_DIR}/THANKS
-    ${PROJECT_SOURCE_DIR}/cmake/FindWiringPi.cmake
+    ${PROJECT_SOURCE_DIR}/cmake/Findpigpio.cmake
     ${PROJECT_SOURCE_DIR}/other/DockerfileStretch32bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster32bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster64bit
@@ -90,7 +90,6 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
     ${PROJECT_SOURCE_DIR}/other/Info.plist
     ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
-    ${PROJECT_SOURCE_DIR}/other/RaspPi_2B_default_GPIO.jpg
     ${PROJECT_SOURCE_DIR}/other/README.pdf
     )
 
@@ -147,14 +146,13 @@ if(UNIX AND NOT APPLE)
     # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -no-pie")
 
-    # Raspberry Pi wiringPi framework
+    # Raspberry Pi pigpio framework
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
-    find_package(WiringPi)
-    if(WiringPi_FOUND)
-        message(STATUS "WiringPI is used")
-        target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${WiringPi_INCLUDE_DIR})
-        target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${WiringPi_LIBRARY_REL})
-        target_link_libraries(${CMAKE_PROJECT_NAME} debug ${WiringPi_LIBRARY_DEB})
+    find_package(pigpio)
+    if(pigpio_FOUND)
+        message(STATUS "pigpio is used")
+        target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${pigpio_INCLUDE_DIR})
+        target_link_libraries(${CMAKE_PROJECT_NAME} ${pigpiod_if2_LIBRARY})
     endif()
 endif()
 

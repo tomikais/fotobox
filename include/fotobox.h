@@ -145,7 +145,7 @@ private:
     /*! handle Buzzer thread (Raspberry Pi GPIO) */
     QThread m_workerThread;
 
-    /*! buzzer using wiringPi framework */
+    /*! buzzer using pigpio library */
     Buzzer m_buzzer;
 
     /*! Camera (shot photo) */

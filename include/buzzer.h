@@ -8,10 +8,8 @@
 #ifndef BUZZER_H
 #define BUZZER_H
 
-//detect wiringPi framework
-#if defined (__arm__) && __has_include(<wiringPi.h>)
-//wiringPi detected
-#pragma message("On ARM platform and wiringPi header found.")
+//detect pigpio library
+#if defined (__arm__) && __has_include(<pigpiod_if2.h>)
 #define BUZZER_AVAILABLE
 #endif
 
@@ -21,6 +19,7 @@
 
 /*!
  * \brief This class handles the buzzer
+ * \details http://abyz.me.uk/rpi/pigpio/pdif2.html
  */
 class Buzzer : public QObject
 {
@@ -36,7 +35,7 @@ public:
     /*!
      * \brief Buzzer destructor
      */
-    ~Buzzer() override = default;
+    ~Buzzer() override;
 
     /*!
      * \brief Buzzer copy constructor
@@ -59,6 +58,18 @@ public:
     Buzzer &operator=(Buzzer &&other) = delete;
 
     /*!
+     * \brief Initialises the library and sets the GPIO mode
+     * \return true: initialisation okay / false: initialisation failed
+     */
+    auto initialise() -> bool;
+
+    /*!
+     * \brief Check if pigpio daemon is reachable
+     * \return true: reachable / false: unreachable
+     */
+    auto static checkDeamon() -> bool;
+
+    /*!
      * \brief Stop executing \see queryPin()
      */
     void stop();
@@ -76,6 +87,8 @@ Q_SIGNALS:
     void triggered();
 
 private:
+    /*! This value is passed to the GPIO routines to specify the Pi to be operated on. */
+    int m_pi{-1};
     /*! atomic bool to stop \see queryPin() */
     std::atomic<bool> m_stop{false};
 };

@@ -15,7 +15,7 @@ RUN install_packages \
       ccache \
       qt5-default \
       qttools5-dev-tools \
-      wiringpi
+      pigpio
 
 # copy repository to container
 WORKDIR /build

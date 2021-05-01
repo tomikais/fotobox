@@ -116,6 +116,11 @@ private:
     void windowPosition();
 
     /*!
+     * \brief Check if pigpio deamon is reachable
+     */
+    void pigpioDeamon();
+
+    /*!
      * \brief Stop countdown, stop mouse tracking and set normal window title name.
      */
     void stopCountdownMode();
@@ -168,13 +173,13 @@ private:
     static constexpr int DEFAULT_COUNTDOWN_START_VALUE = 3;
 
     /*! Default input PIN */
-    static constexpr int DEFAULT_INPUT_PIN = 5;
+    static constexpr unsigned int DEFAULT_INPUT_PIN = 24;
 
     /*! Default output PIN */
-    static constexpr int DEFAULT_OUTPUT_PIN = 0;
+    static constexpr unsigned int DEFAULT_OUTPUT_PIN = 17;
 
     /*! Default query interval */
-    static constexpr int DEFAULT_QUERY_INTERVAL = 10;
+    static constexpr unsigned int DEFAULT_QUERY_INTERVAL = 10;
 
     /*! Default time out (QProcess timed out) */
     static constexpr int DEFAULT_TIMEOUT = 30;

@@ -44,7 +44,7 @@ FotoBox::FotoBox(QWidget *parent)
     //with or without buttons?
     buttons();
 
-    //Buzzer class (Raspberry Pi GPIO using wiringPi)
+    //Buzzer class (Raspberry Pi GPIO using pigpio)
 #if defined(BUZZER_AVAILABLE)
     if (PreferenceProvider::instance().queryInterval() > 0) {
         buzzer();
@@ -79,10 +79,16 @@ void FotoBox::buzzer()
         return;
     }
 
+    if (!m_buzzer.initialise()) {
+        //pigpio init not successfull
+        m_ui->statusBar->showMessage(tr("Buzzer isn't working. Please check 'pigpio' deamon."), STATUSBAR_MSG_TIMEOUT);
+        return;
+    }
+
     //move to a thread
     m_buzzer.moveToThread(&m_workerThread);
 
-    //connect the start signale for buzzer
+    //connect the start signal for buzzer
     connect(this, &FotoBox::startBuzzer, &m_buzzer, &Buzzer::queryPin);
     //start fotobox if buzzer was triggered
     connect(&m_buzzer, &Buzzer::triggered, this, &FotoBox::start);

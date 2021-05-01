@@ -15,16 +15,18 @@ Download latest [FotoBox version](https://github.com/tomikais/fotobox/releases) 
 1. update your operating system: `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
 2. download and install [Qt](https://www.qt.io): `sudo apt-get install qt5-default`
 3. install [gPhoto2](http://gphoto.org) when you are using a DSLR camera
+    * __beginners:__ use latest available gphoto2 provided from operating system: `sudo apt-get install gphoto2`
     * __recommended way__: use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version, make sure the default installed has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
-    * use latest available gphoto2 provided from operating system: `sudo apt-get install gphoto2`
+
 
 ### optional steps
 
-* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with lates Raspbian version (Buster). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the official [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial. If you are using Raspbian Lite (minimal image without desktop), you need to install wiringPi additionally: `sudo apt-get install wiringpi`
+* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with lates Raspbian version (Buster). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the official [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial.
 * _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After reboot you can launch the *'Screensaver'* application and select *'disable screen saver'* from the drop down.
 * _Autostart_: open autostart file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
-* _Using a button_: It's possible to connect a hardware button to the Raspberry Pi GPIO ([WiringPi](http://wiringpi.com)) pins to trigger the FotoBox. You can configure [dedicated pins](http://wiringpi.com/pins/) in the application or use the default ones:  
-![Raspberry Pi 2 Model B default GPIO used by FotoBox](other/RaspPi_2B_default_GPIO.jpg)
+* _Using a buzzer_: It's possible to connect a hardware buzzer to the Raspberry Pi General Purpose Input Outputs (GPIO) pins to trigger the FotoBox. Please install [pigpio](http://abyz.me.uk/rpi/pigpio/index.html) library: `sudo apt-get install pigpio`  
+FotoBox needs to connect to the pigpio deamon. To enable deamon on boot (autostart): `sudo systemctl enable pigpiod && sudo systemctl start pigpiod`  
+You can set your pin in the FotoBox application. Please note the [GPIO pin mapping](http://abyz.me.uk/rpi/pigpio/index.html#GPIO).
 
 ## macOS installation
 
@@ -77,7 +79,7 @@ Follow the normal installation instructions and additionally install the develop
 
 ### Linux (Debian, Raspbian, Ubuntu)
 
-* install Linux development tools: `sudo apt-get install build-essential ccache wiringpi`
+* install Linux development tools: `sudo apt-get install build-essential ccache pigpio`
 * install Qt development tools: `sudo apt-get install qttools5-dev-tools qttools5-dev qtdeclarative5-dev qtcreator qt5-doc`
 * install git with tools: `sudo apt-get install git git-doc git-gui gitk`
 * _optional tools:_ `sudo apt-get install cmake doxygen doxygen-doc doxygen-gui graphviz`

@@ -76,7 +76,7 @@ OTHER_FILES    = .dockerignore \
                  COPYING \
                  README.md \
                  THANKS \
-                 cmake/FindWiringPi.cmake \
+                 cmake/Findpigpio.cmake \
                  other/DockerfileStretch32bit \
                  other/DockerfileBuster32bit \
                  other/DockerfileBuster64bit \
@@ -84,7 +84,6 @@ OTHER_FILES    = .dockerignore \
                  other/Doxyfile \
                  other/Info.plist \
                  other/install_dependencies.sh \
-                 other/RaspPi_2B_default_GPIO.jpg \
                  other/README.pdf
 
 linux {
@@ -98,9 +97,9 @@ linux {
   # remove workaround if OS can deal with PIE (not detecting execbutable as shared object "file FotoBox")
   QMAKE_LFLAGS += -no-pie
 
-  # Raspberry Pi wiringPi framework
+  # Raspberry Pi pigpio framework
   contains(QMAKE_HOST.arch, arm.*) {
-      LIBS += -lwiringPi
+      LIBS += -lpigpiod_if2 -lrt -pthread
   }
 }
 

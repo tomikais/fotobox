@@ -50,14 +50,14 @@ private:
     /*! countdown until photo is taken */
     int m_countdown = 0;
 
-    /*! wiringPi GPIO input pin */
-    int m_inputPin = 0;
+    /*! pigpio GPIO input pin */
+    unsigned int m_inputPin = 0;
 
-    /*! wiringPi GPIO output pin */
-    int m_outputPin = 0;
+    /*! pigpio GPIO output pin */
+    unsigned int m_outputPin = 0;
 
     /*! how often the pin should be queried */
-    int m_queryInterval = 0;
+    unsigned int m_queryInterval = 0;
 
     /*! timeout value for the camera framework */
     int m_timeoutValue = 0;
@@ -83,9 +83,9 @@ public:
     Q_PROPERTY(QString cameraMode READ cameraMode WRITE setCameraMode NOTIFY cameraModeChanged)
     Q_PROPERTY(QString argumentLine READ argumentLine WRITE setArgumentLine NOTIFY argumentLineChanged)
     Q_PROPERTY(int countdown READ countdown WRITE setCountdown NOTIFY countdownChanged)
-    Q_PROPERTY(int inputPin READ inputPin WRITE setInputPin NOTIFY inputPinChanged)
-    Q_PROPERTY(int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
-    Q_PROPERTY(int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
+    Q_PROPERTY(unsigned int inputPin READ inputPin WRITE setInputPin NOTIFY inputPinChanged)
+    Q_PROPERTY(unsigned int outputPin READ outputPin WRITE setOutputPin NOTIFY outputPinChanged)
+    Q_PROPERTY(unsigned int queryInterval READ queryInterval WRITE setQueryInterval NOTIFY queryIntervalChanged)
     Q_PROPERTY(int timeoutValue READ timeoutValue WRITE setTimeoutValue NOTIFY timeoutValueChanged)
     Q_PROPERTY(bool grayscale READ grayscale WRITE setGrayscale NOTIFY grayscaleChanged)
     Q_PROPERTY(bool showButtons READ showButtons WRITE setShowButtons NOTIFY showButtonsChanged)
@@ -161,22 +161,22 @@ public:
     auto countdown() const -> int;
 
     /*!
-     * \brief wiringPi GPIO input pin
-     * \return int \see m_inputPin
+     * \brief pigpio GPIO input pin
+     * \return unsigned int \see m_inputPin
      */
-    auto inputPin() const -> int;
+    auto inputPin() const -> unsigned int;
 
     /*!
-     * \brief wiringPi GPIO output pin
-     * \return int \see m_outputPin
+     * \brief pigpio GPIO output pin
+     * \return unsigned int \see m_outputPin
      */
-    auto outputPin() const -> int;
+    auto outputPin() const -> unsigned int;
 
     /*!
      * \brief how often the pin should be queried
-     * \return int \see m_queryInterval
+     * \return unsigned int \see m_queryInterval
      */
-    auto queryInterval() const -> int;
+    auto queryInterval() const -> unsigned int;
 
     /*!
      * \brief timeout value for the camera framework
@@ -252,22 +252,22 @@ public Q_SLOTS:
     void setCountdown(int i_value);
 
     /*!
-     * \brief set wiringPi GPIO input pin
-     * \param i_value int
+     * \brief set pigpio GPIO input pin
+     * \param i_value unsigned int
      */
-    void setInputPin(int i_value);
+    void setInputPin(unsigned int i_value);
 
     /*!
-     * \brief set wiringPi GPIO output pin
-     * \param i_value int
+     * \brief set pigpio GPIO output pin
+     * \param i_value unsigned int
      */
-    void setOutputPin(int i_value);
+    void setOutputPin(unsigned int i_value);
 
     /*!
      * \brief set how often the pin should be queried
-     * \param i_value int
+     * \param i_value unsigned int
      */
-    void setQueryInterval(int i_value);
+    void setQueryInterval(unsigned int i_value);
 
     /*!
      * \brief set timeout value for the camera framework
@@ -336,19 +336,19 @@ Q_SIGNALS:
     void countdownChanged(int);
 
     /*!
-     * \brief signal: wiringPi GPIO input pin has changed
+     * \brief signal: pigpio GPIO input pin has changed
      */
-    void inputPinChanged(int);
+    void inputPinChanged(unsigned int);
 
     /*!
-     * \brief signal: wiringPi GPIO output pin has changed
+     * \brief signal: pigpio GPIO output pin has changed
      */
-    void outputPinChanged(int);
+    void outputPinChanged(unsigned int);
 
     /*!
      * \brief signal: how often the pin should be queried has changed
      */
-    void queryIntervalChanged(int);
+    void queryIntervalChanged(unsigned int);
 
     /*!
      * \brief signal: timeout value for the camera framework has changed

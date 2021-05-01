@@ -126,12 +126,12 @@ void PreferenceProvider::setArgumentLine(const QString& i_value)
     Q_EMIT argumentLineChanged(m_argumentLine);
 }
 
-auto PreferenceProvider::inputPin() const -> int
+auto PreferenceProvider::inputPin() const -> unsigned int
 {
     return m_inputPin;
 }
 
-void PreferenceProvider::setInputPin(const int i_value)
+void PreferenceProvider::setInputPin(const unsigned int i_value)
 {
     if (m_inputPin == i_value) {
         return;
@@ -141,12 +141,12 @@ void PreferenceProvider::setInputPin(const int i_value)
     Q_EMIT inputPinChanged(m_inputPin);
 }
 
-auto PreferenceProvider::outputPin() const -> int
+auto PreferenceProvider::outputPin() const -> unsigned int
 {
     return m_outputPin;
 }
 
-void PreferenceProvider::setOutputPin(const int i_value)
+void PreferenceProvider::setOutputPin(const unsigned int i_value)
 {
     if (m_outputPin == i_value) {
         return;
@@ -156,12 +156,12 @@ void PreferenceProvider::setOutputPin(const int i_value)
     Q_EMIT outputPinChanged(m_outputPin);
 }
 
-auto PreferenceProvider::queryInterval() const -> int
+auto PreferenceProvider::queryInterval() const -> unsigned int
 {
     return m_queryInterval;
 }
 
-void PreferenceProvider::setQueryInterval(const int i_value)
+void PreferenceProvider::setQueryInterval(const unsigned int i_value)
 {
     if (m_queryInterval == i_value) {
         return;

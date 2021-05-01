@@ -13,9 +13,8 @@ FROM balenalib/raspberry-pi2-debian:bullseye-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
-      qttools5-dev-tools && \
-      wget https://project-downloads.drogon.net/wiringpi-latest.deb && \
-      dpkg -i wiringpi-latest.deb
+      qttools5-dev-tools \
+      pigpio
 
 # copy repository to container
 WORKDIR /build
