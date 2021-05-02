@@ -15,25 +15,25 @@ jobs:
     env:
       - CAN_FAIL=true
   include:
-    - name: "macOS"
-      os: osx
-      compiler: clang
-      language: cpp
-      before_install:
-        - brew update
-      install:
-        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-        - brew install qt
-        - brew link --force qt
-      before_script:
-        - qmake --version
-      script:
-        - qmake
-        - make -j$(nproc)
-      before_deploy:
-        - macdeployqt FotoBox.app -verbose=2
-        - cp ./other/README.pdf ./README.pdf
-        - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
+#    - name: "macOS"
+#      os: osx
+#      compiler: clang
+#      language: cpp
+#      before_install:
+#        - brew update
+#      install:
+#        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
+#        - brew install qt
+#        - brew link --force qt
+#      before_script:
+#        - qmake --version
+#      script:
+#        - qmake
+#        - make -j$(nproc)
+#      before_deploy:
+#        - macdeployqt FotoBox.app -verbose=2
+#        - cp ./other/README.pdf ./README.pdf
+#        - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
 
     - name: "Raspberry Pi OS Stretch 32bit QMake gcc"
       os: linux
@@ -230,13 +230,15 @@ jobs:
             echo -e "\033[1;32m\xE2\x9C\x93 clang clazy passed!\033[0m";
           fi
 
-    - name: "macOS Doxygen"
-      os: osx
-      osx_image: xcode11.5
-      before_install:
-        - brew update
-      install:
-        - brew install doxygen graphviz
+    - name: "Linux Doxygen"
+      os: linux
+      dist: focal
+      addons:
+        apt:
+          update: true
+          packages:
+            - graphviz
+            - doxygen
       before_script:
         - doxygen --version
       script:
