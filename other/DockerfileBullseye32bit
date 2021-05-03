@@ -13,6 +13,8 @@ FROM balenalib/raspberry-pi2-debian:bullseye-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
+      qt5-qmake \
+      qttools5-dev \
       qttools5-dev-tools \
       pigpio
 
