@@ -17,7 +17,7 @@ RUN install_packages \
       qttools5-dev \
       qttools5-dev-tools \
       pigpio && \
-      apt-get install --target-release buster cmake
+      apt-get install cmake=3.13.4-1 cmake-data=3.13.4-1
 
 # copy repository to container
 WORKDIR /build
