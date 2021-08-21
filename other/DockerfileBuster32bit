@@ -13,21 +13,31 @@ FROM balenalib/raspberry-pi2-debian:buster-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
+#     cmake \
       qt5-default \
       qttools5-dev \
       qttools5-dev-tools \
-      pigpio && \
-      apt-get install cmake=3.13.4-1 cmake-data=3.13.4-1
+      pigpio
 
 # copy repository to container
 WORKDIR /build
 COPY . .
 
+# WORKAROUND: use qmake until issues (https://github.com/balena-io-library/base-images/issues/700) is fixed
+## qmake/gcc version / generate project / build FotoBox / execution rights / compress artifact
+## copy to host (mounted directory '--volume')
+#CMD gcc --version && \
+#    cmake --version && \
+#    cmake -G "Unix Makefiles" . && \
+#    cmake --build . && \
+#    chmod +x FotoBox && \
+#    tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+
 # qmake/gcc version / generate project / build FotoBox / execution rights / compress artifact
 # copy to host (mounted directory '--volume')
 CMD gcc --version && \
-    cmake --version && \
-    cmake -G "Unix Makefiles" . && \
-    cmake --build . && \
+    qmake --version && \
+    qmake && \
+    make -j$(nproc) && \
     chmod +x FotoBox && \
     tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
