@@ -13,7 +13,6 @@ FROM balenalib/raspberry-pi2-debian:buster-build
 # install frameworks and build tools
 RUN install_packages \
       ccache \
-      cmake=3.13.4-1 \
       qt5-default \
       qttools5-dev \
       qttools5-dev-tools \
