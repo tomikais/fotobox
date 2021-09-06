@@ -7,6 +7,7 @@
  */
 #include "buzzer.h"
 
+namespace FotoBox {
 #if defined (BUZZER_AVAILABLE)
 #include <QThread>
 #include <pigpiod_if2.h>
@@ -82,4 +83,6 @@ void Buzzer::stop()
 {
     //set std::atomic to true
     m_stop = true;
+}
+
 }

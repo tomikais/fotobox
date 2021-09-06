@@ -7,6 +7,7 @@
  */
 #include "countdown.h"
 
+namespace FotoBox {
 Countdown::Countdown(QObject *parent, const unsigned int i_seconds)
     : QObject(parent)
     , m_timer(this)
@@ -93,4 +94,6 @@ auto Countdown::reset() -> bool
     }
 
     return false;
+}
+
 }

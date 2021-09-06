@@ -16,6 +16,7 @@
 #include <QKeyEvent>
 #include <QPainter>
 
+namespace FotoBox {
 FotoBox::FotoBox(QWidget *parent)
     : QDialog(parent)
     , m_ui(new Ui::FotoBoxDialog)
@@ -282,4 +283,6 @@ auto FotoBox::calculateFontSize(const double i_width, const double i_widthFont) 
         return factor;
     }
     return 0.0;
+}
+
 }

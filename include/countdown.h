@@ -11,6 +11,7 @@
 #include <QObject>
 #include <QTimer>
 
+namespace FotoBox {
 /*!
  * \brief The Countdown class
  * \details Provides a countdown which operates on the base of seconds
@@ -119,4 +120,5 @@ private:
     static constexpr int ONE_SECOND = 1000;
 };
 
+}
 #endif // COUNTDOWN_H

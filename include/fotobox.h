@@ -21,6 +21,7 @@ namespace Ui {
 class FotoBoxDialog;
 } //namespace Ui
 
+namespace FotoBox {
 /*!
  * \brief The FotoBox class
  * Main class to control UI and controll the process
@@ -179,4 +180,5 @@ Q_SIGNALS:
     void startBuzzer();
 };
 
+}
 #endif // FOTOBOX_H

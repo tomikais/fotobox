@@ -10,6 +10,7 @@
 #include <QApplication>
 #include <QBitmap>
 #include <QLibraryInfo>
+#include <QPixmap>
 #include <QSplashScreen>
 #include <QTranslator>
 
@@ -59,7 +60,7 @@ auto main(int argc, char *argv[]) -> int
     }
 
     //show preferences dialog and close splashscreen
-    auto *dialog = new Preferences;
+    auto *dialog = new FotoBox::Preferences;
     splash.finish(dialog);
     dialog->show();
 

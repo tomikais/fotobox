@@ -11,6 +11,7 @@
 
 #include <QDateTime>
 
+namespace FotoBox {
 Camera::Camera(QObject *parent)
     : QObject(parent)
     , m_timeoutValue(TO_SECONDS * PreferenceProvider::instance().timeoutValue())
@@ -46,4 +47,6 @@ auto Camera::shootPhoto() -> bool
 auto Camera::currentPhoto() const -> QString
 {
     return m_currentPhoto;
+}
+
 }
