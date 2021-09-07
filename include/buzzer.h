@@ -18,6 +18,7 @@
 #include <atomic>
 
 namespace FotoBox {
+
 /*!
  * \brief This class handles the buzzer
  * \details http://abyz.me.uk/rpi/pigpio/pdif2.html
@@ -94,5 +95,6 @@ private:
     std::atomic<bool> m_stop{false};
 };
 
-}
+} // end namespace FotoBox
+
 #endif // BUZZER_H

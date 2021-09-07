@@ -8,6 +8,7 @@
 #include "preferenceprovider.h"
 
 namespace FotoBox {
+
 auto PreferenceProvider::instance() -> PreferenceProvider&
 {
     //thread safe static initializer
@@ -246,4 +247,4 @@ void PreferenceProvider::setPrinterName(const QString& i_value)
     Q_EMIT printerNameChanged(m_printerName);
 }
 
-}
+} // end namespace FotoBox

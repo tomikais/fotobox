@@ -12,6 +12,7 @@
 #include <QProcess>
 
 namespace FotoBox {
+
 /*!
  * \brief The Camera class
  * Use gphoto2 to send commands to camera.
@@ -87,5 +88,6 @@ private:
     QProcess m_process;
 };
 
-}
+} // end namespace FotoBox
+
 #endif // CAMERA_H

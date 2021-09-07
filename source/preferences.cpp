@@ -23,6 +23,7 @@
 #include <QStandardPaths>
 
 namespace FotoBox {
+
 Preferences::Preferences(QWidget *parent)
     : QDialog(parent, Qt::Window)
     , m_ui(new Ui::PreferencesDialog)
@@ -548,4 +549,4 @@ auto Preferences::gphotoInfo(const QString &i_name) -> QString
     return result;
 }
 
-}
+} // end namespace FotoBox

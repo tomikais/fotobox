@@ -12,6 +12,7 @@
 #import <AppKit/NSWindow.h>
 
 namespace FotoBox {
+
 void FotoBox::closeFullscreenWindowOnMac()
 {
     //WORKAROUND QTBUG-36714: closing a full screen QMainWindow leaves the screen black on macOS if there are multiple instances of QMainWindow created
@@ -29,4 +30,4 @@ void FotoBox::closeFullscreenWindowOnMac()
     [window close];
 }
 
-}
+} // end namespace FotoBox

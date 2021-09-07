@@ -7,11 +7,12 @@
  */
 #include "buzzer.h"
 
-namespace FotoBox {
 #if defined (BUZZER_AVAILABLE)
 #include <QThread>
 #include <pigpiod_if2.h>
 #include "preferenceprovider.h"
+
+namespace FotoBox {
 
 Buzzer::~Buzzer()
 {
@@ -69,6 +70,7 @@ void Buzzer::queryPin()
     Q_EMIT triggered();
 }
 #else
+namespace FotoBox {
 Buzzer::~Buzzer(){}; // NOLINT
 auto Buzzer::initialise()  -> bool{return false;}; // NOLINT
 auto Buzzer::checkDeamon() -> bool{return false;}; // NOLINT
@@ -85,4 +87,4 @@ void Buzzer::stop()
     m_stop = true;
 }
 
-}
+} // end namespace FotoBox

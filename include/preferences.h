@@ -18,6 +18,7 @@ class PreferencesDialog;
 } //namespace Ui
 
 namespace FotoBox {
+
 /*!
  * \brief Preference class to change and store the application settings
  */
@@ -195,5 +196,6 @@ private:
     Countdown m_countdown;
 };
 
-}
+} // end namespace FotoBox
+
 #endif // PREFERENCES_H

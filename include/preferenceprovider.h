@@ -11,6 +11,7 @@
 #include <QObject>
 
 namespace FotoBox {
+
 /*!
  * \brief Preference who stores the preferences
  */
@@ -377,5 +378,6 @@ Q_SIGNALS:
     void printerNameChanged(QString);
 };
 
-}
+} // end namespace FotoBox
+
 #endif // PREFERENCEPROVIDER_H
