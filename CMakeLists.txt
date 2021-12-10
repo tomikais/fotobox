@@ -216,7 +216,7 @@ endif()
 
 # clang clazy
 if(ENABLE_CLANG_CLAZY)
-    find_program(CLANG_CLAZY_BIN clazy PATH ${CMAKE_CURRENT_SOURCE_DIR} NO_DEFAULT_PATH)
+    find_program(CLANG_CLAZY_BIN clazy)
 
     if(CLANG_CLAZY_BIN STREQUAL "CLANG_CLAZY_BIN-NOTFOUND")
         message(FATAL_ERROR "unable to locate 'clazy'")
