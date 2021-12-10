@@ -258,23 +258,21 @@ ClangTidy:
       - output.txt
 
 Clazy:
-  image: ubuntu:bionic
+  image: ubuntu:focal
   variables:
     CC: "clang-10"
     CXX: "clang++-10"
   before_script:
     - apt-get update -qq
     - apt-get install -qq
+        clazy
         clang-10
         cmake
         qt5-default
         qttools5-dev
         wget
-        libfuse2
-    - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
-    - chmod +x clazy.AppImage
-    - ./clazy.AppImage --version
-    - ./clazy.AppImage --standalone -version
+    - clazy --version
+    - clazy --standalone -version
   script:
     - cmake . -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
     - make -j$(nproc)

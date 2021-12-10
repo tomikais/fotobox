@@ -70,7 +70,9 @@ void Buzzer::queryPin()
     Q_EMIT triggered();
 }
 #else
+
 namespace FotoBox {
+
 Buzzer::~Buzzer(){}; // NOLINT
 auto Buzzer::initialise()  -> bool{return false;}; // NOLINT
 auto Buzzer::checkDeamon() -> bool{return false;}; // NOLINT
