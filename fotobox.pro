@@ -59,8 +59,15 @@ FORMS          = forms/fotobox.ui \
 RESOURCES     += resources/qresource.qrc
 TRANSLATIONS  += resources/translation_de.ts \
                  resources/translation_en.ts
-CONFIG        += lrelease
-CONFIG        += embed_translations
+# run lrelease to generate the QM files and to embed them in the application resources
+qtPrepareTool(LRELEASE, lrelease)
+for(tsfile, TRANSLATIONS) {
+  qmfile  = $$tsfile
+  qmfile ~= s,.ts$,.qm,
+  command = $$LRELEASE $$tsfile -qm $$qmfile
+  system($$command)|error("Failed to run: $$command")
+}
+
 
 OTHER_FILES   += .dockerignore \
                  .gitignore \
