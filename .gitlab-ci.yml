@@ -19,29 +19,6 @@ workflow:
     - when: always
 
 
-RasPiOS32:Stretch:
-  image: docker:git
-  variables:
-    DOCKER_BUILDKIT: 1
-  services:
-    # Docker in Docker (dind)
-    - docker:dind
-  before_script:
-    - docker info
-    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
-    # Enable an execution of different multi-architecture containers by QEMU
-    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  script:
-    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
-    - docker pull $CI_REGISTRY_IMAGE/stretch32:latest || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE/stretch32:latest --tag $CI_REGISTRY_IMAGE/stretch32:latest --file other/DockerfileStretch32bit .
-    - docker push $CI_REGISTRY_IMAGE/stretch32:latest
-    - docker run --volume $(pwd):/build/artifact $CI_REGISTRY_IMAGE/stretch32:latest
-  artifacts:
-    name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
-    paths:
-      - FotoBox_RasPi32_Stretch.tar.gz
-
 RasPiOS32:Buster:
   image: docker:git
   variables:
@@ -113,6 +90,30 @@ RasPiOS32:Bullseye:
     paths:
       - FotoBox_RasPi32_Bullseye.tar.gz
 
+RasPiOS64:Bullseye:
+  image: docker:git
+  variables:
+    DOCKER_BUILDKIT: 1
+  services:
+    # Docker in Docker (dind)
+    - docker:dind
+  before_script:
+    - docker info
+    - echo "$CI_REGISTRY_PASSWORD" | docker login --password-stdin --username $CI_REGISTRY_USER $CI_REGISTRY
+    # Enable an execution of different multi-architecture containers by QEMU
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  script:
+    # Using Docker caching https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#using-docker-caching
+    - docker pull $CI_REGISTRY_IMAGE/bullseye64:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE/bullseye64:latest --tag $CI_REGISTRY_IMAGE/bullseye64:latest --file other/DockerfileBullseye64bit .
+    - docker push $CI_REGISTRY_IMAGE/bullseye64:latest
+    - docker run --volume $(pwd):/build/artifact $CI_REGISTRY_IMAGE/bullseye64:latest
+  # It's allowed to fail because currently unreleased OS
+  allow_failure: true
+  artifacts:
+    name: "FotoBox_$CI_JOB_NAME-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - FotoBox_RasPi64_Bullseye.tar.gz
 
 Ubuntu:Xenial:QMake:
   image: ubuntu:xenial

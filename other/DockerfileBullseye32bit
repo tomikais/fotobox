@@ -8,7 +8,7 @@
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://www.balena.io/docs/reference/base-images/base-images-ref/
 # https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
-FROM balenalib/raspberry-pi2-debian:bullseye-build
+FROM balenalib/raspberrypi3-debian:bullseye-build
 
 # install frameworks and build tools
 RUN install_packages \

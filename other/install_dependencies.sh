@@ -11,7 +11,7 @@ set -Eeuo pipefail
 
 
 if [ "$(whoami)" != "root" ]; then
-    echo "Sorry, this script must be executed with 'sudo' or as root"
+    echo "Sorry, this script must be executed with 'sudo' or as root user"
     exit 1
 fi
 
@@ -20,7 +20,7 @@ fi
 echo
 echo "-------------------------------------------"
 echo "Prepare your operating system for 'FotoBox'"
-echo "estimated running time: 15-30 minutes"
+echo "estimated running time: 5-10 minutes       "
 echo "-------------------------------------------"
 echo
 
@@ -33,25 +33,14 @@ fi
 
 
 echo
-echo "-------------------------"
-echo "Creating temporary folder"
-echo "-------------------------"
+echo "----------------------"
+echo "Updating dependencies"
+echo "----------------------"
 echo
 
-# the temp directory
-TMP_DIR="$(mktemp --directory)"
-# check if tmp dir was created
-if [[ ! "$TMP_DIR" || ! -d "$TMP_DIR" ]]; then
-    echo "Could not create temporary directory"
-    exit 1
-fi
-# deletes the temp directory
-function cleanup {
-    rm --force --recursive "$TMP_DIR"
-}
-# register the cleanup function to be called on the EXIT signal
-trap cleanup EXIT
-pushd "$TMP_DIR"
+apt-get update --quiet
+apt-get upgrade --quiet --yes
+apt-get dist-upgrade --quiet --yes
 
 
 
@@ -61,28 +50,22 @@ echo "Installing dependencies"
 echo "-----------------------"
 echo
 
-apt-get update --quiet
-apt-get purge --quiet --yes \
-            gphoto2 \
-            libgphoto2-6
 apt-get install --quiet --yes \
-            wget \
-            build-essential \
-            git \
-            qt5-default
+            gphoto2 \
+            libgphoto2-6 \
+            pigpio \
+            qtbase5-dev
 
 
 
 echo
-echo "-----------------------------"
-echo "Installing libgphoto2/gphoto2"
-echo "-----------------------------"
+echo "--------------------"
+echo "Enable pigpio deamon"
+echo "--------------------"
 echo
 
-wget --quiet https://raw.githubusercontent.com/gonzalo/gphoto2-updater/master/gphoto2-updater.sh
-chmod +x gphoto2-updater.sh
-./gphoto2-updater.sh --stable
-popd
+systemctl enable pigpiod
+systemctl start pigpiod
 
 
 

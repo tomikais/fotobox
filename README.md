@@ -8,21 +8,19 @@ FotoBox is a free open source multi platform application, that offers you the po
 * trigger photos directly or start a countdown by touching, clicking the screen, using soft-/hardware buttons, pressing keyboard shortcuts or using a presenter
 * lightning fast and low-memory Linux / macOS customizable application
 
-## Linux installation
+## Raspberry Pi OS Bullseye installation
 
 Download latest [FotoBox version](https://github.com/tomikais/fotobox/releases) according to your operating system. Extract all files and execute `sudo ./install_dependencies.sh` in a terminal to install all needed dependencies automatically __or__ follow these manual steps:
 
 1. update your operating system: `sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade`
-2. download and install [Qt](https://www.qt.io): `sudo apt-get install qt5-default`
-3. install [gPhoto2](http://gphoto.org) when you are using a DSLR camera
+2. install [gPhoto2](http://gphoto.org) when you are using a DSLR camera
     * __beginners:__ use latest available gphoto2 provided from operating system: `sudo apt-get install gphoto2`
-    * __recommended way__: use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version, make sure the default installed has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
-
+    * __advanced (latest version)__: use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version and make sure the default installed has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
 
 ### optional steps
 
-* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with lates Raspbian version (Buster). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the official [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial.
-* _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After reboot you can launch the *'Screensaver'* application and select *'disable screen saver'* from the drop down.
+* _Raspberry Pi_: [Setting up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up) your [Raspberry Pi Model >=2](https://www.raspberrypi.org/products/) with latest Raspberry Pi OS version (Bullseye). If you are using the official [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) follow the official [activate Raspberry Pi Camera](https://www.raspberrypi.org/documentation/usage/camera/) tutorial.
+* _Disable the screen saver_: `sudo apt-get install xscreensaver`, run `xhost +localhost` from a local terminal session (not SSH) and reboot the system. After reboot you can launch the _'Screensaver'_ application and select _'disable screen saver'_ from the drop down.
 * _Autostart_: open autostart file with `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` add this line `@/home/pi/Downloads/FotoBox` (__adjust path if necessary__) at the end of the file.
 * _Using a buzzer_: It's possible to connect a hardware buzzer to the Raspberry Pi General Purpose Input Outputs (GPIO) pins to trigger the FotoBox. Please install [pigpio](http://abyz.me.uk/rpi/pigpio/index.html) library: `sudo apt-get install pigpio`  
 FotoBox needs to connect to the pigpio deamon. To enable deamon on boot (autostart): `sudo systemctl enable pigpiod && sudo systemctl start pigpiod`  
@@ -50,7 +48,7 @@ You can set your pin in the FotoBox application. Please note the [GPIO pin mappi
 **Q:** Is my DSLR camera supported by FotoBox?  
 **A:** Visit website [libgphoto2 supported cameras](http://www.gphoto.org/proj/libgphoto2/support.php) to check if your camera model is listed and supports _Image Capture_. Use [gPhoto2 and libgphoto2 compiler and installer script](http://github.com/gonzalo/gphoto2-updater) to get latest version and make sure the OS default one has been removed: `sudo apt-get purge gphoto2 libgphoto2-6`
 
-**Q:** Can I use the FotoBox on Linux without X Window System (e.g. using Linux framebuffer on Raspbian Lite)?  
+**Q:** Can I use the FotoBox on Linux without X Window System (e.g. using Linux framebuffer on Raspberry Pi OS Lite)?  
 **A:** Yes, that is possible because of [Qt for Embedded Linux](https://doc.qt.io/qt-5/embedded-linux.html). For Example to use Linux framebuffer execute `./FotoBox -platform linuxfb:fb=/dev/fb0` or set environment variable `QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0`
 
 **Q:** It shows me the following error message `qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.` (Qt 6 issue)  
@@ -77,10 +75,10 @@ You can set your pin in the FotoBox application. Please note the [GPIO pin mappi
 
 Follow the normal installation instructions and additionally install the development tools according to your operating system. Paste the commands in a terminal prompt.
 
-### Linux (Debian, Raspbian, Ubuntu)
+### Linux (Debian, Ubuntu)
 
 * install Linux development tools: `sudo apt-get install build-essential ccache pigpio`
-* install Qt development tools: `sudo apt-get install qttools5-dev-tools qttools5-dev qtdeclarative5-dev qtcreator qt5-doc`
+* install Qt development tools: `sudo apt-get install qtbase5-dev qtcreator`
 * install git with tools: `sudo apt-get install git git-doc git-gui gitk`
 * _optional tools:_ `sudo apt-get install cmake doxygen doxygen-doc doxygen-gui graphviz`
 

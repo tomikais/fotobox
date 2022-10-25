@@ -15,41 +15,25 @@ jobs:
     env:
       - CAN_FAIL=true
   include:
-#    - name: "macOS"
-#      os: osx
-#      compiler: clang
-#      language: cpp
-#      before_install:
-#        - brew update
-#      install:
-#        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-#        - brew install qt
-#        - brew link --force qt
-#      before_script:
-#        - qmake --version
-#      script:
-#        - qmake
-#        - make -j$(nproc)
-#      before_deploy:
-#        - macdeployqt FotoBox.app -verbose=2
-#        - cp ./other/README.pdf ./README.pdf
-#        - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
-
-    - name: "Raspberry Pi OS Stretch 32bit QMake gcc"
-      os: linux
-      dist: bionic
-      language: ruby
-      services:
-        - docker
+    - name: "macOS"
+      os: osx
+      compiler: clang
+      language: cpp
       before_install:
-        #enable an execution of different multi-architecture containers by QEMU
-        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+        - brew update
       install:
-        #build FotoBox container
-        - docker build --tag buildfotobox --file other/DockerfileStretch32bit .
+        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
+        - brew install qt
+        - brew link --force qt
+      before_script:
+        - qmake --version
       script:
-        #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/build buildfotobox
+        - qmake
+        - make -j$(nproc)
+      before_deploy:
+        - macdeployqt FotoBox.app -verbose=2
+        - cp ./other/README.pdf ./README.pdf
+        - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
 
     - name: "Raspberry Pi OS Buster 32bit CMake gcc"
       os: linux
@@ -83,7 +67,7 @@ jobs:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/build buildfotobox
 
-    - name: "Raspberry Pi OS Bullseye 32bit (unreleased) CMake gcc"
+    - name: "Raspberry Pi OS Bullseye 32bit CMake gcc"
       env: CAN_FAIL=true
       os: linux
       dist: bionic
@@ -96,6 +80,23 @@ jobs:
       install:
         #build FotoBox container
         - docker build --tag buildfotobox --file other/DockerfileBullseye32bit .
+      script:
+        #execute 'CMD' command (Dockerfile) to build
+        - docker run --volume $(pwd):/build buildfotobox
+
+    - name: "Raspberry Pi OS Bullseye 64bit CMake gcc"
+      env: CAN_FAIL=true
+      os: linux
+      dist: bionic
+      language: ruby
+      services:
+        - docker
+      before_install:
+        #enable an execution of different multi-architecture containers by QEMU
+        - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+      install:
+        #build FotoBox container
+        - docker build --tag buildfotobox --file other/DockerfileBullseye64bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
         - docker run --volume $(pwd):/build buildfotobox

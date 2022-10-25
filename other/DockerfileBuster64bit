@@ -30,4 +30,4 @@ CMD gcc --version && \
     cmake -G "Unix Makefiles" . && \
     cmake --build . && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi64_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ./artifact/FotoBox_RasPi64_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf

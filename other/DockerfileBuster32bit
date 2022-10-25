@@ -31,7 +31,7 @@ COPY . .
 #    cmake -G "Unix Makefiles" . && \
 #    cmake --build . && \
 #    chmod +x FotoBox && \
-#    tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+#    tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf
 
 # qmake/gcc version / generate project / build FotoBox / execution rights / compress artifact
 # copy to host (mounted directory '--volume')
@@ -40,4 +40,4 @@ CMD gcc --version && \
     qmake && \
     make -j$(nproc) && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ./artifact/FotoBox_RasPi32_Buster.tar.gz -C . FotoBox -C ./other/ README.pdf

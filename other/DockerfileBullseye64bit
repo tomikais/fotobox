@@ -1,5 +1,5 @@
 #------------------------------------------------------------
-# Copyright (c) 2018 Thomas Kais
+# Copyright (c) 2022 Thomas Kais
 #
 # This file is subject to the terms and conditions defined in
 # file 'COPYING', which is part of this source code package.
@@ -8,12 +8,13 @@
 # Prune everything: https://docs.docker.com/config/pruning/#prune-images
 # https://www.balena.io/docs/reference/base-images/base-images-ref/
 # https://hub.docker.com/r/balenalib/raspberry-pi2-debian/
-FROM balenalib/raspberry-pi2-debian:stretch-build
+FROM balenalib/raspberrypi3-64-debian:bullseye-build
 
 # install frameworks and build tools
 RUN install_packages \
       ccache \
-      qt5-default \
+      qt5-qmake \
+      qttools5-dev \
       qttools5-dev-tools \
       pigpio
 
@@ -28,4 +29,4 @@ CMD gcc --version && \
     qmake && \
     make -j$(nproc) && \
     chmod +x FotoBox && \
-    tar -cvzf ./artifact/FotoBox_RasPi32_Stretch.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+    tar -cvzf ./artifact/FotoBox_RasPi64_Bullseye.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
