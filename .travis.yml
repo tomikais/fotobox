@@ -23,8 +23,7 @@ jobs:
         - brew update
       install:
         #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-        - brew install qt
-        - brew link --force qt
+        - brew install qt@5
       before_script:
         - qmake --version
       script:
@@ -37,7 +36,7 @@ jobs:
 
     - name: "Raspberry Pi OS Buster 32bit CMake gcc"
       os: linux
-      dist: bionic
+      dist: jammy
       language: ruby
       services:
         - docker
@@ -49,11 +48,11 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBuster32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/build buildfotobox
+        - docker run --volume $(pwd):/build/artifact buildfotobox
 
     - name: "Raspberry Pi OS Buster 64bit CMake gcc"
       os: linux
-      dist: bionic
+      dist: jammy
       language: ruby
       services:
         - docker
@@ -65,12 +64,12 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBuster64bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/build buildfotobox
+        - docker run --volume $(pwd):/build/artifact buildfotobox
 
     - name: "Raspberry Pi OS Bullseye 32bit CMake gcc"
       env: CAN_FAIL=true
       os: linux
-      dist: bionic
+      dist: jammy
       language: ruby
       services:
         - docker
@@ -82,12 +81,12 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBullseye32bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/build buildfotobox
+        - docker run --volume $(pwd):/build/artifact buildfotobox
 
     - name: "Raspberry Pi OS Bullseye 64bit CMake gcc"
       env: CAN_FAIL=true
       os: linux
-      dist: bionic
+      dist: jammy
       language: ruby
       services:
         - docker
@@ -99,27 +98,7 @@ jobs:
         - docker build --tag buildfotobox --file other/DockerfileBullseye64bit .
       script:
         #execute 'CMD' command (Dockerfile) to build
-        - docker run --volume $(pwd):/build buildfotobox
-
-    - name: "Ubuntu Xenial QMake gcc"
-      os: linux
-      dist: xenial
-      language: cpp
-      compiler: gcc
-      addons:
-        apt:
-          update: true
-          packages:
-            - qt5-default
-            - qttools5-dev-tools
-      before_script:
-        - gcc --version
-        - qmake --version
-      script:
-        - qmake
-        - make -j$(nproc)
-      before_deploy:
-        - tar -cvzf ./FotoBox_Ubuntu_Xenial.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+        - docker run --volume $(pwd):/build/artifact buildfotobox
 
     - name: "Ubuntu Bionic Beaver CMake gcc"
       os: linux
@@ -141,7 +120,29 @@ jobs:
         - cmake -G "Ninja" .
         - cmake --build .
       before_deploy:
-        - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf install_dependencies.sh
+        - tar -cvzf ./FotoBox_Ubuntu_Bionic.tar.gz -C . FotoBox -C ./other/ README.pdf
+
+    - name: "Ubuntu Focal Fossa CMake gcc"
+      os: linux
+      dist: focal
+      language: cpp
+      compiler: gcc
+      addons:
+        apt:
+          update: true
+          packages:
+            - ninja-build
+            - qt5-default
+            - qttools5-dev
+      before_script:
+        - cmake --version
+        - gcc --version
+        - qmake --version
+      script:
+        - cmake -G "Ninja" .
+        - cmake --build .
+      before_deploy:
+        - tar -cvzf ./FotoBox_Ubuntu_Focal.tar.gz -C . FotoBox -C ./other/ README.pdf
 
     - name: "Ubuntu Bionic Beaver CMake Debug clang 10 diagnostic flags"
       os: linux
@@ -204,21 +205,21 @@ jobs:
             echo -e "\033[1;32m\xE2\x9C\x93 clang tidy passed!\033[0m";
           fi
 
-    - name: "Ubuntu Bionic Beaver CMake Debug clang clazy 1.6"
+    - name: "Ubuntu Focal Fossa CMake Debug clang clazy"
       os: linux
-      dist: bionic
+      dist: focal
       addons:
         apt:
           update: true
           packages:
+            - clazy
+            - clang-10
+            - cmake
             - qt5-default
             - qttools5-dev
-            - libfuse2
       before_script:
-        - wget --quiet --output-document=clazy.AppImage https://downloads.kdab.com/clazy/1.6/Clazy-x86_64-1.6.AppImage
-        - chmod +x clazy.AppImage
-        - ./clazy.AppImage --version
-        - ./clazy.AppImage --standalone -version
+        - clazy --version
+        - clazy --standalone -version
       script:
         - cmake . -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-Wno-everything" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DENABLE_CLANG_CLAZY=ON
         - make -j$(nproc)
@@ -233,7 +234,7 @@ jobs:
 
     - name: "Linux Doxygen"
       os: linux
-      dist: focal
+      dist: jammy
       addons:
         apt:
           update: true
@@ -264,11 +265,12 @@ deploy:
   token: $GH_REPO_TOKEN
   file:
     - FotoBox_macOS.zip
-    - FotoBox_RasPi32_Stretch.tar.gz
     - FotoBox_RasPi32_Buster.tar.gz
     - FotoBox_RasPi64_Buster.tar.gz
-    - FotoBox_Ubuntu_Xenial.tar.gz
+    - FotoBox_RasPi32_Bullseye.tar.gz
+    - FotoBox_RasPi64_Bullseye.tar.gz
     - FotoBox_Ubuntu_Bionic.tar.gz
+    - FotoBox_Ubuntu_Focal.tar.gz
   cleanup: false
   on:
     tags: true
