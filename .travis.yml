@@ -23,6 +23,7 @@ jobs:
           - qt5
           update: false
       before_script:
+        - brew link qt5 --force
         - qmake --version
       script:
         - qmake
@@ -32,6 +33,7 @@ jobs:
         - cp ./other/README.pdf ./README.pdf
         - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
       deploy:
+        edge: true
         provider: releases
         token: $GITHUB_TOKEN
         file: "FotoBox_macOS.zip"
@@ -54,6 +56,7 @@ jobs:
       script:
         - doxygen other/Doxyfile
       deploy:
+        edge: true
         provider: pages
         cleanup: false
         token: $GITHUB_TOKEN
@@ -61,6 +64,7 @@ jobs:
         keep_history: false
         on:
           branch: develop
+        strategy: git
 
 notifications:
   slack:
