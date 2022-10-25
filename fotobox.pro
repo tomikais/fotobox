@@ -78,10 +78,10 @@ OTHER_FILES   += .dockerignore \
                  README.md \
                  THANKS \
                  cmake/Findpigpio.cmake \
-                 other/DockerfileStretch32bit \
                  other/DockerfileBuster32bit \
                  other/DockerfileBuster64bit \
                  other/DockerfileBullseye32bit \
+                 other/DockerfileBullseye64bit \
                  other/Doxyfile \
                  other/Info.plist \
                  other/install_dependencies.sh \

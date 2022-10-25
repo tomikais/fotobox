@@ -83,10 +83,10 @@ set(OTHER
     ${PROJECT_SOURCE_DIR}/README.md
     ${PROJECT_SOURCE_DIR}/THANKS
     ${PROJECT_SOURCE_DIR}/cmake/Findpigpio.cmake
-    ${PROJECT_SOURCE_DIR}/other/DockerfileStretch32bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster32bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBuster64bit
     ${PROJECT_SOURCE_DIR}/other/DockerfileBullseye32bit
+    ${PROJECT_SOURCE_DIR}/other/DockerfileBullseye64bit
     ${PROJECT_SOURCE_DIR}/other/Doxyfile
     ${PROJECT_SOURCE_DIR}/other/Info.plist
     ${PROJECT_SOURCE_DIR}/other/install_dependencies.sh
