@@ -14,13 +14,14 @@ jobs:
   include:
     - name: "macOS"
       os: osx
+      osx_image: xcode12.2
       compiler: clang
       language: cpp
-      before_install:
-        - brew update
-      install:
-        #install latest Qt https://formulae.brew.sh/formula/qt and creates symlinks to installation
-        - brew install qt@5
+      addons:
+        homebrew:
+          packages:
+          - qt5
+          update: false
       before_script:
         - qmake --version
       script:
@@ -30,8 +31,16 @@ jobs:
         - macdeployqt FotoBox.app -verbose=2
         - cp ./other/README.pdf ./README.pdf
         - zip --verbose --symlinks --recurse-paths -9 FotoBox_macOS.zip FotoBox.app/ README.pdf
+      deploy:
+        provider: releases
+        token: $GITHUB_TOKEN
+        file: "FotoBox_macOS.zip"
+        cleanup: false
+        on:
+          tags: true
+        prerelease: true
 
-    - name: "Linux Doxygen"
+    - name: "Ubuntu Jammy Doxygen"
       os: linux
       dist: jammy
       addons:
@@ -45,11 +54,10 @@ jobs:
       script:
         - doxygen other/Doxyfile
       deploy:
-        edge: true
         provider: pages
         cleanup: false
+        token: $GITHUB_TOKEN
         local_dir: html
-        token: $GH_REPO_TOKEN
         keep_history: false
         on:
           branch: develop
@@ -57,13 +65,3 @@ jobs:
 notifications:
   slack:
     secure: cm0Bd6mKSZtfhnrci88VueM1h7iK7nBaHRCwSlAKzNzRNTbIVR14wKgcqo6jfqf0hTiB4rnGB3jYxWlcCcoJ51xTF+WlI76IZPcdx/aXb15PwzOB8wNBjisIDhLQjQHzRhuAvueDHlsFNRcYmJyg0t+FZazzDXQMqf3oVmJrUw6/rGFJUxBiFE/B4AS6UmdmvKUv9P3hJMM+nSbHDn8uKl4MhiRTz0bkkQVERJ2TC2WIgQet33afTysFTxpVj+TxLynIFpAm+4GnXfRkd/eDNV70w2gEHtLvGGi2OWLIDbL0aBst4RqdAW1FSppnWv5sIfLIpwuN1Fpxi5LQ7XmMx8gEWxlWGNR3dT5CdGzw/IyyYj5/6pAuTjWC9I2/4PYG4bxFknhlaMsw5LyUlf4m1ybUBTds72xu+s5mnxjjpSCnWOaS+/MBBs8BJNXzcGC1YbovbNlw0OdKdtgKcR16sA+Zc40nOa52EbAV1wt0m+1bm6AHghC03jvqKVp84mJvJ+xBKVc1FoErFYZ9EtFmGbtz9QhBeIjB1uV1WwaNewOlJmYOMWLPdoPY2krHxGXQ2Ta2yRon3+2jlutJsSBboYBu1JXVoxtzh2eTnqfgnYKTWZV6EIiLLWiguFRgQWDwtyvwan9v9+xG8Sg95v/haU8ljdu/Qks3a6BYmxQgglI=
-
-deploy:
-  edge: true
-  provider: releases
-  token: $GH_REPO_TOKEN
-  file:
-    - FotoBox_macOS.zip
-  cleanup: false
-  on:
-    tags: true
