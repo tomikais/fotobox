@@ -1,0 +1,6 @@
+<map id="FotoBox::PreferenceProvider::backgroundColorChanged" name="FotoBox::PreferenceProvider::backgroundColorChanged">
+<area shape="rect" id="node1" title="signal: background color of the FotoBox UI has changed" alt="" coords="676,5,883,47"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_preference_provider.html#ad27251441df7ca149d055f4eac157a27" title="set background color of the FotoBox UI" alt="" coords="421,5,628,47"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html#aa32a746004108cc42784e9f5f31ac555" title="Signal &amp; Slot connect." alt="" coords="213,5,373,47"/>
+<area shape="rect" id="node4" href="$class_foto_box_1_1_preferences.html#a0b70f6f0ecaaa0df571fbbccbcc41975" title="Preferences constructor." alt="" coords="5,5,165,47"/>
+</map>

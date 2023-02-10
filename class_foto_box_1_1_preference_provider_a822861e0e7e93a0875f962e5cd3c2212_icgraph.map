@@ -1,0 +1,14 @@
+<map id="FotoBox::PreferenceProvider::instance" name="FotoBox::PreferenceProvider::instance">
+<area shape="rect" id="node1" title="get instance (Meyers Singleton)" alt="" coords="501,242,708,283"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_foto_box.html#af19360c78fe180609cb8f59ae52544cf" title="With or without buttons." alt="" coords="237,5,430,32"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_camera.html#af20e93110fd1cd21f16f262e61a62e89" title="Camera constructor." alt="" coords="237,56,430,83"/>
+<area shape="rect" id="node4" href="$class_foto_box_1_1_preferences.html#aa32a746004108cc42784e9f5f31ac555" title="Signal &amp; Slot connect." alt="" coords="253,107,413,149"/>
+<area shape="rect" id="node6" href="$class_foto_box_1_1_foto_box.html#a0427a523b906219d676b6036c6475d7c" title="With or without countdown." alt="" coords="226,173,441,200"/>
+<area shape="rect" id="node7" href="$class_foto_box_1_1_foto_box.html#a41e3a28215d323b91fb800cefaec42a9" title="Draw text on the QPixmap." alt="" coords="232,224,435,251"/>
+<area shape="rect" id="node8" href="$class_foto_box_1_1_foto_box.html#ab39748078c10984784ca6eba9166b1dd" title="FotoBox constructor." alt="" coords="235,275,432,301"/>
+<area shape="rect" id="node9" href="$class_foto_box_1_1_foto_box.html#a37ebf65d1ff00c985eb88bf5b608d830" title="try to load the photo to QPixmap" alt="" coords="229,325,438,352"/>
+<area shape="rect" id="node10" href="$class_foto_box_1_1_foto_box.html#aed8a3d4cae8515285ba031cb15a7f616" title="This event handler, for event event, can be reimplemented in a subclass to receive mouse release even..." alt="" coords="213,377,453,418"/>
+<area shape="rect" id="node11" href="$class_foto_box_1_1_foto_box.html#a5b9837d242e3835a2879bc449c787454" title="trigger camera to shot a photo and try to show it" alt="" coords="243,443,424,469"/>
+<area shape="rect" id="node12" href="$class_foto_box_1_1_foto_box.html#a5f327f8f257a6bc0b8538905ee7907b2" title="FotoBox destructor." alt="" coords="261,494,405,535"/>
+<area shape="rect" id="node5" href="$class_foto_box_1_1_preferences.html#a0b70f6f0ecaaa0df571fbbccbcc41975" title="Preferences constructor." alt="" coords="5,107,165,149"/>
+</map>

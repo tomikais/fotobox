@@ -1,0 +1,4 @@
+<map id="FotoBox::Buzzer::triggered" name="FotoBox::Buzzer::triggered">
+<area shape="rect" id="node1" title="Buzzer was pressed." alt="" coords="240,5,435,32"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_foto_box.html#ad306eb19a001dab2aa0f69138b2ace13" title="creates a new Buzzer object" alt="" coords="5,5,192,32"/>
+</map>

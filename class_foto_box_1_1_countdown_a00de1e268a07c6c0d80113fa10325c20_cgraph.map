@@ -1,0 +1,4 @@
+<map id="FotoBox::Countdown::setStartTime" name="FotoBox::Countdown::setStartTime">
+<area shape="rect" id="node1" title="Set the countdown start time." alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_countdown.html#a15fae1669c34e5726b95649931fbf735" title="Reset countdown (reset." alt="" coords="209,5,365,47"/>
+</map>

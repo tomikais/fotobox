@@ -1,0 +1,5 @@
+<map id="FotoBox::Countdown::start" name="FotoBox::Countdown::start">
+<area shape="rect" id="node1" title="Start countdown." alt="" coords="268,27,424,69"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_foto_box.html#a0427a523b906219d676b6036c6475d7c" title="With or without countdown." alt="" coords="5,5,220,32"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html#a0b70f6f0ecaaa0df571fbbccbcc41975" title="Preferences constructor." alt="" coords="33,57,193,98"/>
+</map>

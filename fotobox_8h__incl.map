@@ -1,0 +1,12 @@
+<map id="fotobox.h" name="fotobox.h">
+<area shape="rect" id="node1" title=" " alt="" coords="267,5,351,32"/>
+<area shape="rect" id="node2" href="$buzzer_8h.html" title=" " alt="" coords="271,80,347,107"/>
+<area shape="rect" id="node5" href="$camera_8h.html" title=" " alt="" coords="35,80,117,107"/>
+<area shape="rect" id="node7" href="$countdown_8h.html" title=" " alt="" coords="142,80,247,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="372,80,447,107"/>
+<area shape="rect" id="node10" title=" " alt="" coords="471,80,548,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="112,155,187,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="307,155,373,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,155,88,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="211,155,282,181"/>
+</map>

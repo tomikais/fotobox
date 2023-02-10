@@ -1,0 +1,4 @@
+<map id="FotoBox::Countdown::updateTimeLeft" name="FotoBox::Countdown::updateTimeLeft">
+<area shape="rect" id="node1" title="Start the timer until there is no time left, means." alt="" coords="5,5,161,47"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_countdown.html#aa919f2de890d9f3e9a406de8c17478ad" title="Stop countdown and check." alt="" coords="209,5,365,47"/>
+</map>

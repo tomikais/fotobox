@@ -1,0 +1,7 @@
+<map id="FotoBox::Countdown::elapsed" name="FotoBox::Countdown::elapsed">
+<area shape="rect" id="node1" title="Countdown elapsed." alt="" coords="472,57,628,98"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_foto_box.html#a0427a523b906219d676b6036c6475d7c" title="With or without countdown." alt="" coords="209,5,424,32"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html#a0b70f6f0ecaaa0df571fbbccbcc41975" title="Preferences constructor." alt="" coords="237,57,397,98"/>
+<area shape="rect" id="node4" href="$class_foto_box_1_1_countdown.html#aae3d5c774851e944c19d5513572217b3" title="Start the timer until there is no time left, means." alt="" coords="239,122,395,163"/>
+<area shape="rect" id="node5" href="$class_foto_box_1_1_countdown.html#ab00547f2c5d3b029a01d6710eedc9235" title="Countdown constructor." alt="" coords="5,122,161,163"/>
+</map>

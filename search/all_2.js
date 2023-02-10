@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['calculatefontsize_11',['calculateFontSize',['../class_foto_box_1_1_foto_box.html#af7d7a5cd79cccc1d38351bda19d48893',1,'FotoBox::FotoBox']]],
+  ['camera_12',['Camera',['../class_foto_box_1_1_camera.html#af20e93110fd1cd21f16f262e61a62e89',1,'FotoBox::Camera::Camera(QObject *parent=nullptr)'],['../class_foto_box_1_1_camera.html#af2c65310a78d2df00ed2e07157fe736c',1,'FotoBox::Camera::Camera(const Camera &amp;other)=delete'],['../class_foto_box_1_1_camera.html#afe7a5354860085b96949e7c0725d090e',1,'FotoBox::Camera::Camera(Camera &amp;&amp;other)=delete'],['../class_foto_box_1_1_camera.html',1,'FotoBox::Camera']]],
+  ['camera_2ecpp_13',['camera.cpp',['../camera_8cpp.html',1,'']]],
+  ['camera_2eh_14',['camera.h',['../camera_8h.html',1,'']]],
+  ['cameramode_15',['cameraMode',['../class_foto_box_1_1_preference_provider.html#a40345229776b17e265ef22e1087367a7',1,'FotoBox::PreferenceProvider::cameraMode() const'],['../class_foto_box_1_1_preference_provider.html#a1d2216234e84f2921e605c3e25124e54',1,'FotoBox::PreferenceProvider::cameraMode()']]],
+  ['cameramodechanged_16',['cameraModeChanged',['../class_foto_box_1_1_preference_provider.html#a387979295ea28c9e7df74adf3f1e3b24',1,'FotoBox::PreferenceProvider']]],
+  ['checkdeamon_17',['checkDeamon',['../class_foto_box_1_1_buzzer.html#a2b6773447018222d5040f883640fe803',1,'FotoBox::Buzzer']]],
+  ['choosedirectory_18',['chooseDirectory',['../class_foto_box_1_1_preferences.html#a74254b0bb527044c4ba3f2bc63f06539',1,'FotoBox::Preferences']]],
+  ['cleardirectorycontent_19',['clearDirectoryContent',['../class_foto_box_1_1_preferences.html#a1658acc8fb500345c50ee89cba16e7ab',1,'FotoBox::Preferences']]],
+  ['closefullscreenwindowonmac_20',['closeFullscreenWindowOnMac',['../class_foto_box_1_1_foto_box.html#a88fb3cde885f7a088724ad55a11b7540',1,'FotoBox::FotoBox']]],
+  ['colordialog_21',['colorDialog',['../class_foto_box_1_1_preferences.html#ae2e2d50e4ab85e2b7c7075b7975a77a4',1,'FotoBox::Preferences']]],
+  ['commandlineoptionsdialog_22',['commandLineOptionsDialog',['../class_foto_box_1_1_preferences.html#a3bafff16d43425200bbb43c6837de817',1,'FotoBox::Preferences']]],
+  ['compare_23',['COMPARE',['../class_foto_box_1_1_foto_box.html#a6730ddbf48c5f593617eaa15f26b8486',1,'FotoBox::FotoBox']]],
+  ['connectui_24',['connectUi',['../class_foto_box_1_1_preferences.html#aa32a746004108cc42784e9f5f31ac555',1,'FotoBox::Preferences']]],
+  ['countdown_25',['Countdown',['../class_foto_box_1_1_countdown.html#ad29e65f98594cce0584f5765a4668215',1,'FotoBox::Countdown::Countdown(const Countdown &amp;other)=delete'],['../class_foto_box_1_1_countdown.html#a56fe37f550f7dde6e28a230679430d3f',1,'FotoBox::Countdown::Countdown(Countdown &amp;&amp;other)=delete']]],
+  ['countdown_26',['countdown',['../class_foto_box_1_1_preference_provider.html#aea5020739e56f4f5249f6b758fafc92b',1,'FotoBox::PreferenceProvider::countdown()'],['../class_foto_box_1_1_foto_box.html#a0427a523b906219d676b6036c6475d7c',1,'FotoBox::FotoBox::countdown()'],['../class_foto_box_1_1_preference_provider.html#a056cbc11edb465a48d78a10487c2c9f7',1,'FotoBox::PreferenceProvider::countdown()']]],
+  ['countdown_27',['Countdown',['../class_foto_box_1_1_countdown.html#ab00547f2c5d3b029a01d6710eedc9235',1,'FotoBox::Countdown::Countdown()'],['../class_foto_box_1_1_countdown.html',1,'FotoBox::Countdown']]],
+  ['countdown_2ecpp_28',['countdown.cpp',['../countdown_8cpp.html',1,'']]],
+  ['countdown_2eh_29',['countdown.h',['../countdown_8h.html',1,'']]],
+  ['countdown_5fstart_5fvalue_30',['COUNTDOWN_START_VALUE',['../class_foto_box_1_1_preferences.html#a1b1e256cdd2ee5dbf7dddbbf022782b0',1,'FotoBox::Preferences']]],
+  ['countdownchanged_31',['countdownChanged',['../class_foto_box_1_1_preference_provider.html#a7c39a5d0c6fe14ba7dee72209146c6a5',1,'FotoBox::PreferenceProvider']]],
+  ['countdowncolor_32',['countdownColor',['../class_foto_box_1_1_preference_provider.html#abea134ab46c3a3746a2de071abeb8eae',1,'FotoBox::PreferenceProvider::countdownColor()'],['../class_foto_box_1_1_preference_provider.html#a1fa677b2847af0f5e98562e84ee41f47',1,'FotoBox::PreferenceProvider::countdownColor() const -&gt; QString']]],
+  ['countdowncolorchanged_33',['countdownColorChanged',['../class_foto_box_1_1_preference_provider.html#ab4c3cd9e2edb19b8ed7067247e17bc83',1,'FotoBox::PreferenceProvider']]],
+  ['currentphoto_34',['currentPhoto',['../class_foto_box_1_1_camera.html#a213543c9e49152f92ba018abebbff25f',1,'FotoBox::Camera']]]
+];

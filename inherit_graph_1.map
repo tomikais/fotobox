@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,80,57"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_foto_box.html" title="The FotoBox class Main class to control UI and controll the process." alt="" coords="140,5,276,32"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html" title="Preference class to change and store the application settings." alt="" coords="128,56,288,83"/>
+</map>

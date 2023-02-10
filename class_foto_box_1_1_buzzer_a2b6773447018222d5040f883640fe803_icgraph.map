@@ -1,0 +1,5 @@
+<map id="FotoBox::Buzzer::checkDeamon" name="FotoBox::Buzzer::checkDeamon">
+<area shape="rect" id="node1" title="Check if pigpio daemon is reachable." alt="" coords="421,13,649,39"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_preferences.html#a0cad692769d7238a457b92d55a758e42" title="Check if pigpio deamon is reachable." alt="" coords="213,5,373,47"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html#a0b70f6f0ecaaa0df571fbbccbcc41975" title="Preferences constructor." alt="" coords="5,5,165,47"/>
+</map>

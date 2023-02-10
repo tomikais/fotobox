@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,80,108"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_buzzer.html" title="This class handles the buzzer." alt="" coords="168,5,295,32"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_camera.html" title="The Camera class Use gphoto2 to send commands to camera." alt="" coords="164,56,299,83"/>
+<area shape="rect" id="node4" href="$class_foto_box_1_1_countdown.html" title="The Countdown class." alt="" coords="153,107,309,133"/>
+<area shape="rect" id="node5" href="$class_foto_box_1_1_preference_provider.html" title="Preference who stores the preferences." alt="" coords="128,157,335,184"/>
+</map>

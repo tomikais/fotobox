@@ -1,0 +1,36 @@
+<map id="FotoBox::Preferences::Preferences" name="FotoBox::Preferences::Preferences">
+<area shape="rect" id="node1" title="Preferences constructor." alt="" coords="5,1697,165,1739"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_preferences.html#aa32a746004108cc42784e9f5f31ac555" title="Signal &amp; Slot connect." alt="" coords="234,823,394,864"/>
+<area shape="rect" id="node24" href="$class_foto_box_1_1_preferences.html#af7e8af681b151f7de6962cd44af3426b" title="Start the FotoBox." alt="" coords="497,1573,657,1615"/>
+<area shape="rect" id="node28" href="$class_foto_box_1_1_preferences.html#a8b2ff3fee196d31fcdaa66b41b79a247" title="Load application settings from INI file." alt="" coords="234,1599,394,1640"/>
+<area shape="rect" id="node29" href="$class_foto_box_1_1_preferences.html#a0cad692769d7238a457b92d55a758e42" title="Check if pigpio deamon is reachable." alt="" coords="234,1664,394,1705"/>
+<area shape="rect" id="node31" href="$class_foto_box_1_1_preferences.html#a79ef75864ad02e54f634a11d6484caff" title="Restore default preferences." alt="" coords="213,1729,415,1771"/>
+<area shape="rect" id="node32" href="$class_foto_box_1_1_preferences.html#ac7d5d3d5cfff30c37a5fb66aae5b1435" title="Set icons for all QToolButtons." alt="" coords="234,1795,394,1836"/>
+<area shape="rect" id="node33" href="$class_foto_box_1_1_countdown.html#a2576a8a558916a81ca58c27a959e5ed4" title="Start countdown." alt="" coords="236,1860,392,1901"/>
+<area shape="rect" id="node34" href="$class_foto_box_1_1_preferences.html#aadf79a64aadbd24825c08342f28eb290" title="Set the window position." alt="" coords="234,1925,394,1967"/>
+<area shape="rect" id="node3" href="$class_foto_box_1_1_preferences.html#a74254b0bb527044c4ba3f2bc63f06539" title="Open a QFileDialog to choose the photo directory." alt="" coords="497,5,657,47"/>
+<area shape="rect" id="node4" href="$class_foto_box_1_1_preferences.html#a1658acc8fb500345c50ee89cba16e7ab" title="Clear directory content of the photo directory." alt="" coords="490,71,663,112"/>
+<area shape="rect" id="node5" href="$class_foto_box_1_1_preferences.html#ae2e2d50e4ab85e2b7c7075b7975a77a4" title="Open a color picker to choose background color for FotoBox." alt="" coords="497,136,657,177"/>
+<area shape="rect" id="node6" href="$class_foto_box_1_1_preferences.html#a3bafff16d43425200bbb43c6837de817" title="Show help dialog for gphoto2/raspistill command line options." alt="" coords="469,201,684,243"/>
+<area shape="rect" id="node7" href="$class_foto_box_1_1_preference_provider.html#a822861e0e7e93a0875f962e5cd3c2212" title="get instance (Meyers Singleton)" alt="" coords="473,267,680,308"/>
+<area shape="rect" id="node8" href="$class_foto_box_1_1_preference_provider.html#a4824526882d0c6bd25367e968e04c0a1" title="set camera framework arguments" alt="" coords="473,332,680,373"/>
+<area shape="rect" id="node9" href="$class_foto_box_1_1_preference_provider.html#ad27251441df7ca149d055f4eac157a27" title="set background color of the FotoBox UI" alt="" coords="473,397,680,439"/>
+<area shape="rect" id="node10" href="$class_foto_box_1_1_preference_provider.html#a3ffea3a4f73f803702113c316a33b926" title="set the camera framework to be used" alt="" coords="473,463,680,504"/>
+<area shape="rect" id="node11" href="$class_foto_box_1_1_preference_provider.html#a3a26dbccf70126015aaf32031c160097" title="set countdown until photo is taken" alt="" coords="473,528,680,569"/>
+<area shape="rect" id="node12" href="$class_foto_box_1_1_preference_provider.html#a7b708611c3769b53f4522f80000715cb" title="set font color of the countdown" alt="" coords="473,593,680,635"/>
+<area shape="rect" id="node13" href="$class_foto_box_1_1_preference_provider.html#a87794964fc7fda2924a29b1e99303e7b" title="set grayscale bool (monochrome photography)" alt="" coords="473,659,680,700"/>
+<area shape="rect" id="node14" href="$class_foto_box_1_1_preference_provider.html#a0d519f737a0c8088d5ace8ac89427938" title="set pigpio GPIO input pin" alt="" coords="473,724,680,765"/>
+<area shape="rect" id="node15" href="$class_foto_box_1_1_preference_provider.html#a0695c2fba0ca904d9050141f28f3a060" title="set pigpio GPIO output pin" alt="" coords="473,789,680,831"/>
+<area shape="rect" id="node16" href="$class_foto_box_1_1_preference_provider.html#a6117601b372c41301c884fc428a90adb" title="set photo output directory" alt="" coords="473,855,680,896"/>
+<area shape="rect" id="node17" href="$class_foto_box_1_1_preference_provider.html#a670b835f495cf676cc2bb820c39ce2fb" title="set photo name template" alt="" coords="473,920,680,961"/>
+<area shape="rect" id="node18" href="$class_foto_box_1_1_preference_provider.html#ab5f23825886485a3214d033fb3cb3d94" title="set print on or off" alt="" coords="473,985,680,1027"/>
+<area shape="rect" id="node19" href="$class_foto_box_1_1_preference_provider.html#a69566b1879bf2f4ac38628ed1b6e4254" title="set printer name" alt="" coords="473,1051,680,1092"/>
+<area shape="rect" id="node20" href="$class_foto_box_1_1_preference_provider.html#a32aa584eae175d3ca631d55c36569f82" title="set how often the pin should be queried" alt="" coords="473,1116,680,1157"/>
+<area shape="rect" id="node21" href="$class_foto_box_1_1_preference_provider.html#a7840df5033dc0e5a6b49c7518dbd0558" title="set whether buttons are displayed on the UI" alt="" coords="473,1181,680,1223"/>
+<area shape="rect" id="node22" href="$class_foto_box_1_1_preference_provider.html#a398eb2e80356a55fd80d91aa8dba991f" title="set timeout value for the camera framework" alt="" coords="473,1247,680,1288"/>
+<area shape="rect" id="node23" href="$class_foto_box_1_1_preferences.html#aa25f9c227ed5bc30251eb1723bb41913" title="Show the given color in QLineEdit." alt="" coords="497,1312,657,1353"/>
+<area shape="rect" id="node25" href="$class_foto_box_1_1_preferences.html#a93d473fdedfa04aa9cb2d8352a555811" title="Stop countdown, stop mouse tracking and set normal window title name." alt="" coords="493,1377,660,1419"/>
+<area shape="rect" id="node26" href="$class_foto_box_1_1_preferences.html#ac38b051f496717a3a950d939cc4792f0" title="Check camera application availability and provide help if needed." alt="" coords="497,1443,657,1484"/>
+<area shape="rect" id="node27" href="$class_foto_box_1_1_preferences.html#af2e2427b8c2ff8d2b61faf91ba642607" title="Check if the path is useable." alt="" coords="497,1508,657,1549"/>
+<area shape="rect" id="node30" href="$class_foto_box_1_1_buzzer.html#a2b6773447018222d5040f883640fe803" title="Check if pigpio daemon is reachable." alt="" coords="463,1671,691,1698"/>
+</map>

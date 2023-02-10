@@ -1,0 +1,4 @@
+<map id="FotoBox::Preferences::pigpioDeamon" name="FotoBox::Preferences::pigpioDeamon">
+<area shape="rect" id="node1" title="Check if pigpio deamon is reachable." alt="" coords="5,5,165,47"/>
+<area shape="rect" id="node2" href="$class_foto_box_1_1_buzzer.html#a2b6773447018222d5040f883640fe803" title="Check if pigpio daemon is reachable." alt="" coords="213,13,441,39"/>
+</map>
